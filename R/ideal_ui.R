@@ -46,35 +46,56 @@ ideal_ui <- shinydashboard::dashboardPage(
       width=12,
 
       tabPanel(
-        "Loaded Data",icon = icon("upload"),
+        "Data Setup",icon = icon("upload"),
         p("Preview on the uploaded data"),
+
+        h2("Step 1: Upload your count matrix and the info on the experimental design"),
+
+        uiOutput("upload_count_matrix"),
+        uiOutput("upload_metadata"),
+        verbatimTextOutput("eddesign"),
+        hr(),
+
+        uiOutput("ui_step2"),
         uiOutput("ddsdesign"),
         verbatimTextOutput("debugdesign"),
 
+        uiOutput("ui_selectspecies"),
+        verbatimTextOutput("speciespkg"),
         selectInput("idtype", "select the id type in your data", choices=c("ENSEMBL","ENTREZID","REFSEQ","SYMBOL")),
-        selectInput("orgdbspecies","select the species for your data",
-                    choices = c("org.Ag.eg.db","org.At.tair.db","org.Bt.eg.db","org.Ce.eg.db","org.Cf.eg.db","org.Dm.eg.db","org.Dr.eg.db","org.EcK12.eg.db","org.EcSakai.eg.db","org.Gg.eg.db","org.Hs.eg.db","org.Hs.ipi.db","org.Mm.eg.db","org.Mmu.eg.db","org.Pf.plasmo.db","org.Pt.eg.db","org.Rn.eg.db","org.Sc.sgd.db","org.Sco.eg.db","org.Ss.eg.db","org.Tgondii.eg.db","org.Xl.eg.db"),
-                    selected=""),
+        # selectInput("orgdbspecies","select the species for your data",
+        #             choices = c("org.Ag.eg.db","org.At.tair.db","org.Bt.eg.db","org.Ce.eg.db","org.Cf.eg.db","org.Dm.eg.db","org.Dr.eg.db","org.EcK12.eg.db","org.EcSakai.eg.db","org.Gg.eg.db","org.Hs.eg.db","org.Hs.ipi.db","org.Mm.eg.db","org.Mmu.eg.db","org.Pf.plasmo.db","org.Pt.eg.db","org.Rn.eg.db","org.Sc.sgd.db","org.Sco.eg.db","org.Ss.eg.db","org.Tgondii.eg.db","org.Xl.eg.db"),
+        #             selected=""),
+
+
 
         verbatimTextOutput("printDIYanno"),
 
 
 
                     # descr = c("Anopheles","Arabidopsis","Bovine","Worm","Canine","Fly","Zebrafish","E coli strain K12","E coli strain Sakai","Chicken","Human","org.Hs.ipi.db","Mouse","Rhesus","Malaria","Chimp","Rat","Yeast","Streptomyces coelicolor","Pig","Toxoplasma gondii","Xenopus"))
+
+        hr(),
+        uiOutput("ui_step3"),
+        actionButton("button_diydds","Generate the dds object", class = "btn btn-success"),
+        verbatimTextOutput("debugdiy"),
+
+        hr(),
+        uiOutput("ui_stepanno"),
         actionButton("button_getanno","Retrieve the gene symbol annotation for the uploaded data", class = "btn btn-primary"),
         ## this ideally populates also the list of genes of interest to choose among
 
 
-        actionButton("button_diydds","Generate the dds object", class = "btn btn-success"),
-        verbatimTextOutput("debugdiy"),
-
+        hr(),
+        uiOutput("ui_step4"),
         uiOutput("rundeseq"),
         verbatimTextOutput("printDIYresults"),
 
 
 
         verbatimTextOutput("printdds"),
-        verbatimTextOutput("printres")
+        verbatimTextOutput("printres"),
+        uiOutput("ui_stepend")
       ),
       tabPanel(
         "Instructions",  icon = icon("info-circle"),

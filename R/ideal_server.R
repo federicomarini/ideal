@@ -48,7 +48,7 @@ ideal_server <- shinyServer(function(input, output, session) {
 
 
   output$upload_metadata <- renderUI({
-    if (!is.null(dds) | !is.null(expdesign)) {
+    if (!is.null(dds_obj) | !is.null(expdesign)) {
       NULL
     } else {
       return(fileInput(inputId = "uploadmetadatafile",
@@ -67,6 +67,12 @@ ideal_server <- shinyServer(function(input, output, session) {
                                    check.names = FALSE)
 
     return(expdesign)
+  })
+
+
+
+  output$eddesign <- renderPrint({
+    print(values$expdesign)
   })
 
 
@@ -92,6 +98,44 @@ ideal_server <- shinyServer(function(input, output, session) {
     print(input$dds_design)
 
   })
+
+  output$ui_step2 <- renderUI({
+    if (is.null(values$expdesign) | is.null(values$countmatrix))
+      return(NULL)
+    h2("Step 2: Select the DE design")
+  })
+
+  output$ui_stepanno <- renderUI({
+    if (is.null(values$dds_objectDIY)) ### and not provided already with sep annotation?
+      return(NULL)
+    h2("Optional Step: Create the annotation data frame for your dataset")
+  })
+
+
+  output$ui_step3 <- renderUI({
+    if (is.null(values$expdesign) | is.null(values$countmatrix) | is.null(input$dds_design))
+      return(NULL)
+    h2("Step 3: Create the DESeqDataset object")
+  })
+
+  output$ui_step4 <- renderUI({
+    if (is.null(values$dds_objectDIY)) #
+      return(NULL)
+    h2("Step 4: Run DESeq!")
+  })
+
+  output$ui_stepend <- renderUI({
+    if (!"results" %in% mcols(mcols(values$dds_objectDIY))$type) #
+      return(NULL)
+    h2("Good to go!")
+  })
+
+  # output$ui
+
+  # if (!"results" %in% mcols(mcols(object))$type) {
+    # stop("couldn't find results. you should first run DESeq()")
+  # }
+
 
   # http://stackoverflow.com/questions/17024685/how-to-use-a-character-string-in-formula
   # http://stats.stackexchange.com/questions/29477/how-to-write-a-linear-model-formula-with-100-variables-in-r
@@ -203,6 +247,59 @@ ideal_server <- shinyServer(function(input, output, session) {
                  }
                })
 
+
+
+
+  annoSpecies_df <- data.frame(species=c("","Anopheles","Arabidopsis","Bovine","Worm",
+                                         "Canine","Fly","Zebrafish","E coli strain K12",
+                                         "E coli strain Sakai","Chicken","Human","Mouse",
+                                         "Rhesus","Malaria","Chimp","Rat",
+                                         "Yeast","Streptomyces coelicolor", "Pig","Toxoplasma gondii",
+                                         "Xenopus"),
+                               pkg=c("","org.Ag.eg.db",	"org.At.tair.db", "org.Bt.eg.db",	"org.Ce.eg.db",
+                                     "org.Cf.eg.db",	"org.Dm.eg.db", "org.Dr.eg.db",	"org.EcK12.eg.db",
+                                     "org.EcSakai.eg.db","org.Gg.eg.db","org.Hs.eg.db",	"org.Mm.eg.db",
+                                     "org.Mmu.eg.db","org.Pf.plasmo.db","org.Pt.eg.db","org.Rn.eg.db",
+                                     "org.Sc.sgd.db","org.Sco.eg.db",	"org.Ss.eg.db","org.Tgondii.eg.db",
+                                     "org.Xl.eg.db"),
+                               stringsAsFactors = FALSE)
+  annoSpecies_df <- annoSpecies_df[order(annoSpecies_df$species),]
+  annoSpecies_df <- annoSpecies_df[annoSpecies_df$species %in% c("","Human", "Mouse", "Rat", "Fly", "Chimp"),]
+
+  output$ui_selectspecies <- renderUI({
+    if(1+1==2) { ## TODO edit here
+      selectInput("speciesSelect",label = "Select the species of your samples",choices = annoSpecies_df$species,selected="")
+    }
+  })
+
+  output$speciespkg <- renderText({
+    # if(!is.null(pca2go))
+    #   return("pca2go object provided")
+    #
+    # if(!is.null(values$mypca2go))
+    #   return("pca2go object computed or provided")
+
+    shiny::validate(
+      need(input$speciesSelect!="",
+           "Select a species - requires the corresponding annotation package"
+      )
+    )
+
+    annopkg <- annoSpecies_df$pkg[annoSpecies_df$species==input$speciesSelect]
+
+    shiny::validate(
+      need(require(annopkg,character.only=TRUE),
+           paste0("The package ",annopkg, " is not installed/available. Try installing it with biocLite('",annopkg,"')"))
+    )
+
+    retmsg <- paste0(annopkg," - package available and loaded")
+    # if (!require(annopkg,character.only=TRUE)) {
+    # stop("The package",annopkg, "is not installed/available. Try installing it with biocLite() ?")
+    # }
+    retmsg <- paste0(retmsg," - ",gsub(".eg.db","",gsub("org.","",annopkg)))
+    retmsg
+
+  })
 
 
 
@@ -370,7 +467,10 @@ ideal_server <- shinyServer(function(input, output, session) {
   observeEvent(input$button_getanno,
                {
                  withProgress(message="Retrieving the annotation...",value = 0,{
-                   values$annoDIY <- get_annotation_orgdb(values$dds_objectDIY,orgdb_species = input$orgdbspecies, idtype = input$idtype)
+
+                   annopkg <- annoSpecies_df$pkg[annoSpecies_df$species==input$speciesSelect]
+
+                   values$annoDIY <- get_annotation_orgdb(values$dds_objectDIY,orgdb_species = annopkg, idtype = input$idtype)
 
                  })
                })
