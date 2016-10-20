@@ -1,0 +1,322 @@
+ideal_ui <- shinydashboard::dashboardPage(
+  dashboardHeader(
+    title = paste0("ideal - Interactive Differential Expression AnaLysis ",
+                   packageVersion("ideal")),
+    titleWidth = 900,
+
+    # task menu for saving state to environment or binary data
+    shinydashboard::dropdownMenu(type = "tasks",icon = icon("cog"),badgeStatus = "success",
+                                 notificationItem(
+                                   text = actionButton("task_exit_and_save","Exit ideal & save",
+                                                       class = "btn_no_border",
+                                                       onclick = "setTimeout(function(){window.close();}, 100); "),
+                                   icon = icon("sign-out"),status = "primary"),
+                                 menuItem(
+                                   text = downloadButton("task_state_save","Save State as .RData"))
+    )
+  ),
+
+  dashboardSidebar(
+    width = 280,
+
+    menuItem("App settings",icon = icon("cogs"),
+             uiOutput("color_by"),
+             uiOutput("available_genes"),
+
+             numericInput("FDR","False Discovery Rate",value = 0.05, min = 0, max = 1, step = 0.01)
+
+    ),
+    menuItem("Plot export settings", icon = icon("paint-brush"))
+  ),
+
+  dashboardBody(
+    ## Define output size and style of error messages
+    tags$head(
+      tags$style(HTML("
+                      .shiny-output-error-validation {
+                      font-size: 15px;
+                      color: forestgreen;
+                      text-align: center;
+                      }
+                      "))
+      ),
+
+    ## main structure of the body for the dashboard
+    tabBox(
+      width=12,
+
+      tabPanel(
+        "Loaded Data",icon = icon("upload"),
+        p("Preview on the uploaded data"),
+        uiOutput("ddsdesign"),
+        verbatimTextOutput("debugdesign"),
+
+        selectInput("idtype", "select the id type in your data", choices=c("ENSEMBL","ENTREZID","REFSEQ","SYMBOL")),
+        selectInput("orgdbspecies","select the species for your data",
+                    choices = c("org.Ag.eg.db","org.At.tair.db","org.Bt.eg.db","org.Ce.eg.db","org.Cf.eg.db","org.Dm.eg.db","org.Dr.eg.db","org.EcK12.eg.db","org.EcSakai.eg.db","org.Gg.eg.db","org.Hs.eg.db","org.Hs.ipi.db","org.Mm.eg.db","org.Mmu.eg.db","org.Pf.plasmo.db","org.Pt.eg.db","org.Rn.eg.db","org.Sc.sgd.db","org.Sco.eg.db","org.Ss.eg.db","org.Tgondii.eg.db","org.Xl.eg.db"),
+                    selected=""),
+
+        verbatimTextOutput("printDIYanno"),
+
+
+
+                    # descr = c("Anopheles","Arabidopsis","Bovine","Worm","Canine","Fly","Zebrafish","E coli strain K12","E coli strain Sakai","Chicken","Human","org.Hs.ipi.db","Mouse","Rhesus","Malaria","Chimp","Rat","Yeast","Streptomyces coelicolor","Pig","Toxoplasma gondii","Xenopus"))
+        actionButton("button_getanno","Retrieve the gene symbol annotation for the uploaded data", class = "btn btn-primary"),
+        ## this ideally populates also the list of genes of interest to choose among
+
+
+        actionButton("button_diydds","Generate the dds object", class = "btn btn-success"),
+        verbatimTextOutput("debugdiy"),
+
+        uiOutput("rundeseq"),
+        verbatimTextOutput("printDIYresults"),
+
+
+
+        verbatimTextOutput("printdds"),
+        verbatimTextOutput("printres")
+      ),
+      tabPanel(
+        "Instructions",  icon = icon("info-circle"),
+        includeMarkdown(system.file("extdata", "instructions.md",package = "ideal")),
+        footer()
+      ),
+      tabPanel(
+        "Overview - Tabular", icon = icon("table"),
+        DT::dataTableOutput("table_res"),
+        plotOutput("pvals_hist"),
+        plotOutput("logfc_hist")
+      ),
+
+      tabPanel(
+        "Data Overview", icon = icon("eye"),
+        uiOutput("choose_fac"),
+        uiOutput("fac1"),
+        uiOutput("fac2"),
+        verbatimTextOutput("diyres_summary"),
+        verbatimTextOutput("diyres")
+      ),
+
+      tabPanel(
+        "Gene Lists", icon = icon("list-alt"),
+        h2("Up/Down regulation"),
+        ## will put collapsible list elements? or multi tab panel? or something to select on the left, and operate output-wise on the right e.g. venn diagrams or table for gene set enrichment
+        h3("UPregulated - sorted by padj"),
+        h3("DOWNregulated - sorted by padj"),
+        h3("UP and DOWN regulated - sorted by padj"),
+        h3("custom list 1 - uploaded"),
+        fileInput(inputId = "gl1",
+                  label = "Upload a gene list file",
+                  accept = c("text/csv", "text/comma-separated-values",
+                             "text/tab-separated-values", "text/plain",
+                             ".csv", ".tsv"), multiple = FALSE),
+
+        h3("custom list 2 - uploaded"),
+        fileInput(inputId = "gl2",
+                  label = "Upload a gene list file",
+                  accept = c("text/csv", "text/comma-separated-values",
+                             "text/tab-separated-values", "text/plain",
+                             ".csv", ".tsv"), multiple = FALSE),
+
+        h3("custom list 3 - handpicked") # use the select input from the left column?
+        ,verbatimTextOutput("debuggls"),
+
+        h2("Enrichment on the lists"),
+
+        verbatimTextOutput("printUPgenes"),
+
+        tabBox(
+          width = NULL,
+          id="gse_tabbox",
+          tabPanel("UPregu", icon = icon("arrow-circle-up"),
+                   actionButton("button_enrUP", "Perform gene set enrichment analysis on the upregulated genes"),
+                   DT::dataTableOutput("DT_gse_up")
+          ),
+          tabPanel("DOWNregu", icon = icon("arrow-circle-down"),
+                   actionButton("button_enrDOWN", "Perform gene set enrichment analysis on the downregulated genes"),
+                   DT::dataTableOutput("DT_gse_down")
+          ),
+          tabPanel("UPDOWN", icon = icon("arrows-v"),
+                   actionButton("button_enrUPDOWN", "Perform gene set enrichment analysis on the up- and downregulated genes"),
+                   DT::dataTableOutput("DT_gse_updown")
+          ),
+          tabPanel("List1", icon = icon("list"),
+                   actionButton("button_enrLIST1", "Perform gene set enrichment analysis on the genes in list1"),
+                   DT::dataTableOutput("DT_gse_list1")
+          ),
+          tabPanel("List2", icon = icon("list-alt"),
+                   actionButton("button_enrLIST2", "Perform gene set enrichment analysis on the genes in list2"),
+                   DT::dataTableOutput("DT_gse_list2")
+          )
+        ),
+
+
+
+
+
+
+        verbatimTextOutput("debuglists"),
+        checkboxInput("toggle_updown","Use up and down regulated genes", TRUE),
+        checkboxInput("toggle_up","Use up regulated genes", FALSE),
+        checkboxInput("toggle_down","Use down regulated genes", FALSE),
+        checkboxInput("toggle_list1","Use list1 genes", TRUE),
+        checkboxInput("toggle_list2","Use list2 genes", FALSE),
+        checkboxInput("toggle_list3","Use list3 genes", FALSE),
+
+
+        plotOutput("vennlists")
+
+
+      ),
+
+      tabPanel(
+        "MA Plot", icon = icon("photo"),
+        headerPanel("MA plot interactive exploration"),
+        fluidRow(verbatimTextOutput("deb")),
+        fluidRow(column(4,
+                        h4("MA plot - Interactive!"),
+                        plotOutput('plotma', brush = 'ma_brush')),
+                 column(4,
+                        h4("Zoomed section"),
+                        plotOutput("mazoom",click= 'mazoom_click')),
+                 column(4,
+                        h4("Boxplot for the selected gene"),
+                        plotOutput("geneplot")
+                 )
+        ),
+        plotOutput("genefinder_plot"),
+        fluidRow(radioButtons("heatmap_colv","Cluster samples",choices = list("Yes"=TRUE,"No"=FALSE),selected = TRUE)),
+        fluidRow(
+          column(4,
+                 checkboxInput("rowscale",label = "Scale by rows",value = TRUE)),
+          column(4,
+                 checkboxInput("pseudocounts","use log2(1+counts)",value = TRUE))
+        ),
+        fluidRow(
+          column(6,
+                 plotOutput("heatbrush")
+          ),
+          column(6,
+                 d3heatmapOutput("heatbrushD3"))
+        )
+        ,
+        # fluidRow(dataTableOutput('ma_brush_out')),
+        fluidRow(dataTableOutput("ma_brush_out"))
+      ),
+      tabPanel(
+        "Gene Finder", icon = icon("crosshairs"),
+
+        fluidRow(
+          column(6,
+                 plotOutput("bp1")
+          ),
+          column(6,
+                 plotOutput("bp2"))
+        ),
+        fluidRow(
+          column(6,
+                 plotOutput("bp3")
+          ),
+          column(6,
+                 plotOutput("bp4"))
+        ),
+
+        plotOutput("ma_highlight"),
+        # verbatimTextOutput("d1"),
+        DT::dataTableOutput("table_combi")),
+      tabPanel(
+        "Report Editor",
+        icon = icon("pencil"),
+
+
+        fluidRow(
+          column(
+            width = 6,
+            box(
+              title = "markdown options", status = "primary", solidHeader = TRUE, collapsible = TRUE, width = 9,
+              radioButtons("rmd_dl_format", label = "Choose Format:", c("HTML" = "html", "R Markdown" = "rmd"), inline = T),
+              textInput("report_title", "Title: "),
+              textInput("report_author", "Author: "),
+              radioButtons("report_toc", "Table of Contents", choices = list("Yes" = "true", "No" = "false")),
+              radioButtons("report_ns", "Number sections", choices = list("Yes" = "true", "No" = "false")),
+              selectInput("report_theme", "Theme", choices = list("Default" = "default", "Cerulean" = "cerulean",
+                                                                  "Journal" = "journal", "Flatly" = "flatly",
+                                                                  "Readable" = "readable", "Spacelab" = "spacelab",
+                                                                  "United" = "united", "Cosmo" = "cosmo")),
+              radioButtons("report_echo", "Echo the commands in the output", choices = list("Yes" = "TRUE", "No" = "FALSE")))),
+          column(
+            width = 6,
+            box(
+              title = "editor options", status = "primary", solidHeader = TRUE, collapsible = TRUE, width = 9,
+              checkboxInput("enableAutocomplete", "Enable AutoComplete", TRUE),
+              conditionalPanel(
+                "input.enableAutocomplete",
+                wellPanel(
+                  checkboxInput("enableLiveCompletion", "Live auto completion", TRUE),
+                  checkboxInput("enableRCompletion", "R code completion", TRUE)
+                )
+              ),
+
+              selectInput("mode", "Mode: ", choices=modes, selected="markdown"),
+              selectInput("theme", "Theme: ", choices=themes, selected="solarized_light"))
+          )
+          # ,
+          # column( # kept for debugging purposes!
+          #   width = 6,
+          #   verbatimTextOutput("loadedRmd")
+          # )
+        ),
+        fluidRow(
+          column(3,
+                 actionButton("updatepreview_button", "Update report",class = "btn btn-primary"),p()
+          ),
+          column(3, downloadButton("saveRmd", "Generate & Save",class = "btn btn-success"))
+        ),
+
+        tabBox(
+          width = NULL,
+          id="report_tabbox",
+          tabPanel("Report preview",
+                   icon = icon("file-text"),
+                   htmlOutput("knitDoc")
+          ),
+
+          tabPanel("Edit report",
+                   icon = icon("pencil-square-o"),
+                   aceEditor("acereport_rmd", mode="markdown",theme = "solarized_light",autoComplete = "live",
+                             value=readLines(system.file("extdata", "irt.Rmd",package = "ideal")),
+                             height="800px"))
+        )
+      ),
+      tabPanel(
+        "About", icon = icon("institution"),
+        includeMarkdown(system.file("extdata", "about.md",package = "ideal")),
+        hr(),
+        #             shiny::verbatimTextOutput("showuploaded1"),
+        #             shiny::verbatimTextOutput("showuploaded2"),
+        #             shiny::verbatimTextOutput("showuploaded3"),
+        #             shiny::verbatimTextOutput("showuploaded4"),
+
+        h4("Session Info"),
+        verbatimTextOutput("sessioninfo"),
+        footer()
+      )
+      ,tabPanel(
+        "devel", icon = icon("github"),
+        verbatimTextOutput("debugihw"),
+
+        plotOutput("ihwp1"),
+        plotOutput("ihwp2"),
+        plotOutput("ihwp3"),
+        plotOutput("ihwp4"),
+        plotOutput("ihwp5"),
+        plotOutput("ihwp6"),
+        plotOutput("ihwp7"),
+        plotOutput("ihwp8")
+
+      )
+
+    )
+      ),
+  skin="blue"
+      )

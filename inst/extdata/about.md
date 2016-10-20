@@ -1,4 +1,4 @@
-## About ideal
+## About `ideal`
 
 `ideal` is a Bioconductor package containing a Shiny application for
 interactively analyzing RNA-seq expression data, by interactive exploration of the 
@@ -17,12 +17,18 @@ in the University Medical Center of the Johannes Gutenberg University Mainz.
 
 
 
-### Developers
+## Developers
 
-Federico Marini [email](mailto:marinif@uni-mainz.de)
+<a href="mailto:marinif@uni-mainz.de" class="btn btn-primary">Federico Marini</a>
 
-### Code
+## Code
 
 All code for `ideal` is available on 
 <a href="https://github.com/federicomarini/ideal" target="_blank">GitHub</a>.
 
+
+## Citation info
+
+If you use `ideal` for your analysis, please cite it as here below:
+
+...
