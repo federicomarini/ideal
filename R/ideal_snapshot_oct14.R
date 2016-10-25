@@ -220,6 +220,35 @@ ggplotCounts <- function(dds,gene,intgroup="condition",annotation_obj=annotation
 #
 
 
+createLinkGO <- function(val) {
+  sprintf('<a href="http://amigo.geneontology.org/amigo/term/%s" target="_blank" class="btn btn-primary">%s</a>',val,val)
+}
+
+createLinkENS  <- function(val, species="Mus_musculus") {
+  paste0('<a href="http://www.ensembl.org/',species,'/Gene/Summary?g=',val,'" target="_blank" class="btn btn-primary">',val,'</a>')
+}
+
+createLinkGeneSymbol <- function(val) {
+  # possibilities:
+  # ncbi
+  # genecards
+  paste0('<a href="http://www.ncbi.nlm.nih.gov/gene/?term=',val,'[sym]" target="_blank" class="btn btn-primary">',val,'</a>')
+}
+
+
+getGeneInfos <- function(obj, annopkg, idtype) {
+  # obj is a dds object...
+  ids <- rownames(obj)
+
+  mydf <- mapIds(eval(parse(text=annopkg)),keys=ids,column = "GENENAME",keytype = idtype)
+  mydf_2 <- AnnotationDbi::select(eval(parse(text=annopkg)),keys=ids,column = "GENENAME",keytype = idtype)
+
+  return(mydf_2)
+}
+
+
+
+
 
 
 

@@ -602,7 +602,10 @@ ideal_server <- shinyServer(function(input, output, session) {
 
   output$DT_gse_list1 <- DT::renderDataTable({
     # if not null...
-    values$gse_list1
+    mytbl <- values$gse_list1
+    # mytbl$GOid <- rownames(mytbl)
+    rownames(mytbl) <- createLinkGO(rownames(mytbl))
+    datatable(mytbl,escape=FALSE)
   })
 
   output$DT_gse_list2 <- DT::renderDataTable({
@@ -728,9 +731,9 @@ ideal_server <- shinyServer(function(input, output, session) {
 
 
   output$color_by <- renderUI({
-    if(is.null(obj2))
+    if(is.null(values$dds_objectDIY))
       return(NULL)
-    poss_covars <- names(colData(obj2))
+    poss_covars <- names(colData(values$dds_objectDIY))
     selectInput('color_by', label = 'Group/color by: ',
                 choices = c(NULL, poss_covars), selected = NULL,multiple = TRUE)
   })
@@ -835,8 +838,10 @@ ideal_server <- shinyServer(function(input, output, session) {
 
 
   output$table_res <- DT::renderDataTable({
-    as.data.frame(res_obj[order(res_obj$padj),])[1:500,]
-
+    mydf <- as.data.frame(res_obj[order(res_obj$padj),])[1:500,]
+    rownames(mydf) <- createLinkENS(rownames(mydf),species = "Homo_sapiens")
+    mydf$symbol <- createLinkGeneSymbol(mydf$symbol)
+    datatable(mydf, escape = FALSE)
   })
 
 
@@ -1124,7 +1129,7 @@ ideal_server <- shinyServer(function(input, output, session) {
         mysim <- ""
       }
     }
-    p <- ggplotCounts(dds_obj, myid, intgroup = input$color_by,annotation_obj=annotation_obj)
+    p <- ggplotCounts(values$dds_objectDIY, myid, intgroup = input$color_by,annotation_obj=annotation_obj)
     p
   })
 
@@ -1154,7 +1159,7 @@ ideal_server <- shinyServer(function(input, output, session) {
         mysim <- ""
       }
     }
-    p <- ggplotCounts(dds_obj, myid, intgroup = input$color_by,annotation_obj=annotation_obj)
+    p <- ggplotCounts(values$dds_objectDIY, myid, intgroup = input$color_by,annotation_obj=annotation_obj)
     p
   })
 
@@ -1184,7 +1189,7 @@ ideal_server <- shinyServer(function(input, output, session) {
         mysim <- ""
       }
     }
-    p <- ggplotCounts(dds_obj, myid, intgroup = input$color_by,annotation_obj=annotation_obj)
+    p <- ggplotCounts(values$dds_objectDIY, myid, intgroup = input$color_by,annotation_obj=annotation_obj)
     p
   })
 
@@ -1214,7 +1219,7 @@ ideal_server <- shinyServer(function(input, output, session) {
         mysim <- ""
       }
     }
-    p <- ggplotCounts(dds_obj, myid, intgroup = input$color_by,annotation_obj=annotation_obj)
+    p <- ggplotCounts(values$dds_objectDIY, myid, intgroup = input$color_by,annotation_obj=annotation_obj)
     p
   })
 
