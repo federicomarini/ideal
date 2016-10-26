@@ -21,12 +21,11 @@
 #'
 #'
 #'
-ideal<- function(
-  res_obj = NULL,
-  dds_obj = NULL,
-  annotation_obj = NULL,
-  countmatrix = NULL,
-  expdesign = NULL){
+ideal<- function(res_obj = NULL,
+                 dds_obj = NULL,
+                 annotation_obj = NULL,
+                 countmatrix = NULL,
+                 expdesign = NULL){
 
   if ( !requireNamespace('shiny',quietly = TRUE) ) {
     stop("ideal requires 'shiny'. Please install it using
@@ -49,8 +48,6 @@ ideal<- function(
 
 
 
-
-
   # components defined in separated .R files
   shinyApp(ui = ideal_ui, server = ideal_server)
 
@@ -68,6 +65,25 @@ ideal<- function(
 
 
 ############################# helper funcs #################################
+
+deseqresult2DEgenes <-
+function(deseqresult,FDR=0.05) {
+  library("dplyr")
+  if (class(deseqresult) != "DESeqResults") stop("Not a DESeqResults object.")
+  deseqresult <- as.data.frame(deseqresult)
+  deseqresult$id <- rownames(deseqresult)
+  rownames(deseqresult) <- NULL
+  deseqresult <- tbl_df(deseqresult)
+  if("symbol" %in% names(deseqresult))
+    deseqresult <- dplyr::select(deseqresult, id, baseMean, log2FoldChange:symbol)
+  else
+    deseqresult <- dplyr::select(deseqresult, id, baseMean, log2FoldChange:padj)
+  tmp <- deseqresult %>% arrange(padj)
+  res <- tmp[!(is.na(tmp$padj)) & tmp$padj <= FDR,]
+  res
+}
+
+
 
 plot_ma <- function(object, which_beta, which_model = 'full',
                     sig_level = 0.10,

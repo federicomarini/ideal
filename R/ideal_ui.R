@@ -16,6 +16,10 @@ ideal_ui <- shinydashboard::dashboardPage(
     )
   ),
 
+
+
+
+
   dashboardSidebar(
     width = 280,
 
@@ -23,11 +27,24 @@ ideal_ui <- shinydashboard::dashboardPage(
              uiOutput("color_by"),
              uiOutput("available_genes"),
 
+#
+#              selectizeInput(
+#                inputId = 'available_genes', label = 'Select Something',
+#                choices = NULL,
+#                multiple = TRUE,
+#                selected = 1
+#              ),
+
              numericInput("FDR","False Discovery Rate",value = 0.05, min = 0, max = 1, step = 0.01)
 
     ),
     menuItem("Plot export settings", icon = icon("paint-brush"))
   ),
+
+
+
+
+
 
   dashboardBody(
     ## Define output size and style of error messages
@@ -85,6 +102,13 @@ ideal_ui <- shinydashboard::dashboardPage(
         actionButton("button_getanno","Retrieve the gene symbol annotation for the uploaded data", class = "btn btn-primary"),
         ## this ideally populates also the list of genes of interest to choose among
 
+        hr(),
+        uiOutput("ui_stepoutlier"),
+        uiOutput("ui_selectoutliers"),
+        uiOutput("outliersout"),
+        verbatimTextOutput("printremoved"),
+
+
 
         hr(),
         uiOutput("ui_step4"),
@@ -97,23 +121,37 @@ ideal_ui <- shinydashboard::dashboardPage(
         verbatimTextOutput("printres"),
         uiOutput("ui_stepend")
       ),
+
+
+
       tabPanel(
         "Instructions",  icon = icon("info-circle"),
         includeMarkdown(system.file("extdata", "instructions.md",package = "ideal")),
         footer()
       ),
-      tabPanel(
-        "Overview - Tabular", icon = icon("table"),
-        DT::dataTableOutput("table_res"),
-        plotOutput("pvals_hist"),
-        plotOutput("logfc_hist")
-      ),
+
+
+
 
       tabPanel(
-        "Data Overview", icon = icon("eye"),
+        "Overview - Tabular", icon = icon("table"),
+
+        # "Data Overview", icon = icon("eye"),
         uiOutput("choose_fac"),
         uiOutput("fac1"),
         uiOutput("fac2"),
+        uiOutput("runresults"),
+
+        uiOutput("lrtavailable"),
+        uiOutput("lrtfull"),
+        uiOutput("lrtreduced"),
+
+        uiOutput("runlrt"),
+
+        DT::dataTableOutput("table_res"),
+        plotOutput("pvals_hist"),
+        plotOutput("logfc_hist"),
+
         verbatimTextOutput("diyres_summary"),
         verbatimTextOutput("diyres")
       ),
