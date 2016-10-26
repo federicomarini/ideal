@@ -18,6 +18,15 @@ ideal_server <- shinyServer(function(input, output, session) {
   values$annotation_obj <- annotation_obj
 
 
+  # this part sets the "matching" objects if something is provided that is depending on these
+  if(!is.null(dds_obj)){
+    values$countmatrix <- counts(dds_obj, normalized = FALSE)
+    values$expdesign <- colData(dds_obj)
+  }
+
+
+
+
   # if i want to focus a little more on the ihw object
   values$ihwres <- NULL
 
@@ -130,6 +139,23 @@ ideal_server <- shinyServer(function(input, output, session) {
     h2("Step 3: Create the DESeqDataset object")
   })
 
+
+  output$ui_diydds <- renderUI({
+    if (is.null(values$expdesign) | is.null(values$countmatrix) | is.null(input$dds_design))
+      return(NULL)
+    actionButton("button_diydds","Generate the dds object", class = "btn btn-success")
+  })
+
+  output$ui_getanno <- renderUI({
+    if (is.null(values$dds_obj)) ### and not provided already with sep annotation?
+      return(NULL)
+    actionButton("button_getanno","Retrieve the gene symbol annotation for the uploaded data", class = "btn btn-primary")
+  })
+
+
+
+
+
   output$ui_step4 <- renderUI({
     if (is.null(values$dds_obj)) #
       return(NULL)
@@ -137,6 +163,8 @@ ideal_server <- shinyServer(function(input, output, session) {
   })
 
   output$ui_stepend <- renderUI({
+    if(is.null(values$dds_obj))
+      return(NULL)
     if (!"results" %in% mcols(mcols(values$dds_obj))$type) #
       return(NULL)
     h2("Good to go!")
@@ -197,10 +225,10 @@ ideal_server <- shinyServer(function(input, output, session) {
 
 
   output$debugdiy <- renderPrint({
-
-    print(values$dds_obj)
-    print(design(values$dds_obj))
-
+    if(!is.null(values$dds_obj)){
+      print(values$dds_obj)
+      print(design(values$dds_obj))
+    }
   })
 
 
@@ -339,6 +367,15 @@ ideal_server <- shinyServer(function(input, output, session) {
                })
 
   output$printDIYresults <- renderPrint({
+    shiny::validate(
+      need(!is.null(values$dds_obj),
+           "Provide or construct a dds object")
+    )
+    shiny::validate(
+      need("results" %in% mcols(mcols(values$dds_obj))$type ,
+           "I couldn't find results. you should first run DESeq() with the button up here"
+      )
+    )
     print(summary(results(values$dds_obj)))
   })
 
@@ -477,14 +514,14 @@ ideal_server <- shinyServer(function(input, output, session) {
                    annopkg <- annoSpecies_df$pkg[annoSpecies_df$species==input$speciesSelect]
 
                    annotation_obj <- get_annotation_orgdb(values$dds_obj,orgdb_species = annopkg, idtype = input$idtype)
-
+                   values$annotation_obj <- annotation_obj
                  })
                })
 
   output$printDIYanno <- renderPrint({
 
 
-    print(head(annotation_obj))
+    print(head(values$annotation_obj))
   })
 
   output$printUPgenes <- renderPrint({
@@ -662,86 +699,84 @@ ideal_server <- shinyServer(function(input, output, session) {
 
 
   ## some dev section on usage of ihw
-  ihwres <- reactive({
-    de_res <- as.data.frame(res_obj)
-    ihw_res <- ihw(pvalue ~ baseMean,  data = de_res, alpha = 0.1)
-    ihw_res
-  })
-
-  output$debugihw <- renderPrint({
-    ihw_res # replace then here with ihwres()
-  })
-
-  output$ihwp1 <- renderPlot({
-    plot(ihw_res)
-  })
-
-  output$ihwp2 <- renderPlot({
-    plot(ihw_res, what = "decisionboundary")
-  })
-
-  output$ihwp3 <- renderPlot({
-    gg <- ggplot(as.data.frame(ihw_res), aes(x = pvalue, y = adj_pvalue, col = group)) +
-      geom_point(size = 0.25) +
-      scale_colour_hue(l = 70, c = 150, drop = FALSE)
-
-    gg
-  })
-
-  output$ihwp4 <- renderPlot({
-    de_res <- res_airway ## CHANGE!!
-    de_res <- na.omit(de_res)
-    de_res$geneid <- as.numeric(gsub("ENSG[+]*", "", rownames(de_res)))
-
-    # set up data frame for plotting
-    df <- rbind(data.frame(pvalue = de_res$pvalue, covariate = rank(de_res$baseMean)/nrow(de_res),
-                           covariate_type="base mean"),
-                data.frame(pvalue = de_res$pvalue, covariate = rank(de_res$geneid)/nrow(de_res),
-                           covariate_type="gene id"))
-
-    ggplot(df, aes(x=covariate, y = -log10(pvalue))) +
-      geom_hex(bins = 100) +
-      facet_grid( . ~ covariate_type)
-
-  })
-
-
-
-  output$ihwp5 <- renderPlot({
-    de_res <- as.data.frame(res_airway) ## CHANGE!!
-    de_res <- na.omit(de_res)
-    ggplot(de_res, aes(x = pvalue)) + geom_histogram(binwidth = 0.025, boundary = 0)
-  })
-
-  output$ihwp6 <- renderPlot({
-    de_res <- as.data.frame(res_airway) ## CHANGE!!
-    de_res <- na.omit(de_res)
-    de_res$baseMean_group <- groups_by_filter(de_res$baseMean, 8)
-
-    ggplot(de_res, aes(x=pvalue)) +
-      geom_histogram(binwidth = 0.025, boundary = 0) +
-      facet_wrap( ~ baseMean_group, nrow = 2)
-  })
-
-  output$ihwp7 <- renderPlot({
-    de_res <- as.data.frame(res_airway) ## CHANGE!!
-    de_res <- na.omit(de_res)
-    de_res$baseMean_group <- groups_by_filter(de_res$baseMean, 8)
-    ggplot(de_res, aes(x = pvalue, col = baseMean_group)) + stat_ecdf(geom = "step")
-  })
-
-  output$ihwp8 <- renderPlot({
-    de_res <- as.data.frame(res_airway) ## CHANGE!!
-    de_res <- na.omit(de_res)
-
-    de_res$lfc_group <- groups_by_filter(abs(de_res$log2FoldChange),8)
-
-    ggplot(de_res, aes(x = pvalue)) +
-      geom_histogram(binwidth = 0.025, boundary = 0) +
-      facet_wrap( ~ lfc_group, nrow=2)
-  })
-
-
+  # ihwres <- reactive({
+  #   de_res <- as.data.frame(res_obj)
+  #   ihw_res <- ihw(pvalue ~ baseMean,  data = de_res, alpha = 0.1)
+  #   ihw_res
+  # })
+  #
+  # output$debugihw <- renderPrint({
+  #   ihw_res # replace then here with ihwres()
+  # })
+  #
+  # output$ihwp1 <- renderPlot({
+  #   plot(ihw_res)
+  # })
+  #
+  # output$ihwp2 <- renderPlot({
+  #   plot(ihw_res, what = "decisionboundary")
+  # })
+  #
+  # output$ihwp3 <- renderPlot({
+  #   gg <- ggplot(as.data.frame(ihw_res), aes(x = pvalue, y = adj_pvalue, col = group)) +
+  #     geom_point(size = 0.25) +
+  #     scale_colour_hue(l = 70, c = 150, drop = FALSE)
+  #
+  #   gg
+  # })
+  #
+  # output$ihwp4 <- renderPlot({
+  #   de_res <- res_airway ## CHANGE!!
+  #   de_res <- na.omit(de_res)
+  #   de_res$geneid <- as.numeric(gsub("ENSG[+]*", "", rownames(de_res)))
+  #
+  #   # set up data frame for plotting
+  #   df <- rbind(data.frame(pvalue = de_res$pvalue, covariate = rank(de_res$baseMean)/nrow(de_res),
+  #                          covariate_type="base mean"),
+  #               data.frame(pvalue = de_res$pvalue, covariate = rank(de_res$geneid)/nrow(de_res),
+  #                          covariate_type="gene id"))
+  #
+  #   ggplot(df, aes(x=covariate, y = -log10(pvalue))) +
+  #     geom_hex(bins = 100) +
+  #     facet_grid( . ~ covariate_type)
+  #
+  # })
+  #
+  #
+  #
+  # output$ihwp5 <- renderPlot({
+  #   de_res <- as.data.frame(res_airway) ## CHANGE!!
+  #   de_res <- na.omit(de_res)
+  #   ggplot(de_res, aes(x = pvalue)) + geom_histogram(binwidth = 0.025, boundary = 0)
+  # })
+  #
+  # output$ihwp6 <- renderPlot({
+  #   de_res <- as.data.frame(res_airway) ## CHANGE!!
+  #   de_res <- na.omit(de_res)
+  #   de_res$baseMean_group <- groups_by_filter(de_res$baseMean, 8)
+  #
+  #   ggplot(de_res, aes(x=pvalue)) +
+  #     geom_histogram(binwidth = 0.025, boundary = 0) +
+  #     facet_wrap( ~ baseMean_group, nrow = 2)
+  # })
+  #
+  # output$ihwp7 <- renderPlot({
+  #   de_res <- as.data.frame(res_airway) ## CHANGE!!
+  #   de_res <- na.omit(de_res)
+  #   de_res$baseMean_group <- groups_by_filter(de_res$baseMean, 8)
+  #   ggplot(de_res, aes(x = pvalue, col = baseMean_group)) + stat_ecdf(geom = "step")
+  # })
+  #
+  # output$ihwp8 <- renderPlot({
+  #   de_res <- as.data.frame(res_airway) ## CHANGE!!
+  #   de_res <- na.omit(de_res)
+  #
+  #   de_res$lfc_group <- groups_by_filter(abs(de_res$log2FoldChange),8)
+  #
+  #   ggplot(de_res, aes(x = pvalue)) +
+  #     geom_histogram(binwidth = 0.025, boundary = 0) +
+  #     facet_wrap( ~ lfc_group, nrow=2)
+  # })
 
 
 
@@ -749,12 +784,14 @@ ideal_server <- shinyServer(function(input, output, session) {
 
 
 
-
-
-
-  object <- res_obj
-  # obj2 <- dds_obj
-  res_object <- res_obj
+#
+#
+#
+#
+#
+#   object <- res_obj
+#   # obj2 <- dds_obj
+#   res_object <- res_obj
 
 
 
@@ -922,6 +959,11 @@ ideal_server <- shinyServer(function(input, output, session) {
 
 
   output$runresults <- renderUI({
+    shiny::validate(
+      need(input$choose_expfac!="",
+           "Select a factor for the contrast first")
+    )
+
     if(input$choose_expfac=="" | input$fac1_c1 == "" | input$fac1_c2 == "" | input$fac1_c1 == input$fac1_c2)
       return(NULL)
     else
@@ -1036,30 +1078,30 @@ ideal_server <- shinyServer(function(input, output, session) {
 
 
   output$plotma <- renderPlot({
-    plot_ma(values$res_obj,annotation_obj = annotation_obj)
+    plot_ma(values$res_obj,annotation_obj = values$annotation_obj)
   })
 
   output$mazoom <- renderPlot({
     if(is.null(input$ma_brush)) return(ggplot() + annotate("text",label="click and drag to zoom in",0,0) + theme_bw())
 
-    plot_ma(values$res_obj,annotation_obj = annotation_obj) + xlim(input$ma_brush$xmin,input$ma_brush$xmax) + ylim(input$ma_brush$ymin,input$ma_brush$ymax) + geom_text(aes(label=genename),size=3,hjust=0.25, vjust=-0.75)
+    plot_ma(values$res_obj,annotation_obj = values$annotation_obj) + xlim(input$ma_brush$xmin,input$ma_brush$xmax) + ylim(input$ma_brush$ymin,input$ma_brush$ymax) + geom_text(aes(label=genename),size=3,hjust=0.25, vjust=-0.75)
   })
 
 
   output$ma_highlight <- renderPlot({
-    if("symbol" %in% names(res_obj)) {
+    if("symbol" %in% names(values$res_obj)) {
       plot_ma_highlight(values$res_obj,
-                        intgenes = input$avail_symbols,annotation_obj = annotation_obj)
+                        intgenes = input$avail_symbols,annotation_obj = values$annotation_obj)
     } else {
       plot_ma_highlight(values$res_obj,
-                        intgenes = input$avail_ids,annotation_obj = annotation_obj)
+                        intgenes = input$avail_ids,annotation_obj = values$annotation_obj)
     }
   })
 
 
   curData <- reactive({
     mama <- data.frame(mean=values$res_obj$baseMean,lfc=values$res_obj$log2FoldChange,padj = values$res_obj$padj,isDE= ifelse(is.na(values$res_obj$padj), FALSE, values$res_obj$padj < 0.10),ID=rownames(values$res_obj))
-    mama$genename <- annotation_obj$gene_name[match(mama$ID,rownames(annotation_obj))]
+    mama$genename <- values$annotation_obj$gene_name[match(mama$ID,rownames(values$annotation_obj))]
     # mama$yesorno <- ifelse(mama$isDE,"yes","no")
     mama$yesorno <- ifelse(mama$isDE,"red","black")
     mama$logmean <- log10(mama$mean) # TO ALLOW FOR BRUSHING!!
@@ -1072,7 +1114,7 @@ ideal_server <- shinyServer(function(input, output, session) {
 
   curDataClick <- reactive({
     mama <- data.frame(mean=values$res_obj$baseMean,lfc=values$res_obj$log2FoldChange,padj = values$res_obj$padj,isDE= ifelse(is.na(values$res_obj$padj), FALSE, values$res_obj$padj < 0.10),ID=rownames(values$res_obj))
-    mama$genename <- annotation_obj$gene_name[match(mama$ID,rownames(annotation_obj))]
+    mama$genename <- values$annotation_obj$gene_name[match(mama$ID,rownames(values$annotation_obj))]
     # mama$yesorno <- ifelse(mama$isDE,"yes","no")
     mama$yesorno <- ifelse(mama$isDE,"red","black")
     mama$logmean <- log10(mama$mean) # TO ALLOW FOR BRUSHING!!
@@ -1121,7 +1163,7 @@ ideal_server <- shinyServer(function(input, output, session) {
 
     selectedGenes <- brushedObject$ID
     toplot <- assay(values$dds_obj)[selectedGenes,]
-    rownames(toplot) <- annotation_obj$gene_name[match(rownames(toplot),rownames(annotation_obj))]
+    rownames(toplot) <- values$annotation_obj$gene_name[match(rownames(toplot),rownames(values$annotation_obj))]
 
     if(input$pseudocounts) toplot <- log2(1+toplot)
 
@@ -1140,7 +1182,7 @@ ideal_server <- shinyServer(function(input, output, session) {
 
     selectedGenes <- brushedObject$ID
     toplot <- assay(values$dds_obj)[selectedGenes,]
-    rownames(toplot) <- annotation_obj$gene_name[match(rownames(toplot),rownames(annotation_obj))]
+    rownames(toplot) <- values$annotation_obj$gene_name[match(rownames(toplot),rownames(values$annotation_obj))]
     mycolss <- c("#313695","#4575b4","#74add1","#abd9e9","#e0f3f8","#fee090","#fdae61","#f46d43","#d73027","#a50026") # to be consistent with red/blue usual coding
     if(input$pseudocounts) toplot <- log2(1+toplot)
     if(input$rowscale) toplot <- pheatmap:::scale_mat(toplot,"row")
@@ -1163,6 +1205,11 @@ ideal_server <- shinyServer(function(input, output, session) {
   })
 
 
+
+
+  ## TODO: same thing but with the volcano plot?
+
+
   output$geneplot <- renderPlot({
 
     # if(length(input$color_by_G)==0) return(ggplot() + annotate("text",label="select an experimental factor",0,0) + theme_bw())
@@ -1171,7 +1218,7 @@ ideal_server <- shinyServer(function(input, output, session) {
     if(is.null(input$mazoom_click)) return(ggplot() + annotate("text",label="click to generate the boxplot\nfor the selected gene",0,0) + theme_bw())
 
     selectedGene <- as.character(curDataClick()$ID)
-    selectedGeneSymbol <- annotation_obj$gene_name[match(selectedGene,rownames(annotation_obj))]
+    selectedGeneSymbol <- values$annotation_obj$gene_name[match(selectedGene,rownames(values$annotation_obj))]
     # plotCounts(dds_cleaner,)
     genedata <- plotCounts(values$dds_obj,gene=selectedGene,intgroup = input$color_by,returnData = T)
 
@@ -1213,9 +1260,9 @@ ideal_server <- shinyServer(function(input, output, session) {
 
 
     selectedGene <- as.character(curDataClick()$ID)
-    selectedGeneSymbol <- annotation_obj$gene_name[match(selectedGene,annotation_obj$gene_id)]
+    selectedGeneSymbol <- values$annotation_obj$gene_name[match(selectedGene,values$annotation_obj$gene_id)]
 
-    p <- ggplotCounts(values$dds_obj, selectedGene, intgroup = input$color_by,annotation_obj=annotation_obj)
+    p <- ggplotCounts(values$dds_obj, selectedGene, intgroup = input$color_by,annotation_obj=values$annotation_obj)
 
     p
 
@@ -1228,24 +1275,26 @@ ideal_server <- shinyServer(function(input, output, session) {
 
 
 
-
-  if(!is.null(res_obj) & !is.null(dds_obj)) {
-
-    normCounts <- as.data.frame(counts(estimateSizeFactors(dds_obj),normalized=T))
-    normCounts$id <- rownames(normCounts)
-    res_df <- FMmisc::deseqresult2tbl(res_obj)
-
-    combi_obj <- dplyr::inner_join(res_df,normCounts,by="id")
-    combi_obj$symbol <- annotation_obj$gene_name[match(combi_obj$id,annotation_obj$gene_id)]
-  }
-
+#
+#   if(!is.null(values$res_obj) & !is.null(values$dds_obj)) {
+#
+#
+#   }
+#
 
   cur_combires <- reactive({
 
+    normCounts <- as.data.frame(counts(estimateSizeFactors(values$dds_obj),normalized=T))
+    normCounts$id <- rownames(normCounts)
+    res_df <- FMmisc::deseqresult2tbl(values$res_obj)
 
-    if("symbol" %in% names(res_obj)) {
+    combi_obj <- dplyr::inner_join(res_df,normCounts,by="id")
+    combi_obj$symbol <- values$annotation_obj$gene_name[match(combi_obj$id,values$annotation_obj$gene_id)]
+
+
+    if("symbol" %in% names(values$res_obj)) {
       sel_genes <- input$avail_symbols
-      sel_genes_ids <- annotation_obj$gene_id[match(sel_genes,annotation_obj$gene_name)]
+      sel_genes_ids <- values$annotation_obj$gene_id[match(sel_genes,values$annotation_obj$gene_name)]
     } else {
       sel_genes_ids <- input$avail_ids
     }
@@ -1286,17 +1335,17 @@ ideal_server <- shinyServer(function(input, output, session) {
     if(length(input$avail_symbols)>0) {
       # got the symbol, look for the id
       mysym <- input$avail_symbols[1]
-      myid <- annotation_obj$gene_id[match(mysym, annotation_obj$gene_name)]
+      myid <- values$annotation_obj$gene_id[match(mysym, values$annotation_obj$gene_name)]
     } else {
       myid <- input$avail_ids[1]
       # make it optional if annot is available
-      if(!is.null(annotation_obj)) {
-        mysim <- annotation_obj$gene_name[match(myid, annotation_obj$gene_id)]
+      if(!is.null(values$annotation_obj)) {
+        mysim <- values$annotation_obj$gene_name[match(myid, values$annotation_obj$gene_id)]
       } else {
         mysim <- ""
       }
     }
-    p <- ggplotCounts(values$dds_obj, myid, intgroup = input$color_by,annotation_obj=annotation_obj)
+    p <- ggplotCounts(values$dds_obj, myid, intgroup = input$color_by,annotation_obj=values$annotation_obj)
     p
   })
 
@@ -1316,17 +1365,17 @@ ideal_server <- shinyServer(function(input, output, session) {
     if(length(input$avail_symbols)>0) {
       # got the symbol, look for the id
       mysym <- input$avail_symbols[2]
-      myid <- annotation_obj$gene_id[match(mysym, annotation_obj$gene_name)]
+      myid <- values$annotation_obj$gene_id[match(mysym, values$annotation_obj$gene_name)]
     } else {
       myid <- input$avail_ids[2]
       # make it optional if annot is available
-      if(!is.null(annotation_obj)) {
-        mysim <- annotation_obj$gene_name[match(myid, annotation_obj$gene_id)]
+      if(!is.null(values$annotation_obj)) {
+        mysim <- values$annotation_obj$gene_name[match(myid, values$annotation_obj$gene_id)]
       } else {
         mysim <- ""
       }
     }
-    p <- ggplotCounts(values$dds_obj, myid, intgroup = input$color_by,annotation_obj=annotation_obj)
+    p <- ggplotCounts(values$dds_obj, myid, intgroup = input$color_by,annotation_obj=values$annotation_obj)
     p
   })
 
@@ -1346,17 +1395,17 @@ ideal_server <- shinyServer(function(input, output, session) {
     if(length(input$avail_symbols)>0) {
       # got the symbol, look for the id
       mysym <- input$avail_symbols[3]
-      myid <- annotation_obj$gene_id[match(mysym, annotation_obj$gene_name)]
+      myid <- values$annotation_obj$gene_id[match(mysym, values$annotation_obj$gene_name)]
     } else {
       myid <- input$avail_ids[3]
       # make it optional if annot is available
-      if(!is.null(annotation_obj)) {
-        mysim <- annotation_obj$gene_name[match(myid, annotation_obj$gene_id)]
+      if(!is.null(values$annotation_obj)) {
+        mysim <- values$annotation_obj$gene_name[match(myid, values$annotation_obj$gene_id)]
       } else {
         mysim <- ""
       }
     }
-    p <- ggplotCounts(values$dds_obj, myid, intgroup = input$color_by,annotation_obj=annotation_obj)
+    p <- ggplotCounts(values$dds_obj, myid, intgroup = input$color_by,annotation_obj=values$annotation_obj)
     p
   })
 
@@ -1376,17 +1425,17 @@ ideal_server <- shinyServer(function(input, output, session) {
     if(length(input$avail_symbols)>0) {
       # got the symbol, look for the id
       mysym <- input$avail_symbols[4]
-      myid <- annotation_obj$gene_id[match(mysym, annotation_obj$gene_name)]
+      myid <- values$annotation_obj$gene_id[match(mysym, values$annotation_obj$gene_name)]
     } else {
       myid <- input$avail_ids[4]
       # make it optional if annot is available
-      if(!is.null(annotation_obj)) {
-        mysim <- annotation_obj$gene_name[match(myid, annotation_obj$gene_id)]
+      if(!is.null(values$annotation_obj)) {
+        mysim <- values$annotation_obj$gene_name[match(myid, values$annotation_obj$gene_id)]
       } else {
         mysim <- ""
       }
     }
-    p <- ggplotCounts(values$dds_obj, myid, intgroup = input$color_by,annotation_obj=annotation_obj)
+    p <- ggplotCounts(values$dds_obj, myid, intgroup = input$color_by,annotation_obj=values$annotation_obj)
     p
   })
 

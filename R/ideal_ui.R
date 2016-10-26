@@ -64,7 +64,6 @@ ideal_ui <- shinydashboard::dashboardPage(
 
       tabPanel(
         "Data Setup",icon = icon("upload"),
-        p("Preview on the uploaded data"),
 
         h2("Step 1: Upload your count matrix and the info on the experimental design"),
 
@@ -77,29 +76,23 @@ ideal_ui <- shinydashboard::dashboardPage(
         uiOutput("ddsdesign"),
         verbatimTextOutput("debugdesign"),
 
+
+        hr(),
+        uiOutput("ui_step3"),
+        uiOutput("ui_diydds"),
+        verbatimTextOutput("debugdiy"),
+
+        hr(),
+        uiOutput("ui_stepanno"),
         uiOutput("ui_selectspecies"),
         verbatimTextOutput("speciespkg"),
         selectInput("idtype", "select the id type in your data", choices=c("ENSEMBL","ENTREZID","REFSEQ","SYMBOL")),
         # selectInput("orgdbspecies","select the species for your data",
         #             choices = c("org.Ag.eg.db","org.At.tair.db","org.Bt.eg.db","org.Ce.eg.db","org.Cf.eg.db","org.Dm.eg.db","org.Dr.eg.db","org.EcK12.eg.db","org.EcSakai.eg.db","org.Gg.eg.db","org.Hs.eg.db","org.Hs.ipi.db","org.Mm.eg.db","org.Mmu.eg.db","org.Pf.plasmo.db","org.Pt.eg.db","org.Rn.eg.db","org.Sc.sgd.db","org.Sco.eg.db","org.Ss.eg.db","org.Tgondii.eg.db","org.Xl.eg.db"),
         #             selected=""),
-
-
-
         verbatimTextOutput("printDIYanno"),
-
-
-
-                    # descr = c("Anopheles","Arabidopsis","Bovine","Worm","Canine","Fly","Zebrafish","E coli strain K12","E coli strain Sakai","Chicken","Human","org.Hs.ipi.db","Mouse","Rhesus","Malaria","Chimp","Rat","Yeast","Streptomyces coelicolor","Pig","Toxoplasma gondii","Xenopus"))
-
-        hr(),
-        uiOutput("ui_step3"),
-        actionButton("button_diydds","Generate the dds object", class = "btn btn-success"),
-        verbatimTextOutput("debugdiy"),
-
-        hr(),
-        uiOutput("ui_stepanno"),
-        actionButton("button_getanno","Retrieve the gene symbol annotation for the uploaded data", class = "btn btn-primary"),
+        # descr = c("Anopheles","Arabidopsis","Bovine","Worm","Canine","Fly","Zebrafish","E coli strain K12","E coli strain Sakai","Chicken","Human","org.Hs.ipi.db","Mouse","Rhesus","Malaria","Chimp","Rat","Yeast","Streptomyces coelicolor","Pig","Toxoplasma gondii","Xenopus"))
+        uiOutput("ui_getanno"),
         ## this ideally populates also the list of genes of interest to choose among
 
         hr(),
@@ -117,8 +110,8 @@ ideal_ui <- shinydashboard::dashboardPage(
 
 
 
-        verbatimTextOutput("printdds"),
-        verbatimTextOutput("printres"),
+        # verbatimTextOutput("printdds"),
+        # verbatimTextOutput("printres"),
         uiOutput("ui_stepend")
       ),
 
@@ -158,31 +151,6 @@ ideal_ui <- shinydashboard::dashboardPage(
 
       tabPanel(
         "Gene Lists", icon = icon("list-alt"),
-        h2("Up/Down regulation"),
-        ## will put collapsible list elements? or multi tab panel? or something to select on the left, and operate output-wise on the right e.g. venn diagrams or table for gene set enrichment
-        h3("UPregulated - sorted by padj"),
-        h3("DOWNregulated - sorted by padj"),
-        h3("UP and DOWN regulated - sorted by padj"),
-        h3("custom list 1 - uploaded"),
-        fileInput(inputId = "gl1",
-                  label = "Upload a gene list file",
-                  accept = c("text/csv", "text/comma-separated-values",
-                             "text/tab-separated-values", "text/plain",
-                             ".csv", ".tsv"), multiple = FALSE),
-
-        h3("custom list 2 - uploaded"),
-        fileInput(inputId = "gl2",
-                  label = "Upload a gene list file",
-                  accept = c("text/csv", "text/comma-separated-values",
-                             "text/tab-separated-values", "text/plain",
-                             ".csv", ".tsv"), multiple = FALSE),
-
-        h3("custom list 3 - handpicked") # use the select input from the left column?
-        ,verbatimTextOutput("debuggls"),
-
-        h2("Enrichment on the lists"),
-
-        verbatimTextOutput("printUPgenes"),
 
         tabBox(
           width = NULL,
@@ -200,10 +168,20 @@ ideal_ui <- shinydashboard::dashboardPage(
                    DT::dataTableOutput("DT_gse_updown")
           ),
           tabPanel("List1", icon = icon("list"),
+                   fileInput(inputId = "gl1",
+                             label = "Upload a gene list file",
+                             accept = c("text/csv", "text/comma-separated-values",
+                                        "text/tab-separated-values", "text/plain",
+                                        ".csv", ".tsv"), multiple = FALSE),
                    actionButton("button_enrLIST1", "Perform gene set enrichment analysis on the genes in list1"),
                    DT::dataTableOutput("DT_gse_list1")
           ),
           tabPanel("List2", icon = icon("list-alt"),
+                   fileInput(inputId = "gl2",
+                             label = "Upload a gene list file",
+                             accept = c("text/csv", "text/comma-separated-values",
+                                        "text/tab-separated-values", "text/plain",
+                                        ".csv", ".tsv"), multiple = FALSE),
                    actionButton("button_enrLIST2", "Perform gene set enrichment analysis on the genes in list2"),
                    DT::dataTableOutput("DT_gse_list2")
           )
@@ -211,9 +189,17 @@ ideal_ui <- shinydashboard::dashboardPage(
 
 
 
+        ## will put collapsible list elements? or multi tab panel? or something to select on the left, and operate output-wise on the right e.g. venn diagrams or table for gene set enrichment
 
 
 
+
+        h3("custom list 3 - handpicked") # use the select input from the left column?
+        ,verbatimTextOutput("debuggls"),
+
+        h2("Enrichment on the lists"),
+
+        verbatimTextOutput("printUPgenes"),
         verbatimTextOutput("debuglists"),
         checkboxInput("toggle_updown","Use up and down regulated genes", TRUE),
         checkboxInput("toggle_up","Use up regulated genes", FALSE),
@@ -232,16 +218,17 @@ ideal_ui <- shinydashboard::dashboardPage(
         "MA Plot", icon = icon("photo"),
         headerPanel("MA plot interactive exploration"),
         fluidRow(verbatimTextOutput("deb")),
-        fluidRow(column(4,
+        fluidRow(column(6,
                         h4("MA plot - Interactive!"),
                         plotOutput('plotma', brush = 'ma_brush')),
-                 column(4,
+                 column(6,
                         h4("Zoomed section"),
-                        plotOutput("mazoom",click= 'mazoom_click')),
-                 column(4,
-                        h4("Boxplot for the selected gene"),
-                        plotOutput("geneplot")
-                 )
+                        plotOutput("mazoom",click= 'mazoom_click'))
+                 # ,
+                 # column(4,
+                 #        h4("Boxplot for the selected gene"),
+                 #        plotOutput("geneplot")
+                 # )
         ),
         plotOutput("genefinder_plot"),
         fluidRow(radioButtons("heatmap_colv","Cluster samples",choices = list("Yes"=TRUE,"No"=FALSE),selected = TRUE)),
@@ -361,17 +348,18 @@ ideal_ui <- shinydashboard::dashboardPage(
         footer()
       )
       ,tabPanel(
-        "devel", icon = icon("github"),
-        verbatimTextOutput("debugihw"),
-
-        plotOutput("ihwp1"),
-        plotOutput("ihwp2"),
-        plotOutput("ihwp3"),
-        plotOutput("ihwp4"),
-        plotOutput("ihwp5"),
-        plotOutput("ihwp6"),
-        plotOutput("ihwp7"),
-        plotOutput("ihwp8")
+        "devel", icon = icon("github")
+        # ,
+        # verbatimTextOutput("debugihw"),
+        #
+        # plotOutput("ihwp1"),
+        # plotOutput("ihwp2"),
+        # plotOutput("ihwp3"),
+        # plotOutput("ihwp4"),
+        # plotOutput("ihwp5"),
+        # plotOutput("ihwp6"),
+        # plotOutput("ihwp7"),
+        # plotOutput("ihwp8")
 
       )
 
