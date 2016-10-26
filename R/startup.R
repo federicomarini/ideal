@@ -14,7 +14,7 @@ library(knitr)
 library(rmarkdown)
 library(pheatmap)
 dds_airway <- DESeq2::DESeq(dds_airway)
-res_airway <- results(dds_airway)
+res_airway <- results(dds_airway,contrast=c("dex","trt","untrt"))
 anno_df <- get_annotation_orgdb(dds_airway,"org.Hs.eg.db","ENSEMBL")
 load("/Volumes/marinif/032-ruf-macrophages/cm2.RData")
 res_airway$symbol <- anno_df$gene_name[match(rownames(res_airway),anno_df$gene_id)]

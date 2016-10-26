@@ -1205,6 +1205,11 @@ ideal_server <- shinyServer(function(input, output, session) {
   })
 
 
+  output$volcanoplot <- renderPlot({
+    plot_volcano(values$res_obj, FDR = input$FDR)
+  })
+
+
 
 
   ## TODO: same thing but with the volcano plot?
