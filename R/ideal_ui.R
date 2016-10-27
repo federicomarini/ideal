@@ -135,6 +135,8 @@ ideal_ui <- shinydashboard::dashboardPage(
         uiOutput("fac2"),
         uiOutput("runresults"),
 
+        uiOutput("facnum"),
+
         uiOutput("lrtavailable"),
         uiOutput("lrtfull"),
         uiOutput("lrtreduced"),
@@ -161,7 +163,11 @@ ideal_ui <- shinydashboard::dashboardPage(
           ),
           tabPanel("DOWNregu", icon = icon("arrow-circle-down"),
                    actionButton("button_enrDOWN", "Perform gene set enrichment analysis on the downregulated genes"),
-                   DT::dataTableOutput("DT_gse_down")
+                   actionButton("button_enrDOWN_goseq", "Perform gene set enrichment analysis on the downregulated genes"),
+                   actionButton("button_enrDOWN_topgo", "Perform gene set enrichment analysis on the downregulated genes"),
+                   DT::dataTableOutput("DT_gse_down"),
+                   DT::dataTableOutput("DT_gse_down_goseq"),
+                   DT::dataTableOutput("DT_gse_down_topgo")
           ),
           tabPanel("UPDOWN", icon = icon("arrows-v"),
                    actionButton("button_enrUPDOWN", "Perform gene set enrichment analysis on the up- and downregulated genes"),
@@ -174,7 +180,9 @@ ideal_ui <- shinydashboard::dashboardPage(
                                         "text/tab-separated-values", "text/plain",
                                         ".csv", ".tsv"), multiple = FALSE),
                    actionButton("button_enrLIST1", "Perform gene set enrichment analysis on the genes in list1"),
-                   DT::dataTableOutput("DT_gse_list1")
+                   actionButton("button_enrLIST1_topgo", "Perform gene set enrichment analysis on the list1 genes"),
+                   DT::dataTableOutput("DT_gse_list1"),
+                   DT::dataTableOutput("DT_gse_list1_topgo")
           ),
           tabPanel("List2", icon = icon("list-alt"),
                    fileInput(inputId = "gl2",

@@ -147,8 +147,12 @@ ideal_server <- shinyServer(function(input, output, session) {
   })
 
   output$ui_getanno <- renderUI({
-    if (is.null(values$dds_obj)) ### and not provided already with sep annotation?
+    if (is.null(values$dds_obj) ) ### and not provided already with sep annotation?
       return(NULL)
+    shiny::validate(
+      need(input$speciesSelect != "",
+           "Select a species first in the panel")
+    )
     actionButton("button_getanno","Retrieve the gene symbol annotation for the uploaded data", class = "btn btn-primary")
   })
 
@@ -275,12 +279,23 @@ ideal_server <- shinyServer(function(input, output, session) {
                                      "org.Sc.sgd.db","org.Sco.eg.db",	"org.Ss.eg.db","org.Tgondii.eg.db",
                                      "org.Xl.eg.db"),
                                stringsAsFactors = FALSE)
+
   annoSpecies_df <- annoSpecies_df[order(annoSpecies_df$species),]
-  annoSpecies_df <- annoSpecies_df[annoSpecies_df$species %in% c("","Human", "Mouse", "Rat", "Fly", "Chimp"),]
+  # this one is relevant for creating links to the genes
+  annoSpecies_df$ensembl_db <- c("","","","Bos_taurus","Canis_familiaris","Gallus_gallus","Pan_troglodytes",
+                                 "","","Drosophila_melanogaster","Homo_sapiens","","Mus_musculus",
+                                 "Sus_scrofa","Rattus_norvegicus","Macaca_mulatta","","","Caenorhabditis_elegans",
+                                 "Xenopus_tropicalis","Saccharomyces_cerevisiae","Danio_rerio"
+                                 )
+  # this one is the shortcut for the limma::goana function
+  annoSpecies_df$species_short[grep(pattern = "eg.db",annoSpecies_df$pkg)] <- gsub(".eg.db","",gsub("org.","",annoSpecies_df$pkg))[grep(pattern = "eg.db",annoSpecies_df$pkg) ]
+
+  # annoSpecies_df <- annoSpecies_df[annoSpecies_df$species %in% c("","Human", "Mouse", "Rat", "Fly", "Chimp"),]
 
   output$ui_selectspecies <- renderUI({
     if(1+1==2) { ## TODO edit here
-      selectInput("speciesSelect",label = "Select the species of your samples",choices = annoSpecies_df$species,selected="")
+      selectInput("speciesSelect",label = "Select the species of your samples - it will also be used for enhancing result tables",
+                  choices = annoSpecies_df$species,selected="")
     }
   })
 
@@ -512,7 +527,7 @@ ideal_server <- shinyServer(function(input, output, session) {
                  withProgress(message="Retrieving the annotation...",value = 0,{
 
                    annopkg <- annoSpecies_df$pkg[annoSpecies_df$species==input$speciesSelect]
-
+                   incProgress(0.1)
                    annotation_obj <- get_annotation_orgdb(values$dds_obj,orgdb_species = annopkg, idtype = input$idtype)
                    values$annotation_obj <- annotation_obj
                  })
@@ -591,6 +606,133 @@ ideal_server <- shinyServer(function(input, output, session) {
                    values$gse_down <- limma::topGO(limma::goana(listGenesEntrez, listBackgroundEntrez, species = organism),
                                                  ontology="BP", # could be ideally replaced by input$
                                                  number=200)
+
+                   # some attempt to retrieve all genes annotated
+
+                   # # i do it here for one gene
+                   # go_id <- rownames(values$gse_down)[1]
+                   # allegs = get(go_id, org.Hs.egGO2ALLEGS)
+                   # genes = unlist(mget(allegs,org.Hs.egSYMBOL))
+                   #
+                   # degenes <- values$genelistDOWN()
+                   #
+                   # intersect(genes, degenes)
+                   #
+                   # # values$gse_down$genes <- unlist(lapply(intersect(genes, degenes),function(arg) paste(arg,collapse=",")))
+                   # values$gse_down$genes[1] <- unlist(lapply(intersect(genes, degenes),function(arg) paste(arg,collapse=",")))
+                   #
+
+                   ## and for all here:
+                   incProgress(0.7) # good indicator for showing it has progressed
+                   go_ids <- rownames(values$gse_down)
+                   allegs_list <- lapply(go_ids, function(arg) get(arg, org.Hs.egGO2ALLEGS))
+                   genes_list <- lapply(allegs_list, function(arg) unlist(mget(arg,org.Hs.egSYMBOL)))
+                   degenes <- values$genelistDOWN()
+                   DEgenes_list <- lapply(genes_list, function(arg) intersect(arg,degenes))
+
+                   # values$gse_down$genes[1:20] <- DEgenes_list
+                   # lapply(values$gse_down,class)
+                   values$gse_down$genes <- unlist(lapply(DEgenes_list,function(arg) paste(arg,collapse=",")))
+                   # lapply(values$gse_down,class)
+
+                 })
+               })
+
+  observeEvent(input$button_enrDOWN_goseq,
+               {
+                 withProgress(message="GOSEQ - Performing Gene Set Enrichment on downregulated genes...",value = 0,{
+                   organism <- "Hs" # will be replaced by input$...
+                   backgroundgenes <- rownames(values$dds_obj)[rowSums(counts(values$dds_obj))>0]
+                   inputType <- "SYMBOL" # will be replaced by input$...
+                   annopkg <- paste0("org.",organism,".eg.db")
+                   if (!require(annopkg,character.only=TRUE)) {
+                     stop("The package",annopkg, "is not installed/available. Try installing it with biocLite() ?")
+                   }
+                   listGenesEntrez <-  as.character(AnnotationDbi::mapIds(eval(parse(text=annopkg)), keys = values$genelistDOWN(),
+                                                                          column="ENTREZID", keytype=inputType))
+                   listBackgroundEntrez <-  as.character(AnnotationDbi::mapIds(eval(parse(text=annopkg)), keys = backgroundgenes,
+                                                                               column="ENTREZID", keytype="ENSEMBL"))
+                   values$gse_down <- limma::topGO(limma::goana(listGenesEntrez, listBackgroundEntrez, species = organism),
+                                                   ontology="BP", # could be ideally replaced by input$
+                                                   number=200)
+
+                   # some attempt to retrieve all genes annotated
+
+                   # # i do it here for one gene
+                   # go_id <- rownames(values$gse_down)[1]
+                   # allegs = get(go_id, org.Hs.egGO2ALLEGS)
+                   # genes = unlist(mget(allegs,org.Hs.egSYMBOL))
+                   #
+                   # degenes <- values$genelistDOWN()
+                   #
+                   # intersect(genes, degenes)
+                   #
+                   # # values$gse_down$genes <- unlist(lapply(intersect(genes, degenes),function(arg) paste(arg,collapse=",")))
+                   # values$gse_down$genes[1] <- unlist(lapply(intersect(genes, degenes),function(arg) paste(arg,collapse=",")))
+                   #
+
+                   ## and for all here:
+                   incProgress(0.7) # good indicator for showing it has progressed
+                   go_ids <- rownames(values$gse_down)
+                   allegs_list <- lapply(go_ids, function(arg) get(arg, org.Hs.egGO2ALLEGS))
+                   genes_list <- lapply(allegs_list, function(arg) unlist(mget(arg,org.Hs.egSYMBOL)))
+                   degenes <- values$genelistDOWN()
+                   DEgenes_list <- lapply(genes_list, function(arg) intersect(arg,degenes))
+
+                   # values$gse_down$genes[1:20] <- DEgenes_list
+                   # lapply(values$gse_down,class)
+                   values$gse_down$genes <- unlist(lapply(DEgenes_list,function(arg) paste(arg,collapse=",")))
+                   # lapply(values$gse_down,class)
+
+                 })
+               })
+
+  observeEvent(input$button_enrDOWN_topgo,
+               {
+                 withProgress(message="TOPGO - Performing Gene Set Enrichment on downregulated genes...",value = 0,{
+
+                   de_symbols <- values$genelistDOWN() # assumed to be in symbols
+                   bg_ids <- rownames(dds_airway)[rowSums(counts(dds_airway)) > 0]
+                   bg_symbols <- mapIds(org.Hs.eg.db,
+                                        keys=bg_ids,
+                                        column="SYMBOL",
+                                        keytype="ENSEMBL",
+                                        multiVals="first")
+                   incProgress(0.1)
+                   library(topGO)
+                   values$topgo_down <- topGOtable(de_symbols, bg_symbols,
+                                       ontology = "BP",
+                                       mapping = "org.Hs.eg.db",
+                                       geneID = "symbol",addGeneToTerms = TRUE)
+                   incProgress(0.89)
+
+#
+#                    # # i do it here for one gene
+#                    # go_id <- rownames(values$gse_down)[1]
+#                    # allegs = get(go_id, org.Hs.egGO2ALLEGS)
+#                    # genes = unlist(mget(allegs,org.Hs.egSYMBOL))
+#                    #
+#                    # degenes <- values$genelistDOWN()
+#                    #
+#                    # intersect(genes, degenes)
+#                    #
+#                    # # values$gse_down$genes <- unlist(lapply(intersect(genes, degenes),function(arg) paste(arg,collapse=",")))
+#                    # values$gse_down$genes[1] <- unlist(lapply(intersect(genes, degenes),function(arg) paste(arg,collapse=",")))
+#                    #
+#
+#                    ## and for all here:
+#                    incProgress(0.7) # good indicator for showing it has progressed
+#                    go_ids <- rownames(values$gse_down)
+#                    allegs_list <- lapply(go_ids, function(arg) get(arg, org.Hs.egGO2ALLEGS))
+#                    genes_list <- lapply(allegs_list, function(arg) unlist(mget(arg,org.Hs.egSYMBOL)))
+#                    degenes <- values$genelistDOWN()
+#                    DEgenes_list <- lapply(genes_list, function(arg) intersect(arg,degenes))
+#
+#                    # values$gse_down$genes[1:20] <- DEgenes_list
+#                    # lapply(values$gse_down,class)
+#                    values$gse_down$genes <- unlist(lapply(DEgenes_list,function(arg) paste(arg,collapse=",")))
+#                    # lapply(values$gse_down,class)
+
                  })
                })
 
@@ -654,6 +796,32 @@ ideal_server <- shinyServer(function(input, output, session) {
                  })
                })
 
+  observeEvent(input$button_enrLIST1_topgo,
+               {
+                 withProgress(message="TOPGO - Performing Gene Set Enrichment on list1 genes...",value = 0,{
+
+                   de_symbols <- values$genelist1$`Gene Symbol` # assumed to be in symbols
+                   bg_ids <- rownames(dds_airway)[rowSums(counts(dds_airway)) > 0]
+                   bg_symbols <- mapIds(org.Hs.eg.db,
+                                        keys=bg_ids,
+                                        column="SYMBOL",
+                                        keytype="ENSEMBL",
+                                        multiVals="first")
+                   incProgress(0.1)
+                   library(topGO)
+                   values$topgo_list1 <- topGOtable(de_symbols, bg_symbols,
+                                                   ontology = "BP",
+                                                   mapping = "org.Hs.eg.db",
+                                                   geneID = "symbol",addGeneToTerms = TRUE)
+                   incProgress(0.89)
+
+
+
+                 })
+               })
+
+
+
   output$DT_gse_up <- DT::renderDataTable({
     # if not null...
     values$gse_up
@@ -680,8 +848,18 @@ ideal_server <- shinyServer(function(input, output, session) {
     values$gse_list2
   })
 
+  output$DT_gse_down_topgo <- DT::renderDataTable({
+    # if not null...
+    values$topgo_down
+  })
 
-
+  output$DT_gse_list1_topgo <- DT::renderDataTable({
+    # if not null...
+    mytbl <- values$topgo_list1
+    # mytbl$GOid <- rownames(mytbl)
+    mytbl$GO.ID <- createLinkGO(mytbl$GO.ID)
+    datatable(mytbl,escape=FALSE)
+  })
 
 
 
@@ -937,9 +1115,10 @@ ideal_server <- shinyServer(function(input, output, session) {
     )
     fac1 <- input$choose_expfac
     fac1_vals <- colData(values$dds_obj)[,fac1]
-    fac1_levels <- levels(fac1_vals)
 
-    selectInput("fac1_c1","c1",choices = c("",fac1_levels), selected = "")
+    fac1_levels <- levels(fac1_vals)
+    if(class(colData(values$dds_obj)[,fac1]) == "factor")
+      selectInput("fac1_c1","c1",choices = c("",fac1_levels), selected = "")
     # selectInput("fac1_c2","c2",choices = fac1_levels)
   })
 
@@ -952,10 +1131,28 @@ ideal_server <- shinyServer(function(input, output, session) {
     fac1 <- input$choose_expfac
     fac1_vals <- colData(values$dds_obj)[,fac1]
     fac1_levels <- levels(fac1_vals)
-
-    # selectInput("fac1_c1","c1",choices = fac1_levels)
-    selectInput("fac1_c2","c2",choices = c("",fac1_levels), selected = "")
+    if(class(colData(values$dds_obj)[,fac1]) == "factor")
+      # selectInput("fac1_c1","c1",choices = fac1_levels)
+      selectInput("fac1_c2","c2",choices = c("",fac1_levels), selected = "")
   })
+
+  output$facnum <- renderPrint({
+    shiny::validate(
+      need(input$choose_expfac!="",
+           "Please select one level of the factor to build the contrast upon - contrast1"
+      )
+    )
+    fac1 <- input$choose_expfac
+    fac1_vals <- colData(values$dds_obj)[,fac1]
+
+    # fac1_levels <- levels(fac1_vals)
+    if(class(colData(values$dds_obj)[,fac1]) %in% c("integer","numeric"))
+      print("numeric/integer factor provided")
+
+      # selectInput("fac1_num","num/int",choices = c("",fac1_levels), selected = "")
+    # selectInput("fac1_c2","c2",choices = fac1_levels)
+  })
+
 
 
   output$runresults <- renderUI({
@@ -972,7 +1169,11 @@ ideal_server <- shinyServer(function(input, output, session) {
 
   observeEvent(input$button_runresults, {
     withProgress(message="Computing the results...",value = 0,{
-      values$res_obj <- results(values$dds_obj,contrast = c(input$choose_expfac, input$fac1_c1, input$fac1_c2))
+      # handling the experimental covariate correctly to extract the results...
+      if(class(colData(values$dds_obj)[,input$choose_expfac]) == "factor")
+        values$res_obj <- results(values$dds_obj,contrast = c(input$choose_expfac, input$fac1_c1, input$fac1_c2))
+      if(class(colData(values$dds_obj)[,input$choose_expfac]) %in% c("integer","numeric"))
+        values$res_obj <- results(values$dds_obj,name = input$choose_expfac)
       if(!is.null(values$annotation_obj))
         values$res_obj$symbol <- values$annotation_obj$gene_name[match(rownames(values$res_obj),
                                                                        rownames(values$annotation_obj))]
@@ -1031,7 +1232,7 @@ ideal_server <- shinyServer(function(input, output, session) {
 
   output$table_res <- DT::renderDataTable({
     mydf <- as.data.frame(values$res_obj[order(values$res_obj$padj),])#[1:500,]
-    rownames(mydf) <- createLinkENS(rownames(mydf),species = "Homo_sapiens") ## TODO: check what are the species from ensembl and
+    rownames(mydf) <- createLinkENS(rownames(mydf),species = annoSpecies_df$ensembl_db[match(input$speciesSelect,annoSpecies_df$species)]) ## TODO: check what are the species from ensembl and
     ## TODO: add a check to see if wanted?
     mydf$symbol <- createLinkGeneSymbol(mydf$symbol)
     datatable(mydf, escape = FALSE)
