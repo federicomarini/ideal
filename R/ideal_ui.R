@@ -130,6 +130,7 @@ ideal_ui <- shinydashboard::dashboardPage(
         "Overview - Tabular", icon = icon("table"),
 
         # "Data Overview", icon = icon("eye"),
+
         uiOutput("choose_fac"),
         uiOutput("fac1"),
         uiOutput("fac2"),
@@ -143,12 +144,26 @@ ideal_ui <- shinydashboard::dashboardPage(
 
         uiOutput("runlrt"),
 
-        DT::dataTableOutput("table_res"),
-        plotOutput("pvals_hist"),
-        plotOutput("logfc_hist"),
+        uiOutput("store_result"),
+
+        ## general options for result function
+        # alpha is set via FDR on the left side
+        selectInput("resu_indfil",label = "Apply independent filtering automatically",
+                    choices = c(TRUE,FALSE), selected = TRUE),
+        selectInput("resu_addmle",label = "Add the unshrunken MLE of log2 fold change",
+                    choices = c(TRUE,FALSE), selected = TRUE),
+        selectInput("resu_ihw", "Use Independent Hypothesis Weighting as a filtering function",
+                    choices = c(TRUE, FALSE), selected = FALSE),
+        #, evtl also the *filter* parameter of the function, i.e. baseMean if not specified
 
         verbatimTextOutput("diyres_summary"),
-        verbatimTextOutput("diyres")
+
+        DT::dataTableOutput("table_res"),
+        plotOutput("pvals_hist"),
+        plotOutput("logfc_hist")#,
+
+        # verbatimTextOutput("diyres_summary"),
+        # verbatimTextOutput("diyres")
       ),
 
       tabPanel(

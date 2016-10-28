@@ -178,7 +178,7 @@ plot_ma_highlight <- function(object, which_beta, which_model = 'full',
 
     if(labels_intgenes) {
       p <- p + geom_text(data = df_intgenes,aes(logmean, log2FoldChange,label=symbol),
-                         color = intgenes_color, size=5,hjust = 0, nudge_x = 0.2)
+                         color = intgenes_color, size=5,hjust=0.25, vjust=-0.75)
     }
 
   }
@@ -195,7 +195,7 @@ plot_volcano <- function(object,
                          FDR = 0.1,
                          ...) {
 
-  mydf <- as.data.frame(res_airway)
+  mydf <- as.data.frame(object)
   mydf$id <- rownames(mydf)
   mydf$isDE <- ifelse(is.na(object$padj), FALSE, object$padj < FDR)
 

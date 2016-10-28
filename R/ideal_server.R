@@ -1205,10 +1205,19 @@ ideal_server <- shinyServer(function(input, output, session) {
   observeEvent(input$button_runresults, {
     withProgress(message="Computing the results...",value = 0,{
       # handling the experimental covariate correctly to extract the results...
-      if(class(colData(values$dds_obj)[,input$choose_expfac]) == "factor")
-        values$res_obj <- results(values$dds_obj,contrast = c(input$choose_expfac, input$fac1_c1, input$fac1_c2))
+      if(class(colData(values$dds_obj)[,input$choose_expfac]) == "factor") {
+        if(input$resu_ihw)
+          values$res_obj <- results(values$dds_obj,contrast = c(input$choose_expfac, input$fac1_c1, input$fac1_c2),
+                                    independentFiltering = input$resu_indfil, alpha = input$FDR, addMLE = input$resu_addmle,
+                                    filterFun = ihw)
+        else
+          values$res_obj <- results(values$dds_obj,contrast = c(input$choose_expfac, input$fac1_c1, input$fac1_c2),
+                                  independentFiltering = input$resu_indfil, alpha = input$FDR, addMLE = input$resu_addmle)
+      }
+      ## think more whether to include or not the IHW and ihw as filterFun...
       if(class(colData(values$dds_obj)[,input$choose_expfac]) %in% c("integer","numeric"))
-        values$res_obj <- results(values$dds_obj,name = input$choose_expfac)
+        values$res_obj <- results(values$dds_obj,name = input$choose_expfac,
+                                  independentFiltering = input$resu_indfil, alpha = input$FDR, addMLE = input$resu_addmle)
       if(!is.null(values$annotation_obj))
         values$res_obj$symbol <- values$annotation_obj$gene_name[match(rownames(values$res_obj),
                                                                        rownames(values$annotation_obj))]
@@ -1224,7 +1233,7 @@ ideal_server <- shinyServer(function(input, output, session) {
       )
     )
 
-    results(values$dds_obj,contrast = c(input$choose_expfac, input$fac1_c1, input$fac1_c2))
+    # results(values$dds_obj,contrast = c(input$choose_expfac, input$fac1_c1, input$fac1_c2))
   })
 
   output$diyres_summary <- renderPrint({
@@ -1233,7 +1242,8 @@ ideal_server <- shinyServer(function(input, output, session) {
            "Please select the factor to build the contrast upon, and two different levels to build the contrast"
       )
     )
-    summary(results(values$dds_obj,contrast = c(input$choose_expfac, input$fac1_c1, input$fac1_c2)))
+    # summary(results(values$dds_obj,contrast = c(input$choose_expfac, input$fac1_c1, input$fac1_c2)))
+    summary(values$res_obj)
   })
 
 
@@ -1263,6 +1273,22 @@ ideal_server <- shinyServer(function(input, output, session) {
     summary(values$res_obj,alpha = 0.05) # use fdr shiny widget
 
   })
+
+
+  output$store_result <- renderUI({
+    if(is.null(values$res_obj))
+      return(NULL)
+    actionButton("button_store_result", "Store current results")
+  })
+
+  observeEvent(input$button_store_result,
+               {
+                 values$stored_res <- values$res_obj
+                 # this is in such a way to store & compare later if some parameters are edited
+               })
+
+
+
 
 
   output$table_res <- DT::renderDataTable({
