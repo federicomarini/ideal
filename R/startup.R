@@ -24,4 +24,6 @@ library(FMmisc)
 
 ccmm <- counts(dds_airway)
 eedd <- read.csv("design_commas.txt")
+source('/Volumes/users$/marinif/Development/ideal/R/ideal_snapshot_oct14.R')
+
 ideal(res_obj = minires,dds_obj = dds_airway,annotation_obj = anno_df)

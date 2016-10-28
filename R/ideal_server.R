@@ -1012,7 +1012,9 @@ ideal_server <- shinyServer(function(input, output, session) {
 
 
   # design_factors <- rev(attributes(terms.formula(design(dds_obj)))$term.labels)
-  design_factors <- reactive(rev(attributes(terms.formula(design(values$dds_obj)))$term.labels))
+  design_factors <- reactive({
+    rev(attributes(terms.formula(design(values$dds_obj)))$term.labels)
+  })
 
   output$choose_fac <- renderUI({
     selectInput("choose_expfac",label = "choose the experimental factor to build the contrast upon",
@@ -1023,6 +1025,13 @@ ideal_server <- shinyServer(function(input, output, session) {
   ## LRT test...
   # nrl <- reactive
   output$lrtavailable <- renderUI({
+    if(is.null(values$dds_obj))
+      return(NULL)
+    shiny::validate(
+      need(input$choose_expfac!="",
+           ""
+      )
+    )
     fac1 <- input$choose_expfac
     nrl <- length(levels(colData(values$dds_obj)[,fac1]))
 
@@ -1032,6 +1041,13 @@ ideal_server <- shinyServer(function(input, output, session) {
   })
 
   output$lrtfull <- renderUI({
+    if(is.null(values$dds_obj))
+      return(NULL)
+    shiny::validate(
+      need(input$choose_expfac!="",
+           ""
+      )
+    )
     fac1 <- input$choose_expfac
     nrl <- length(levels(colData(values$dds_obj)[,fac1]))
 
@@ -1042,6 +1058,13 @@ ideal_server <- shinyServer(function(input, output, session) {
   })
 
   output$lrtreduced <- renderUI({
+    if(is.null(values$dds_obj))
+      return(NULL)
+    shiny::validate(
+      need(input$choose_expfac!="",
+           ""
+      )
+    )
     fac1 <- input$choose_expfac
     nrl <- length(levels(colData(values$dds_obj)[,fac1]))
 
@@ -1052,6 +1075,13 @@ ideal_server <- shinyServer(function(input, output, session) {
 
 
   output$runlrt <- renderUI({
+    if(is.null(values$dds_obj))
+      return(NULL)
+    shiny::validate(
+      need(input$choose_expfac!="",
+           ""
+      )
+    )
     fac1 <- input$choose_expfac
     nrl <- length(levels(colData(values$dds_obj)[,fac1]))
 
@@ -1160,6 +1190,11 @@ ideal_server <- shinyServer(function(input, output, session) {
       need(input$choose_expfac!="",
            "Select a factor for the contrast first")
     )
+    shiny::validate(
+      need(input$fac1_c1 != "" & input$fac1_c2 != "" & input$fac1_c1 != input$fac1_c2,
+           "Select two different levels of the factor for the contrast")
+    )
+
 
     if(input$choose_expfac=="" | input$fac1_c1 == "" | input$fac1_c2 == "" | input$fac1_c1 == input$fac1_c2)
       return(NULL)
