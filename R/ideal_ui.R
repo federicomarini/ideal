@@ -157,6 +157,7 @@ ideal_ui <- shinydashboard::dashboardPage(
         "Overview - Tabular", icon = icon("table"),
 
         # verbatimTextOutput("id"),
+        # see: http://stackoverflow.com/questions/21609436/r-shiny-conditionalpanel-output-value?noredirect=1&lq=1
         conditionalPanel(
           condition="!output.checkdds",
 
@@ -323,25 +324,34 @@ ideal_ui <- shinydashboard::dashboardPage(
       ),
       tabPanel(
         "Gene Finder", icon = icon("crosshairs"),
-
-        fluidRow(
-          column(6,
-                 plotOutput("bp1")
+        conditionalPanel(
+          condition="!output.checkdds",
+          fluidRow(
+            column(6,
+                   plotOutput("bp1")
+            ),
+            column(6,
+                   plotOutput("bp2"))
           ),
-          column(6,
-                 plotOutput("bp2"))
-        ),
-        fluidRow(
-          column(6,
-                 plotOutput("bp3")
+          fluidRow(
+            column(6,
+                   plotOutput("bp3")
+            ),
+            column(6,
+                   plotOutput("bp4"))
           ),
-          column(6,
-                 plotOutput("bp4"))
-        ),
 
-        plotOutput("ma_highlight"),
-        # verbatimTextOutput("d1"),
-        DT::dataTableOutput("table_combi")),
+          plotOutput("ma_highlight"),
+          # verbatimTextOutput("d1"),
+          DT::dataTableOutput("table_combi")
+
+        ),
+        conditionalPanel(
+          condition="output.checkdds",
+          h2("You did not create the dds object yet. Please go the main tab and generate it")
+        )
+      ),
+
       tabPanel(
         "Report Editor",
         icon = icon("pencil"),
