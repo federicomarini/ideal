@@ -24,6 +24,40 @@ ideal_server <- shinyServer(function(input, output, session) {
     values$expdesign <- colData(dds_obj)
   }
 
+  # info boxes on the left side?
+
+  output$box_ddsobj <- renderUI({
+    if(!is.null(values$dds_obj))
+      return(valueBox("dds object",
+                      paste0(nrow(values$dds_obj), " genes - ",ncol(values$dds_obj)," samples"),
+                      icon = icon("list"),
+                      color = "teal",width = NULL))
+
+    # "", paste0(25 + input$count, "%"), icon = icon("list"),
+    # color = "purple"
+    # )
+  })
+
+  output$box_annobj <- renderUI({
+    if(!is.null(values$annotation_obj))
+      return(valueBox("Annotation",
+                      paste0(nrow(values$annotation_obj), " genes - ",ncol(values$annotation_obj)," ID types"),
+                      icon = icon("list"),
+                      color = "purple",width = NULL))
+  })
+
+  output$box_resobj <- renderUI({
+    if(!is.null(values$res_obj)){
+      DEregu <- sum(values$res_obj$padj < input$FDR & values$res_obj$log2FoldChange != 0, na.rm = TRUE)
+      return(valueBox("DE genes",
+                      paste0(DEregu, " DE genes - out of ",nrow(values$res_obj),""),
+                      icon = icon("list"),
+                      color = "maroon",width = NULL))
+    }
+  })
+
+
+
 
 
 
@@ -173,6 +207,51 @@ ideal_server <- shinyServer(function(input, output, session) {
       return(NULL)
     h2("Good to go!")
   })
+
+
+  output$ok_cm <- renderUI({
+    if (is.null(values$countmatrix))
+      return(NULL)
+    # icon("check",class = "icon-done") # this does not allow to set the size? go manually with..
+    tags$div(HTML('<i class="fa fa-check fa-3x icon-done"></i>'))
+  })
+  output$ok_ed <- renderUI({
+    if (is.null(values$expdesign))
+      return(NULL)
+    # icon("check",class = "icon-done") # this does not allow to set the size? go manually with..
+    tags$div(HTML('<i class="fa fa-check fa-3x icon-done"></i>'))
+  })
+  output$ok_dds <- renderUI({
+    if (is.null(values$dds_obj))
+      return(NULL)
+    # icon("check",class = "icon-done") # this does not allow to set the size? go manually with..
+    tags$div(HTML('<i class="fa fa-check fa-3x icon-done"></i>'))
+  })
+  output$ok_anno <- renderUI({
+    if (is.null(values$annotation_obj))
+      return(NULL)
+    # icon("check",class = "icon-done") # this does not allow to set the size? go manually with..
+    tags$div(HTML('<i class="fa fa-check fa-3x icon-done"></i>'))
+  })
+  output$ok_resu <- renderUI({
+    if (is.null(values$res_obj))
+      return(NULL)
+    # icon("check",class = "icon-done") # this does not allow to set the size? go manually with..
+    tags$div(HTML('<i class="fa fa-check fa-3x icon-done"></i>'))
+  })
+
+
+
+  output$checkdds <- reactive({
+    is.null(values$dds_obj)
+  })
+  output$checkresu<-reactive({
+    is.null(values$res_obj)
+  })
+
+  outputOptions(output, 'checkresu', suspendWhenHidden=FALSE)
+  outputOptions(output, 'checkdds', suspendWhenHidden=FALSE)
+
 
 
 
@@ -357,6 +436,8 @@ ideal_server <- shinyServer(function(input, output, session) {
     # re-create the dds and keep track of which samples were removed
     values$removedsamples <- input$selectoutliers
     values$dds_obj <- dds
+    # accordingly, reset the results
+    values$res_obj <- NULL
   })
 
   output$printremoved <- renderPrint({
@@ -1242,6 +1323,9 @@ ideal_server <- shinyServer(function(input, output, session) {
            "Please select the factor to build the contrast upon, and two different levels to build the contrast"
       )
     )
+    shiny::validate(
+      need(!is.null(values$res_obj), "Parameters selected, please compute the results first")
+    )
     # summary(results(values$dds_obj,contrast = c(input$choose_expfac, input$fac1_c1, input$fac1_c2)))
     summary(values$res_obj)
   })
@@ -1292,6 +1376,8 @@ ideal_server <- shinyServer(function(input, output, session) {
 
 
   output$table_res <- DT::renderDataTable({
+    if(is.null(values$res_obj))
+      return(NULL)
     mydf <- as.data.frame(values$res_obj[order(values$res_obj$padj),])#[1:500,]
     rownames(mydf) <- createLinkENS(rownames(mydf),species = annoSpecies_df$ensembl_db[match(input$speciesSelect,annoSpecies_df$species)]) ## TODO: check what are the species from ensembl and
     ## TODO: add a check to see if wanted?
@@ -1301,6 +1387,9 @@ ideal_server <- shinyServer(function(input, output, session) {
 
 
   output$pvals_hist <- renderPlot({
+    shiny::validate(
+      need(!is.null(values$res_obj),message = "")
+    )
 
     res_df <- as.data.frame(values$res_obj)
     p <- ggplot(res_df, aes(pvalue)) +
@@ -1311,6 +1400,9 @@ ideal_server <- shinyServer(function(input, output, session) {
   })
 
   output$logfc_hist <- renderPlot({
+    shiny::validate(
+      need(!is.null(values$res_obj),message = "")
+    )
 
     res_df <- as.data.frame(values$res_obj)
     p <- ggplot(res_df, aes(log2FoldChange)) +

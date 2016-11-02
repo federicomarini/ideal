@@ -38,7 +38,19 @@ ideal_ui <- shinydashboard::dashboardPage(
              numericInput("FDR","False Discovery Rate",value = 0.05, min = 0, max = 1, step = 0.01)
 
     ),
-    menuItem("Plot export settings", icon = icon("paint-brush"))
+    menuItem("Plot export settings", icon = icon("paint-brush")),
+    menuItem("Quick viewer", icon = icon("flash"),
+             fluidRow(
+               fluidRow(column(6,p("Count matrix")),column(6,uiOutput("ok_cm"))),
+               fluidRow(column(6,p("Experimental design")),column(6,uiOutput("ok_ed"))),
+               fluidRow(column(6,p("DESeqDataset")),column(6,uiOutput("ok_dds"))),
+               fluidRow(column(6,p("Annotation")),column(6,uiOutput("ok_anno"))),
+               fluidRow(column(6,p("Results")),column(6,uiOutput("ok_resu")))
+
+
+                      # ,
+                      # valueBoxOutput("box_ddsobj")
+               ))
   ),
 
 
@@ -55,15 +67,28 @@ ideal_ui <- shinydashboard::dashboardPage(
                       color: forestgreen;
                       text-align: center;
                       }
+                      .icon-done {
+                        color: green;
+                      }
                       "))
       ),
 
     ## main structure of the body for the dashboard
+    fluidRow(
+      valueBoxOutput("box_ddsobj"),
+      valueBoxOutput("box_annobj"),
+      valueBoxOutput("box_resobj")
+    ),
+
     tabBox(
       width=12,
 
       tabPanel(
         "Data Setup",icon = icon("upload"),
+
+
+        hr(),
+
 
         h2("Step 1: Upload your count matrix and the info on the experimental design"),
 
@@ -80,6 +105,7 @@ ideal_ui <- shinydashboard::dashboardPage(
         hr(),
         uiOutput("ui_step3"),
         uiOutput("ui_diydds"),
+        # uiOutput("ok_dds"),
         verbatimTextOutput("debugdiy"),
 
         hr(),
@@ -106,6 +132,7 @@ ideal_ui <- shinydashboard::dashboardPage(
         hr(),
         uiOutput("ui_step4"),
         uiOutput("rundeseq"),
+
         verbatimTextOutput("printDIYresults"),
 
 
@@ -129,38 +156,55 @@ ideal_ui <- shinydashboard::dashboardPage(
       tabPanel(
         "Overview - Tabular", icon = icon("table"),
 
-        # "Data Overview", icon = icon("eye"),
+        # verbatimTextOutput("id"),
+        conditionalPanel(
+          condition="!output.checkdds",
 
-        uiOutput("choose_fac"),
-        uiOutput("fac1"),
-        uiOutput("fac2"),
-        uiOutput("runresults"),
+          # conditionalPanel(
+          #   condition="output.checkresu==0",
+          #   h2('RESU not provided')
+          # ),
 
-        uiOutput("facnum"),
+          ## TODO: exploe if possible to use conditional panels?
 
-        uiOutput("lrtavailable"),
-        uiOutput("lrtfull"),
-        uiOutput("lrtreduced"),
+          # "Data Overview", icon = icon("eye"),
 
-        uiOutput("runlrt"),
+          uiOutput("choose_fac"),
+          uiOutput("fac1"),
+          uiOutput("fac2"),
+          uiOutput("runresults"),
 
-        uiOutput("store_result"),
+          uiOutput("facnum"),
 
-        ## general options for result function
-        # alpha is set via FDR on the left side
-        selectInput("resu_indfil",label = "Apply independent filtering automatically",
-                    choices = c(TRUE,FALSE), selected = TRUE),
-        selectInput("resu_addmle",label = "Add the unshrunken MLE of log2 fold change",
-                    choices = c(TRUE,FALSE), selected = TRUE),
-        selectInput("resu_ihw", "Use Independent Hypothesis Weighting as a filtering function",
-                    choices = c(TRUE, FALSE), selected = FALSE),
-        #, evtl also the *filter* parameter of the function, i.e. baseMean if not specified
+          uiOutput("lrtavailable"),
+          uiOutput("lrtfull"),
+          uiOutput("lrtreduced"),
 
-        verbatimTextOutput("diyres_summary"),
+          uiOutput("runlrt"),
 
-        DT::dataTableOutput("table_res"),
-        plotOutput("pvals_hist"),
-        plotOutput("logfc_hist")#,
+          uiOutput("store_result"),
+
+          ## general options for result function
+          # alpha is set via FDR on the left side
+          selectInput("resu_indfil",label = "Apply independent filtering automatically",
+                      choices = c(TRUE,FALSE), selected = TRUE),
+          selectInput("resu_addmle",label = "Add the unshrunken MLE of log2 fold change",
+                      choices = c(TRUE,FALSE), selected = TRUE),
+          selectInput("resu_ihw", "Use Independent Hypothesis Weighting as a filtering function",
+                      choices = c(TRUE, FALSE), selected = FALSE),
+          #, evtl also the *filter* parameter of the function, i.e. baseMean if not specified
+
+          verbatimTextOutput("diyres_summary"),
+
+          DT::dataTableOutput("table_res"),
+          plotOutput("pvals_hist"),
+          plotOutput("logfc_hist")#,
+          ,h4('Visible')
+        ),
+        conditionalPanel(
+          condition="output.checkdds",
+          h2("You did not create the dds object yet. Please go the main tab and generate it")
+        )
 
         # verbatimTextOutput("diyres_summary"),
         # verbatimTextOutput("diyres")
@@ -168,110 +212,114 @@ ideal_ui <- shinydashboard::dashboardPage(
 
       tabPanel(
         "Gene Lists", icon = icon("list-alt"),
+        conditionalPanel(
+          condition="!output.checkresu",
+          tabBox(
+            width = NULL,
+            id="gse_tabbox",
+            tabPanel("UPregu", icon = icon("arrow-circle-up"),
+                     actionButton("button_enrUP", "Perform gene set enrichment analysis on the upregulated genes"),
+                     DT::dataTableOutput("DT_gse_up")
+            ),
+            tabPanel("DOWNregu", icon = icon("arrow-circle-down"),
+                     actionButton("button_enrDOWN", "Perform gene set enrichment analysis on the downregulated genes"),
+                     actionButton("button_enrDOWN_goseq", "Perform gene set enrichment analysis on the downregulated genes"),
+                     actionButton("button_enrDOWN_topgo", "Perform gene set enrichment analysis on the downregulated genes"),
+                     DT::dataTableOutput("DT_gse_down"),
+                     DT::dataTableOutput("DT_gse_down_goseq"),
+                     DT::dataTableOutput("DT_gse_down_topgo")
+            ),
+            tabPanel("UPDOWN", icon = icon("arrows-v"),
+                     actionButton("button_enrUPDOWN", "Perform gene set enrichment analysis on the up- and downregulated genes"),
+                     DT::dataTableOutput("DT_gse_updown")
+            ),
+            tabPanel("List1", icon = icon("list"),
+                     fileInput(inputId = "gl1",
+                               label = "Upload a gene list file",
+                               accept = c("text/csv", "text/comma-separated-values",
+                                          "text/tab-separated-values", "text/plain",
+                                          ".csv", ".tsv"), multiple = FALSE),
+                     actionButton("button_enrLIST1", "Perform gene set enrichment analysis on the genes in list1"),
+                     actionButton("button_enrLIST1_topgo", "Perform gene set enrichment analysis on the list1 genes"),
+                     DT::dataTableOutput("DT_gse_list1"),
+                     DT::dataTableOutput("DT_gse_list1_topgo")
+            ),
+            tabPanel("List2", icon = icon("list-alt"),
+                     fileInput(inputId = "gl2",
+                               label = "Upload a gene list file",
+                               accept = c("text/csv", "text/comma-separated-values",
+                                          "text/tab-separated-values", "text/plain",
+                                          ".csv", ".tsv"), multiple = FALSE),
+                     actionButton("button_enrLIST2", "Perform gene set enrichment analysis on the genes in list2"),
+                     DT::dataTableOutput("DT_gse_list2")
+            )
+          ),
+          ## will put collapsible list elements? or multi tab panel? or something to select on the left, and operate output-wise on the right e.g. venn diagrams or table for gene set enrichment
+          h3("custom list 3 - handpicked") # use the select input from the left column?
+          ,verbatimTextOutput("debuggls"),
+          h2("Enrichment on the lists"),
 
-        tabBox(
-          width = NULL,
-          id="gse_tabbox",
-          tabPanel("UPregu", icon = icon("arrow-circle-up"),
-                   actionButton("button_enrUP", "Perform gene set enrichment analysis on the upregulated genes"),
-                   DT::dataTableOutput("DT_gse_up")
-          ),
-          tabPanel("DOWNregu", icon = icon("arrow-circle-down"),
-                   actionButton("button_enrDOWN", "Perform gene set enrichment analysis on the downregulated genes"),
-                   actionButton("button_enrDOWN_goseq", "Perform gene set enrichment analysis on the downregulated genes"),
-                   actionButton("button_enrDOWN_topgo", "Perform gene set enrichment analysis on the downregulated genes"),
-                   DT::dataTableOutput("DT_gse_down"),
-                   DT::dataTableOutput("DT_gse_down_goseq"),
-                   DT::dataTableOutput("DT_gse_down_topgo")
-          ),
-          tabPanel("UPDOWN", icon = icon("arrows-v"),
-                   actionButton("button_enrUPDOWN", "Perform gene set enrichment analysis on the up- and downregulated genes"),
-                   DT::dataTableOutput("DT_gse_updown")
-          ),
-          tabPanel("List1", icon = icon("list"),
-                   fileInput(inputId = "gl1",
-                             label = "Upload a gene list file",
-                             accept = c("text/csv", "text/comma-separated-values",
-                                        "text/tab-separated-values", "text/plain",
-                                        ".csv", ".tsv"), multiple = FALSE),
-                   actionButton("button_enrLIST1", "Perform gene set enrichment analysis on the genes in list1"),
-                   actionButton("button_enrLIST1_topgo", "Perform gene set enrichment analysis on the list1 genes"),
-                   DT::dataTableOutput("DT_gse_list1"),
-                   DT::dataTableOutput("DT_gse_list1_topgo")
-          ),
-          tabPanel("List2", icon = icon("list-alt"),
-                   fileInput(inputId = "gl2",
-                             label = "Upload a gene list file",
-                             accept = c("text/csv", "text/comma-separated-values",
-                                        "text/tab-separated-values", "text/plain",
-                                        ".csv", ".tsv"), multiple = FALSE),
-                   actionButton("button_enrLIST2", "Perform gene set enrichment analysis on the genes in list2"),
-                   DT::dataTableOutput("DT_gse_list2")
-          )
+          verbatimTextOutput("printUPgenes"),
+          verbatimTextOutput("debuglists"),
+          checkboxInput("toggle_updown","Use up and down regulated genes", TRUE),
+          checkboxInput("toggle_up","Use up regulated genes", FALSE),
+          checkboxInput("toggle_down","Use down regulated genes", FALSE),
+          checkboxInput("toggle_list1","Use list1 genes", TRUE),
+          checkboxInput("toggle_list2","Use list2 genes", FALSE),
+          checkboxInput("toggle_list3","Use list3 genes", FALSE),
+
+
+          plotOutput("vennlists")
         ),
-
-
-
-        ## will put collapsible list elements? or multi tab panel? or something to select on the left, and operate output-wise on the right e.g. venn diagrams or table for gene set enrichment
-
-
-
-
-        h3("custom list 3 - handpicked") # use the select input from the left column?
-        ,verbatimTextOutput("debuggls"),
-
-        h2("Enrichment on the lists"),
-
-        verbatimTextOutput("printUPgenes"),
-        verbatimTextOutput("debuglists"),
-        checkboxInput("toggle_updown","Use up and down regulated genes", TRUE),
-        checkboxInput("toggle_up","Use up regulated genes", FALSE),
-        checkboxInput("toggle_down","Use down regulated genes", FALSE),
-        checkboxInput("toggle_list1","Use list1 genes", TRUE),
-        checkboxInput("toggle_list2","Use list2 genes", FALSE),
-        checkboxInput("toggle_list3","Use list3 genes", FALSE),
-
-
-        plotOutput("vennlists")
-
-
+        conditionalPanel(
+          condition="output.checkresu",
+          h2("You did not create the result object yet. Please go the dedicated tab and generate it")
+        )
       ),
 
       tabPanel(
         "MA Plot", icon = icon("photo"),
-        headerPanel("MA plot interactive exploration"),
-        fluidRow(verbatimTextOutput("deb")),
-        fluidRow(column(6,
-                        h4("MA plot - Interactive!"),
-                        plotOutput('plotma', brush = 'ma_brush')),
-                 column(6,
-                        h4("Zoomed section"),
-                        plotOutput("mazoom",click= 'mazoom_click'))
-                 # ,
-                 # column(4,
-                 #        h4("Boxplot for the selected gene"),
-                 #        plotOutput("geneplot")
-                 # )
-        ),
-        plotOutput("genefinder_plot"),
-        plotOutput("volcanoplot"),
-        fluidRow(radioButtons("heatmap_colv","Cluster samples",choices = list("Yes"=TRUE,"No"=FALSE),selected = TRUE)),
-        fluidRow(
-          column(4,
-                 checkboxInput("rowscale",label = "Scale by rows",value = TRUE)),
-          column(4,
-                 checkboxInput("pseudocounts","use log2(1+counts)",value = TRUE))
-        ),
-        fluidRow(
-          column(6,
-                 plotOutput("heatbrush")
+        conditionalPanel(
+          condition="!output.checkresu",
+
+          headerPanel("MA plot interactive exploration"),
+          fluidRow(verbatimTextOutput("deb")),
+          fluidRow(column(6,
+                          h4("MA plot - Interactive!"),
+                          plotOutput('plotma', brush = 'ma_brush')),
+                   column(6,
+                          h4("Zoomed section"),
+                          plotOutput("mazoom",click= 'mazoom_click'))
+                   # ,
+                   # column(4,
+                   #        h4("Boxplot for the selected gene"),
+                   #        plotOutput("geneplot")
+                   # )
           ),
-          column(6,
-                 d3heatmapOutput("heatbrushD3"))
+          plotOutput("genefinder_plot"),
+          plotOutput("volcanoplot"),
+          fluidRow(radioButtons("heatmap_colv","Cluster samples",choices = list("Yes"=TRUE,"No"=FALSE),selected = TRUE)),
+          fluidRow(
+            column(4,
+                   checkboxInput("rowscale",label = "Scale by rows",value = TRUE)),
+            column(4,
+                   checkboxInput("pseudocounts","use log2(1+counts)",value = TRUE))
+          ),
+          fluidRow(
+            column(6,
+                   plotOutput("heatbrush")
+            ),
+            column(6,
+                   d3heatmapOutput("heatbrushD3"))
+          )
+          ,
+          # fluidRow(dataTableOutput('ma_brush_out')),
+          fluidRow(dataTableOutput("ma_brush_out"))
+        ),
+        conditionalPanel(
+          condition="output.checkresu",
+          h2("You did not create the result object yet. Please go the dedicated tab and generate it")
         )
-        ,
-        # fluidRow(dataTableOutput('ma_brush_out')),
-        fluidRow(dataTableOutput("ma_brush_out"))
       ),
       tabPanel(
         "Gene Finder", icon = icon("crosshairs"),
