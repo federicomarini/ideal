@@ -476,6 +476,97 @@ ideal_server <- shinyServer(function(input, output, session) {
   })
 
 
+
+  ###### counts overview
+
+  current_countmat <- reactive({
+    if(input$countstable_unit=="raw_counts")
+      return(counts(values$dds_obj,normalized=FALSE))
+    if(input$countstable_unit=="normalized_counts")
+      return(counts(values$dds_obj,normalized=TRUE))
+    if(input$countstable_unit=="rlog_counts")
+      return(NULL) ## see if it is worth to keep in here or explore possibility with fast vst
+    if(input$countstable_unit=="log10_counts")
+      return(log10(1 + counts(values$dds_obj,normalized=TRUE)))
+    if(input$countstable_unit=="tpm_counts")
+      return(NULL) ## TODO!: assumes length of genes/exons as known, and is currently not required in the dds
+
+  })
+
+  output$showcountmat <- DT::renderDataTable({
+    datatable(current_countmat())
+  })
+
+  output$downloadData <- downloadHandler(
+    filename = function() {
+      paste0(input$countstable_unit,"table.csv")
+    },
+    content = function(file) {
+      write.csv(current_countmat(), file)
+    }
+  )
+
+
+  output$corrplot <- renderPlot({
+    if(input$compute_pairwisecorr)
+      pair_corr(current_countmat(),method=input$corr_method)
+  })
+
+  output$heatcorr <- renderPlot({
+    if(input$compute_pairwisecorr)
+      pheatmap(cor(current_countmat()))
+  })
+
+
+  output$pairwise_plotUI <- renderUI({
+    if(!input$compute_pairwisecorr) return()
+
+    plotOutput("corrplot", height = "1000px")
+    # )
+  })
+
+
+  output$heatcorr_plotUI <- renderUI({
+    if(!input$compute_pairwisecorr) return()
+
+    plotOutput("heatcorr")
+  })
+
+
+  # overview on number of detected genes on different threshold types
+  output$detected_genes <- renderPrint({
+    t1 <- rowSums(counts(values$dds_obj))
+    t2 <- rowMeans(counts(values$dds_obj,normalized=TRUE))
+
+    thresh_rowsums <- input$threshold_rowsums
+    thresh_rowmeans <- input$threshold_rowmeans
+    abs_t1 <- sum(t1 > thresh_rowsums)
+    rel_t1 <- 100 * mean(t1 > thresh_rowsums)
+    abs_t2 <- sum(t2 > thresh_rowmeans)
+    rel_t2 <- 100 * mean(t2 > thresh_rowmeans)
+
+    cat("Number of detected genes:\n")
+    # TODO: parametrize the thresholds
+    cat(abs_t1,"genes have at least a sample with more than",thresh_rowsums,"counts\n")
+    cat(paste0(round(rel_t1,3),"%"), "of the",nrow(values$dds_obj),
+        "genes have at least a sample with more than",thresh_rowsums,"counts\n")
+    cat(abs_t2,"genes have more than",thresh_rowmeans,"counts (normalized) on average\n")
+    cat(paste0(round(rel_t2,3),"%"), "of the",nrow(values$dds_obj),
+        "genes have more than",thresh_rowsums,"counts (normalized) on average\n")
+    cat("Counts are ranging from", min(counts(values$dds_obj)),"to",max(counts(values$dds_obj)))
+  })
+
+
+
+
+
+
+
+
+
+
+
+
   #### MANAGING THE GENE LISTS
   ## gene lists upload
 
