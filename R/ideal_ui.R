@@ -19,7 +19,6 @@ ideal_ui <- shinydashboard::dashboardPage(
 
 
 
-
   dashboardSidebar(
     width = 280,
 
@@ -41,25 +40,18 @@ ideal_ui <- shinydashboard::dashboardPage(
     menuItem("Plot export settings", icon = icon("paint-brush")),
     menuItem("Quick viewer", icon = icon("flash"),
              fluidRow(
-               fluidRow(column(6,p("Count matrix")),column(6,uiOutput("ok_cm"))),
-               fluidRow(column(6,p("Experimental design")),column(6,uiOutput("ok_ed"))),
-               fluidRow(column(6,p("DESeqDataset")),column(6,uiOutput("ok_dds"))),
-               fluidRow(column(6,p("Annotation")),column(6,uiOutput("ok_anno"))),
-               fluidRow(column(6,p("Results")),column(6,uiOutput("ok_resu")))
-
-
-                      # ,
-                      # valueBoxOutput("box_ddsobj")
+               fluidRow(column(6,p("Count matrix")), column(6,uiOutput("ok_cm"))),
+               fluidRow(column(6,p("Experimental design")), column(6,uiOutput("ok_ed"))),
+               fluidRow(column(6,p("DESeqDataset")), column(6,uiOutput("ok_dds"))),
+               fluidRow(column(6,p("Annotation")), column(6,uiOutput("ok_anno"))),
+               fluidRow(column(6,p("Results")), column(6,uiOutput("ok_resu")))
                ))
   ),
 
 
 
-
-
-
   dashboardBody(
-    ## Define output size and style of error messages
+    ## Define output size and style of error messages, and also the style of the icons e.g. check
     tags$head(
       tags$style(HTML("
                       .shiny-output-error-validation {
@@ -86,9 +78,7 @@ ideal_ui <- shinydashboard::dashboardPage(
       tabPanel(
         "Data Setup",icon = icon("upload"),
 
-
         hr(),
-
 
         h2("Step 1: Upload your count matrix and the info on the experimental design"),
 
@@ -181,6 +171,16 @@ ideal_ui <- shinydashboard::dashboardPage(
           p("According to the selected filtering criteria, this is an overview on the provided count data"),
           verbatimTextOutput("detected_genes"),
 
+          ## TODO: section to filter out features manually?
+
+          selectInput("filter_crit",label = "Choose the filtering criterium",
+                      choices = c("row means", "row sums"), selected = "row means"),
+
+          actionButton("featfilt_dds", "Filter the DDS object"),
+
+
+
+
           h3("Sample to sample scatter plots"),
           selectInput("corr_method","Correlation method palette",choices = list("pearson","spearman")),
           p("Compute sample to sample correlations on the normalized counts - warning, it can take a while to plot all points (depending mostly on the number of samples you provided)."),
@@ -198,7 +198,7 @@ ideal_ui <- shinydashboard::dashboardPage(
 
 
       tabPanel(
-        "Overview - Tabular", icon = icon("table"),
+        "View Results", icon = icon("table"),
 
         # verbatimTextOutput("id"),
         # see: http://stackoverflow.com/questions/21609436/r-shiny-conditionalpanel-output-value?noredirect=1&lq=1
@@ -359,7 +359,11 @@ ideal_ui <- shinydashboard::dashboardPage(
           )
           ,
           # fluidRow(dataTableOutput('ma_brush_out')),
-          fluidRow(dataTableOutput("ma_brush_out"))
+
+          box(
+            title = "Brushed table", status = "primary", solidHeader = TRUE,
+            collapsible = TRUE, collapsed = TRUE, width = 12,
+            fluidRow(dataTableOutput("ma_brush_out")))
         ),
         conditionalPanel(
           condition="output.checkresu",

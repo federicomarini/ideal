@@ -556,6 +556,27 @@ ideal_server <- shinyServer(function(input, output, session) {
     cat("Counts are ranging from", min(counts(values$dds_obj)),"to",max(counts(values$dds_obj)))
   })
 
+  observeEvent(input$featfilt_dds,
+               {
+                 t1 <- rowSums(counts(values$dds_obj))
+                 t2 <- rowMeans(counts(values$dds_obj,normalized=TRUE))
+
+                 thresh_rowsums <- input$threshold_rowsums
+                 thresh_rowmeans <- input$threshold_rowmeans
+
+                 if(input$filter_crit == "row sums") {
+                   filt_dds <- values$dds_obj[t1 > thresh_rowsums, ]
+                 } else {
+                   filt_dds <- values$dds_obj[t2 > thresh_rowmeans, ]
+                 }
+
+                 # TODO: see if re-estimation of size factors is required
+                 filt_dds <- estimateSizeFactors(filt_dds)
+
+                 values$dds_obj <- filt_dds
+
+               })
+
 
 
 
