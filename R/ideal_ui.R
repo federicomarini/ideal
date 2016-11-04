@@ -75,8 +75,7 @@ ideal_ui <- shinydashboard::dashboardPage(
       tabPanel(
         "Data Setup",icon = icon("upload"),
 
-        hr(),
-
+        # hr(),
         h2("Step 1: Upload your count matrix and the info on the experimental design"),
 
         uiOutput("upload_count_matrix"),
@@ -113,43 +112,43 @@ ideal_ui <- shinydashboard::dashboardPage(
 
         uiOutput("ui_step2"),
         uiOutput("ddsdesign"),
-        verbatimTextOutput("debugdesign"),
+        # verbatimTextOutput("debugdesign"),
 
 
-        hr(),
-        uiOutput("ui_step3"),
+        # uiOutput("ui_step3"),
         uiOutput("ui_diydds"),
+        hr(),
         # uiOutput("ok_dds"),
         verbatimTextOutput("debugdiy"),
 
         hr(),
-        uiOutput("ui_stepanno"),
-        uiOutput("ui_selectspecies"),
-        verbatimTextOutput("speciespkg"),
-        selectInput("idtype", "select the id type in your data", choices=c("ENSEMBL","ENTREZID","REFSEQ","SYMBOL")),
-        # selectInput("orgdbspecies","select the species for your data",
-        #             choices = c("org.Ag.eg.db","org.At.tair.db","org.Bt.eg.db","org.Ce.eg.db","org.Cf.eg.db","org.Dm.eg.db","org.Dr.eg.db","org.EcK12.eg.db","org.EcSakai.eg.db","org.Gg.eg.db","org.Hs.eg.db","org.Hs.ipi.db","org.Mm.eg.db","org.Mmu.eg.db","org.Pf.plasmo.db","org.Pt.eg.db","org.Rn.eg.db","org.Sc.sgd.db","org.Sco.eg.db","org.Ss.eg.db","org.Tgondii.eg.db","org.Xl.eg.db"),
-        #             selected=""),
-        verbatimTextOutput("printDIYanno"),
-        # descr = c("Anopheles","Arabidopsis","Bovine","Worm","Canine","Fly","Zebrafish","E coli strain K12","E coli strain Sakai","Chicken","Human","org.Hs.ipi.db","Mouse","Rhesus","Malaria","Chimp","Rat","Yeast","Streptomyces coelicolor","Pig","Toxoplasma gondii","Xenopus"))
-        uiOutput("ui_getanno"),
-        ## this ideally populates also the list of genes of interest to choose among
+
+        fluidRow(
+          column(
+            width = 6,
+            uiOutput("ui_stepanno"),
+            uiOutput("ui_selectspecies"),
+            verbatimTextOutput("speciespkg"),
+            uiOutput("ui_idtype"),
+            verbatimTextOutput("printDIYanno"),
+            uiOutput("ui_getanno")
+            ## this ideally populates also the list of genes of interest to choose among
+          ),
+          column(
+            width = 6,
+            uiOutput("ui_stepoutlier"),
+            uiOutput("ui_selectoutliers"),
+            uiOutput("outliersout"),
+            verbatimTextOutput("printremoved")
+          )
+        ),
 
         hr(),
-        uiOutput("ui_stepoutlier"),
-        uiOutput("ui_selectoutliers"),
-        uiOutput("outliersout"),
-        verbatimTextOutput("printremoved"),
 
-
-
-        hr(),
-        uiOutput("ui_step4"),
+        uiOutput("ui_step3"),
         uiOutput("rundeseq"),
 
         verbatimTextOutput("printDIYresults"),
-
-
 
         # verbatimTextOutput("printdds"),
         # verbatimTextOutput("printres"),
@@ -238,20 +237,32 @@ ideal_ui <- shinydashboard::dashboardPage(
 
           # "Data Overview", icon = icon("eye"),
 
-          uiOutput("choose_fac"),
-          uiOutput("fac1"),
-          uiOutput("fac2"),
-          uiOutput("runresults"),
+          fluidRow(
+            column(
+              width = 6,
+              uiOutput("choose_fac")
+            )
+          ),
+          fluidRow(
+            column(
+              width = 6,
+              # factor as covariate
+              uiOutput("fac1"),
+              uiOutput("fac2"),
+              # continuous covariate
+              uiOutput("facnum")
+            ),
+            column(
+              width = 6,
+              # factor with > 2 levels
+              uiOutput("lrtavailable"),
+              uiOutput("lrtfull"),
+              uiOutput("lrtreduced"),
 
-          uiOutput("facnum"),
+              uiOutput("runlrt")
+            )
 
-          uiOutput("lrtavailable"),
-          uiOutput("lrtfull"),
-          uiOutput("lrtreduced"),
-
-          uiOutput("runlrt"),
-
-          uiOutput("store_result"),
+          ),
 
           ## general options for result function
           # alpha is set via FDR on the left side
@@ -262,6 +273,11 @@ ideal_ui <- shinydashboard::dashboardPage(
           selectInput("resu_ihw", "Use Independent Hypothesis Weighting as a filtering function",
                       choices = c(TRUE, FALSE), selected = FALSE),
           #, evtl also the *filter* parameter of the function, i.e. baseMean if not specified
+
+          uiOutput("runresults"),
+
+          uiOutput("store_result"),
+
 
           verbatimTextOutput("diyres_summary"),
 

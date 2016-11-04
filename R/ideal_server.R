@@ -165,7 +165,7 @@ ideal_server <- shinyServer(function(input, output, session) {
   output$ui_step2 <- renderUI({
     if (is.null(values$expdesign) | is.null(values$countmatrix))
       return(NULL)
-    h2("Step 2: Select the DE design")
+    h2("Step 2: Select the DE design and create the DESeqDataSet object")
   })
 
   output$ui_stepanno <- renderUI({
@@ -183,11 +183,6 @@ ideal_server <- shinyServer(function(input, output, session) {
 
 
 
-  output$ui_step3 <- renderUI({
-    if (is.null(values$expdesign) | is.null(values$countmatrix) | is.null(input$dds_design))
-      return(NULL)
-    h2("Step 3: Create the DESeqDataset object")
-  })
 
 
   output$ui_diydds <- renderUI({
@@ -208,12 +203,17 @@ ideal_server <- shinyServer(function(input, output, session) {
 
 
 
+  # output$ui_step3 <- renderUI({
+  #   if (is.null(values$expdesign) | is.null(values$countmatrix) | is.null(input$dds_design))
+  #     return(NULL)
+  #   h2("Step 3: Create the DESeqDataset object")
+  # })
 
 
-  output$ui_step4 <- renderUI({
+  output$ui_step3 <- renderUI({
     if (is.null(values$dds_obj)) #
       return(NULL)
-    h2("Step 4: Run DESeq!")
+    h2("Step 3: Run DESeq!")
   })
 
   output$ui_stepend <- renderUI({
@@ -400,15 +400,22 @@ ideal_server <- shinyServer(function(input, output, session) {
   # annoSpecies_df <- annoSpecies_df[annoSpecies_df$species %in% c("","Human", "Mouse", "Rat", "Fly", "Chimp"),]
 
   output$ui_selectspecies <- renderUI({
-    if(1+1==2) { ## TODO edit here
-      selectInput("speciesSelect",label = "Select the species of your samples - it will also be used for enhancing result tables",
+    if (is.null(values$dds_obj)) #
+      return(NULL)
+    selectInput("speciesSelect",label = "Select the species of your samples - it will also be used for enhancing result tables",
                   choices = annoSpecies_df$species,selected="")
-    }
+  })
+
+
+  output$ui_idtype <- renderUI({
+    if (is.null(values$dds_obj)) #
+      return(NULL)
+    selectInput("idtype", "select the id type in your data", choices=c("ENSEMBL","ENTREZID","REFSEQ","SYMBOL"))
   })
 
   output$speciespkg <- renderText({
-
-
+    if (is.null(values$dds_obj)) #
+      return(NULL)
     shiny::validate(
       need(input$speciesSelect!="",
            "Select a species - requires the corresponding annotation package"
@@ -500,7 +507,7 @@ ideal_server <- shinyServer(function(input, output, session) {
            "I couldn't find results. you should first run DESeq() with the button up here"
       )
     )
-    print(summary(results(values$dds_obj)))
+    print(summary(results(values$dds_obj), alpha = input$FDR))
   })
 
 
@@ -1390,7 +1397,7 @@ ideal_server <- shinyServer(function(input, output, session) {
   output$facnum <- renderPrint({
     shiny::validate(
       need(input$choose_expfac!="",
-           "Please select one level of the factor to build the contrast upon - contrast1"
+           "Please select one level of the factor to build the contrast upon - contrast1_NUM!"
       )
     )
     fac1 <- input$choose_expfac
@@ -1411,15 +1418,35 @@ ideal_server <- shinyServer(function(input, output, session) {
       need(input$choose_expfac!="",
            "Select a factor for the contrast first")
     )
+
+    fac1 <- input$choose_expfac
+    fac1_vals <- colData(values$dds_obj)[,fac1]
+
+    if(!(class(colData(values$dds_obj)[,fac1]) %in% c("integer","numeric"))){
+
+      shiny::validate(
+        need(input$fac1_c1 != "" & input$fac1_c2 != "" & input$fac1_c1 != input$fac1_c2,
+             "Select two different levels of the factor for the contrast")
+      )
+    }
+
+    if((class(colData(values$dds_obj)[,fac1]) %in% c("integer","numeric"))){
+
+      shiny::validate(
+        need(input$resu_addmle==FALSE,
+             "Set the Add the unshrunken MLE to FALSE")
+      )
+    }
     shiny::validate(
-      need(input$fac1_c1 != "" & input$fac1_c2 != "" & input$fac1_c1 != input$fac1_c2,
-           "Select two different levels of the factor for the contrast")
+      need("results" %in% mcols(mcols(values$dds_obj))$type ,
+           "I couldn't find results. you should first run DESeq() with the button up here"
+      )
     )
 
 
-    if(input$choose_expfac=="" | input$fac1_c1 == "" | input$fac1_c2 == "" | input$fac1_c1 == input$fac1_c2)
-      return(NULL)
-    else
+    # if(input$choose_expfac=="" | input$fac1_c1 == "" | input$fac1_c2 == "" | input$fac1_c1 == input$fac1_c2)
+    #   return(NULL)
+    # else
       actionButton("button_runresults","Extract the results!", icon = icon("spinner"), class = "btn btn-success")
   })
 
@@ -1467,7 +1494,7 @@ ideal_server <- shinyServer(function(input, output, session) {
       need(!is.null(values$res_obj), "Parameters selected, please compute the results first")
     )
     # summary(results(values$dds_obj,contrast = c(input$choose_expfac, input$fac1_c1, input$fac1_c2)))
-    summary(values$res_obj)
+    summary(values$res_obj,alpha = input$FDR)
   })
 
 
