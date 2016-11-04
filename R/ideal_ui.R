@@ -17,11 +17,8 @@ ideal_ui <- shinydashboard::dashboardPage(
   ),
 
 
-
-
   dashboardSidebar(
     width = 280,
-
     menuItem("App settings",icon = icon("cogs"),
              uiOutput("color_by"),
              uiOutput("available_genes"),
@@ -84,7 +81,34 @@ ideal_ui <- shinydashboard::dashboardPage(
 
         uiOutput("upload_count_matrix"),
         uiOutput("upload_metadata"),
-        verbatimTextOutput("eddesign"),
+
+        fluidRow(
+          column(
+            width = 6,
+            box(width = NULL, title = "Count matrix preview",status = "primary",
+                solidHeader = TRUE,collapsible = TRUE, collapsed = TRUE,
+                fluidRow(
+                  column(
+                    width = 12,
+                    offset = 0.5,
+                    DT::dataTableOutput("dt_cm"))
+                )
+            )
+          ),
+          column(
+            width = 6,
+            box(width = NULL, title = "Experimental design preview",status = "primary",
+                solidHeader = TRUE,collapsible = TRUE, collapsed = TRUE,
+                fluidRow(
+                  column(
+                    width = 12,
+                    offset = 0.5,
+                    DT::dataTableOutput("dt_ed"))
+                )
+            )
+          )
+        ),
+        # verbatimTextOutput("eddesign"),
         hr(),
 
         uiOutput("ui_step2"),

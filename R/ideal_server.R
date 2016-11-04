@@ -32,6 +32,11 @@ ideal_server <- shinyServer(function(input, output, session) {
                       paste0(nrow(values$dds_obj), " genes - ",ncol(values$dds_obj)," samples"),
                       icon = icon("list"),
                       color = "teal",width = NULL))
+    else
+      return(valueBox("dds object",
+                      "yet to create",
+                      icon = icon("list"),
+                      color = "teal",width = NULL))
 
     # "", paste0(25 + input$count, "%"), icon = icon("list"),
     # color = "purple"
@@ -42,7 +47,12 @@ ideal_server <- shinyServer(function(input, output, session) {
     if(!is.null(values$annotation_obj))
       return(valueBox("Annotation",
                       paste0(nrow(values$annotation_obj), " genes - ",ncol(values$annotation_obj)," ID types"),
-                      icon = icon("list"),
+                      icon = icon("book"),
+                      color = "purple",width = NULL))
+    else
+      return(valueBox("Annotation",
+                      "yet to create",
+                      icon = icon("book"),
                       color = "purple",width = NULL))
   })
 
@@ -51,9 +61,15 @@ ideal_server <- shinyServer(function(input, output, session) {
       DEregu <- sum(values$res_obj$padj < input$FDR & values$res_obj$log2FoldChange != 0, na.rm = TRUE)
       return(valueBox("DE genes",
                       paste0(DEregu, " DE genes - out of ",nrow(values$res_obj),""),
-                      icon = icon("list"),
+                      icon = icon("list-alt"),
                       color = "maroon",width = NULL))
-    }
+    } else
+      return(valueBox("DE genes",
+                        "yet to create",
+                        icon = icon("list-alt"),
+                        color = "maroon",width = NULL))
+
+
   })
 
 
@@ -251,6 +267,18 @@ ideal_server <- shinyServer(function(input, output, session) {
 
   outputOptions(output, 'checkresu', suspendWhenHidden=FALSE)
   outputOptions(output, 'checkdds', suspendWhenHidden=FALSE)
+
+  output$dt_cm <- DT::renderDataTable({
+    if(is.null(values$countmatrix))
+      return(NULL)
+    datatable(values$countmatrix,options = list(scrollX = TRUE,scrollY = "400px"))
+  })
+
+  output$dt_ed <- DT::renderDataTable({
+    if(is.null(values$expdesign))
+      return(NULL)
+    datatable(values$expdesign,options = list(scrollX = TRUE))
+  })
 
 
 
