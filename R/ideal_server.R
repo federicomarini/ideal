@@ -492,7 +492,7 @@ ideal_server <- shinyServer(function(input, output, session) {
 
   observeEvent(input$button_rundeseq,
                {
-                 withProgress(message="Computing the objects...",value = 0,{
+                 withProgress(message="Running DESeq on your data...",value = 0,{
                    values$dds_obj <- DESeq(values$dds_obj)
                    })
                })
@@ -504,7 +504,7 @@ ideal_server <- shinyServer(function(input, output, session) {
     )
     shiny::validate(
       need("results" %in% mcols(mcols(values$dds_obj))$type ,
-           "I couldn't find results. you should first run DESeq() with the button up here"
+           "dds object provided, but couldn't find results. you should first run DESeq() with the button up here"
       )
     )
     print(summary(results(values$dds_obj), alpha = input$FDR))
@@ -1812,7 +1812,7 @@ ideal_server <- shinyServer(function(input, output, session) {
 
     normCounts <- as.data.frame(counts(estimateSizeFactors(values$dds_obj),normalized=T))
     normCounts$id <- rownames(normCounts)
-    res_df <- FMmisc::deseqresult2tbl(values$res_obj)
+    res_df <- deseqresult2tbl(values$res_obj)
 
     combi_obj <- dplyr::inner_join(res_df,normCounts,by="id")
     combi_obj$symbol <- values$annotation_obj$gene_name[match(combi_obj$id,values$annotation_obj$gene_id)]
@@ -2036,7 +2036,12 @@ ideal_server <- shinyServer(function(input, output, session) {
   ## currently not working as I want with rmarkdown::render, but can leave it like this - the yaml will be taken in the final version only
   output$knitDoc <- renderUI({
     input$updatepreview_button
-    return(isolate(HTML(knit2html(text = input$acereport_rmd, fragment.only = TRUE, quiet = TRUE))))
+    return(
+      withProgress(
+        isolate(HTML(knit2html(text = input$acereport_rmd, fragment.only = TRUE, quiet = TRUE))),
+        message = "Updating the report in the app body"
+      )
+    )
   })
 
   # Generate and Download module
@@ -2067,10 +2072,11 @@ ideal_server <- shinyServer(function(input, output, session) {
         # close(fileConn)
         if(input$rmd_dl_format == "html") {
           cat(tmp_content,file="ideal_tempreport.Rmd",sep="\n")
-          rmarkdown::render(input = "ideal_tempreport.Rmd",
+          withProgress(rmarkdown::render(input = "ideal_tempreport.Rmd",
                             output_file = file,
                             # fragment.only = TRUE,
-                            quiet = TRUE)
+                            quiet = TRUE),
+                       message = "Generating the html report")
         }
       }
     })

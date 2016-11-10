@@ -65,6 +65,20 @@ ideal<- function(res_obj = NULL,
 
 
 ############################# helper funcs #################################
+# anno_df$entrez <- mapIds(org.Hs.eg.db,keys = anno_df$gene_id, keytype = "ENSEMBL", column = "ENTREZID")
+# ggss <- rentrez::entrez_summary("gene", anno_df$entrez[1:150])
+
+deseqresult2tbl <-
+function(deseqresult) {
+  library("dplyr")
+  if (class(deseqresult) != "DESeqResults") stop("Not a DESeqResults object.")
+  deseqresult <- as.data.frame(deseqresult)
+  deseqresult$id <- rownames(deseqresult)
+  rownames(deseqresult) <- NULL
+  deseqresult <- tbl_df(deseqresult)
+  deseqresult <- dplyr::select(deseqresult, id, baseMean, log2FoldChange:padj)
+  deseqresult %>% arrange(padj)
+}
 
 deseqresult2DEgenes <-
 function(deseqresult,FDR=0.05) {

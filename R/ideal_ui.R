@@ -5,7 +5,7 @@ ideal_ui <- shinydashboard::dashboardPage(
     titleWidth = 900,
 
     # task menu for saving state to environment or binary data
-    shinydashboard::dropdownMenu(type = "tasks",icon = icon("cog"),badgeStatus = "success",
+    shinydashboard::dropdownMenu(type = "tasks",icon = icon("cog"),badgeStatus = NULL, # something to change the top message? maybe file an issue @shinydashboard development
                                  notificationItem(
                                    text = actionButton("task_exit_and_save","Exit ideal & save",
                                                        class = "btn_no_border",
@@ -247,17 +247,23 @@ ideal_ui <- shinydashboard::dashboardPage(
             column(
               width = 6,
               # factor as covariate
-              uiOutput("fac1"),
-              uiOutput("fac2"),
+              wellPanel(
+                width = 4,
+                uiOutput("fac1"),
+                uiOutput("fac2")
+              ),
               # continuous covariate
               uiOutput("facnum")
             ),
             column(
               width = 6,
               # factor with > 2 levels
-              uiOutput("lrtavailable"),
-              uiOutput("lrtfull"),
-              uiOutput("lrtreduced"),
+              wellPanel(
+                width = 4,
+                uiOutput("lrtavailable"),
+                uiOutput("lrtfull"),
+                uiOutput("lrtreduced")
+              ),
 
               uiOutput("runlrt")
             )
@@ -266,12 +272,19 @@ ideal_ui <- shinydashboard::dashboardPage(
 
           ## general options for result function
           # alpha is set via FDR on the left side
-          selectInput("resu_indfil",label = "Apply independent filtering automatically",
-                      choices = c(TRUE,FALSE), selected = TRUE),
-          selectInput("resu_addmle",label = "Add the unshrunken MLE of log2 fold change",
-                      choices = c(TRUE,FALSE), selected = TRUE),
-          selectInput("resu_ihw", "Use Independent Hypothesis Weighting as a filtering function",
-                      choices = c(TRUE, FALSE), selected = FALSE),
+          fluidRow(
+            column(
+              width = 4,
+              wellPanel(
+                selectInput("resu_indfil",label = "Apply independent filtering automatically",
+                            choices = c(TRUE,FALSE), selected = TRUE),
+                selectInput("resu_addmle",label = "Add the unshrunken MLE of log2 fold change",
+                            choices = c(TRUE,FALSE), selected = TRUE),
+                selectInput("resu_ihw", "Use Independent Hypothesis Weighting as a filtering function",
+                            choices = c(TRUE, FALSE), selected = FALSE)
+              )
+            )
+          ),
           #, evtl also the *filter* parameter of the function, i.e. baseMean if not specified
 
           uiOutput("runresults"),
@@ -283,8 +296,7 @@ ideal_ui <- shinydashboard::dashboardPage(
 
           DT::dataTableOutput("table_res"),
           plotOutput("pvals_hist"),
-          plotOutput("logfc_hist")#,
-          ,h4('Visible')
+          plotOutput("logfc_hist")
         ),
         conditionalPanel(
           condition="output.checkdds",

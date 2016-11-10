@@ -20,7 +20,8 @@ load("/Volumes/marinif/032-ruf-macrophages/cm2.RData")
 res_airway$symbol <- anno_df$gene_name[match(rownames(res_airway),anno_df$gene_id)]
 minires <- res_airway[1:200,]
 res_airway
-library(FMmisc)
+# library(FMmisc)
+library(IHW)
 
 ccmm <- counts(dds_airway)
 eedd <- read.csv("design_commas.txt")

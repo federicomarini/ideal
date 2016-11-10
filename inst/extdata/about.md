@@ -19,7 +19,7 @@ in the University Medical Center of the Johannes Gutenberg University Mainz.
 
 ## Developers
 
-<a href="mailto:marinif@uni-mainz.de" class="btn btn-primary">Federico Marini</a>
+<a href="mailto:marinif@uni-mainz.de?subject=[pcaExplorer question]" class="btn btn-primary">Federico Marini</a>
 
 ## Code
 
