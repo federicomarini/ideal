@@ -165,20 +165,47 @@ ideal_server <- shinyServer(function(input, output, session) {
   output$ui_step2 <- renderUI({
     if (is.null(values$expdesign) | is.null(values$countmatrix))
       return(NULL)
-    h2("Step 2: Select the DE design and create the DESeqDataSet object")
+    box(width = 12, title = "Step 2", status = "warning", solidHeader = TRUE,
+        tagList(
+      # as in https://groups.google.com/forum/#!topic/shiny-discuss/qQ8yICfvDu0
+      h2("Step 2: Select the DE design and create the DESeqDataSet object"),
+      uiOutput("ddsdesign"),
+      uiOutput("ui_diydds"),
+      hr(),
+      # uiOutput("ok_dds"),
+      verbatimTextOutput("debugdiy")
+    ))
   })
 
   output$ui_stepanno <- renderUI({
     if (is.null(values$dds_obj)) ### and not provided already with sep annotation?
       return(NULL)
-    h2("Optional Step: Create the annotation data frame for your dataset")
+
+    box(width = 12, title = "Optional Step", status = "info", solidHeader = TRUE,
+        tagList(
+          h2("Optional Step: Create the annotation data frame for your dataset"),
+          uiOutput("ui_selectspecies"),
+          verbatimTextOutput("speciespkg"),
+          uiOutput("ui_idtype"),
+          verbatimTextOutput("printDIYanno"),
+          uiOutput("ui_getanno")
+          )
+        )
   })
 
 
   output$ui_stepoutlier <- renderUI({
     if (is.null(values$dds_obj)) ### and not provided already with sep annotation?
       return(NULL)
-    h2("Optional Step: Remove sample(s) from the current dataset - suspected outliers!")
+
+    box(width = 12, title = "Optional Step", status = "info", solidHeader = TRUE,
+        tagList(
+          h2("Optional Step: Remove sample(s) from the current dataset - suspected outliers!"),
+          uiOutput("ui_selectoutliers"),
+          uiOutput("outliersout"),
+          verbatimTextOutput("printremoved")
+        )
+    )
   })
 
 
@@ -213,7 +240,18 @@ ideal_server <- shinyServer(function(input, output, session) {
   output$ui_step3 <- renderUI({
     if (is.null(values$dds_obj)) #
       return(NULL)
-    h2("Step 3: Run DESeq!")
+    box(width = 12, title = "Step 3", status = "success", solidHeader = TRUE,
+        tagList(
+          h2("Step 3: Run DESeq!"),
+          uiOutput("rundeseq"),
+
+          verbatimTextOutput("printDIYresults"),
+
+          # verbatimTextOutput("printdds"),
+          # verbatimTextOutput("printres"),
+          uiOutput("ui_stepend")
+        )
+    )
   })
 
   output$ui_stepend <- renderUI({
@@ -492,7 +530,8 @@ ideal_server <- shinyServer(function(input, output, session) {
 
   observeEvent(input$button_rundeseq,
                {
-                 withProgress(message="Running DESeq on your data...",value = 0,{
+                 withProgress(message="Running DESeq on your data...",
+                              detail = "This step might take a while", value = 0,{
                    values$dds_obj <- DESeq(values$dds_obj)
                    })
                })
@@ -752,10 +791,11 @@ ideal_server <- shinyServer(function(input, output, session) {
 
   observeEvent(input$button_getanno,
                {
-                 withProgress(message="Retrieving the annotation...",value = 0,{
+                 withProgress(message="Retrieving the annotation...",
+                              detail = "Locating package", value = 0,{
 
                    annopkg <- annoSpecies_df$pkg[annoSpecies_df$species==input$speciesSelect]
-                   incProgress(0.1)
+                   incProgress(0.1,detail = "Matching identifiers")
                    annotation_obj <- get_annotation_orgdb(values$dds_obj,orgdb_species = annopkg, idtype = input$idtype)
                    values$annotation_obj <- annotation_obj
                  })
@@ -1318,7 +1358,9 @@ ideal_server <- shinyServer(function(input, output, session) {
   })
 
   observeEvent(input$button_runlrt,{
-    withProgress(message="Computing the LRT results...",value = 0,{
+    withProgress(message="Computing the LRT results...",
+                 detail = "This step can take a little while",
+                 value = 0,{
 
       values$ddslrt <- DESeq(values$dds_obj,test = "LRT",
                              full = as.formula(paste0("~",paste(input$choose_lrt_full, collapse=" + "))),
@@ -1451,7 +1493,9 @@ ideal_server <- shinyServer(function(input, output, session) {
   })
 
   observeEvent(input$button_runresults, {
-    withProgress(message="Computing the results...",value = 0,{
+    withProgress(message="Computing the results...",
+                 detail = "DE table on its way!",
+                 value = 0,{
       # handling the experimental covariate correctly to extract the results...
       if(class(colData(values$dds_obj)[,input$choose_expfac]) == "factor") {
         if(input$resu_ihw)
@@ -2039,7 +2083,8 @@ ideal_server <- shinyServer(function(input, output, session) {
     return(
       withProgress(
         isolate(HTML(knit2html(text = input$acereport_rmd, fragment.only = TRUE, quiet = TRUE))),
-        message = "Updating the report in the app body"
+        message = "Updating the report in the app body",
+        detail = "This can take some time"
       )
     )
   })
@@ -2076,7 +2121,8 @@ ideal_server <- shinyServer(function(input, output, session) {
                             output_file = file,
                             # fragment.only = TRUE,
                             quiet = TRUE),
-                       message = "Generating the html report")
+                       message = "Generating the html report",
+                       detail = "This can take some time")
         }
       }
     })

@@ -4,6 +4,15 @@ ideal_ui <- shinydashboard::dashboardPage(
                    packageVersion("ideal")),
     titleWidth = 900,
 
+    # TODO:
+    # http://stackoverflow.com/questions/31440564/adding-a-company-logo-to-shinydashboard-header
+    # replace text with image
+    # ideal_header$children[[2]]$children <- tags$a(href='https://github.com/federicomarini/ideal',
+    # tags$img(src='ideal_logo_v2.png',height='50',width='200'))
+    # title = tags$a(href='https://github.com/federicomarini/ideal',
+    #                tags$img(src='ideal_logo_v2.png',height='50',width='200')),
+
+
     # task menu for saving state to environment or binary data
     shinydashboard::dropdownMenu(type = "tasks",icon = icon("cog"),badgeStatus = NULL, # something to change the top message? maybe file an issue @shinydashboard development
                                  notificationItem(
@@ -76,83 +85,67 @@ ideal_ui <- shinydashboard::dashboardPage(
         "Data Setup",icon = icon("upload"),
 
         # hr(),
-        h2("Step 1: Upload your count matrix and the info on the experimental design"),
+        box(width = 12, title = "Step 1", status = "danger", solidHeader = TRUE,
+            h2("Upload your count matrix and the info on the experimental design"),
 
-        uiOutput("upload_count_matrix"),
-        uiOutput("upload_metadata"),
+            uiOutput("upload_count_matrix"),
+            uiOutput("upload_metadata"),
 
-        fluidRow(
-          column(
-            width = 6,
-            box(width = NULL, title = "Count matrix preview",status = "primary",
-                solidHeader = TRUE,collapsible = TRUE, collapsed = TRUE,
-                fluidRow(
-                  column(
-                    width = 12,
-                    offset = 0.5,
-                    DT::dataTableOutput("dt_cm"))
+            fluidRow(
+              column(
+                width = 6,
+                box(width = NULL, title = "Count matrix preview",status = "primary",
+                    solidHeader = TRUE,collapsible = TRUE, collapsed = TRUE,
+                    fluidRow(
+                      column(
+                        width = 12,
+                        offset = 0.5,
+                        DT::dataTableOutput("dt_cm"))
+                    )
                 )
+              ),
+              column(
+                width = 6,
+                box(width = NULL, title = "Experimental design preview",status = "primary",
+                    solidHeader = TRUE,collapsible = TRUE, collapsed = TRUE,
+                    fluidRow(
+                      column(
+                        width = 12,
+                        offset = 0.5,
+                        DT::dataTableOutput("dt_ed"))
+                    )
+                )
+              )
             )
+
+
           ),
-          column(
-            width = 6,
-            box(width = NULL, title = "Experimental design preview",status = "primary",
-                solidHeader = TRUE,collapsible = TRUE, collapsed = TRUE,
-                fluidRow(
-                  column(
-                    width = 12,
-                    offset = 0.5,
-                    DT::dataTableOutput("dt_ed"))
-                )
-            )
-          )
-        ),
+        # h2("Step 1: Upload your count matrix and the info on the experimental design"),
+
         # verbatimTextOutput("eddesign"),
-        hr(),
-
         uiOutput("ui_step2"),
-        uiOutput("ddsdesign"),
         # verbatimTextOutput("debugdesign"),
-
-
         # uiOutput("ui_step3"),
-        uiOutput("ui_diydds"),
-        hr(),
-        # uiOutput("ok_dds"),
-        verbatimTextOutput("debugdiy"),
 
         hr(),
 
         fluidRow(
           column(
             width = 6,
-            uiOutput("ui_stepanno"),
-            uiOutput("ui_selectspecies"),
-            verbatimTextOutput("speciespkg"),
-            uiOutput("ui_idtype"),
-            verbatimTextOutput("printDIYanno"),
-            uiOutput("ui_getanno")
+            uiOutput("ui_stepanno")
+
+
             ## this ideally populates also the list of genes of interest to choose among
           ),
           column(
             width = 6,
-            uiOutput("ui_stepoutlier"),
-            uiOutput("ui_selectoutliers"),
-            uiOutput("outliersout"),
-            verbatimTextOutput("printremoved")
+            uiOutput("ui_stepoutlier")
           )
         ),
 
         hr(),
 
-        uiOutput("ui_step3"),
-        uiOutput("rundeseq"),
-
-        verbatimTextOutput("printDIYresults"),
-
-        # verbatimTextOutput("printdds"),
-        # verbatimTextOutput("printres"),
-        uiOutput("ui_stepend")
+        uiOutput("ui_step3")
       ),
 
 
