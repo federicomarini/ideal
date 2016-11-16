@@ -99,8 +99,9 @@ ideal_server <- shinyServer(function(input, output, session) {
   readCountmatrix <- reactive({
     if (is.null(input$uploadcmfile))
       return(NULL)
+    guessed_sep <- sepguesser(input$uploadcmfile$datapath)
     cm <- utils::read.delim(input$uploadcmfile$datapath, header = TRUE,
-                            as.is = TRUE, sep = "\t", quote = "",
+                            as.is = TRUE, sep = guessed_sep, quote = "",
                             row.names = 1, # https://github.com/federicomarini/pcaExplorer/issues/1
                             ## TODO: tell the user to use tsv, or use heuristics
                             ## to check what is most frequently occurring separation character? -> see sepGuesser.R
@@ -125,8 +126,9 @@ ideal_server <- shinyServer(function(input, output, session) {
   readMetadata <- reactive({
     if (is.null(input$uploadmetadatafile))
       return(NULL)
+    guessed_sep <- sepguesser(input$uploadmetadatafile$datapath)
     expdesign <- utils::read.delim(input$uploadmetadatafile$datapath, header = TRUE,
-                                   as.is = TRUE, sep = "\t", quote = "",
+                                   as.is = TRUE, sep = guessed_sep, quote = "",
                                    check.names = FALSE)
 
     return(expdesign)

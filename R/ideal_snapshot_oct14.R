@@ -63,6 +63,19 @@ ideal<- function(res_obj = NULL,
 
 
 ############################# helper funcs #################################
+
+library(stringr)
+sepguesser <- function(f) {
+  separators_list = c(",", "\t", ";"," ")
+  rl = readLines(f, warn = FALSE)
+  rl = rl[rl != ""] # allow last line to be empty
+  sephits_min = sapply(separators_list, function(x) min(stringr::str_count(rl, x))) #minimal number of separators on a line
+  sep = separators_list[which.max(sephits_min)]
+  sep
+}
+
+
+
 # anno_df$entrez <- mapIds(org.Hs.eg.db,keys = anno_df$gene_id, keytype = "ENSEMBL", column = "ENTREZID")
 # ggss <- rentrez::entrez_summary("gene", anno_df$entrez[1:150])
 
