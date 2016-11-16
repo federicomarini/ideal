@@ -17,10 +17,6 @@
 #'
 #'
 #'
-#'
-#'
-#'
-#'
 ideal<- function(res_obj = NULL,
                  dds_obj = NULL,
                  annotation_obj = NULL,
@@ -38,6 +34,8 @@ ideal<- function(res_obj = NULL,
 
   ## upload max 300mb files - can be changed if necessary
   options(shiny.maxRequestSize=300*1024^2)
+  #
+  options(shiny.launch.browser = TRUE)
 
   ## ------------------------------------------------------------------ ##
   ##                          Define UI                                 ##

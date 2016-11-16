@@ -88,8 +88,13 @@ ideal_ui <- shinydashboard::dashboardPage(
         box(width = 12, title = "Step 1", status = "danger", solidHeader = TRUE,
             h2("Upload your count matrix and the info on the experimental design"),
 
-            uiOutput("upload_count_matrix"),
-            uiOutput("upload_metadata"),
+            fluidRow(
+              column(
+                width = 4,
+                uiOutput("upload_count_matrix"),
+                uiOutput("upload_metadata")
+              )
+            ),
 
             fluidRow(
               column(
@@ -123,6 +128,7 @@ ideal_ui <- shinydashboard::dashboardPage(
         # h2("Step 1: Upload your count matrix and the info on the experimental design"),
 
         # verbatimTextOutput("eddesign"),
+
         uiOutput("ui_step2"),
         # verbatimTextOutput("debugdesign"),
         # uiOutput("ui_step3"),

@@ -31,12 +31,12 @@ ideal_server <- shinyServer(function(input, output, session) {
       return(valueBox("dds object",
                       paste0(nrow(values$dds_obj), " genes - ",ncol(values$dds_obj)," samples"),
                       icon = icon("list"),
-                      color = "teal",width = NULL))
+                      color = "green",width = NULL))
     else
       return(valueBox("dds object",
                       "yet to create",
                       icon = icon("list"),
-                      color = "teal",width = NULL))
+                      color = "red",width = NULL))
 
     # "", paste0(25 + input$count, "%"), icon = icon("list"),
     # color = "purple"
@@ -48,12 +48,12 @@ ideal_server <- shinyServer(function(input, output, session) {
       return(valueBox("Annotation",
                       paste0(nrow(values$annotation_obj), " genes - ",ncol(values$annotation_obj)," ID types"),
                       icon = icon("book"),
-                      color = "purple",width = NULL))
+                      color = "green",width = NULL))
     else
       return(valueBox("Annotation",
                       "yet to create",
                       icon = icon("book"),
-                      color = "purple",width = NULL))
+                      color = "red",width = NULL))
   })
 
   output$box_resobj <- renderUI({
@@ -62,12 +62,12 @@ ideal_server <- shinyServer(function(input, output, session) {
       return(valueBox("DE genes",
                       paste0(DEregu, " DE genes - out of ",nrow(values$res_obj),""),
                       icon = icon("list-alt"),
-                      color = "maroon",width = NULL))
+                      color = "green",width = NULL))
     } else
       return(valueBox("DE genes",
                         "yet to create",
                         icon = icon("list-alt"),
-                        color = "maroon",width = NULL))
+                        color = "red",width = NULL))
 
 
   })
@@ -169,11 +169,16 @@ ideal_server <- shinyServer(function(input, output, session) {
         tagList(
       # as in https://groups.google.com/forum/#!topic/shiny-discuss/qQ8yICfvDu0
       h2("Step 2: Select the DE design and create the DESeqDataSet object"),
-      uiOutput("ddsdesign"),
-      uiOutput("ui_diydds"),
-      hr(),
-      # uiOutput("ok_dds"),
-      verbatimTextOutput("debugdiy")
+      fluidRow(
+        column(
+          width = 6,
+          uiOutput("ddsdesign"),
+          uiOutput("ui_diydds"),
+          hr(),
+          # uiOutput("ok_dds"),
+          verbatimTextOutput("debugdiy")
+        )
+      )
     ))
   })
 
@@ -184,13 +189,21 @@ ideal_server <- shinyServer(function(input, output, session) {
     box(width = 12, title = "Optional Step", status = "info", solidHeader = TRUE,
         tagList(
           h2("Optional Step: Create the annotation data frame for your dataset"),
-          uiOutput("ui_selectspecies"),
-          verbatimTextOutput("speciespkg"),
-          uiOutput("ui_idtype"),
-          verbatimTextOutput("printDIYanno"),
-          uiOutput("ui_getanno")
+
+          fluidRow(
+            column(
+              width = 8,
+              uiOutput("ui_selectspecies"),
+              verbatimTextOutput("speciespkg"),
+              uiOutput("ui_idtype"),
+              verbatimTextOutput("printDIYanno")
+
+            )
           )
+          ,
+          uiOutput("ui_getanno")
         )
+    )
   })
 
 
@@ -201,9 +214,16 @@ ideal_server <- shinyServer(function(input, output, session) {
     box(width = 12, title = "Optional Step", status = "info", solidHeader = TRUE,
         tagList(
           h2("Optional Step: Remove sample(s) from the current dataset - suspected outliers!"),
-          uiOutput("ui_selectoutliers"),
-          uiOutput("outliersout"),
-          verbatimTextOutput("printremoved")
+
+          fluidRow(
+            column(
+              width = 8,
+              uiOutput("ui_selectoutliers"),
+              uiOutput("outliersout"),
+              verbatimTextOutput("printremoved")
+            )
+          )
+
         )
     )
   })
@@ -494,23 +514,28 @@ ideal_server <- shinyServer(function(input, output, session) {
   })
 
   observeEvent(input$button_outliersout,{
-    allsamples <- colnames(values$dds_obj)
-    outliersamples <- input$selectoutliers
+    withProgress({
+      allsamples <- colnames(values$dds_obj)
+      outliersamples <- input$selectoutliers
 
-    keptsamples <- setdiff(allsamples,outliersamples)
-    dds <- DESeqDataSetFromMatrix(countData = values$countmatrix[,keptsamples],
-                                  colData = values$expdesign[keptsamples,],
-                                  design= design(values$dds_obj)
-                                  # design=as.formula(paste0("~",paste(input$dds_design, collapse=" + ")))
-    )
-    dds <- estimateSizeFactors(dds)
+      keptsamples <- setdiff(allsamples,outliersamples)
+      dds <- DESeqDataSetFromMatrix(countData = values$countmatrix[,keptsamples],
+                                    colData = values$expdesign[keptsamples,],
+                                    design= design(values$dds_obj)
+                                    # design=as.formula(paste0("~",paste(input$dds_design, collapse=" + ")))
+      )
+      dds <- estimateSizeFactors(dds)
 
-    # return(dds)
-    # re-create the dds and keep track of which samples were removed
-    values$removedsamples <- input$selectoutliers
-    values$dds_obj <- dds
-    # accordingly, reset the results
-    values$res_obj <- NULL
+      # return(dds)
+      # re-create the dds and keep track of which samples were removed
+      values$removedsamples <- input$selectoutliers
+
+      curr_species <- input$speciesSelect
+      values$dds_obj <- dds
+      updateSelectInput(session, inputId = "speciesSelect", selected = curr_species)
+      # accordingly, reset the results
+      values$res_obj <- NULL},
+      message = "Removing selected samples from the current dataset")
   })
 
   output$printremoved <- renderPrint({
@@ -532,7 +557,10 @@ ideal_server <- shinyServer(function(input, output, session) {
                {
                  withProgress(message="Running DESeq on your data...",
                               detail = "This step might take a while", value = 0,{
-                   values$dds_obj <- DESeq(values$dds_obj)
+                                # trick to keep species info while still changing the dds_obj
+                                curr_species <- input$speciesSelect
+                                values$dds_obj <- DESeq(values$dds_obj)
+                                updateSelectInput(session, inputId = "speciesSelect", selected = curr_species)
                    })
                })
 
@@ -583,7 +611,11 @@ ideal_server <- shinyServer(function(input, output, session) {
 
   output$corrplot <- renderPlot({
     if(input$compute_pairwisecorr)
-      pair_corr(current_countmat(),method=input$corr_method)
+      withProgress(
+        pair_corr(current_countmat(),method=input$corr_method),
+        message = "Preparing the plot",
+        detail = "this can take a while..."
+      )
   })
 
   output$heatcorr <- renderPlot({
@@ -647,7 +679,9 @@ ideal_server <- shinyServer(function(input, output, session) {
                  # TODO: see if re-estimation of size factors is required
                  filt_dds <- estimateSizeFactors(filt_dds)
 
+                 curr_species <- input$speciesSelect
                  values$dds_obj <- filt_dds
+                 updateSelectInput(session, inputId = "speciesSelect", selected = curr_species)
 
                })
 
