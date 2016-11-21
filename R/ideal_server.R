@@ -703,7 +703,7 @@ ideal_server <- shinyServer(function(input, output, session) {
 
   observeEvent(input$gl1,
                {
-                 mydf <- as.data.frame(gl1())
+                 mydf <- as.data.frame(gl1(),stringsAsFactors=FALSE)
                  names(mydf) <- "Gene Symbol"
                  values$genelist1 <- mydf
                })
@@ -720,7 +720,7 @@ ideal_server <- shinyServer(function(input, output, session) {
 
   observeEvent(input$gl2,
                {
-                 mydf <- as.data.frame(gl2())
+                 mydf <- as.data.frame(gl2(),stringsAsFactors=FALSE)
                  names(mydf) <- "Gene Symbol"
                  values$genelist2 <- mydf
                })
@@ -872,7 +872,7 @@ ideal_server <- shinyServer(function(input, output, session) {
   })
 
 
-
+  ### UP
   observeEvent(input$button_enrUP,
                {
                  withProgress(message="Performing Gene Set Enrichment on upregulated genes...",value = 0,{
@@ -887,12 +887,88 @@ ideal_server <- shinyServer(function(input, output, session) {
                                                             column="ENTREZID", keytype=inputType))
                    listBackgroundEntrez <-  as.character(AnnotationDbi::mapIds(eval(parse(text=annopkg)), keys = backgroundgenes,
                                                             column="ENTREZID", keytype="ENSEMBL"))
+                   incProgress(0.1, detail = "IDs mapped")
                    values$gse_up <- limma::topGO(limma::goana(listGenesEntrez, listBackgroundEntrez, species = organism),
                                           ontology="BP", # could be ideally replaced by input$
                                           number=200)
+
+                   incProgress(0.7, detail = "adding gene names to GO terms") # good indicator for showing it has progressed
+                   go_ids <- rownames(values$gse_up)
+                   allegs_list <- lapply(go_ids, function(arg) get(arg, org.Hs.egGO2ALLEGS))
+                   genes_list <- lapply(allegs_list, function(arg) unlist(mget(arg,org.Hs.egSYMBOL)))
+                   degenes <- values$genelistUP()
+                   DEgenes_list <- lapply(genes_list, function(arg) intersect(arg,degenes))
+
+                   # values$gse_down$genes[1:20] <- DEgenes_list
+                   # lapply(values$gse_down,class)
+                   values$gse_up$genes <- unlist(lapply(DEgenes_list,function(arg) paste(arg,collapse=",")))
                  })
                })
 
+  observeEvent(input$button_enrUP_goseq,
+               {
+                 withProgress(message="GOSEQ - Performing Gene Set Enrichment on upregulated genes...",value = 0,{
+
+                   de.genes <- values$genelistUP() # assumed to be in symbols
+                   assayed.genes.ids <- rownames(values$dds_obj) # as IDs, but then to be converted back
+                   assayed.genes <- mapIds(org.Hs.eg.db,
+                                           keys=assayed.genes.ids,
+                                           column="SYMBOL",
+                                           keytype="ENSEMBL",
+                                           multiVals="first")
+                   de.genes.ids <- mapIds(org.Hs.eg.db,
+                                          keys=de.genes,
+                                          column="ENSEMBL",
+                                          keytype="SYMBOL",
+                                          multiVals="first")
+                   incProgress(0.1, detail = "IDs mapped")
+
+                   values$gse_up_goseq <- goseqTable(de.genes.ids,                  # Differentially expressed genes
+                                                       assayed.genes.ids,             # background genes, normally = rownames(cds) or filtering to genes
+                                                       #  with at least 1 read - could also be ls(org.Mm.egGO)
+                                                       genome = "hg38",
+                                                       id= "ensGene",
+                                                       testCats=c("GO:BP","GO:MF","GO:CC"),
+                                                       FDR_GO_cutoff = 1,
+                                                       nTop = 500,
+                                                       # testKegg=TRUE,
+                                                       # keggObject=mapPathwayToName("mmu"), # need the dedicated function!!
+                                                       # writeOutput=FALSE,
+                                                       addGeneToTerms=TRUE # ,
+                                                       # outputFiles_goseq="",outputFiles_goseq_kegg=""
+                                                       ## TODO TODO: bring back in action the function
+                                                       ## add genes annotated to each term
+                                                       ## do it by default only for bp?
+                                                       ## tests at the beginning to see if the whole thing is feasible?
+                   )
+
+                   incProgress(0.89)
+
+                 })
+               })
+
+  observeEvent(input$button_enrUP_topgo,
+               {
+                 withProgress(message="TOPGO - Performing Gene Set Enrichment on upregulated genes...",value = 0,{
+
+                   de_symbols <- values$genelistUP() # assumed to be in symbols
+                   bg_ids <- rownames(values$dds_obj)[rowSums(counts(values$dds_obj)) > 0]
+                   bg_symbols <- mapIds(org.Hs.eg.db,
+                                        keys=bg_ids,
+                                        column="SYMBOL",
+                                        keytype="ENSEMBL",
+                                        multiVals="first")
+                   incProgress(0.1, detail = "IDs mapped")
+                   library(topGO)
+                   values$topgo_up <- topGOtable(de_symbols, bg_symbols,
+                                                   ontology = "BP",
+                                                   mapping = "org.Hs.eg.db",
+                                                   geneID = "symbol",addGeneToTerms = TRUE)
+                   incProgress(0.89)
+                 })
+               })
+
+  ### DOWN
   observeEvent(input$button_enrDOWN,
                {
                  withProgress(message="Performing Gene Set Enrichment on downregulated genes...",value = 0,{
@@ -907,6 +983,7 @@ ideal_server <- shinyServer(function(input, output, session) {
                                                             column="ENTREZID", keytype=inputType))
                    listBackgroundEntrez <-  as.character(AnnotationDbi::mapIds(eval(parse(text=annopkg)), keys = backgroundgenes,
                                                                  column="ENTREZID", keytype="ENSEMBL"))
+                   incProgress(0.1, detail = "IDs mapped")
                    values$gse_down <- limma::topGO(limma::goana(listGenesEntrez, listBackgroundEntrez, species = organism),
                                                  ontology="BP", # could be ideally replaced by input$
                                                  number=200)
@@ -927,7 +1004,7 @@ ideal_server <- shinyServer(function(input, output, session) {
                    #
 
                    ## and for all here:
-                   incProgress(0.7) # good indicator for showing it has progressed
+                   incProgress(0.7, detail = "adding gene names to GO terms") # good indicator for showing it has progressed
                    go_ids <- rownames(values$gse_down)
                    allegs_list <- lapply(go_ids, function(arg) get(arg, org.Hs.egGO2ALLEGS))
                    genes_list <- lapply(allegs_list, function(arg) unlist(mget(arg,org.Hs.egSYMBOL)))
@@ -945,48 +1022,41 @@ ideal_server <- shinyServer(function(input, output, session) {
   observeEvent(input$button_enrDOWN_goseq,
                {
                  withProgress(message="GOSEQ - Performing Gene Set Enrichment on downregulated genes...",value = 0,{
-                   organism <- "Hs" # will be replaced by input$...
-                   backgroundgenes <- rownames(values$dds_obj)[rowSums(counts(values$dds_obj))>0]
-                   inputType <- "SYMBOL" # will be replaced by input$...
-                   annopkg <- paste0("org.",organism,".eg.db")
-                   if (!require(annopkg,character.only=TRUE)) {
-                     stop("The package",annopkg, "is not installed/available. Try installing it with biocLite() ?")
-                   }
-                   listGenesEntrez <-  as.character(AnnotationDbi::mapIds(eval(parse(text=annopkg)), keys = values$genelistDOWN(),
-                                                                          column="ENTREZID", keytype=inputType))
-                   listBackgroundEntrez <-  as.character(AnnotationDbi::mapIds(eval(parse(text=annopkg)), keys = backgroundgenes,
-                                                                               column="ENTREZID", keytype="ENSEMBL"))
-                   values$gse_down <- limma::topGO(limma::goana(listGenesEntrez, listBackgroundEntrez, species = organism),
-                                                   ontology="BP", # could be ideally replaced by input$
-                                                   number=200)
 
-                   # some attempt to retrieve all genes annotated
+                   de.genes <- values$genelistDOWN() # assumed to be in symbols
+                   assayed.genes.ids <- rownames(values$dds_obj) # as IDs, but then to be converted back
+                   assayed.genes <- mapIds(org.Hs.eg.db,
+                                        keys=assayed.genes.ids,
+                                        column="SYMBOL",
+                                        keytype="ENSEMBL",
+                                        multiVals="first")
+                   de.genes.ids <- mapIds(org.Hs.eg.db,
+                                           keys=de.genes,
+                                           column="ENSEMBL",
+                                           keytype="SYMBOL",
+                                           multiVals="first")
+                   incProgress(0.1, detail = "IDs mapped")
 
-                   # # i do it here for one gene
-                   # go_id <- rownames(values$gse_down)[1]
-                   # allegs = get(go_id, org.Hs.egGO2ALLEGS)
-                   # genes = unlist(mget(allegs,org.Hs.egSYMBOL))
-                   #
-                   # degenes <- values$genelistDOWN()
-                   #
-                   # intersect(genes, degenes)
-                   #
-                   # # values$gse_down$genes <- unlist(lapply(intersect(genes, degenes),function(arg) paste(arg,collapse=",")))
-                   # values$gse_down$genes[1] <- unlist(lapply(intersect(genes, degenes),function(arg) paste(arg,collapse=",")))
-                   #
+                   values$gse_down_goseq <- goseqTable(de.genes.ids,                  # Differentially expressed genes
+                                                       assayed.genes.ids,             # background genes, normally = rownames(cds) or filtering to genes
+                                          #  with at least 1 read - could also be ls(org.Mm.egGO)
+                                          genome = "hg38",
+                                          id= "ensGene",
+                                          testCats=c("GO:BP","GO:MF","GO:CC"),
+                                          FDR_GO_cutoff = 1,
+                                          nTop = 500,
+                                          # testKegg=TRUE,
+                                          # keggObject=mapPathwayToName("mmu"), # need the dedicated function!!
+                                          # writeOutput=FALSE,
+                                          addGeneToTerms=TRUE # ,
+                                          # outputFiles_goseq="",outputFiles_goseq_kegg=""
+                                          ## TODO TODO: bring back in action the function
+                                          ## add genes annotated to each term
+                                          ## do it by default only for bp?
+                                          ## tests at the beginning to see if the whole thing is feasible?
+                   )
 
-                   ## and for all here:
-                   incProgress(0.7) # good indicator for showing it has progressed
-                   go_ids <- rownames(values$gse_down)
-                   allegs_list <- lapply(go_ids, function(arg) get(arg, org.Hs.egGO2ALLEGS))
-                   genes_list <- lapply(allegs_list, function(arg) unlist(mget(arg,org.Hs.egSYMBOL)))
-                   degenes <- values$genelistDOWN()
-                   DEgenes_list <- lapply(genes_list, function(arg) intersect(arg,degenes))
-
-                   # values$gse_down$genes[1:20] <- DEgenes_list
-                   # lapply(values$gse_down,class)
-                   values$gse_down$genes <- unlist(lapply(DEgenes_list,function(arg) paste(arg,collapse=",")))
-                   # lapply(values$gse_down,class)
+                   incProgress(0.89)
 
                  })
                })
@@ -996,13 +1066,13 @@ ideal_server <- shinyServer(function(input, output, session) {
                  withProgress(message="TOPGO - Performing Gene Set Enrichment on downregulated genes...",value = 0,{
 
                    de_symbols <- values$genelistDOWN() # assumed to be in symbols
-                   bg_ids <- rownames(dds_airway)[rowSums(counts(dds_airway)) > 0]
+                   bg_ids <- rownames(values$dds_obj)[rowSums(counts(values$dds_obj)) > 0]
                    bg_symbols <- mapIds(org.Hs.eg.db,
                                         keys=bg_ids,
                                         column="SYMBOL",
                                         keytype="ENSEMBL",
                                         multiVals="first")
-                   incProgress(0.1)
+                   incProgress(0.1, detail = "IDs mapped")
                    library(topGO)
                    values$topgo_down <- topGOtable(de_symbols, bg_symbols,
                                        ontology = "BP",
@@ -1040,6 +1110,7 @@ ideal_server <- shinyServer(function(input, output, session) {
                  })
                })
 
+  ### UPDOWN
   observeEvent(input$button_enrUPDOWN,
                {
                  withProgress(message="Performing Gene Set Enrichment on up- and downregulated genes...",value = 0,{
@@ -1054,12 +1125,88 @@ ideal_server <- shinyServer(function(input, output, session) {
                                                             column="ENTREZID", keytype=inputType))
                    listBackgroundEntrez <-  as.character(AnnotationDbi::mapIds(eval(parse(text=annopkg)), keys = backgroundgenes,
                                                                  column="ENTREZID", keytype="ENSEMBL"))
+                   incProgress(0.1, detail = "IDs mapped")
                    values$gse_updown <- limma::topGO(limma::goana(listGenesEntrez, listBackgroundEntrez, species = organism),
                                                  ontology="BP", # could be ideally replaced by input$
                                                  number=200)
+
+                   incProgress(0.7, detail = "adding gene names to GO terms") # good indicator for showing it has progressed
+                   go_ids <- rownames(values$gse_updown)
+                   allegs_list <- lapply(go_ids, function(arg) get(arg, org.Hs.egGO2ALLEGS))
+                   genes_list <- lapply(allegs_list, function(arg) unlist(mget(arg,org.Hs.egSYMBOL)))
+                   degenes <- values$genelistDOWN()
+                   DEgenes_list <- lapply(genes_list, function(arg) intersect(arg,degenes))
+
+                   # values$gse_down$genes[1:20] <- DEgenes_list
+                   # lapply(values$gse_down,class)
+                   values$gse_updown$genes <- unlist(lapply(DEgenes_list,function(arg) paste(arg,collapse=",")))
                  })
                })
 
+  observeEvent(input$button_enrUPDOWN_goseq,
+               {
+                 withProgress(message="GOSEQ - Performing Gene Set Enrichment on up and downregulated genes...",value = 0,{
+
+                   de.genes <- values$genelistUPDOWN() # assumed to be in symbols
+                   assayed.genes.ids <- rownames(values$dds_obj) # as IDs, but then to be converted back
+                   assayed.genes <- mapIds(org.Hs.eg.db,
+                                           keys=assayed.genes.ids,
+                                           column="SYMBOL",
+                                           keytype="ENSEMBL",
+                                           multiVals="first")
+                   de.genes.ids <- mapIds(org.Hs.eg.db,
+                                          keys=de.genes,
+                                          column="ENSEMBL",
+                                          keytype="SYMBOL",
+                                          multiVals="first")
+                   incProgress(0.1, detail = "IDs mapped")
+
+                   values$gse_updown_goseq <- goseqTable(de.genes.ids,                  # Differentially expressed genes
+                                                       assayed.genes.ids,             # background genes, normally = rownames(cds) or filtering to genes
+                                                       #  with at least 1 read - could also be ls(org.Mm.egGO)
+                                                       genome = "hg38",
+                                                       id= "ensGene",
+                                                       testCats=c("GO:BP","GO:MF","GO:CC"),
+                                                       FDR_GO_cutoff = 1,
+                                                       nTop = 500,
+                                                       # testKegg=TRUE,
+                                                       # keggObject=mapPathwayToName("mmu"), # need the dedicated function!!
+                                                       # writeOutput=FALSE,
+                                                       addGeneToTerms=TRUE # ,
+                                                       # outputFiles_goseq="",outputFiles_goseq_kegg=""
+                                                       ## TODO TODO: bring back in action the function
+                                                       ## add genes annotated to each term
+                                                       ## do it by default only for bp?
+                                                       ## tests at the beginning to see if the whole thing is feasible?
+                   )
+
+                   incProgress(0.89)
+
+                 })
+               })
+
+  observeEvent(input$button_enrUPDOWN_topgo,
+               {
+                 withProgress(message="TOPGO - Performing Gene Set Enrichment on up and downregulated genes...",value = 0,{
+
+                   de_symbols <- values$genelistUPDOWN() # assumed to be in symbols
+                   bg_ids <- rownames(values$dds_obj)[rowSums(counts(values$dds_obj)) > 0]
+                   bg_symbols <- mapIds(org.Hs.eg.db,
+                                        keys=bg_ids,
+                                        column="SYMBOL",
+                                        keytype="ENSEMBL",
+                                        multiVals="first")
+                   incProgress(0.1, detail = "IDs mapped")
+                   library(topGO)
+                   values$topgo_updown <- topGOtable(de_symbols, bg_symbols,
+                                                   ontology = "BP",
+                                                   mapping = "org.Hs.eg.db",
+                                                   geneID = "symbol",addGeneToTerms = TRUE)
+                   incProgress(0.89)
+                 })
+               })
+
+  ### LIST1
   observeEvent(input$button_enrLIST1,
                {
                  withProgress(message="Performing Gene Set Enrichment on upregulated genes...",value = 0,{
@@ -1074,12 +1221,87 @@ ideal_server <- shinyServer(function(input, output, session) {
                                                             column="ENTREZID", keytype=inputType)
                    listBackgroundEntrez <- AnnotationDbi::mapIds(eval(parse(text=annopkg)), keys = backgroundgenes,
                                                                  column="ENTREZID", keytype="ENSEMBL")
+                   incProgress(0.1, detail = "IDs mapped")
                    values$gse_list1 <- limma::topGO(limma::goana(listGenesEntrez, listBackgroundEntrez, species = organism),
                                                  ontology="BP", # could be ideally replaced by input$
                                                  number=200)
+
+                   incProgress(0.7, detail = "adding gene names to GO terms") # good indicator for showing it has progressed
+                   go_ids <- rownames(values$gse_list1)
+                   allegs_list <- lapply(go_ids, function(arg) get(arg, org.Hs.egGO2ALLEGS))
+                   genes_list <- lapply(allegs_list, function(arg) unlist(mget(arg,org.Hs.egSYMBOL)))
+                   degenes <- values$genelistDOWN()
+                   DEgenes_list <- lapply(genes_list, function(arg) intersect(arg,degenes))
+
+                   # values$gse_down$genes[1:20] <- DEgenes_list
+                   # lapply(values$gse_down,class)
+                   values$gse_list1$genes <- unlist(lapply(DEgenes_list,function(arg) paste(arg,collapse=",")))
                  })
                })
 
+  observeEvent(input$button_enrLIST1_goseq,
+               {
+                 withProgress(message="GOSEQ - Performing Gene Set Enrichment on list 1 genes...",value = 0,{
+
+                   de.genes <- values$genelist1$`Gene Symbol` # assumed to be in symbols
+                   assayed.genes.ids <- rownames(values$dds_obj) # as IDs, but then to be converted back
+                   assayed.genes <- mapIds(org.Hs.eg.db,
+                                           keys=assayed.genes.ids,
+                                           column="SYMBOL",
+                                           keytype="ENSEMBL",
+                                           multiVals="first")
+                   de.genes.ids <- mapIds(org.Hs.eg.db,
+                                          keys=de.genes,
+                                          column="ENSEMBL",
+                                          keytype="SYMBOL",
+                                          multiVals="first")
+                   incProgress(0.1, detail = "IDs mapped")
+
+                   values$gse_list1_goseq <- goseqTable(de.genes.ids,                  # Differentially expressed genes
+                                                       assayed.genes.ids,             # background genes, normally = rownames(cds) or filtering to genes
+                                                       #  with at least 1 read - could also be ls(org.Mm.egGO)
+                                                       genome = "hg38",
+                                                       id= "ensGene",
+                                                       testCats=c("GO:BP","GO:MF","GO:CC"),
+                                                       FDR_GO_cutoff = 1,
+                                                       nTop = 500,
+                                                       # testKegg=TRUE,
+                                                       # keggObject=mapPathwayToName("mmu"), # need the dedicated function!!
+                                                       # writeOutput=FALSE,
+                                                       addGeneToTerms=TRUE # ,
+                                                       # outputFiles_goseq="",outputFiles_goseq_kegg=""
+                                                       ## TODO TODO: bring back in action the function
+                                                       ## add genes annotated to each term
+                                                       ## do it by default only for bp?
+                                                       ## tests at the beginning to see if the whole thing is feasible?
+                   )
+
+                   incProgress(0.89)
+
+                 })
+               })
+
+  observeEvent(input$button_enrLIST1_topgo,
+               {
+                 withProgress(message="TOPGO - Performing Gene Set Enrichment on list1 genes...",value = 0,{
+
+                   de_symbols <- values$genelist1$`Gene Symbol` # assumed to be in symbols
+                   bg_ids <- rownames(values$dds_obj)[rowSums(counts(values$dds_obj)) > 0]
+                   bg_symbols <- mapIds(org.Hs.eg.db,
+                                        keys=bg_ids,
+                                        column="SYMBOL",
+                                        keytype="ENSEMBL",
+                                        multiVals="first")
+                   incProgress(0.1, detail = "IDs mapped")
+                   library(topGO)
+                   values$topgo_list1 <- topGOtable(de_symbols, bg_symbols,
+                                                    ontology = "BP",
+                                                    mapping = "org.Hs.eg.db",
+                                                    geneID = "symbol",addGeneToTerms = TRUE)
+                   incProgress(0.89)
+                 })
+               })
+  ### LIST2
   observeEvent(input$button_enrLIST2,
                {
                  withProgress(message="Performing Gene Set Enrichment on upregulated genes...",value = 0,{
@@ -1094,53 +1316,119 @@ ideal_server <- shinyServer(function(input, output, session) {
                                                             column="ENTREZID", keytype=inputType)
                    listBackgroundEntrez <- AnnotationDbi::mapIds(eval(parse(text=annopkg)), keys = backgroundgenes,
                                                                  column="ENTREZID", keytype="ENSEMBL")
+                   incProgress(0.1, detail = "IDs mapped")
                    values$gse_list2 <- limma::topGO(limma::goana(listGenesEntrez, listBackgroundEntrez, species = organism),
                                                  ontology="BP", # could be ideally replaced by input$
                                                  number=200)
+                   incProgress(0.7, detail = "adding gene names to GO terms") # good indicator for showing it has progressed
+                   go_ids <- rownames(values$gse_list2)
+                   allegs_list <- lapply(go_ids, function(arg) get(arg, org.Hs.egGO2ALLEGS))
+                   genes_list <- lapply(allegs_list, function(arg) unlist(mget(arg,org.Hs.egSYMBOL)))
+                   degenes <- values$genelistDOWN()
+                   DEgenes_list <- lapply(genes_list, function(arg) intersect(arg,degenes))
+
+                   # values$gse_down$genes[1:20] <- DEgenes_list
+                   # lapply(values$gse_down,class)
+                   values$gse_list2$genes <- unlist(lapply(DEgenes_list,function(arg) paste(arg,collapse=",")))
                  })
                })
 
-  observeEvent(input$button_enrLIST1_topgo,
+  observeEvent(input$button_enrLIST2_goseq,
                {
-                 withProgress(message="TOPGO - Performing Gene Set Enrichment on list1 genes...",value = 0,{
+                 withProgress(message="GOSEQ - Performing Gene Set Enrichment on list 2 genes...",value = 0,{
 
-                   de_symbols <- values$genelist1$`Gene Symbol` # assumed to be in symbols
-                   bg_ids <- rownames(dds_airway)[rowSums(counts(dds_airway)) > 0]
+                   de.genes <- values$genelist2$`Gene Symbol` # assumed to be in symbols
+                   assayed.genes.ids <- rownames(values$dds_obj) # as IDs, but then to be converted back
+                   assayed.genes <- mapIds(org.Hs.eg.db,
+                                           keys=assayed.genes.ids,
+                                           column="SYMBOL",
+                                           keytype="ENSEMBL",
+                                           multiVals="first")
+                   de.genes.ids <- mapIds(org.Hs.eg.db,
+                                          keys=de.genes,
+                                          column="ENSEMBL",
+                                          keytype="SYMBOL",
+                                          multiVals="first")
+                   incProgress(0.1, detail = "IDs mapped")
+
+                   values$gse_list2_goseq <- goseqTable(de.genes.ids,                  # Differentially expressed genes
+                                                        assayed.genes.ids,             # background genes, normally = rownames(cds) or filtering to genes
+                                                        #  with at least 1 read - could also be ls(org.Mm.egGO)
+                                                        genome = "hg38",
+                                                        id= "ensGene",
+                                                        testCats=c("GO:BP","GO:MF","GO:CC"),
+                                                        FDR_GO_cutoff = 1,
+                                                        nTop = 500,
+                                                        # testKegg=TRUE,
+                                                        # keggObject=mapPathwayToName("mmu"), # need the dedicated function!!
+                                                        # writeOutput=FALSE,
+                                                        addGeneToTerms=TRUE # ,
+                                                        # outputFiles_goseq="",outputFiles_goseq_kegg=""
+                                                        ## TODO TODO: bring back in action the function
+                                                        ## add genes annotated to each term
+                                                        ## do it by default only for bp?
+                                                        ## tests at the beginning to see if the whole thing is feasible?
+                   )
+
+                   incProgress(0.89)
+
+                 })
+               })
+
+  observeEvent(input$button_enrLIST2_topgo,
+               {
+                 withProgress(message="TOPGO - Performing Gene Set Enrichment on list2 genes...",value = 0,{
+
+                   de_symbols <- values$genelist2$`Gene Symbol` # assumed to be in symbols
+                   bg_ids <- rownames(values$dds_obj)[rowSums(counts(values$dds_obj)) > 0]
                    bg_symbols <- mapIds(org.Hs.eg.db,
                                         keys=bg_ids,
                                         column="SYMBOL",
                                         keytype="ENSEMBL",
                                         multiVals="first")
-                   incProgress(0.1)
+                   incProgress(0.1, detail = "IDs mapped")
                    library(topGO)
-                   values$topgo_list1 <- topGOtable(de_symbols, bg_symbols,
-                                                   ontology = "BP",
-                                                   mapping = "org.Hs.eg.db",
-                                                   geneID = "symbol",addGeneToTerms = TRUE)
+                   values$topgo_list2 <- topGOtable(de_symbols, bg_symbols,
+                                                    ontology = "BP",
+                                                    mapping = "org.Hs.eg.db",
+                                                    geneID = "symbol",addGeneToTerms = TRUE)
                    incProgress(0.89)
-
-
-
                  })
                })
 
 
 
+
+
   output$DT_gse_up <- DT::renderDataTable({
     # if not null...
-    values$gse_up
+    if(is.null(values$gse_up))
+      return(NULL)
+    mytbl <- values$gse_up
+    rownames(mytbl) <- createLinkGO(rownames(mytbl))
+    datatable(mytbl,escape=FALSE)
   })
   output$DT_gse_down <- DT::renderDataTable({
     # if not null...
-    values$gse_down
+    if(is.null(values$gse_down))
+      return(NULL)
+    mytbl <- values$gse_down
+    rownames(mytbl) <- createLinkGO(rownames(mytbl))
+    datatable(mytbl,escape=FALSE)
   })
   output$DT_gse_updown <- DT::renderDataTable({
     # if not null...
-    values$gse_updown
+    if(is.null(values$gse_updown))
+      return(NULL)
+    mytbl <- values$gse_updown
+    rownames(mytbl) <- createLinkGO(rownames(mytbl))
+    datatable(mytbl,escape=FALSE)
   })
 
   output$DT_gse_list1 <- DT::renderDataTable({
     # if not null...
+    if(is.null(values$gse_list1))
+      return(NULL)
     mytbl <- values$gse_list1
     # mytbl$GOid <- rownames(mytbl)
     rownames(mytbl) <- createLinkGO(rownames(mytbl))
@@ -1149,19 +1437,105 @@ ideal_server <- shinyServer(function(input, output, session) {
 
   output$DT_gse_list2 <- DT::renderDataTable({
     # if not null...
-    values$gse_list2
+    if(is.null(values$gse_list2))
+      return(NULL)
+    mytbl <- values$gse_list2
+    rownames(mytbl) <- createLinkGO(rownames(mytbl))
+    datatable(mytbl,escape=FALSE)
+  })
+
+  output$DT_gse_up_topgo <- DT::renderDataTable({
+    # if not null...
+    if(is.null(values$topgo_up))
+      return(NULL)
+    mytbl <- values$topgo_up
+    mytbl$GO.ID <- createLinkGO(mytbl$GO.ID)
+    datatable(mytbl,escape=FALSE)
   })
 
   output$DT_gse_down_topgo <- DT::renderDataTable({
     # if not null...
-    values$topgo_down
+    if(is.null(values$topgo_down))
+      return(NULL)
+    mytbl <- values$topgo_down
+    mytbl$GO.ID <- createLinkGO(mytbl$GO.ID)
+    datatable(mytbl,escape=FALSE)
+  })
+
+  output$DT_gse_updown_topgo <- DT::renderDataTable({
+    # if not null...
+    if(is.null(values$topgo_updown))
+      return(NULL)
+    mytbl <- values$topgo_updown
+    mytbl$GO.ID <- createLinkGO(mytbl$GO.ID)
+    datatable(mytbl,escape=FALSE)
   })
 
   output$DT_gse_list1_topgo <- DT::renderDataTable({
     # if not null...
+    if(is.null(values$topgo_list1))
+      return(NULL)
     mytbl <- values$topgo_list1
     # mytbl$GOid <- rownames(mytbl)
     mytbl$GO.ID <- createLinkGO(mytbl$GO.ID)
+    datatable(mytbl,escape=FALSE)
+  })
+
+  output$DT_gse_list2_topgo <- DT::renderDataTable({
+    # if not null...
+    if(is.null(values$topgo_list2))
+      return(NULL)
+    mytbl <- values$topgo_list2
+    # mytbl$GOid <- rownames(mytbl)
+    mytbl$GO.ID <- createLinkGO(mytbl$GO.ID)
+    datatable(mytbl,escape=FALSE)
+  })
+
+
+  output$DT_gse_up_goseq <- DT::renderDataTable({
+    # if not null...
+    if(is.null(values$gse_up_goseq))
+      return(NULL)
+    mytbl <- values$gse_up_goseq
+    mytbl$category <- createLinkGO(mytbl$category)
+    datatable(mytbl,escape=FALSE)
+  })
+
+  output$DT_gse_down_goseq <- DT::renderDataTable({
+    # if not null...
+    if(is.null(values$gse_down_goseq))
+      return(NULL)
+    mytbl <- values$gse_down_goseq
+    mytbl$category <- createLinkGO(mytbl$category)
+    datatable(mytbl,escape=FALSE)
+  })
+
+  output$DT_gse_updown_goseq <- DT::renderDataTable({
+    # if not null...
+    if(is.null(values$gse_updown_goseq))
+      return(NULL)
+    mytbl <- values$gse_updown_goseq
+    mytbl$category <- createLinkGO(mytbl$category)
+    datatable(mytbl,escape=FALSE)
+  })
+
+  output$DT_gse_list1_goseq <- DT::renderDataTable({
+    # if not null...
+    if(is.null(values$gse_list1_goseq))
+      return(NULL)
+    mytbl <- values$gse_list1_goseq
+    # mytbl$GOid <- rownames(mytbl)
+    mytbl$category <- createLinkGO(mytbl$category)
+    datatable(mytbl,escape=FALSE)
+  })
+
+  output$DT_gse_list2_goseq <- DT::renderDataTable({
+    # if not null...
+    if(is.null(values$gse_list2_goseq))
+      return(NULL)
+    mytbl <- values$gse_list2_goseq
+    # mytbl$GOid <- rownames(mytbl)
+    mytbl$category <- createLinkGO(mytbl$category)
     datatable(mytbl,escape=FALSE)
   })
 

@@ -64,6 +64,65 @@ ideal<- function(res_obj = NULL,
 
 ############################# helper funcs #################################
 
+
+goseqTable <- function(de.genes,                  # Differentially expressed genes
+                        assayed.genes,             # background genes, normally = rownames(cds) or filtering to genes
+                        #  with at least 1 read - could also be ls(org.Mm.egGO)
+                        genome = "hg38",
+                        id= "ensGene",
+                        testCats=c("GO:BP","GO:MF","GO:CC"),
+                        FDR_GO_cutoff = 1,
+                        nTop = 200,
+                        # testKegg=TRUE,
+                        # keggObject=mapPathwayToName("mmu"), # need the dedicated function!!
+                        # writeOutput=FALSE,
+                        addGeneToTerms=TRUE # ,
+                        # outputFiles_goseq="",outputFiles_goseq_kegg=""
+                        ## TODO TODO: bring back in action the function
+                        ## add genes annotated to each term
+                        ## do it by default only for bp?
+                        ## tests at the beginning to see if the whole thing is feasible?
+)
+{
+  library(goseq)
+  library(GO.db)
+  gene.vector <- as.integer(assayed.genes %in% de.genes)
+  names(gene.vector) <- assayed.genes
+  fdr <- FDR_GO_cutoff
+
+  pwf <- nullp(DEgenes=gene.vector,genome = genome, id= id,plot.fit=FALSE)
+
+  goseq_out <-  goseq(pwf,genome=genome,id=id,test.cats=testCats)
+
+  # for adding the gene ids/names...
+  gene2cat = getgo(de.genes,genome=genome,id=id,fetch.cats= c("GO:CC","GO:BP", "GO:MF"))
+  names(gene2cat) = de.genes
+  cat2gene = goseq:::reversemapping(gene2cat)
+
+  goseq_out$p.adj <- p.adjust(GO.wall.all$over_represented_pvalue,method="BH")
+
+  # to reduce the load for adding the genes
+  goseq_out <- goseq_out[1:nTop,]
+
+  if(addGeneToTerms) {
+    # one list per GO term
+    goseq_out$genes <- sapply(goseq_out$category, function(x) cat2gene[[x]])
+
+    # TODO: replace identifiers/annotaions!!!
+    goseq_out$genesymbols <- sapply(goseq_out$genes, function(x) sort(AnnotationDbi::mapIds(org.Hs.eg.db,keys=x,keytype = "ENSEMBL",column = "SYMBOL",multiVals = "first")))
+    # coerce to char
+    goseq_out$genes <- unlist(lapply(goseq_out$genes,function(arg) paste(arg,collapse=",")))
+    # coerce to char
+    goseq_out$genesymbols <- unlist(lapply(goseq_out$genesymbols,function(arg) paste(arg,collapse=",")))
+
+  }
+
+  return(goseq_out)
+}
+
+
+
+
 library(stringr)
 sepguesser <- function(f) {
   separators_list = c(",", "\t", ";"," ")

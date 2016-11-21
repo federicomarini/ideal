@@ -81,6 +81,17 @@ ideal_ui <- shinydashboard::dashboardPage(
     tabBox(
       width=12,
 
+
+      tabPanel(
+        "Welcome!",  icon = icon("info-circle"),
+        includeMarkdown("welcome.md"),
+        includeMarkdown(system.file("extdata", "instructions.md",package = "ideal")),
+        footer()
+      ),
+
+
+
+
       tabPanel(
         "Data Setup",icon = icon("upload"),
 
@@ -156,12 +167,6 @@ ideal_ui <- shinydashboard::dashboardPage(
 
 
 
-      tabPanel(
-        "Instructions",  icon = icon("info-circle"),
-        includeMarkdown(system.file("extdata", "instructions.md",package = "ideal")),
-        footer()
-      ),
-
 
       tabPanel(
         "Counts Overview",
@@ -178,29 +183,32 @@ ideal_ui <- shinydashboard::dashboardPage(
           DT::dataTableOutput("showcountmat"),
           downloadButton("downloadData","Download", class = "btn btn-success"),
           hr(),
-          h3("Basic summary for the counts"),
-          p("Number of uniquely aligned reads assigned to each sample"),
-          # verbatimTextOutput("reads_summary"),
-          wellPanel(
-            fluidRow(
-              column(
-                width = 4,
-                numericInput("threshold_rowsums","Threshold on the row sums of the counts",value = 0, min = 0)),
-              column(
-                width = 4,
-                numericInput("threshold_rowmeans","Threshold on the row means of the normalized counts",value = 0, min = 0))
-            )),
-          p("According to the selected filtering criteria, this is an overview on the provided count data"),
-          verbatimTextOutput("detected_genes"),
+          fluidRow(
+            column(
+              width = 8,
+              h3("Basic summary for the counts"),
+              p("Number of uniquely aligned reads assigned to each sample"),
+              # verbatimTextOutput("reads_summary"),
+              wellPanel(
+                fluidRow(
+                  column(
+                    width = 6,
+                    numericInput("threshold_rowsums","Threshold on the row sums of the counts",value = 0, min = 0)),
+                  column(
+                    width = 6,
+                    numericInput("threshold_rowmeans","Threshold on the row means of the normalized counts",value = 0, min = 0))
+                )),
+              p("According to the selected filtering criteria, this is an overview on the provided count data"),
+              verbatimTextOutput("detected_genes"),
 
-          ## TODO: section to filter out features manually?
+              ## TODO: section to filter out features manually?
 
-          selectInput("filter_crit",label = "Choose the filtering criterium",
-                      choices = c("row means", "row sums"), selected = "row means"),
+              selectInput("filter_crit",label = "Choose the filtering criterium",
+                          choices = c("row means", "row sums"), selected = "row means"),
 
-          actionButton("featfilt_dds", "Filter the DDS object"),
-
-
+              actionButton("featfilt_dds", "Filter the DDS object")
+            )
+          ),
 
 
           h3("Sample to sample scatter plots"),
@@ -244,7 +252,7 @@ ideal_ui <- shinydashboard::dashboardPage(
           ),
           fluidRow(
             column(
-              width = 6,
+              width = 4,
               # factor as covariate
               wellPanel(
                 width = 4,
@@ -255,7 +263,7 @@ ideal_ui <- shinydashboard::dashboardPage(
               uiOutput("facnum")
             ),
             column(
-              width = 6,
+              width = 4,
               # factor with > 2 levels
               wellPanel(
                 width = 4,
@@ -286,12 +294,18 @@ ideal_ui <- shinydashboard::dashboardPage(
           ),
           #, evtl also the *filter* parameter of the function, i.e. baseMean if not specified
 
-          uiOutput("runresults"),
+          fluidRow(
+            column(
+              width = 6,
+              uiOutput("runresults"),
+              uiOutput("store_result"),
+              verbatimTextOutput("diyres_summary")
+            )
+          ),
 
-          uiOutput("store_result"),
 
 
-          verbatimTextOutput("diyres_summary"),
+
 
           DT::dataTableOutput("table_res"),
           plotOutput("pvals_hist"),
@@ -310,24 +324,33 @@ ideal_ui <- shinydashboard::dashboardPage(
         "Gene Lists", icon = icon("list-alt"),
         conditionalPanel(
           condition="!output.checkresu",
+          h2("Gene Set Enrichment on the lists"),
           tabBox(
             width = NULL,
             id="gse_tabbox",
             tabPanel("UPregu", icon = icon("arrow-circle-up"),
-                     actionButton("button_enrUP", "Perform gene set enrichment analysis on the upregulated genes"),
-                     DT::dataTableOutput("DT_gse_up")
+                     fluidRow(column(width = 6,actionButton("button_enrUP", "Perform gene set enrichment analysis on the upregulated genes"))),
+                     fluidRow(column(width = 6,actionButton("button_enrUP_goseq", "Perform gene set enrichment analysis on the upregulated genes - goseq"))),
+                     fluidRow(column(width = 6,actionButton("button_enrUP_topgo", "Perform gene set enrichment analysis on the upregulated genes - topGO"))),
+                     DT::dataTableOutput("DT_gse_up"),
+                     DT::dataTableOutput("DT_gse_up_goseq"),
+                     DT::dataTableOutput("DT_gse_up_topgo")
             ),
             tabPanel("DOWNregu", icon = icon("arrow-circle-down"),
-                     actionButton("button_enrDOWN", "Perform gene set enrichment analysis on the downregulated genes"),
-                     actionButton("button_enrDOWN_goseq", "Perform gene set enrichment analysis on the downregulated genes"),
-                     actionButton("button_enrDOWN_topgo", "Perform gene set enrichment analysis on the downregulated genes"),
+                     fluidRow(column(width = 6,actionButton("button_enrDOWN", "Perform gene set enrichment analysis on the downregulated genes"))),
+                     fluidRow(column(width = 6,actionButton("button_enrDOWN_goseq", "Perform gene set enrichment analysis on the downregulated genes - goseq"))),
+                     fluidRow(column(width = 6,actionButton("button_enrDOWN_topgo", "Perform gene set enrichment analysis on the downregulated genes - topGO"))),
                      DT::dataTableOutput("DT_gse_down"),
                      DT::dataTableOutput("DT_gse_down_goseq"),
                      DT::dataTableOutput("DT_gse_down_topgo")
             ),
             tabPanel("UPDOWN", icon = icon("arrows-v"),
-                     actionButton("button_enrUPDOWN", "Perform gene set enrichment analysis on the up- and downregulated genes"),
-                     DT::dataTableOutput("DT_gse_updown")
+                     fluidRow(column(width = 6,actionButton("button_enrUPDOWN", "Perform gene set enrichment analysis on the up- and downregulated genes"))),
+                     fluidRow(column(width = 6,actionButton("button_enrUPDOWN_goseq", "Perform gene set enrichment analysis on the up- and downregulated genes - goseq"))),
+                     fluidRow(column(width = 6,actionButton("button_enrUPDOWN_topgo", "Perform gene set enrichment analysis on the up- and downregulated genes - topGO"))),
+                     DT::dataTableOutput("DT_gse_updown"),
+                     DT::dataTableOutput("DT_gse_updown_goseq"),
+                     DT::dataTableOutput("DT_gse_updown_topgo")
             ),
             tabPanel("List1", icon = icon("list"),
                      fileInput(inputId = "gl1",
@@ -335,9 +358,11 @@ ideal_ui <- shinydashboard::dashboardPage(
                                accept = c("text/csv", "text/comma-separated-values",
                                           "text/tab-separated-values", "text/plain",
                                           ".csv", ".tsv"), multiple = FALSE),
-                     actionButton("button_enrLIST1", "Perform gene set enrichment analysis on the genes in list1"),
-                     actionButton("button_enrLIST1_topgo", "Perform gene set enrichment analysis on the list1 genes"),
+                     fluidRow(column(width = 6,actionButton("button_enrLIST1", "Perform gene set enrichment analysis on the genes in list1"))),
+                     fluidRow(column(width = 6,actionButton("button_enrLIST1_goseq", "Perform gene set enrichment analysis on the list1 genes - goseq"))),
+                     fluidRow(column(width = 6,actionButton("button_enrLIST1_topgo", "Perform gene set enrichment analysis on the list1 genes - topGO"))),
                      DT::dataTableOutput("DT_gse_list1"),
+                     DT::dataTableOutput("DT_gse_list1_goseq"),
                      DT::dataTableOutput("DT_gse_list1_topgo")
             ),
             tabPanel("List2", icon = icon("list-alt"),
@@ -346,17 +371,22 @@ ideal_ui <- shinydashboard::dashboardPage(
                                accept = c("text/csv", "text/comma-separated-values",
                                           "text/tab-separated-values", "text/plain",
                                           ".csv", ".tsv"), multiple = FALSE),
-                     actionButton("button_enrLIST2", "Perform gene set enrichment analysis on the genes in list2"),
-                     DT::dataTableOutput("DT_gse_list2")
+                     fluidRow(column(width = 6,actionButton("button_enrLIST2", "Perform gene set enrichment analysis on the genes in list2"))),
+                     fluidRow(column(width = 6,actionButton("button_enrLIST2_goseq", "Perform gene set enrichment analysis on the list2 genes - goseq"))),
+                     fluidRow(column(width = 6,actionButton("button_enrLIST2_topgo", "Perform gene set enrichment analysis on the list2 genes - topGO"))),
+                     DT::dataTableOutput("DT_gse_list2"),
+                     DT::dataTableOutput("DT_gse_list2_goseq"),
+                     DT::dataTableOutput("DT_gse_list2_topgo")
             )
           ),
           ## will put collapsible list elements? or multi tab panel? or something to select on the left, and operate output-wise on the right e.g. venn diagrams or table for gene set enrichment
-          h3("custom list 3 - handpicked") # use the select input from the left column?
-          ,verbatimTextOutput("debuggls"),
-          h2("Enrichment on the lists"),
+          # h3("custom list 3 - handpicked") # use the select input from the left column?
+          # ,verbatimTextOutput("debuggls"),
 
-          verbatimTextOutput("printUPgenes"),
-          verbatimTextOutput("debuglists"),
+          # verbatimTextOutput("printUPgenes"),
+          # verbatimTextOutput("debuglists"),
+
+          h2("Intersection of gene sets"),
           checkboxInput("toggle_updown","Use up and down regulated genes", TRUE),
           checkboxInput("toggle_up","Use up regulated genes", FALSE),
           checkboxInput("toggle_down","Use down regulated genes", FALSE),
@@ -379,7 +409,7 @@ ideal_ui <- shinydashboard::dashboardPage(
           condition="!output.checkresu",
 
           headerPanel("MA plot interactive exploration"),
-          fluidRow(verbatimTextOutput("deb")),
+          # fluidRow(verbatimTextOutput("deb")),
           fluidRow(column(6,
                           h4("MA plot - Interactive!"),
                           plotOutput('plotma', brush = 'ma_brush')),
