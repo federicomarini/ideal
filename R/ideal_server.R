@@ -825,6 +825,12 @@ ideal_server <- shinyServer(function(input, output, session) {
   })
 
 
+  output$upsetLists <- renderPlot({
+    UpSetR::upset(fromList(gll()))
+  })
+
+
+
   observeEvent(input$button_getanno,
                {
                  withProgress(message="Retrieving the annotation...",
