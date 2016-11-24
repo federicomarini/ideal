@@ -1,9 +1,25 @@
+library(shiny)
+
+library(shinydashboard)
+library(shiny)
+library(d3heatmap)
+# ls()
+library(pcaExplorer)
+# example(pcaExplorer)
+library(DESeq2)
+library(ggplot2)
+library(shinyAce)
+library(DT)
+library(knitr)
+library(rmarkdown)
+library(pheatmap)
+
 ideal_server <- shinyServer(function(input, output, session) {
 
 
 
   ## placeholder for the figures to export
-  # exportPlots <- reactiveValues(
+  exportPlots <- reactiveValues()
   # expfig_fig1 <- NULL
   # )
 
@@ -24,7 +40,7 @@ ideal_server <- shinyServer(function(input, output, session) {
     values$expdesign <- colData(dds_obj)
   }
 
-  # info boxes on the left side?
+  # info boxes, to keep on top of the page  on the left side?
 
   output$box_ddsobj <- renderUI({
     if(!is.null(values$dds_obj))
@@ -236,13 +252,6 @@ ideal_server <- shinyServer(function(input, output, session) {
 
 
 
-  # output$ui_step3 <- renderUI({
-  #   if (is.null(values$expdesign) | is.null(values$countmatrix) | is.null(input$dds_design))
-  #     return(NULL)
-  #   h2("Step 3: Create the DESeqDataset object")
-  # })
-
-
   output$ui_step3 <- renderUI({
     if (is.null(values$dds_obj)) #
       return(NULL)
@@ -357,7 +366,7 @@ ideal_server <- shinyServer(function(input, output, session) {
 
 
   diyDDS <- reactive({
-    if(is.null(values$countmatrix) | is.null(values$expdesign) | is.null(input$dds_design))
+    if(is.null(values$countmatrix) | is.null(values$expdesign) | is.null(input$dds_design))
       return(NULL)
 
 
@@ -440,6 +449,14 @@ ideal_server <- shinyServer(function(input, output, session) {
                                  )
   # this one is the shortcut for the limma::goana function
   annoSpecies_df$species_short[grep(pattern = "eg.db",annoSpecies_df$pkg)] <- gsub(".eg.db","",gsub("org.","",annoSpecies_df$pkg))[grep(pattern = "eg.db",annoSpecies_df$pkg) ]
+  # to match to the goseq genome setting
+  annoSpecies_df$goseq_shortcut <- c("","anoGam1","Arabidopsis","bosTau8","canFam3","galGal4","panTro4","E. coli K12","E. coli Sakai",
+                                  "dm6","hg38","Malaria","mm10","susScr3","rn6","rheMac","","","ce11","xenTro","sacCer3","danRer10")
+
+
+  rownames(annoSpecies_df) <- annoSpecies_df$species # easier to access afterwards
+
+
 
   # annoSpecies_df <- annoSpecies_df[annoSpecies_df$species %in% c("","Human", "Mouse", "Rat", "Fly", "Chimp"),]
 
@@ -496,7 +513,7 @@ ideal_server <- shinyServer(function(input, output, session) {
     if(is.null(values$dds_obj))
       return(NULL)
     else
-      actionButton("button_outliersout","Recompute the dds without some samples")
+      actionButton("button_outliersout","Recompute the dds without some samples",class = "btn btn-primary")
   })
 
   observeEvent(input$button_outliersout,{
@@ -638,7 +655,6 @@ ideal_server <- shinyServer(function(input, output, session) {
     rel_t2 <- 100 * mean(t2 > thresh_rowmeans)
 
     cat("Number of detected genes:\n")
-    # TODO: parametrize the thresholds
     cat(abs_t1,"genes have at least a sample with more than",thresh_rowsums,"counts\n")
     cat(paste0(round(rel_t1,3),"%"), "of the",nrow(values$dds_obj),
         "genes have at least a sample with more than",thresh_rowsums,"counts\n")
@@ -772,12 +788,7 @@ ideal_server <- shinyServer(function(input, output, session) {
                    list1 = as.character(values$genelist1$`Gene Symbol`),
                    list2 = as.character(values$genelist2$`Gene Symbol`),
                    list3 = NULL) # will be changed to be the ones selected by the user
-    # gll <- list(listUP = listUP,
-    #             listDOWN = listDOWN,
-    #             listUPDOWN = listUPDOWN,
-    #             list1 = ggll1,
-    #             list2 = ggll2,
-    #             list3 = NULL)
+
 
     gll_nonempty <- mylist[!sapply(mylist,is.null)]
 
@@ -824,6 +835,8 @@ ideal_server <- shinyServer(function(input, output, session) {
                    incProgress(0.1,detail = "Matching identifiers")
                    annotation_obj <- get_annotation_orgdb(values$dds_obj,orgdb_species = annopkg, idtype = input$idtype)
                    values$annotation_obj <- annotation_obj
+                   # and also, set the species in the reactiveValues
+                   values$cur_species <- input$speciesSelect
                  })
                })
 
@@ -837,7 +850,7 @@ ideal_server <- shinyServer(function(input, output, session) {
     print(head(values$genelistUP()))
     print(str(values$genelistUP()))
 
-    organism <- "Hs" # will be replaced by input$...
+    organism <- annoSpecies_df[values$cur_species,]$species_short
     backgroundgenes <- rownames(values$dds_obj)[rowSums(counts(values$dds_obj))>0]
     inputType <- "SYMBOL" # will be replaced by input$...
     annopkg <- paste0("org.",organism,".eg.db")
@@ -866,7 +879,7 @@ ideal_server <- shinyServer(function(input, output, session) {
   observeEvent(input$button_enrUP,
                {
                  withProgress(message="Performing Gene Set Enrichment on upregulated genes...",value = 0,{
-                   organism <- "Hs" # will be replaced by input$...
+                   organism <- annoSpecies_df[values$cur_species,]$species_short
                    backgroundgenes <- rownames(values$dds_obj)[rowSums(counts(values$dds_obj))>0]
                    inputType <- "SYMBOL" # will be replaced by input$...
                    annopkg <- paste0("org.",organism,".eg.db")
@@ -879,18 +892,16 @@ ideal_server <- shinyServer(function(input, output, session) {
                                                             column="ENTREZID", keytype="ENSEMBL"))
                    incProgress(0.1, detail = "IDs mapped")
                    values$gse_up <- limma::topGO(limma::goana(listGenesEntrez, listBackgroundEntrez, species = organism),
-                                          ontology="BP", # could be ideally replaced by input$
+                                          ontology= input$go_cats[1],
                                           number=200)
 
                    incProgress(0.7, detail = "adding gene names to GO terms") # good indicator for showing it has progressed
                    go_ids <- rownames(values$gse_up)
-                   allegs_list <- lapply(go_ids, function(arg) get(arg, org.Hs.egGO2ALLEGS))
-                   genes_list <- lapply(allegs_list, function(arg) unlist(mget(arg,org.Hs.egSYMBOL)))
+                   allegs_list <- lapply(go_ids, function(arg) get(arg, get(paste0("org.",organism,".egGO2ALLEGS"))))
+                   genes_list <- lapply(allegs_list, function(arg) unlist(mget(arg,get(paste0("org.",organism,".egSYMBOL")))))
                    degenes <- values$genelistUP()
                    DEgenes_list <- lapply(genes_list, function(arg) intersect(arg,degenes))
 
-                   # values$gse_down$genes[1:20] <- DEgenes_list
-                   # lapply(values$gse_down,class)
                    values$gse_up$genes <- unlist(lapply(DEgenes_list,function(arg) paste(arg,collapse=",")))
                  })
                })
@@ -901,35 +912,27 @@ ideal_server <- shinyServer(function(input, output, session) {
 
                    de.genes <- values$genelistUP() # assumed to be in symbols
                    assayed.genes.ids <- rownames(values$dds_obj) # as IDs, but then to be converted back
-                   assayed.genes <- mapIds(org.Hs.eg.db,
+                   assayed.genes <- mapIds(get(annoSpecies_df[values$cur_species,]$pkg),
                                            keys=assayed.genes.ids,
                                            column="SYMBOL",
                                            keytype="ENSEMBL",
                                            multiVals="first")
-                   de.genes.ids <- mapIds(org.Hs.eg.db,
+                   de.genes.ids <- mapIds(get(annoSpecies_df[values$cur_species,]$pkg),
                                           keys=de.genes,
                                           column="ENSEMBL",
                                           keytype="SYMBOL",
                                           multiVals="first")
                    incProgress(0.1, detail = "IDs mapped")
 
-                   values$gse_up_goseq <- goseqTable(de.genes.ids,                  # Differentially expressed genes
-                                                       assayed.genes.ids,             # background genes, normally = rownames(cds) or filtering to genes
-                                                       #  with at least 1 read - could also be ls(org.Mm.egGO)
-                                                       genome = "hg38",
+                   values$gse_up_goseq <- goseqTable(de.genes.ids,
+                                                       assayed.genes.ids,
+                                                       genome = annoSpecies_df[values$cur_species,]$goseq_short,
                                                        id= "ensGene",
-                                                       testCats=c("GO:BP","GO:MF","GO:CC"),
+                                                       testCats=paste0("GO:",input$go_cats),
                                                        FDR_GO_cutoff = 1,
-                                                       nTop = 500,
-                                                       # testKegg=TRUE,
-                                                       # keggObject=mapPathwayToName("mmu"), # need the dedicated function!!
-                                                       # writeOutput=FALSE,
-                                                       addGeneToTerms=TRUE # ,
-                                                       # outputFiles_goseq="",outputFiles_goseq_kegg=""
-                                                       ## TODO TODO: bring back in action the function
-                                                       ## add genes annotated to each term
-                                                       ## do it by default only for bp?
-                                                       ## tests at the beginning to see if the whole thing is feasible?
+                                                       nTop = 200,
+                                                       addGeneToTerms=TRUE,
+                                                       orgDbPkg = annoSpecies_df[values$cur_species,]$pkg # ,
                    )
 
                    incProgress(0.89)
@@ -943,7 +946,7 @@ ideal_server <- shinyServer(function(input, output, session) {
 
                    de_symbols <- values$genelistUP() # assumed to be in symbols
                    bg_ids <- rownames(values$dds_obj)[rowSums(counts(values$dds_obj)) > 0]
-                   bg_symbols <- mapIds(org.Hs.eg.db,
+                   bg_symbols <- mapIds(get(annoSpecies_df[values$cur_species,]$pkg),
                                         keys=bg_ids,
                                         column="SYMBOL",
                                         keytype="ENSEMBL",
@@ -951,8 +954,8 @@ ideal_server <- shinyServer(function(input, output, session) {
                    incProgress(0.1, detail = "IDs mapped")
                    library(topGO)
                    values$topgo_up <- topGOtable(de_symbols, bg_symbols,
-                                                   ontology = "BP",
-                                                   mapping = "org.Hs.eg.db",
+                                                   ontology = input$go_cats[1],
+                                                   mapping = annoSpecies_df[values$cur_species,]$pkg,
                                                    geneID = "symbol",addGeneToTerms = TRUE)
                    incProgress(0.89)
                  })
@@ -962,7 +965,7 @@ ideal_server <- shinyServer(function(input, output, session) {
   observeEvent(input$button_enrDOWN,
                {
                  withProgress(message="Performing Gene Set Enrichment on downregulated genes...",value = 0,{
-                   organism <- "Hs" # will be replaced by input$...
+                   organism <- annoSpecies_df[values$cur_species,]$species_short
                    backgroundgenes <- rownames(values$dds_obj)[rowSums(counts(values$dds_obj))>0]
                    inputType <- "SYMBOL" # will be replaced by input$...
                    annopkg <- paste0("org.",organism,".eg.db")
@@ -975,37 +978,18 @@ ideal_server <- shinyServer(function(input, output, session) {
                                                                  column="ENTREZID", keytype="ENSEMBL"))
                    incProgress(0.1, detail = "IDs mapped")
                    values$gse_down <- limma::topGO(limma::goana(listGenesEntrez, listBackgroundEntrez, species = organism),
-                                                 ontology="BP", # could be ideally replaced by input$
+                                                 ontology=input$go_cats[1],
                                                  number=200)
 
-                   # some attempt to retrieve all genes annotated
 
-                   # # i do it here for one gene
-                   # go_id <- rownames(values$gse_down)[1]
-                   # allegs = get(go_id, org.Hs.egGO2ALLEGS)
-                   # genes = unlist(mget(allegs,org.Hs.egSYMBOL))
-                   #
-                   # degenes <- values$genelistDOWN()
-                   #
-                   # intersect(genes, degenes)
-                   #
-                   # # values$gse_down$genes <- unlist(lapply(intersect(genes, degenes),function(arg) paste(arg,collapse=",")))
-                   # values$gse_down$genes[1] <- unlist(lapply(intersect(genes, degenes),function(arg) paste(arg,collapse=",")))
-                   #
-
-                   ## and for all here:
                    incProgress(0.7, detail = "adding gene names to GO terms") # good indicator for showing it has progressed
                    go_ids <- rownames(values$gse_down)
-                   allegs_list <- lapply(go_ids, function(arg) get(arg, org.Hs.egGO2ALLEGS))
-                   genes_list <- lapply(allegs_list, function(arg) unlist(mget(arg,org.Hs.egSYMBOL)))
+                   allegs_list <- lapply(go_ids, function(arg) get(arg, get(paste0("org.",organism,".egGO2ALLEGS"))))
+                   genes_list <- lapply(allegs_list, function(arg) unlist(mget(arg,get(paste0("org.",organism,".egSYMBOL")))))
                    degenes <- values$genelistDOWN()
                    DEgenes_list <- lapply(genes_list, function(arg) intersect(arg,degenes))
 
-                   # values$gse_down$genes[1:20] <- DEgenes_list
-                   # lapply(values$gse_down,class)
                    values$gse_down$genes <- unlist(lapply(DEgenes_list,function(arg) paste(arg,collapse=",")))
-                   # lapply(values$gse_down,class)
-
                  })
                })
 
@@ -1015,35 +999,27 @@ ideal_server <- shinyServer(function(input, output, session) {
 
                    de.genes <- values$genelistDOWN() # assumed to be in symbols
                    assayed.genes.ids <- rownames(values$dds_obj) # as IDs, but then to be converted back
-                   assayed.genes <- mapIds(org.Hs.eg.db,
+                   assayed.genes <- mapIds(get(annoSpecies_df[values$cur_species,]$pkg),
                                         keys=assayed.genes.ids,
                                         column="SYMBOL",
                                         keytype="ENSEMBL",
                                         multiVals="first")
-                   de.genes.ids <- mapIds(org.Hs.eg.db,
+                   de.genes.ids <- mapIds(get(annoSpecies_df[values$cur_species,]$pkg),
                                            keys=de.genes,
                                            column="ENSEMBL",
                                            keytype="SYMBOL",
                                            multiVals="first")
                    incProgress(0.1, detail = "IDs mapped")
 
-                   values$gse_down_goseq <- goseqTable(de.genes.ids,                  # Differentially expressed genes
-                                                       assayed.genes.ids,             # background genes, normally = rownames(cds) or filtering to genes
-                                          #  with at least 1 read - could also be ls(org.Mm.egGO)
-                                          genome = "hg38",
+                   values$gse_down_goseq <- goseqTable(de.genes.ids,
+                                                       assayed.genes.ids,
+                                          genome = annoSpecies_df[values$cur_species,]$goseq_short,
                                           id= "ensGene",
-                                          testCats=c("GO:BP","GO:MF","GO:CC"),
+                                          testCats=paste0("GO:",input$go_cats),
                                           FDR_GO_cutoff = 1,
-                                          nTop = 500,
-                                          # testKegg=TRUE,
-                                          # keggObject=mapPathwayToName("mmu"), # need the dedicated function!!
-                                          # writeOutput=FALSE,
-                                          addGeneToTerms=TRUE # ,
-                                          # outputFiles_goseq="",outputFiles_goseq_kegg=""
-                                          ## TODO TODO: bring back in action the function
-                                          ## add genes annotated to each term
-                                          ## do it by default only for bp?
-                                          ## tests at the beginning to see if the whole thing is feasible?
+                                          nTop = 200,
+                                          addGeneToTerms=TRUE,
+                                          orgDbPkg = annoSpecies_df[values$cur_species,]$pkg # ,
                    )
 
                    incProgress(0.89)
@@ -1057,7 +1033,7 @@ ideal_server <- shinyServer(function(input, output, session) {
 
                    de_symbols <- values$genelistDOWN() # assumed to be in symbols
                    bg_ids <- rownames(values$dds_obj)[rowSums(counts(values$dds_obj)) > 0]
-                   bg_symbols <- mapIds(org.Hs.eg.db,
+                   bg_symbols <- mapIds(get(annoSpecies_df[values$cur_species,]$pkg),
                                         keys=bg_ids,
                                         column="SYMBOL",
                                         keytype="ENSEMBL",
@@ -1065,37 +1041,11 @@ ideal_server <- shinyServer(function(input, output, session) {
                    incProgress(0.1, detail = "IDs mapped")
                    library(topGO)
                    values$topgo_down <- topGOtable(de_symbols, bg_symbols,
-                                       ontology = "BP",
-                                       mapping = "org.Hs.eg.db",
+                                       ontology = input$go_cats[1], # will take the first ontology
+                                       mapping = annoSpecies_df[values$cur_species,]$pkg,
                                        geneID = "symbol",addGeneToTerms = TRUE)
                    incProgress(0.89)
 
-#
-#                    # # i do it here for one gene
-#                    # go_id <- rownames(values$gse_down)[1]
-#                    # allegs = get(go_id, org.Hs.egGO2ALLEGS)
-#                    # genes = unlist(mget(allegs,org.Hs.egSYMBOL))
-#                    #
-#                    # degenes <- values$genelistDOWN()
-#                    #
-#                    # intersect(genes, degenes)
-#                    #
-#                    # # values$gse_down$genes <- unlist(lapply(intersect(genes, degenes),function(arg) paste(arg,collapse=",")))
-#                    # values$gse_down$genes[1] <- unlist(lapply(intersect(genes, degenes),function(arg) paste(arg,collapse=",")))
-#                    #
-#
-#                    ## and for all here:
-#                    incProgress(0.7) # good indicator for showing it has progressed
-#                    go_ids <- rownames(values$gse_down)
-#                    allegs_list <- lapply(go_ids, function(arg) get(arg, org.Hs.egGO2ALLEGS))
-#                    genes_list <- lapply(allegs_list, function(arg) unlist(mget(arg,org.Hs.egSYMBOL)))
-#                    degenes <- values$genelistDOWN()
-#                    DEgenes_list <- lapply(genes_list, function(arg) intersect(arg,degenes))
-#
-#                    # values$gse_down$genes[1:20] <- DEgenes_list
-#                    # lapply(values$gse_down,class)
-#                    values$gse_down$genes <- unlist(lapply(DEgenes_list,function(arg) paste(arg,collapse=",")))
-#                    # lapply(values$gse_down,class)
 
                  })
                })
@@ -1104,7 +1054,7 @@ ideal_server <- shinyServer(function(input, output, session) {
   observeEvent(input$button_enrUPDOWN,
                {
                  withProgress(message="Performing Gene Set Enrichment on up- and downregulated genes...",value = 0,{
-                   organism <- "Hs" # will be replaced by input$...
+                   organism <- annoSpecies_df[values$cur_species,]$species_short
                    backgroundgenes <- rownames(values$dds_obj)[rowSums(counts(values$dds_obj))>0]
                    inputType <- "SYMBOL" # will be replaced by input$...
                    annopkg <- paste0("org.",organism,".eg.db")
@@ -1117,13 +1067,13 @@ ideal_server <- shinyServer(function(input, output, session) {
                                                                  column="ENTREZID", keytype="ENSEMBL"))
                    incProgress(0.1, detail = "IDs mapped")
                    values$gse_updown <- limma::topGO(limma::goana(listGenesEntrez, listBackgroundEntrez, species = organism),
-                                                 ontology="BP", # could be ideally replaced by input$
+                                                 ontology=input$go_cats[1],
                                                  number=200)
 
                    incProgress(0.7, detail = "adding gene names to GO terms") # good indicator for showing it has progressed
                    go_ids <- rownames(values$gse_updown)
-                   allegs_list <- lapply(go_ids, function(arg) get(arg, org.Hs.egGO2ALLEGS))
-                   genes_list <- lapply(allegs_list, function(arg) unlist(mget(arg,org.Hs.egSYMBOL)))
+                   allegs_list <- lapply(go_ids, function(arg) get(arg, get(paste0("org.",organism,".egGO2ALLEGS"))))
+                   genes_list <- lapply(allegs_list, function(arg) unlist(mget(arg,get(paste0("org.",organism,".egSYMBOL")))))
                    degenes <- values$genelistDOWN()
                    DEgenes_list <- lapply(genes_list, function(arg) intersect(arg,degenes))
 
@@ -1139,35 +1089,27 @@ ideal_server <- shinyServer(function(input, output, session) {
 
                    de.genes <- values$genelistUPDOWN() # assumed to be in symbols
                    assayed.genes.ids <- rownames(values$dds_obj) # as IDs, but then to be converted back
-                   assayed.genes <- mapIds(org.Hs.eg.db,
+                   assayed.genes <- mapIds(get(annoSpecies_df[values$cur_species,]$pkg),
                                            keys=assayed.genes.ids,
                                            column="SYMBOL",
                                            keytype="ENSEMBL",
                                            multiVals="first")
-                   de.genes.ids <- mapIds(org.Hs.eg.db,
+                   de.genes.ids <- mapIds(get(annoSpecies_df[values$cur_species,]$pkg),
                                           keys=de.genes,
                                           column="ENSEMBL",
                                           keytype="SYMBOL",
                                           multiVals="first")
                    incProgress(0.1, detail = "IDs mapped")
 
-                   values$gse_updown_goseq <- goseqTable(de.genes.ids,                  # Differentially expressed genes
-                                                       assayed.genes.ids,             # background genes, normally = rownames(cds) or filtering to genes
-                                                       #  with at least 1 read - could also be ls(org.Mm.egGO)
-                                                       genome = "hg38",
+                   values$gse_updown_goseq <- goseqTable(de.genes.ids,
+                                                       assayed.genes.ids,
+                                                       genome = annoSpecies_df[values$cur_species,]$goseq_short,
                                                        id= "ensGene",
-                                                       testCats=c("GO:BP","GO:MF","GO:CC"),
+                                                       testCats=paste0("GO:",input$go_cats),
                                                        FDR_GO_cutoff = 1,
-                                                       nTop = 500,
-                                                       # testKegg=TRUE,
-                                                       # keggObject=mapPathwayToName("mmu"), # need the dedicated function!!
-                                                       # writeOutput=FALSE,
-                                                       addGeneToTerms=TRUE # ,
-                                                       # outputFiles_goseq="",outputFiles_goseq_kegg=""
-                                                       ## TODO TODO: bring back in action the function
-                                                       ## add genes annotated to each term
-                                                       ## do it by default only for bp?
-                                                       ## tests at the beginning to see if the whole thing is feasible?
+                                                       nTop = 200,
+                                                       addGeneToTerms=TRUE,
+                                                       orgDbPkg = annoSpecies_df[values$cur_species,]$pkg # ,
                    )
 
                    incProgress(0.89)
@@ -1181,7 +1123,7 @@ ideal_server <- shinyServer(function(input, output, session) {
 
                    de_symbols <- values$genelistUPDOWN() # assumed to be in symbols
                    bg_ids <- rownames(values$dds_obj)[rowSums(counts(values$dds_obj)) > 0]
-                   bg_symbols <- mapIds(org.Hs.eg.db,
+                   bg_symbols <- mapIds(get(annoSpecies_df[values$cur_species,]$pkg),
                                         keys=bg_ids,
                                         column="SYMBOL",
                                         keytype="ENSEMBL",
@@ -1189,8 +1131,8 @@ ideal_server <- shinyServer(function(input, output, session) {
                    incProgress(0.1, detail = "IDs mapped")
                    library(topGO)
                    values$topgo_updown <- topGOtable(de_symbols, bg_symbols,
-                                                   ontology = "BP",
-                                                   mapping = "org.Hs.eg.db",
+                                                   ontology = input$go_cats[1],
+                                                   mapping = annoSpecies_df[values$cur_species,]$pkg,
                                                    geneID = "symbol",addGeneToTerms = TRUE)
                    incProgress(0.89)
                  })
@@ -1200,7 +1142,7 @@ ideal_server <- shinyServer(function(input, output, session) {
   observeEvent(input$button_enrLIST1,
                {
                  withProgress(message="Performing Gene Set Enrichment on upregulated genes...",value = 0,{
-                   organism <- "Hs" # will be replaced by input$...
+                   organism <- annoSpecies_df[values$cur_species,]$species_short
                    backgroundgenes <- rownames(values$dds_obj)[rowSums(counts(values$dds_obj))>0]
                    inputType <- "SYMBOL" # will be replaced by input$...
                    annopkg <- paste0("org.",organism,".eg.db")
@@ -1213,18 +1155,16 @@ ideal_server <- shinyServer(function(input, output, session) {
                                                                  column="ENTREZID", keytype="ENSEMBL")
                    incProgress(0.1, detail = "IDs mapped")
                    values$gse_list1 <- limma::topGO(limma::goana(listGenesEntrez, listBackgroundEntrez, species = organism),
-                                                 ontology="BP", # could be ideally replaced by input$
+                                                 ontology=input$go_cats[1],
                                                  number=200)
 
                    incProgress(0.7, detail = "adding gene names to GO terms") # good indicator for showing it has progressed
                    go_ids <- rownames(values$gse_list1)
-                   allegs_list <- lapply(go_ids, function(arg) get(arg, org.Hs.egGO2ALLEGS))
-                   genes_list <- lapply(allegs_list, function(arg) unlist(mget(arg,org.Hs.egSYMBOL)))
+                   allegs_list <- lapply(go_ids, function(arg) get(arg, get(paste0("org.",organism,".egGO2ALLEGS"))))
+                   genes_list <- lapply(allegs_list, function(arg) unlist(mget(arg,get(paste0("org.",organism,".egSYMBOL")))))
                    degenes <- values$genelistDOWN()
                    DEgenes_list <- lapply(genes_list, function(arg) intersect(arg,degenes))
 
-                   # values$gse_down$genes[1:20] <- DEgenes_list
-                   # lapply(values$gse_down,class)
                    values$gse_list1$genes <- unlist(lapply(DEgenes_list,function(arg) paste(arg,collapse=",")))
                  })
                })
@@ -1235,35 +1175,27 @@ ideal_server <- shinyServer(function(input, output, session) {
 
                    de.genes <- values$genelist1$`Gene Symbol` # assumed to be in symbols
                    assayed.genes.ids <- rownames(values$dds_obj) # as IDs, but then to be converted back
-                   assayed.genes <- mapIds(org.Hs.eg.db,
+                   assayed.genes <- mapIds(get(annoSpecies_df[values$cur_species,]$pkg),
                                            keys=assayed.genes.ids,
                                            column="SYMBOL",
                                            keytype="ENSEMBL",
                                            multiVals="first")
-                   de.genes.ids <- mapIds(org.Hs.eg.db,
+                   de.genes.ids <- mapIds(get(annoSpecies_df[values$cur_species,]$pkg),
                                           keys=de.genes,
                                           column="ENSEMBL",
                                           keytype="SYMBOL",
                                           multiVals="first")
                    incProgress(0.1, detail = "IDs mapped")
 
-                   values$gse_list1_goseq <- goseqTable(de.genes.ids,                  # Differentially expressed genes
-                                                       assayed.genes.ids,             # background genes, normally = rownames(cds) or filtering to genes
-                                                       #  with at least 1 read - could also be ls(org.Mm.egGO)
-                                                       genome = "hg38",
+                   values$gse_list1_goseq <- goseqTable(de.genes.ids,
+                                                       assayed.genes.ids,
+                                                       genome = annoSpecies_df[values$cur_species,]$goseq_short,
                                                        id= "ensGene",
-                                                       testCats=c("GO:BP","GO:MF","GO:CC"),
+                                                       testCats=paste0("GO:",input$go_cats),
                                                        FDR_GO_cutoff = 1,
-                                                       nTop = 500,
-                                                       # testKegg=TRUE,
-                                                       # keggObject=mapPathwayToName("mmu"), # need the dedicated function!!
-                                                       # writeOutput=FALSE,
-                                                       addGeneToTerms=TRUE # ,
-                                                       # outputFiles_goseq="",outputFiles_goseq_kegg=""
-                                                       ## TODO TODO: bring back in action the function
-                                                       ## add genes annotated to each term
-                                                       ## do it by default only for bp?
-                                                       ## tests at the beginning to see if the whole thing is feasible?
+                                                       nTop = 200,
+                                                       addGeneToTerms=TRUE,
+                                                       orgDbPkg = annoSpecies_df[values$cur_species,]$pkg # ,
                    )
 
                    incProgress(0.89)
@@ -1277,7 +1209,7 @@ ideal_server <- shinyServer(function(input, output, session) {
 
                    de_symbols <- values$genelist1$`Gene Symbol` # assumed to be in symbols
                    bg_ids <- rownames(values$dds_obj)[rowSums(counts(values$dds_obj)) > 0]
-                   bg_symbols <- mapIds(org.Hs.eg.db,
+                   bg_symbols <- mapIds(get(annoSpecies_df[values$cur_species,]$pkg),
                                         keys=bg_ids,
                                         column="SYMBOL",
                                         keytype="ENSEMBL",
@@ -1285,8 +1217,8 @@ ideal_server <- shinyServer(function(input, output, session) {
                    incProgress(0.1, detail = "IDs mapped")
                    library(topGO)
                    values$topgo_list1 <- topGOtable(de_symbols, bg_symbols,
-                                                    ontology = "BP",
-                                                    mapping = "org.Hs.eg.db",
+                                                    ontology = input$go_cats[1],
+                                                    mapping = annoSpecies_df[values$cur_species,]$pkg,
                                                     geneID = "symbol",addGeneToTerms = TRUE)
                    incProgress(0.89)
                  })
@@ -1295,7 +1227,7 @@ ideal_server <- shinyServer(function(input, output, session) {
   observeEvent(input$button_enrLIST2,
                {
                  withProgress(message="Performing Gene Set Enrichment on upregulated genes...",value = 0,{
-                   organism <- "Hs" # will be replaced by input$...
+                   organism <- annoSpecies_df[values$cur_species,]$species_short
                    backgroundgenes <- rownames(values$dds_obj)[rowSums(counts(values$dds_obj))>0]
                    inputType <- "SYMBOL" # will be replaced by input$...
                    annopkg <- paste0("org.",organism,".eg.db")
@@ -1308,17 +1240,15 @@ ideal_server <- shinyServer(function(input, output, session) {
                                                                  column="ENTREZID", keytype="ENSEMBL")
                    incProgress(0.1, detail = "IDs mapped")
                    values$gse_list2 <- limma::topGO(limma::goana(listGenesEntrez, listBackgroundEntrez, species = organism),
-                                                 ontology="BP", # could be ideally replaced by input$
+                                                 ontology=input$go_cats[1],
                                                  number=200)
                    incProgress(0.7, detail = "adding gene names to GO terms") # good indicator for showing it has progressed
                    go_ids <- rownames(values$gse_list2)
-                   allegs_list <- lapply(go_ids, function(arg) get(arg, org.Hs.egGO2ALLEGS))
-                   genes_list <- lapply(allegs_list, function(arg) unlist(mget(arg,org.Hs.egSYMBOL)))
+                   allegs_list <- lapply(go_ids, function(arg) get(arg, get(paste0("org.",organism,".egGO2ALLEGS"))))
+                   genes_list <- lapply(allegs_list, function(arg) unlist(mget(arg,get(paste0("org.",organism,".egSYMBOL")))))
                    degenes <- values$genelistDOWN()
                    DEgenes_list <- lapply(genes_list, function(arg) intersect(arg,degenes))
 
-                   # values$gse_down$genes[1:20] <- DEgenes_list
-                   # lapply(values$gse_down,class)
                    values$gse_list2$genes <- unlist(lapply(DEgenes_list,function(arg) paste(arg,collapse=",")))
                  })
                })
@@ -1329,35 +1259,27 @@ ideal_server <- shinyServer(function(input, output, session) {
 
                    de.genes <- values$genelist2$`Gene Symbol` # assumed to be in symbols
                    assayed.genes.ids <- rownames(values$dds_obj) # as IDs, but then to be converted back
-                   assayed.genes <- mapIds(org.Hs.eg.db,
+                   assayed.genes <- mapIds(get(annoSpecies_df[values$cur_species,]$pkg),
                                            keys=assayed.genes.ids,
                                            column="SYMBOL",
                                            keytype="ENSEMBL",
                                            multiVals="first")
-                   de.genes.ids <- mapIds(org.Hs.eg.db,
+                   de.genes.ids <- mapIds(get(annoSpecies_df[values$cur_species,]$pkg),
                                           keys=de.genes,
                                           column="ENSEMBL",
                                           keytype="SYMBOL",
                                           multiVals="first")
                    incProgress(0.1, detail = "IDs mapped")
 
-                   values$gse_list2_goseq <- goseqTable(de.genes.ids,                  # Differentially expressed genes
-                                                        assayed.genes.ids,             # background genes, normally = rownames(cds) or filtering to genes
-                                                        #  with at least 1 read - could also be ls(org.Mm.egGO)
-                                                        genome = "hg38",
+                   values$gse_list2_goseq <- goseqTable(de.genes.ids,
+                                                        assayed.genes.ids,
+                                                        genome = annoSpecies_df[values$cur_species,]$goseq_short,
                                                         id= "ensGene",
-                                                        testCats=c("GO:BP","GO:MF","GO:CC"),
+                                                        testCats=paste0("GO:",input$go_cats),
                                                         FDR_GO_cutoff = 1,
-                                                        nTop = 500,
-                                                        # testKegg=TRUE,
-                                                        # keggObject=mapPathwayToName("mmu"), # need the dedicated function!!
-                                                        # writeOutput=FALSE,
-                                                        addGeneToTerms=TRUE # ,
-                                                        # outputFiles_goseq="",outputFiles_goseq_kegg=""
-                                                        ## TODO TODO: bring back in action the function
-                                                        ## add genes annotated to each term
-                                                        ## do it by default only for bp?
-                                                        ## tests at the beginning to see if the whole thing is feasible?
+                                                        nTop = 200,
+                                                        addGeneToTerms=TRUE,
+                                                        orgDbPkg = annoSpecies_df[values$cur_species,]$pkg # ,
                    )
 
                    incProgress(0.89)
@@ -1371,7 +1293,7 @@ ideal_server <- shinyServer(function(input, output, session) {
 
                    de_symbols <- values$genelist2$`Gene Symbol` # assumed to be in symbols
                    bg_ids <- rownames(values$dds_obj)[rowSums(counts(values$dds_obj)) > 0]
-                   bg_symbols <- mapIds(org.Hs.eg.db,
+                   bg_symbols <- mapIds(get(annoSpecies_df[values$cur_species,]$pkg),
                                         keys=bg_ids,
                                         column="SYMBOL",
                                         keytype="ENSEMBL",
@@ -1379,8 +1301,8 @@ ideal_server <- shinyServer(function(input, output, session) {
                    incProgress(0.1, detail = "IDs mapped")
                    library(topGO)
                    values$topgo_list2 <- topGOtable(de_symbols, bg_symbols,
-                                                    ontology = "BP",
-                                                    mapping = "org.Hs.eg.db",
+                                                    ontology = input$go_cats[1],
+                                                    mapping = annoSpecies_df[values$cur_species,]$pkg,
                                                     geneID = "symbol",addGeneToTerms = TRUE)
                    incProgress(0.89)
                  })
@@ -1414,7 +1336,6 @@ ideal_server <- shinyServer(function(input, output, session) {
     rownames(mytbl) <- createLinkGO(rownames(mytbl))
     datatable(mytbl,escape=FALSE)
   })
-
   output$DT_gse_list1 <- DT::renderDataTable({
     # if not null...
     if(is.null(values$gse_list1))
@@ -1424,7 +1345,6 @@ ideal_server <- shinyServer(function(input, output, session) {
     rownames(mytbl) <- createLinkGO(rownames(mytbl))
     datatable(mytbl,escape=FALSE)
   })
-
   output$DT_gse_list2 <- DT::renderDataTable({
     # if not null...
     if(is.null(values$gse_list2))
@@ -1434,6 +1354,7 @@ ideal_server <- shinyServer(function(input, output, session) {
     datatable(mytbl,escape=FALSE)
   })
 
+
   output$DT_gse_up_topgo <- DT::renderDataTable({
     # if not null...
     if(is.null(values$topgo_up))
@@ -1442,7 +1363,6 @@ ideal_server <- shinyServer(function(input, output, session) {
     mytbl$GO.ID <- createLinkGO(mytbl$GO.ID)
     datatable(mytbl,escape=FALSE)
   })
-
   output$DT_gse_down_topgo <- DT::renderDataTable({
     # if not null...
     if(is.null(values$topgo_down))
@@ -1451,7 +1371,6 @@ ideal_server <- shinyServer(function(input, output, session) {
     mytbl$GO.ID <- createLinkGO(mytbl$GO.ID)
     datatable(mytbl,escape=FALSE)
   })
-
   output$DT_gse_updown_topgo <- DT::renderDataTable({
     # if not null...
     if(is.null(values$topgo_updown))
@@ -1460,7 +1379,6 @@ ideal_server <- shinyServer(function(input, output, session) {
     mytbl$GO.ID <- createLinkGO(mytbl$GO.ID)
     datatable(mytbl,escape=FALSE)
   })
-
   output$DT_gse_list1_topgo <- DT::renderDataTable({
     # if not null...
     if(is.null(values$topgo_list1))
@@ -1470,7 +1388,6 @@ ideal_server <- shinyServer(function(input, output, session) {
     mytbl$GO.ID <- createLinkGO(mytbl$GO.ID)
     datatable(mytbl,escape=FALSE)
   })
-
   output$DT_gse_list2_topgo <- DT::renderDataTable({
     # if not null...
     if(is.null(values$topgo_list2))
@@ -1490,7 +1407,6 @@ ideal_server <- shinyServer(function(input, output, session) {
     mytbl$category <- createLinkGO(mytbl$category)
     datatable(mytbl,escape=FALSE)
   })
-
   output$DT_gse_down_goseq <- DT::renderDataTable({
     # if not null...
     if(is.null(values$gse_down_goseq))
@@ -1499,7 +1415,6 @@ ideal_server <- shinyServer(function(input, output, session) {
     mytbl$category <- createLinkGO(mytbl$category)
     datatable(mytbl,escape=FALSE)
   })
-
   output$DT_gse_updown_goseq <- DT::renderDataTable({
     # if not null...
     if(is.null(values$gse_updown_goseq))
@@ -1508,7 +1423,6 @@ ideal_server <- shinyServer(function(input, output, session) {
     mytbl$category <- createLinkGO(mytbl$category)
     datatable(mytbl,escape=FALSE)
   })
-
   output$DT_gse_list1_goseq <- DT::renderDataTable({
     # if not null...
     if(is.null(values$gse_list1_goseq))
@@ -1518,7 +1432,6 @@ ideal_server <- shinyServer(function(input, output, session) {
     mytbl$category <- createLinkGO(mytbl$category)
     datatable(mytbl,escape=FALSE)
   })
-
   output$DT_gse_list2_goseq <- DT::renderDataTable({
     # if not null...
     if(is.null(values$gse_list2_goseq))
@@ -1661,10 +1574,6 @@ ideal_server <- shinyServer(function(input, output, session) {
 
 
 
-
-
-
-  # design_factors <- rev(attributes(terms.formula(design(dds_obj)))$term.labels)
   design_factors <- reactive({
     rev(attributes(terms.formula(design(values$dds_obj)))$term.labels)
   })
@@ -1705,7 +1614,7 @@ ideal_server <- shinyServer(function(input, output, session) {
     nrl <- length(levels(colData(values$dds_obj)[,fac1]))
 
     if(nrl > 2)
-      selectInput("choose_lrt_full",label = "choose the factors for the full model",
+      selectInput("choose_lrt_full",label = "Choose the factors for the full model",
                   choices = c("",design_factors()), selected = "", multiple = TRUE)
 
   })
@@ -1722,7 +1631,7 @@ ideal_server <- shinyServer(function(input, output, session) {
     nrl <- length(levels(colData(values$dds_obj)[,fac1]))
 
     if(nrl > 2)
-      selectInput("choose_lrt_reduced",label = "choose the factor(s) for the reduced model",
+      selectInput("choose_lrt_reduced",label = "Choose the factor(s) for the reduced model",
                   choices = c("",design_factors()), selected = "", multiple = TRUE)
   })
 
@@ -1739,7 +1648,7 @@ ideal_server <- shinyServer(function(input, output, session) {
     nrl <- length(levels(colData(values$dds_obj)[,fac1]))
 
     if(nrl > 2)
-      actionButton("button_runlrt",label = "(re)Run LRT for the dataset")
+      actionButton("button_runlrt",label = "(re)Run LRT for the dataset",class = "btn btn-primary")
   })
 
   observeEvent(input$button_runlrt,{
@@ -1949,7 +1858,7 @@ ideal_server <- shinyServer(function(input, output, session) {
   output$store_result <- renderUI({
     if(is.null(values$res_obj))
       return(NULL)
-    actionButton("button_store_result", "Store current results")
+    actionButton("button_store_result", "Store current results",class = "btn btn-primary")
   })
 
   observeEvent(input$button_store_result,
@@ -2071,29 +1980,6 @@ ideal_server <- shinyServer(function(input, output, session) {
 
   output$ma_brush_out <- renderDataTable({
     datatable(curData(),options=list(pageLength=100))
-
-    # alternative:
-
-    # curData()
-    # and...
-    # options=list(pageLength=100)) goes to renderDataTable
-    #         if (!is.null(input$ma_brush)) {
-    #           res <- enclosed_brush(mama, input$ma_brush)
-    #           # rv_ma$highlight_vars <- res
-    #         }  else {
-    #           res <- NULL
-    #         }
-    #
-    #         # TODO: total hack -- fix this correctly eventually
-    # #         if (is(res, 'data.frame')) {
-    # #           res <- dplyr::rename(res,
-    # #                                mean = mean_obs,
-    # #                                var = var_obs,
-    # #                                tech_var = sigma_q_sq,
-    # #                                final_sigma_sq = smooth_sigma_sq_pmax)
-    # #         }
-    #
-    #         res
   })
 
 
@@ -2178,7 +2064,6 @@ ideal_server <- shinyServer(function(input, output, session) {
     # dh  %>% ggplot(aes(x=f1f2,y=count,fill=f1f2)) + geom_boxplot()
 
 
-    ## TODO: make the intgroup/colr by also somehow multiple-selectable?
 
     # genedata$plotby <- lapply(1:ncol(onlyfactors),function(arg) onlyfactors[,arg]) %>% interaction()
     genedata$plotby <- interaction(onlyfactors)

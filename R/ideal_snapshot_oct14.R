@@ -28,9 +28,6 @@ ideal<- function(res_obj = NULL,
          install.packages('shiny')")
   }
 
-  # get modes and themes for the ace editor
-  modes <- shinyAce::getAceModes()
-  themes <- shinyAce::getAceThemes()
 
   ## upload max 300mb files - can be changed if necessary
   options(shiny.maxRequestSize=300*1024^2)
@@ -73,6 +70,7 @@ goseqTable <- function(de.genes,                  # Differentially expressed gen
                         testCats=c("GO:BP","GO:MF","GO:CC"),
                         FDR_GO_cutoff = 1,
                         nTop = 200,
+                        orgDbPkg = "org.Hs.eg.db",
                         # testKegg=TRUE,
                         # keggObject=mapPathwayToName("mmu"), # need the dedicated function!!
                         # writeOutput=FALSE,
@@ -94,22 +92,24 @@ goseqTable <- function(de.genes,                  # Differentially expressed gen
 
   goseq_out <-  goseq(pwf,genome=genome,id=id,test.cats=testCats)
 
-  # for adding the gene ids/names...
-  gene2cat = getgo(de.genes,genome=genome,id=id,fetch.cats= c("GO:CC","GO:BP", "GO:MF"))
-  names(gene2cat) = de.genes
-  cat2gene = goseq:::reversemapping(gene2cat)
 
-  goseq_out$p.adj <- p.adjust(GO.wall.all$over_represented_pvalue,method="BH")
+
+  goseq_out$p.adj <- p.adjust(goseq_out$over_represented_pvalue,method="BH")
 
   # to reduce the load for adding the genes
   goseq_out <- goseq_out[1:nTop,]
 
   if(addGeneToTerms) {
+    # for adding the gene ids/names...
+    gene2cat = getgo(de.genes,genome=genome,id=id,fetch.cats= testCats)
+    names(gene2cat) = de.genes
+    cat2gene = goseq:::reversemapping(gene2cat)
     # one list per GO term
     goseq_out$genes <- sapply(goseq_out$category, function(x) cat2gene[[x]])
 
     # TODO: replace identifiers/annotaions!!!
-    goseq_out$genesymbols <- sapply(goseq_out$genes, function(x) sort(AnnotationDbi::mapIds(org.Hs.eg.db,keys=x,keytype = "ENSEMBL",column = "SYMBOL",multiVals = "first")))
+    ## and also TODO: do this only if genes are not already symbols
+    goseq_out$genesymbols <- sapply(goseq_out$genes, function(x) sort(AnnotationDbi::mapIds(get(orgDbPkg),keys=x,keytype = "ENSEMBL",column = "SYMBOL",multiVals = "first")))
     # coerce to char
     goseq_out$genes <- unlist(lapply(goseq_out$genes,function(arg) paste(arg,collapse=",")))
     # coerce to char

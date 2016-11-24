@@ -1,5 +1,24 @@
+library(shinydashboard)
+library(shiny)
+library(d3heatmap)
+# ls()
+library(pcaExplorer)
+# example(pcaExplorer)
+library(DESeq2)
+library(ggplot2)
+library(shinyAce)
+library(DT)
+library(knitr)
+library(rmarkdown)
+library(pheatmap)
+
+# get modes and themes for the ace editor
+modes <- shinyAce::getAceModes()
+themes <- shinyAce::getAceThemes()
+
+
 ideal_ui <- shinydashboard::dashboardPage(
-  dashboardHeader(
+  shinydashboard::dashboardHeader(
     title = paste0("ideal - Interactive Differential Expression AnaLysis ",
                    packageVersion("ideal")),
     titleWidth = 900,
@@ -314,6 +333,13 @@ ideal_ui <- shinydashboard::dashboardPage(
           conditionalPanel(
             condition="!output.checkresu",
             h2("Gene Set Enrichment on the lists"),
+
+            selectInput("go_cats",label = "Select the GO category(ies) of interest",
+                        choices = list("GO Biological Process" = "BP", "GO Molecular Function" = "MF", "GO Cellular Component" = "CC"),
+                        selected = "BP",multiple = TRUE
+                        ),
+
+
             tabBox(
               width = NULL,
               id="gse_tabbox",
@@ -482,7 +508,7 @@ ideal_ui <- shinydashboard::dashboardPage(
             column(
               width = 6,
               box(
-                title = "markdown options", status = "primary", solidHeader = TRUE, collapsible = TRUE, width = 9,
+                title = "markdown options", status = "primary", solidHeader = TRUE, collapsible = TRUE, width = 9, collapsed = TRUE,
                 radioButtons("rmd_dl_format", label = "Choose Format:", c("HTML" = "html", "R Markdown" = "rmd"), inline = T),
                 textInput("report_title", "Title: "),
                 textInput("report_author", "Author: "),
@@ -496,7 +522,7 @@ ideal_ui <- shinydashboard::dashboardPage(
             column(
               width = 6,
               box(
-                title = "editor options", status = "primary", solidHeader = TRUE, collapsible = TRUE, width = 9,
+                title = "editor options", status = "primary", solidHeader = TRUE, collapsible = TRUE, width = 9, collapsed = TRUE,
                 checkboxInput("enableAutocomplete", "Enable AutoComplete", TRUE),
                 conditionalPanel(
                   "input.enableAutocomplete",
