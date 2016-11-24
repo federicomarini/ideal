@@ -136,9 +136,6 @@ ideal_server <- shinyServer(function(input, output, session) {
 
 
 
-  output$eddesign <- renderPrint({
-    print(values$expdesign)
-  })
 
 
   output$ddsdesign <- renderUI({
@@ -149,20 +146,7 @@ ideal_server <- shinyServer(function(input, output, session) {
                 choices = c(NULL, poss_covars), selected = NULL,multiple = TRUE)
   })
 
-  # output$color_by <- renderUI({
-  #   if(is.null(values$mydds))
-  #     return(NULL)
-  #   poss_covars <- names(colData(values$mydds))
-  #   selectInput('color_by', label = 'Group/color by: ',
-  #               choices = c(NULL, poss_covars), selected = NULL,multiple = TRUE)
-  # })
 
-
-  output$debugdesign <- renderPrint({
-
-    print(input$dds_design)
-
-  })
 
   output$ui_step2 <- renderUI({
     if (is.null(values$expdesign) | is.null(values$countmatrix))
@@ -1643,21 +1627,6 @@ ideal_server <- shinyServer(function(input, output, session) {
 
 
 
-
-
-
-#
-#
-#
-#
-#
-#   object <- res_obj
-#   # obj2 <- dds_obj
-#   res_object <- res_obj
-
-
-
-
   output$color_by <- renderUI({
     if(is.null(values$dds_obj))
       return(NULL)
@@ -1934,15 +1903,6 @@ ideal_server <- shinyServer(function(input, output, session) {
 
 
 
-  output$diyres <- renderPrint({
-    shiny::validate(
-      need(input$choose_expfac!="" & input$fac1_c1 != "" & input$fac1_c2 != "" & input$fac1_c1 != input$fac1_c2 ,
-           "Please select the factor to build the contrast upon, and two different levels to build the contrast"
-      )
-    )
-
-    # results(values$dds_obj,contrast = c(input$choose_expfac, input$fac1_c1, input$fac1_c2))
-  })
 
   output$diyres_summary <- renderPrint({
     shiny::validate(
@@ -2295,9 +2255,6 @@ ideal_server <- shinyServer(function(input, output, session) {
   })
 
 
-  # output$d1 <- renderPrint({
-  #   length(cur_combires())
-  # })
 
   output$table_combi <- DT::renderDataTable({
     datatable(cur_combires(),options = list(scrollX=TRUE))

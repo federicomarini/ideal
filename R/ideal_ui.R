@@ -12,7 +12,6 @@ ideal_ui <- shinydashboard::dashboardPage(
     # title = tags$a(href='https://github.com/federicomarini/ideal',
     #                tags$img(src='ideal_logo_v2.png',height='50',width='200')),
 
-
     # task menu for saving state to environment or binary data
     shinydashboard::dropdownMenu(type = "tasks",icon = icon("cog"),badgeStatus = NULL, # something to change the top message? maybe file an issue @shinydashboard development
                                  notificationItem(
@@ -58,6 +57,7 @@ ideal_ui <- shinydashboard::dashboardPage(
 
   dashboardBody(
     ## Define output size and style of error messages, and also the style of the icons e.g. check
+    ## plus, define the myscrollbox div to prevent y overflow when page fills up
     tags$head(
       tags$style(HTML("
                       .shiny-output-error-validation {
@@ -74,13 +74,14 @@ ideal_ui <- shinydashboard::dashboardPage(
                       "))
       ),
 
-    ## main structure of the body for the dashboard
+    # value boxes to always have an overview on the available data
     fluidRow(
       valueBoxOutput("box_ddsobj"),
       valueBoxOutput("box_annobj"),
       valueBoxOutput("box_resobj")
     ),
 
+    ## main structure of the body for the dashboard
     div(
       id = "myScrollBox", # trick to have the y direction scrollable
       tabBox(
@@ -95,12 +96,9 @@ ideal_ui <- shinydashboard::dashboardPage(
         ),
 
 
-
-
         tabPanel(
           "Data Setup",icon = icon("upload"),
 
-          # hr(),
           box(width = 12, title = "Step 1", status = "danger", solidHeader = TRUE,
               h2("Upload your count matrix and the info on the experimental design"),
 
@@ -143,20 +141,14 @@ ideal_ui <- shinydashboard::dashboardPage(
           ),
           # h2("Step 1: Upload your count matrix and the info on the experimental design"),
 
-          # verbatimTextOutput("eddesign"),
 
           uiOutput("ui_step2"),
-          # verbatimTextOutput("debugdesign"),
-          # uiOutput("ui_step3"),
 
           hr(),
-
           fluidRow(
             column(
               width = 6,
               uiOutput("ui_stepanno")
-
-
               ## this ideally populates also the list of genes of interest to choose among
             ),
             column(
@@ -164,7 +156,6 @@ ideal_ui <- shinydashboard::dashboardPage(
               uiOutput("ui_stepoutlier")
             )
           ),
-
           hr(),
 
           uiOutput("ui_step3")
@@ -206,12 +197,10 @@ ideal_ui <- shinydashboard::dashboardPage(
                 p("According to the selected filtering criteria, this is an overview on the provided count data"),
                 verbatimTextOutput("detected_genes"),
 
-                ## TODO: section to filter out features manually?
-
                 selectInput("filter_crit",label = "Choose the filtering criterium",
                             choices = c("row means", "row sums"), selected = "row means"),
 
-                actionButton("featfilt_dds", "Filter the DDS object")
+                actionButton("featfilt_dds", "Filter the DDS object",class = "btn btn-primary")
               )
             ),
 
@@ -233,9 +222,8 @@ ideal_ui <- shinydashboard::dashboardPage(
 
 
         tabPanel(
-          "View Results", icon = icon("table"),
+          "Extract Results", icon = icon("table"),
 
-          # verbatimTextOutput("id"),
           # see: http://stackoverflow.com/questions/21609436/r-shiny-conditionalpanel-output-value?noredirect=1&lq=1
           conditionalPanel(
             condition="!output.checkdds",
@@ -244,8 +232,6 @@ ideal_ui <- shinydashboard::dashboardPage(
             #   condition="output.checkresu==0",
             #   h2('RESU not provided')
             # ),
-
-            ## TODO: exploe if possible to use conditional panels?
 
             # "Data Overview", icon = icon("eye"),
 
@@ -321,8 +307,6 @@ ideal_ui <- shinydashboard::dashboardPage(
             h2("You did not create the dds object yet. Please go the main tab and generate it")
           )
 
-          # verbatimTextOutput("diyres_summary"),
-          # verbatimTextOutput("diyres")
         ),
 
         tabPanel(
@@ -334,25 +318,25 @@ ideal_ui <- shinydashboard::dashboardPage(
               width = NULL,
               id="gse_tabbox",
               tabPanel("UPregu", icon = icon("arrow-circle-up"),
-                       fluidRow(column(width = 6,actionButton("button_enrUP", "Perform gene set enrichment analysis on the upregulated genes"))),
-                       fluidRow(column(width = 6,actionButton("button_enrUP_goseq", "Perform gene set enrichment analysis on the upregulated genes - goseq"))),
-                       fluidRow(column(width = 6,actionButton("button_enrUP_topgo", "Perform gene set enrichment analysis on the upregulated genes - topGO"))),
+                       fluidRow(column(width = 6,actionButton("button_enrUP", "Perform gene set enrichment analysis on the upregulated genes",class = "btn btn-primary"))),
+                       fluidRow(column(width = 6,actionButton("button_enrUP_goseq", "Perform gene set enrichment analysis on the upregulated genes - goseq",class = "btn btn-primary"))),
+                       fluidRow(column(width = 6,actionButton("button_enrUP_topgo", "Perform gene set enrichment analysis on the upregulated genes - topGO",class = "btn btn-primary"))),
                        DT::dataTableOutput("DT_gse_up"),
                        DT::dataTableOutput("DT_gse_up_goseq"),
                        DT::dataTableOutput("DT_gse_up_topgo")
               ),
               tabPanel("DOWNregu", icon = icon("arrow-circle-down"),
-                       fluidRow(column(width = 6,actionButton("button_enrDOWN", "Perform gene set enrichment analysis on the downregulated genes"))),
-                       fluidRow(column(width = 6,actionButton("button_enrDOWN_goseq", "Perform gene set enrichment analysis on the downregulated genes - goseq"))),
-                       fluidRow(column(width = 6,actionButton("button_enrDOWN_topgo", "Perform gene set enrichment analysis on the downregulated genes - topGO"))),
+                       fluidRow(column(width = 6,actionButton("button_enrDOWN", "Perform gene set enrichment analysis on the downregulated genes",class = "btn btn-primary"))),
+                       fluidRow(column(width = 6,actionButton("button_enrDOWN_goseq", "Perform gene set enrichment analysis on the downregulated genes - goseq",class = "btn btn-primary"))),
+                       fluidRow(column(width = 6,actionButton("button_enrDOWN_topgo", "Perform gene set enrichment analysis on the downregulated genes - topGO",class = "btn btn-primary"))),
                        DT::dataTableOutput("DT_gse_down"),
                        DT::dataTableOutput("DT_gse_down_goseq"),
                        DT::dataTableOutput("DT_gse_down_topgo")
               ),
               tabPanel("UPDOWN", icon = icon("arrows-v"),
-                       fluidRow(column(width = 6,actionButton("button_enrUPDOWN", "Perform gene set enrichment analysis on the up- and downregulated genes"))),
-                       fluidRow(column(width = 6,actionButton("button_enrUPDOWN_goseq", "Perform gene set enrichment analysis on the up- and downregulated genes - goseq"))),
-                       fluidRow(column(width = 6,actionButton("button_enrUPDOWN_topgo", "Perform gene set enrichment analysis on the up- and downregulated genes - topGO"))),
+                       fluidRow(column(width = 6,actionButton("button_enrUPDOWN", "Perform gene set enrichment analysis on the up- and downregulated genes",class = "btn btn-primary"))),
+                       fluidRow(column(width = 6,actionButton("button_enrUPDOWN_goseq", "Perform gene set enrichment analysis on the up- and downregulated genes - goseq",class = "btn btn-primary"))),
+                       fluidRow(column(width = 6,actionButton("button_enrUPDOWN_topgo", "Perform gene set enrichment analysis on the up- and downregulated genes - topGO",class = "btn btn-primary"))),
                        DT::dataTableOutput("DT_gse_updown"),
                        DT::dataTableOutput("DT_gse_updown_goseq"),
                        DT::dataTableOutput("DT_gse_updown_topgo")
@@ -363,9 +347,9 @@ ideal_ui <- shinydashboard::dashboardPage(
                                  accept = c("text/csv", "text/comma-separated-values",
                                             "text/tab-separated-values", "text/plain",
                                             ".csv", ".tsv"), multiple = FALSE),
-                       fluidRow(column(width = 6,actionButton("button_enrLIST1", "Perform gene set enrichment analysis on the genes in list1"))),
-                       fluidRow(column(width = 6,actionButton("button_enrLIST1_goseq", "Perform gene set enrichment analysis on the list1 genes - goseq"))),
-                       fluidRow(column(width = 6,actionButton("button_enrLIST1_topgo", "Perform gene set enrichment analysis on the list1 genes - topGO"))),
+                       fluidRow(column(width = 6,actionButton("button_enrLIST1", "Perform gene set enrichment analysis on the genes in list1",class = "btn btn-primary"))),
+                       fluidRow(column(width = 6,actionButton("button_enrLIST1_goseq", "Perform gene set enrichment analysis on the list1 genes - goseq",class = "btn btn-primary"))),
+                       fluidRow(column(width = 6,actionButton("button_enrLIST1_topgo", "Perform gene set enrichment analysis on the list1 genes - topGO",class = "btn btn-primary"))),
                        DT::dataTableOutput("DT_gse_list1"),
                        DT::dataTableOutput("DT_gse_list1_goseq"),
                        DT::dataTableOutput("DT_gse_list1_topgo")
@@ -376,9 +360,9 @@ ideal_ui <- shinydashboard::dashboardPage(
                                  accept = c("text/csv", "text/comma-separated-values",
                                             "text/tab-separated-values", "text/plain",
                                             ".csv", ".tsv"), multiple = FALSE),
-                       fluidRow(column(width = 6,actionButton("button_enrLIST2", "Perform gene set enrichment analysis on the genes in list2"))),
-                       fluidRow(column(width = 6,actionButton("button_enrLIST2_goseq", "Perform gene set enrichment analysis on the list2 genes - goseq"))),
-                       fluidRow(column(width = 6,actionButton("button_enrLIST2_topgo", "Perform gene set enrichment analysis on the list2 genes - topGO"))),
+                       fluidRow(column(width = 6,actionButton("button_enrLIST2", "Perform gene set enrichment analysis on the genes in list2",class = "btn btn-primary"))),
+                       fluidRow(column(width = 6,actionButton("button_enrLIST2_goseq", "Perform gene set enrichment analysis on the list2 genes - goseq",class = "btn btn-primary"))),
+                       fluidRow(column(width = 6,actionButton("button_enrLIST2_topgo", "Perform gene set enrichment analysis on the list2 genes - topGO",class = "btn btn-primary"))),
                        DT::dataTableOutput("DT_gse_list2"),
                        DT::dataTableOutput("DT_gse_list2_goseq"),
                        DT::dataTableOutput("DT_gse_list2_topgo")
@@ -415,7 +399,7 @@ ideal_ui <- shinydashboard::dashboardPage(
             condition="!output.checkresu",
 
             headerPanel("MA plot interactive exploration"),
-            # fluidRow(verbatimTextOutput("deb")),
+
             fluidRow(column(6,
                             h4("MA plot - Interactive!"),
                             plotOutput('plotma', brush = 'ma_brush')),
@@ -428,7 +412,11 @@ ideal_ui <- shinydashboard::dashboardPage(
                      #        plotOutput("geneplot")
                      # )
             ),
-            plotOutput("genefinder_plot"),
+            fluidRow(column(6,
+                            h4("Selected gene"),
+                            plotOutput("genefinder_plot")
+                            )),
+
             plotOutput("volcanoplot"),
             fluidRow(radioButtons("heatmap_colv","Cluster samples",choices = list("Yes"=TRUE,"No"=FALSE),selected = TRUE)),
             fluidRow(
@@ -443,9 +431,8 @@ ideal_ui <- shinydashboard::dashboardPage(
               ),
               column(6,
                      d3heatmapOutput("heatbrushD3"))
-            )
-            ,
-            # fluidRow(dataTableOutput('ma_brush_out')),
+            ),
+
 
             box(
               title = "Brushed table", status = "primary", solidHeader = TRUE,
@@ -477,7 +464,6 @@ ideal_ui <- shinydashboard::dashboardPage(
             ),
 
             plotOutput("ma_highlight"),
-            # verbatimTextOutput("d1"),
             DT::dataTableOutput("table_combi")
 
           ),
@@ -555,10 +541,6 @@ ideal_ui <- shinydashboard::dashboardPage(
           "About", icon = icon("institution"),
           includeMarkdown(system.file("extdata", "about.md",package = "ideal")),
           hr(),
-          #             shiny::verbatimTextOutput("showuploaded1"),
-          #             shiny::verbatimTextOutput("showuploaded2"),
-          #             shiny::verbatimTextOutput("showuploaded3"),
-          #             shiny::verbatimTextOutput("showuploaded4"),
 
           h4("Session Info"),
           verbatimTextOutput("sessioninfo"),
