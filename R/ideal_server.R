@@ -16,6 +16,14 @@ library(pheatmap)
 
 ideal_server <- shinyServer(function(input, output, session) {
 
+  ## Update directory
+  userdir <- tempfile()
+  dir.create(userdir, recursive = TRUE)
+  # sapply(file.path(newuserdir, dir(newuserdir)[grep("code_", dir(newuserdir))]), file.remove)
+  # file.copy(file.path(userdir, "code_All.R"), newuserdir)
+  # userdir <- newuserdir
+  # dir.create(file.path(userdir, "data"))
+
 
 
   ## placeholder for the figures to export
@@ -2338,13 +2346,52 @@ ideal_server <- shinyServer(function(input, output, session) {
   ## currently not working as I want with rmarkdown::render, but can leave it like this - the yaml will be taken in the final version only
   output$knitDoc <- renderUI({
     input$updatepreview_button
+
+
+## TODO: this does what it should do but messes up with CSS and so
+#
+#     # error_I <- 0
+#     withProgress(message = 'Processing', value = 0, {
+#       isolate({
+#         fileConn<-file("www/tmp.Rmd")
+#         tmp_content <-
+#           paste0(rmd_yaml(),
+#                  input$acereport_rmd,collapse = "\n")
+#         writeLines(tmp_content, fileConn)
+#         close(fileConn)
+#         incProgress(0.5, detail = "Synthesizing report...")
+#         # tryCatch({
+#           rmarkdown::render(input = "www/tmp.Rmd", output_format = "html_document", output_file = "../www/Rmd_preview.html",quiet = TRUE) #},
+#           # error = function(e) {
+#           #   # error_I <<- 1
+#           # }
+#         # )
+#       })
+#       setProgress(1)
+#     })
+#
+#     return(isolate(includeHTML("www/Rmd_preview.html")))
+#     # return(isolate(includeHTML("<iframe src='www/Rmd_preview.html', width='100%', height='800'></iframe>")))
+#     # return(isolate(HTML("<iframe src='www/Rmd_preview.html', width='100%', height='800'></iframe>")))
+
+
+
+
+
     return(
-      withProgress(
-        isolate(HTML(knit2html(text = input$acereport_rmd, fragment.only = TRUE, quiet = TRUE))),
+      withProgress({
+          tmp_content <- paste0(rmd_yaml(),input$acereport_rmd,collapse = "\n")
+          isolate(HTML(knit2html(text = tmp_content, fragment.only = TRUE, quiet = TRUE)))
+        },
+        ## TODO: I should just "render on the fly" the Rmd without messing with the folders...
         message = "Updating the report in the app body",
         detail = "This can take some time"
       )
     )
+
+
+
+
   })
 
   # Generate and Download module
@@ -2353,7 +2400,7 @@ ideal_server <- shinyServer(function(input, output, session) {
       if(input$rmd_dl_format == "rmd") {
         "report.Rmd"
       } else {
-        "report.html"
+        "report.html" # TODO: maybe add Sys.time() to the filename to improve traceability?
       }
     },
     content = function(file) {
@@ -2375,12 +2422,30 @@ ideal_server <- shinyServer(function(input, output, session) {
         # close(fileConn)
         if(input$rmd_dl_format == "html") {
           cat(tmp_content,file="ideal_tempreport.Rmd",sep="\n")
+          ## TODO: use writeLines maybe instead of this?
+
+
+          # attempt?
+          ## seems to work - otherwise revert to previous
+          ## TODO: see how this can work for the live rendering!?
+          src <- normalizePath("ideal_tempreport.Rmd")
+          # temporarily switch to the temp dir, in case you do not have write
+          # permission to the current working directory
+          cwd <- getwd()
+          owd <- setwd(tempdir())
+          # on.exit(setwd(owd))
+          file.copy(src, "ideal_tempreport.Rmd",overwrite=TRUE)
+
+
           withProgress(rmarkdown::render(input = "ideal_tempreport.Rmd",
                             output_file = file,
+
+
                             # fragment.only = TRUE,
                             quiet = TRUE),
                        message = "Generating the html report",
                        detail = "This can take some time")
+          setwd(cwd)
         }
       }
     })

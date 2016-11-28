@@ -108,7 +108,8 @@ ideal_ui <- shinydashboard::dashboardPage(
 
 
         tabPanel(
-          "Welcome!",  icon = icon("info-circle"),
+          # "Welcome!",  icon = icon("info-circle"),
+          "Welcome!",  icon = icon("home"),
           includeMarkdown("welcome.md"),
           includeMarkdown(system.file("extdata", "instructions.md",package = "ideal")),
           footer()
@@ -590,6 +591,9 @@ ideal_ui <- shinydashboard::dashboardPage(
 
       )
     )
+    ,footer() # TODO: decide where to place the footer
   ),
+
+
   skin="blue"
 )
