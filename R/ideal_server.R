@@ -282,7 +282,17 @@ ideal_server <- shinyServer(function(input, output, session) {
       return(NULL)
     if (!"results" %in% mcols(mcols(values$dds_obj))$type) #
       return(NULL)
-    h2("Good to go!")
+    tagList(
+      h2("Good to go!"),
+      box(width = 6, title = "Diagnostic plot", status = "info", solidHeader = TRUE,
+          collapsible = TRUE, collapsed = TRUE,
+          plotOutput("diagno_dispests"))
+    )
+  })
+
+
+  output$diagno_dispests <- renderPlot({
+    plotDispEsts(values$dds_obj)
   })
 
 
@@ -585,7 +595,7 @@ ideal_server <- shinyServer(function(input, output, session) {
            "dds object provided, but couldn't find results. you should first run DESeq() with the button up here"
       )
     )
-    print(summary(results(values$dds_obj), alpha = input$FDR))
+    summary(results(values$dds_obj), alpha = input$FDR)
   })
 
 
@@ -2501,6 +2511,36 @@ ideal_server <- shinyServer(function(input, output, session) {
   output$sessioninfo <- renderPrint({
     sessionInfo()
   })
+
+#
+#   # try out the carousel
+#   nBins = reactive({
+#     13
+#   })
+#
+#   output$distPlot1 <- renderPlot({
+#
+#     # generate bins based on input$bins from ui.R
+#     x    <- faithful[, 2]
+#     bins <- seq(min(x), max(x), length.out = nBins() + 1)
+#
+#     # draw the histogram with the specified number of bins
+#     hist(x, breaks = bins, col = 'darkgray', border = 'white')
+#
+#   })
+#
+#   output$distPlot2 <- renderPlot({
+#
+#     #browser()
+#     # generate bins based on input$bins from ui.R
+#     x    <- faithful[, 2]
+#     bins <- seq(min(x), max(x), length.out = nBins() + 1)
+#
+#     # draw the histogram with the specified number of bins
+#     hist(x, breaks = bins, col = 'steelblue', border = 'white')
+#
+#   })
+
 
 
 

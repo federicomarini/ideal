@@ -110,7 +110,19 @@ ideal_ui <- shinydashboard::dashboardPage(
         tabPanel(
           # "Welcome!",  icon = icon("info-circle"),
           "Welcome!",  icon = icon("home"),
+          # carouselPanel(
+          #   img(src = "www/ideal_logo_v2.png"),
+          #   img(src = "ideal_logo_v2.png"),
+          #   img(src = "ideal_logo_v2.png")
+          # ),
           includeMarkdown("welcome.md"),
+
+          ## TODO: explore possibility to put a carousel of images: https://github.com/dcurrier/carouselPanel/
+          # carouselPanel(
+          #   plotOutput("distPlot1"),
+          #   plotOutput("distPlot2")
+          # ),
+          # img(src = "ideal_logo_v2.png"),
           includeMarkdown(system.file("extdata", "instructions.md",package = "ideal")),
           footer()
         ),
@@ -164,7 +176,7 @@ ideal_ui <- shinydashboard::dashboardPage(
 
           uiOutput("ui_step2"),
 
-          hr(),
+          # hr(),
           fluidRow(
             column(
               width = 6,
@@ -176,7 +188,7 @@ ideal_ui <- shinydashboard::dashboardPage(
               uiOutput("ui_stepoutlier")
             )
           ),
-          hr(),
+          # hr(),
 
           uiOutput("ui_step3")
         ),
