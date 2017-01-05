@@ -407,6 +407,13 @@ ideal_ui <- shinydashboard::dashboardPage(
                        DT::dataTableOutput("DT_gse_list2_topgo")
               )
             ),
+
+            verbatimTextOutput("goterm_heatmap_up_topgo"),
+
+
+
+
+
             ## will put collapsible list elements? or multi tab panel? or something to select on the left, and operate output-wise on the right e.g. venn diagrams or table for gene set enrichment
             # h3("custom list 3 - handpicked") # use the select input from the left column?
             # ,verbatimTextOutput("debuggls"),

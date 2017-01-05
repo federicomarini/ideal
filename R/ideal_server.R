@@ -259,6 +259,12 @@ ideal_server <- shinyServer(function(input, output, session) {
   })
 
 
+  output$ui_nrcores <- renderUI({
+    mincores <- 1
+    maxcores <- parallel::detectCores()
+    sliderInput("nrcores",label = "Choose how many cores to use for computing:",
+                min = mincores, max = maxcores,value = 1,step = 1)
+  })
 
   output$ui_step3 <- renderUI({
     if (is.null(values$dds_obj)) #
@@ -266,6 +272,14 @@ ideal_server <- shinyServer(function(input, output, session) {
     box(width = 12, title = "Step 3", status = "success", solidHeader = TRUE,
         tagList(
           h2("Step 3: Run DESeq!"),
+
+          fluidRow(
+            column(
+              width = 4,
+              uiOutput("ui_nrcores")
+            )
+          ),
+
           uiOutput("rundeseq"),
 
           verbatimTextOutput("printDIYresults"),
@@ -580,7 +594,17 @@ ideal_server <- shinyServer(function(input, output, session) {
                               detail = "This step might take a while", value = 0,{
                                 # trick to keep species info while still changing the dds_obj
                                 curr_species <- input$speciesSelect
-                                values$dds_obj <- DESeq(values$dds_obj)
+
+
+                                if(input$nrcores == 1)
+                                  values$dds_obj <- DESeq(values$dds_obj)
+                                else
+                                  # leave open option for computing in parallel?
+                                  values$dds_obj <- DESeq(values$dds_obj,
+                                                          parallel = TRUE,
+                                                          BPPARAM = MulticoreParam(workers = input$nrcores))
+
+
                                 updateSelectInput(session, inputId = "speciesSelect", selected = curr_species)
                    })
                })
@@ -1461,6 +1485,62 @@ ideal_server <- shinyServer(function(input, output, session) {
   })
 
 
+
+
+  output$goterm_heatmap_up_topgo <- renderPrint({
+
+    s <- input$DT_gse_up_topgo_rows_selected
+    if(length(s) == 0)
+      return(NULL)
+
+    print(s)
+
+    print(values$topgo_up[s,])
+
+
+    values$topgo_up[input$DT_gse_up_topgo_rows_selected,]$genes
+
+    # allow only one selected line
+    mygenes <- values$topgo_up[input$DT_gse_up_topgo_rows_selected,]$genes[1]
+    myterm <- paste0(
+      values$topgo_up[input$DT_gse_up_topgo_rows_selected,]$`GO.ID`, " - ",
+      values$topgo_up[input$DT_gse_up_topgo_rows_selected,]$Term)
+
+    genevec <- unlist(strsplit(mygenes,split=","))
+    genevec
+
+    genevec_ids <- mapIds(org.Hs.eg.db,genevec,"ENSEMBL","SYMBOL",multiVals="first")
+
+    genevec_ids
+
+
+
+    log2things <- assay(normTransform(values$dds_obj))
+    #log2things
+
+    selectedLogvalues <- log2things[genevec_ids,]
+
+    # check that I do not have nas or similar...
+
+    if(length(genevec_ids)==length(genevec)){
+      rowlabs <- genevec
+    } else {
+      rowlabs <- genevec_ids
+    # rowlabs <- ifelse(, genevec, genevec_ids)
+    }
+    pheatmap(selectedLogvalues,scale="row",labels_row=rowlabs,main = myterm)
+
+
+
+
+
+
+
+    # values$topgo_down
+
+
+
+  })
 
 
 
