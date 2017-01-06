@@ -39,6 +39,7 @@ Imports:
     knitr,
     rmarkdown,
     shinyAce,
+    BiocParallel,
     grDevices,
     methods
 Suggests:

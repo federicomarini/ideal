@@ -23,6 +23,7 @@
 #' @import shinydashboard
 #' @importFrom AnnotationDbi mapIds select
 #' @import shinyAce
+#' @import BiocParallel
 #' @import knitr
 #' @import rmarkdown
 #' @import plyr
