@@ -2,21 +2,66 @@
 % Please edit documentation in R/ideal_snapshot_oct14.R
 \name{ideal}
 \alias{ideal}
-\title{Title}
+\title{ideal: Interactive Differential Expression Analysis}
 \usage{
-ideal(res_obj = NULL, dds_obj = NULL, annotation_obj = NULL,
+ideal(dds_obj = NULL, res_obj = NULL, annotation_obj = NULL,
   countmatrix = NULL, expdesign = NULL)
 }
 \arguments{
-\item{annotation}{}
+\item{dds_obj}{A \code{\link{DESeqDataSet}} object. If not provided, then a
+\code{countmatrix} and a \code{expdesign} need to be provided. If none of
+the above is provided, it is possible to upload the data during the
+execution of the Shiny App}
+
+\item{res_obj}{A \code{\link{DESeqResults}} object. If not provided, it can
+be computed during the execution of the application}
+
+\item{annotation_obj}{A \code{data.frame} object, with row.names as gene
+identifiers (e.g. ENSEMBL ids) and a column, \code{gene_name}, containing
+e.g. HGNC-based gene symbols. If not provided, it can be constructed during
+the execution via the org.eg.XX.db packages - these need to be installed}
+
+\item{countmatrix}{A count matrix, with genes as rows and samples as columns.
+If not provided, it is possible to upload the data during the execution of
+the Shiny App}
+
+\item{expdesign}{A \code{data.frame} containing the info on the covariates
+of each sample. If not provided, it is possible to upload the data during the
+execution of the Shiny App}
+}
+\value{
+A Shiny App is launched for interactive data exploration and
+differential expression analysis
 }
 \description{
-Title
+ideal makes differential expression analysis interactive, easy and reproducible.
+This function launches the main application included in the package.
 }
 \examples{
+# with simulated data...
+library(DESeq2)
+dds <- DESeq2::makeExampleDESeqDataSet(n=100, m=8)
+cm <- counts(dds)
+cd <- colData(dds)
+
+# with the well known airway package...
+library(airway)
+data(airway)
+airway
+dds_airway <- DESeq2::DESeqDataSetFromMatrix(assay(airway),
+                                             colData = colData(airway),
+                                             design=~cell+dex)
+\dontrun{
 
 
+ideal()
+ideal(dds)
+ideal(dds_airway)
 
+dds_airway <- DESeq(dds_airway)
+res_airway <- results(dds_airway)
+ideal(dds_airway, res_airway)
+}
 
 }
 

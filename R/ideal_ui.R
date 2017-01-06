@@ -1,16 +1,16 @@
-library(shinydashboard)
-library(shiny)
-library(d3heatmap)
-# ls()
-library(pcaExplorer)
-# example(pcaExplorer)
-library(DESeq2)
-library(ggplot2)
-library(shinyAce)
-library(DT)
-library(knitr)
-library(rmarkdown)
-library(pheatmap)
+# library(shinydashboard)
+# library(shiny)
+# library(d3heatmap)
+# # ls()
+# library(pcaExplorer)
+# # example(pcaExplorer)
+# library(DESeq2)
+# library(ggplot2)
+# library(shinyAce)
+# library(DT)
+# library(knitr)
+# library(rmarkdown)
+# library(pheatmap)
 
 # get modes and themes for the ace editor
 modes <- shinyAce::getAceModes()
@@ -115,7 +115,7 @@ ideal_ui <- shinydashboard::dashboardPage(
           #   img(src = "ideal_logo_v2.png"),
           #   img(src = "ideal_logo_v2.png")
           # ),
-          includeMarkdown("welcome.md"),
+          includeMarkdown(system.file("extdata", "welcome.md",package = "ideal")),
 
           ## TODO: explore possibility to put a carousel of images: https://github.com/dcurrier/carouselPanel/
           # carouselPanel(
@@ -529,7 +529,7 @@ ideal_ui <- shinydashboard::dashboardPage(
               width = 6,
               box(
                 title = "markdown options", status = "primary", solidHeader = TRUE, collapsible = TRUE, width = 9, collapsed = TRUE,
-                radioButtons("rmd_dl_format", label = "Choose Format:", c("HTML" = "html", "R Markdown" = "rmd"), inline = T),
+                radioButtons("rmd_dl_format", label = "Choose Format:", c("HTML" = "html", "R Markdown" = "rmd"), inline = TRUE),
                 textInput("report_title", "Title: "),
                 textInput("report_author", "Author: "),
                 radioButtons("report_toc", "Table of Contents", choices = list("Yes" = "true", "No" = "false")),

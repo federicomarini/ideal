@@ -1,0 +1,74 @@
+---
+title: "ideal Users Guide"
+author: "**Federico Marini** (marinif@uni-mainz.de) and **Harald Binder**</br>
+  Institute of Medical Biostatistics, Epidemiology and Informatics (IMBEI), Mainz </br>
+  Center for Thrombosis and Hemostasis (CTH), Mainz"
+email: marinif@uni-mainz.de  
+date: "`r doc_date()`"
+package: "`r pkg_ver('ideal')`"
+abstract: >
+  `r Biocpkg("ideal")` provides functionality for interactive visualization of RNA-seq datasets
+  based on Principal Components Analysis. Such methods allow for quick information 
+  extraction and effective data exploration. A Shiny application encapsulates the whole analysis, and
+  is developed to become a practical companion for any RNA-seq dataset. This app supports reproducible
+  research with state saving and automated report generation. 
+output: 
+  BiocStyle::html_document:
+    fig_caption: TRUE
+vignette: >
+  %\VignetteIndexEntry{ideal Users Guide}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}  
+  %\VignettePackage{ideal}
+  %\VignetteKeywords{GeneExpression, DifferentialExpression, RNASeq, Sequencing, Visualization, QualityControl, GUI, GeneSetEnrichment, ReportWriting}
+---
+
+<br>
+**Package**: `r Rpackage("pcaExplorer")`<br />
+**Authors**: `r packageDescription("pcaExplorer")[["Author"]]`<br />
+**Version**: `r packageDescription("pcaExplorer")$Version`<br />
+**Compiled date**: `r Sys.Date()`<br />
+**License**: `r packageDescription("pcaExplorer")[["License"]]`<br />
+
+```{r style, echo = FALSE, results = 'asis'}
+BiocStyle::markdown()
+```
+
+```{r setup, echo=FALSE, warning=FALSE}
+library(knitr)
+set.seed(42)
+opts_chunk$set(comment=NA,
+               fig.align="center",
+               warning=FALSE)
+```
+
+# Getting started
+
+`r Biocpkg("ideal")` is an R package distributed as part of the [Bioconductor](http://bioconductor.org) project. To install the package, start R and enter:
+
+```{r installation, eval=FALSE}
+source("http://bioconductor.org/biocLite.R")
+biocLite("ideal")
+```
+
+If you prefer, you can install and use the development version, which can be retrieved via Github (https://github.com/federicomarini/ideal). To do so, use
+
+```{r installation-github, eval=FALSE}
+library("devtools")
+install_github("federicomarini/ideal")
+```
+
+
+
+Once `r Rpackage("ideal")` is installed, it can be loaded by the following command.
+
+```{r loadlibrary, message=FALSE}
+library("ideal")
+```
+
+```{r}
+sessionInfo()
+# devtools::session_info()
+```
+
+

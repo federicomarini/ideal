@@ -1,15 +1,15 @@
 Package: ideal
 Type: Package
 Title: Interactive Differential Expression AnaLysis
-Version: 0.2.0
-Date: 2016-11-24
+Version: 0.3.0
+Date: 2017-01-06
 Authors@R: c(person("Federico", "Marini", email = "marinif@uni-mainz.de",
     role = c("aut", "cre")))
 Maintainer: Federico Marini <marinif@uni-mainz.de>
 Description: This package provides functions for an Interactive Differential
     Expression AnaLysis of RNA-sequencing datasets, to extract quickly and
-    effectively information downstream the step of differential expression. A Shiny
-    application encapsulates the whole package.
+    effectively information downstream the step of differential expression. A
+    Shiny application encapsulates the whole package.
 License: MIT + file LICENSE
 LazyData: TRUE
 Imports:
@@ -18,13 +18,16 @@ Imports:
     GenomicRanges,
     IRanges,
     S4Vectors,
-    genefilter,
     ggplot2 (>= 2.0.0),
     d3heatmap,
-    scales,
-    NMF,
+    pheatmap,
+    pcaExplorer,
+    gplots,
+    UpSetR,
+    goseq,
+    stringr,
     plyr,
-    topGO,
+    dplyr,
     limma,
     GOstats,
     GO.db,
@@ -32,19 +35,20 @@ Imports:
     shiny (>= 0.12.0),
     shinydashboard,
     shinyBS,
-    ggrepel,
     DT,
+    knitr,
+    rmarkdown,
+    shinyAce,
     grDevices,
     methods
 Suggests:
-    knitr,
     testthat,
     BiocStyle,
-    rmarkdown,
     airway,
     org.Hs.eg.db
 URL: https://github.com/federicomarini/ideal
 BugReports: https://github.com/federicomarini/ideal/issues
-biocViews: DifferentialExpression, Visualization, RNASeq, GUI, ReportWriting
+biocViews: GeneExpression, DifferentialExpression, RNASeq, Sequencing,
+    Visualization, QualityControl, GUI, GeneSetEnrichment, ReportWriting
 VignetteBuilder: knitr
 RoxygenNote: 5.0.1

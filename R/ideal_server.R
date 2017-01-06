@@ -1,18 +1,17 @@
-library(shiny)
-
-library(shinydashboard)
-library(shiny)
-library(d3heatmap)
-# ls()
-library(pcaExplorer)
-# example(pcaExplorer)
-library(DESeq2)
-library(ggplot2)
-library(shinyAce)
-library(DT)
-library(knitr)
-library(rmarkdown)
-library(pheatmap)
+# library(shiny)
+#
+# library(shinydashboard)
+# library(d3heatmap)
+# # ls()
+# library(pcaExplorer)
+# # example(pcaExplorer)
+# library(DESeq2)
+# library(ggplot2)
+# library(shinyAce)
+# library(DT)
+# library(knitr)
+# library(rmarkdown)
+# library(pheatmap)
 
 ideal_server <- shinyServer(function(input, output, session) {
 
@@ -464,11 +463,11 @@ ideal_server <- shinyServer(function(input, output, session) {
                                          "Rhesus","Malaria","Chimp","Rat",
                                          "Yeast","Streptomyces coelicolor", "Pig","Toxoplasma gondii",
                                          "Xenopus"),
-                               pkg=c("","org.Ag.eg.db",	"org.At.tair.db", "org.Bt.eg.db",	"org.Ce.eg.db",
-                                     "org.Cf.eg.db",	"org.Dm.eg.db", "org.Dr.eg.db",	"org.EcK12.eg.db",
-                                     "org.EcSakai.eg.db","org.Gg.eg.db","org.Hs.eg.db",	"org.Mm.eg.db",
-                                     "org.Mmu.eg.db","org.Pf.plasmo.db","org.Pt.eg.db","org.Rn.eg.db",
-                                     "org.Sc.sgd.db","org.Sco.eg.db",	"org.Ss.eg.db","org.Tgondii.eg.db",
+                               pkg=c("","org.Ag.eg.db", "org.At.tair.db", "org.Bt.eg.db", "org.Ce.eg.db",
+                                     "org.Cf.eg.db", "org.Dm.eg.db", "org.Dr.eg.db", "org.EcK12.eg.db",
+                                     "org.EcSakai.eg.db", "org.Gg.eg.db", "org.Hs.eg.db", "org.Mm.eg.db",
+                                     "org.Mmu.eg.db", "org.Pf.plasmo.db", "org.Pt.eg.db", "org.Rn.eg.db",
+                                     "org.Sc.sgd.db", "org.Sco.eg.db", "org.Ss.eg.db", "org.Tgondii.eg.db",
                                      "org.Xl.eg.db"),
                                stringsAsFactors = FALSE)
 
@@ -994,7 +993,7 @@ ideal_server <- shinyServer(function(input, output, session) {
                                         keytype="ENSEMBL",
                                         multiVals="first")
                    incProgress(0.1, detail = "IDs mapped")
-                   library(topGO)
+                   ### library(topGO)
                    values$topgo_up <- topGOtable(de_symbols, bg_symbols,
                                                    ontology = input$go_cats[1],
                                                    mapping = annoSpecies_df[values$cur_species,]$pkg,
@@ -1081,7 +1080,7 @@ ideal_server <- shinyServer(function(input, output, session) {
                                         keytype="ENSEMBL",
                                         multiVals="first")
                    incProgress(0.1, detail = "IDs mapped")
-                   library(topGO)
+                   ### library(topGO)
                    values$topgo_down <- topGOtable(de_symbols, bg_symbols,
                                        ontology = input$go_cats[1], # will take the first ontology
                                        mapping = annoSpecies_df[values$cur_species,]$pkg,
@@ -1171,7 +1170,7 @@ ideal_server <- shinyServer(function(input, output, session) {
                                         keytype="ENSEMBL",
                                         multiVals="first")
                    incProgress(0.1, detail = "IDs mapped")
-                   library(topGO)
+                   ### library(topGO)
                    values$topgo_updown <- topGOtable(de_symbols, bg_symbols,
                                                    ontology = input$go_cats[1],
                                                    mapping = annoSpecies_df[values$cur_species,]$pkg,
@@ -1257,7 +1256,7 @@ ideal_server <- shinyServer(function(input, output, session) {
                                         keytype="ENSEMBL",
                                         multiVals="first")
                    incProgress(0.1, detail = "IDs mapped")
-                   library(topGO)
+                   ### library(topGO)
                    values$topgo_list1 <- topGOtable(de_symbols, bg_symbols,
                                                     ontology = input$go_cats[1],
                                                     mapping = annoSpecies_df[values$cur_species,]$pkg,
@@ -1341,7 +1340,7 @@ ideal_server <- shinyServer(function(input, output, session) {
                                         keytype="ENSEMBL",
                                         multiVals="first")
                    incProgress(0.1, detail = "IDs mapped")
-                   library(topGO)
+                   ### library(topGO)
                    values$topgo_list2 <- topGOtable(de_symbols, bg_symbols,
                                                     ontology = input$go_cats[1],
                                                     mapping = annoSpecies_df[values$cur_species,]$pkg,
@@ -2092,7 +2091,13 @@ ideal_server <- shinyServer(function(input, output, session) {
 
     if(input$pseudocounts) toplot <- log2(1+toplot)
 
-    if(input$rowscale) toplot <- pheatmap:::scale_mat(toplot,"row")
+    mat_rowscale <- function(x)
+    {
+      m <- apply(x, 1, mean, na.rm = TRUE)
+      s <- apply(x, 1, sd, na.rm = TRUE)
+      return((x - m)/s)
+    }
+    if(input$rowscale) toplot <- mat_rowscale(toplot)
 
     pheatmap(toplot,cluster_cols = as.logical(input$heatmap_colv))
 
@@ -2110,7 +2115,14 @@ ideal_server <- shinyServer(function(input, output, session) {
     rownames(toplot) <- values$annotation_obj$gene_name[match(rownames(toplot),rownames(values$annotation_obj))]
     mycolss <- c("#313695","#4575b4","#74add1","#abd9e9","#e0f3f8","#fee090","#fdae61","#f46d43","#d73027","#a50026") # to be consistent with red/blue usual coding
     if(input$pseudocounts) toplot <- log2(1+toplot)
-    if(input$rowscale) toplot <- pheatmap:::scale_mat(toplot,"row")
+
+    mat_rowscale <- function (x)
+    {
+      m = apply(x, 1, mean, na.rm = TRUE)
+      s = apply(x, 1, sd, na.rm = TRUE)
+      return((x - m)/s)
+    }
+    if(input$rowscale) toplot <- mat_rowscale(toplot)
 
     d3heatmap(toplot,Colv = as.logical(input$heatmap_colv),colors = mycolss)
 
@@ -2150,7 +2162,7 @@ ideal_server <- shinyServer(function(input, output, session) {
     selectedGene <- as.character(curDataClick()$ID)
     selectedGeneSymbol <- values$annotation_obj$gene_name[match(selectedGene,rownames(values$annotation_obj))]
     # plotCounts(dds_cleaner,)
-    genedata <- plotCounts(values$dds_obj,gene=selectedGene,intgroup = input$color_by,returnData = T)
+    genedata <- plotCounts(values$dds_obj,gene=selectedGene,intgroup = input$color_by,returnData = TRUE)
 
     # onlyfactors <- genedata[match(input$color_by_G,colnames(genedata))]
     # onlyfactors <- genedata[,match(input$color_by_G,colnames(genedata))]
@@ -2213,7 +2225,7 @@ ideal_server <- shinyServer(function(input, output, session) {
 
   cur_combires <- reactive({
 
-    normCounts <- as.data.frame(counts(estimateSizeFactors(values$dds_obj),normalized=T))
+    normCounts <- as.data.frame(counts(estimateSizeFactors(values$dds_obj),normalized=TRUE))
     normCounts$id <- rownames(normCounts)
     res_df <- deseqresult2tbl(values$res_obj)
 
@@ -2542,10 +2554,6 @@ ideal_server <- shinyServer(function(input, output, session) {
 
 
 
-
-
-
-
   ## STATE SAVING
   ### to environment
   observe({
@@ -2555,13 +2563,27 @@ ideal_server <- shinyServer(function(input, output, session) {
     if(interactive()) {
       # flush input and values to the environment in two distinct objects (to be reused later?)
       isolate({
-        assign(paste0("ideal_inputs_",
-                      gsub(" ","_",gsub("-","",gsub(":","-",as.character(Sys.time()))))),
-               reactiveValuesToList(input), envir = .GlobalEnv)
-        assign(paste0("ideal_values_",
-                      gsub(" ","_",gsub("-","",gsub(":","-",as.character(Sys.time()))))),
-               reactiveValuesToList(values), envir = .GlobalEnv)
+
+        # ideal_env <<- new.env(parent = emptyenv())
+        cur_inputs <- reactiveValuesToList(input)
+        cur_values <- reactiveValuesToList(values)
+        tstamp <- gsub(" ","_",gsub("-","",gsub(":","-",as.character(Sys.time()))))
+
+        # myvar <- "frfr"
+        # assign("test", myvar, ideal_env)
+
+        # better practice rather than assigning to global env - notify users of this
+        assign(paste0("ideal_inputs_", tstamp),cur_inputs, envir = ideal_env)
+        assign(paste0("ideal_values_", tstamp),cur_values, envir = ideal_env)
         stopApp("ideal closed, state successfully saved to global R environment.")
+
+        # assign(paste0("ideal_inputs_",
+        #               gsub(" ","_",gsub("-","",gsub(":","-",as.character(Sys.time()))))),
+        #        reactiveValuesToList(input), envir = .GlobalEnv)
+        # assign(paste0("ideal_values_",
+        #               gsub(" ","_",gsub("-","",gsub(":","-",as.character(Sys.time()))))),
+        #        reactiveValuesToList(values), envir = .GlobalEnv)
+        # stopApp("ideal closed, state successfully saved to global R environment.")
       })
     } else {
       stopApp("ideal closed")
