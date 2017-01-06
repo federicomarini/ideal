@@ -1,3 +1,20 @@
+CHANGES IN VERSION  0.3.0
+-------------------------
+
+NEW FEATURES
+
+    o Restructuring of the folders done, package can be correctly
+    installed, loaded - namespace, description are set up
+
+
+ CHANGES IN VERSION  0.2.0
+-------------------------
+
+NEW FEATURES
+
+    o Correct structure of the package
+
+
 CHANGES IN VERSION  0.1.0
 -------------------------
 
