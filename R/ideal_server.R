@@ -260,7 +260,7 @@ ideal_server <- shinyServer(function(input, output, session) {
 
   output$ui_nrcores <- renderUI({
     mincores <- 1
-    maxcores <- multicoreWorkers()
+    maxcores <- BiocParallel::multicoreWorkers()
     sliderInput("nrcores",label = "Choose how many cores to use for computing:",
                 min = mincores, max = maxcores,value = 1,step = 1)
   })
@@ -1654,7 +1654,7 @@ ideal_server <- shinyServer(function(input, output, session) {
   })
 
   observe({
-    updateSelectizeInput(session = session, inputId = 'avail_symbols', choices = c(Choose = '', values$res_obj$symbol), server = TRUE)
+    updateSelectizeInput(session = session, inputId = 'avail_symbols', choices = c(Choose = '', unname(values$res_obj$symbol)), server = TRUE) # using unname to prevent issues if res is modified with mapIds
   })
 
 
@@ -2031,7 +2031,15 @@ ideal_server <- shinyServer(function(input, output, session) {
   output$mazoom <- renderPlot({
     if(is.null(input$ma_brush)) return(ggplot() + annotate("text",label="click and drag to zoom in",0,0) + theme_bw())
 
-    plot_ma(values$res_obj,annotation_obj = values$annotation_obj) + xlim(input$ma_brush$xmin,input$ma_brush$xmax) + ylim(input$ma_brush$ymin,input$ma_brush$ymax) + geom_text(aes(label=genename),size=3,hjust=0.25, vjust=-0.75)
+    if(!is.null(values$annotation_obj))
+      plot_ma(values$res_obj,annotation_obj = values$annotation_obj) +
+      xlim(input$ma_brush$xmin,input$ma_brush$xmax) +
+      ylim(input$ma_brush$ymin,input$ma_brush$ymax) +
+      geom_text(aes(label=genename),size=3,hjust=0.25, vjust=-0.75)
+    else
+      plot_ma(values$res_obj,annotation_obj = values$annotation_obj) +
+      xlim(input$ma_brush$xmin,input$ma_brush$xmax) +
+      ylim(input$ma_brush$ymin,input$ma_brush$ymax)
   })
 
 

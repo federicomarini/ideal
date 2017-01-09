@@ -461,9 +461,17 @@ ideal_ui <- shinydashboard::dashboardPage(
             fluidRow(column(6,
                             h4("Selected gene"),
                             plotOutput("genefinder_plot")
-                            )),
 
-            plotOutput("volcanoplot"),
+            )),
+
+
+            fluidRow(column(6,
+                            h4("volcano plot"),
+                            plotOutput("volcanoplot")
+            )),
+
+
+            # plotOutput("volcanoplot"),
             fluidRow(radioButtons("heatmap_colv","Cluster samples",choices = list("Yes"=TRUE,"No"=FALSE),selected = TRUE)),
             fluidRow(
               column(4,
