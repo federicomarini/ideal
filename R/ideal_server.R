@@ -1508,7 +1508,10 @@ ideal_server <- shinyServer(function(input, output, session) {
     genevec <- unlist(strsplit(mygenes,split=","))
     genevec
 
-    genevec_ids <- mapIds(org.Hs.eg.db,genevec,"ENSEMBL","SYMBOL",multiVals="first")
+    annopkg <- annoSpecies_df$pkg[annoSpecies_df$species==input$speciesSelect]
+
+    # genevec_ids <- mapIds(org.Hs.eg.db,genevec,"ENSEMBL","SYMBOL",multiVals="first")
+    genevec_ids <- mapIds(eval(parse(text=annopkg)),genevec,"ENSEMBL","SYMBOL",multiVals="first")
 
     genevec_ids
 
@@ -1985,7 +1988,7 @@ ideal_server <- shinyServer(function(input, output, session) {
     )
 
     res_df <- as.data.frame(values$res_obj)
-    p <- ggplot(res_df, aes(pvalue)) +
+    p <- ggplot(res_df, aes_string("pvalue")) +
       geom_histogram(binwidth = 0.01) + theme_bw()
 
     p
@@ -1998,7 +2001,7 @@ ideal_server <- shinyServer(function(input, output, session) {
     )
 
     res_df <- as.data.frame(values$res_obj)
-    p <- ggplot(res_df, aes(log2FoldChange)) +
+    p <- ggplot(res_df, aes_string("log2FoldChange")) +
       geom_histogram(binwidth = 0.1) + theme_bw()
 
     p
@@ -2035,7 +2038,7 @@ ideal_server <- shinyServer(function(input, output, session) {
       plot_ma(values$res_obj,annotation_obj = values$annotation_obj) +
       xlim(input$ma_brush$xmin,input$ma_brush$xmax) +
       ylim(input$ma_brush$ymin,input$ma_brush$ymax) +
-      geom_text(aes(label=genename),size=3,hjust=0.25, vjust=-0.75)
+      geom_text(aes_string(label="genename"),size=3,hjust=0.25, vjust=-0.75)
     else
       plot_ma(values$res_obj,annotation_obj = values$annotation_obj) +
       xlim(input$ma_brush$xmin,input$ma_brush$xmax) +
@@ -2188,7 +2191,7 @@ ideal_server <- shinyServer(function(input, output, session) {
 
 
 
-    ggplot(genedata,aes(x=plotby,y=count,fill=plotby)) + geom_boxplot() + scale_y_log10(name="Normalized counts") + labs(title=paste0("Normalized counts for ",selectedGeneSymbol," - ",selectedGene)) +  scale_x_discrete(name="") + geom_jitter(aes(x=plotby,y=count),position = position_jitter(width = 0.1)) + scale_fill_discrete(name="Experimental\nconditions")
+    ggplot(genedata,aes_string(x="plotby",y="count",fill="plotby")) + geom_boxplot() + scale_y_log10(name="Normalized counts") + labs(title=paste0("Normalized counts for ",selectedGeneSymbol," - ",selectedGene)) +  scale_x_discrete(name="") + geom_jitter(aes_string(x="plotby",y="count"),position = position_jitter(width = 0.1)) + scale_fill_discrete(name="Experimental\nconditions")
     # exportPlots$genesZoom <- res
     # res
   })
