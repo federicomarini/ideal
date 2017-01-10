@@ -200,8 +200,7 @@ ideal<- function(dds_obj = NULL,
             #   plotOutput("distPlot2")
             # ),
             # img(src = "ideal_logo_v2.png"),
-            includeMarkdown(system.file("extdata", "instructions.md",package = "ideal")),
-            footer()
+            includeMarkdown(system.file("extdata", "instructions.md",package = "ideal"))
           ),
 
 
@@ -689,8 +688,7 @@ ideal<- function(dds_obj = NULL,
             hr(),
 
             h4("Session Info"),
-            verbatimTextOutput("sessioninfo"),
-            footer()
+            verbatimTextOutput("sessioninfo")
           )
           ,tabPanel(
             "devel", icon = icon("github")
