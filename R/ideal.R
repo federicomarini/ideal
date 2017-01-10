@@ -581,7 +581,7 @@ ideal<- function(dds_obj = NULL,
               box(
                 title = "Brushed table", status = "primary", solidHeader = TRUE,
                 collapsible = TRUE, collapsed = TRUE, width = 12,
-                fluidRow(dataTableOutput("ma_brush_out")))
+                fluidRow(DT::dataTableOutput("ma_brush_out")))
             ),
             conditionalPanel(
               condition="output.checkresu",
@@ -1656,8 +1656,8 @@ ideal<- function(dds_obj = NULL,
 
                      incProgress(0.7, detail = "adding gene names to GO terms") # good indicator for showing it has progressed
                      go_ids <- rownames(values$gse_up)
-                     allegs_list <- lapply(go_ids, function(arg) get(arg, get(paste0("org.",organism,".egGO2ALLEGS"))))
-                     genes_list <- lapply(allegs_list, function(arg) unlist(mget(arg,get(paste0("org.",organism,".egSYMBOL")))))
+                     allegs_list <- lapply(go_ids, function(arg) AnnotationDbi::get(arg, get(paste0("org.",organism,".egGO2ALLEGS"))))
+                     genes_list <- lapply(allegs_list, function(arg) unlist(AnnotationDbi::mget(arg,get(paste0("org.",organism,".egSYMBOL")))))
                      degenes <- values$genelistUP()
                      DEgenes_list <- lapply(genes_list, function(arg) intersect(arg,degenes))
 
@@ -1711,9 +1711,9 @@ ideal<- function(dds_obj = NULL,
                                           keytype="ENSEMBL",
                                           multiVals="first")
                      incProgress(0.1, detail = "IDs mapped")
-                     ### library(topGO)
-                     requireNamespace("topGO")
-                     values$topgo_up <- topGOtable(de_symbols, bg_symbols,
+                     library(topGO)
+                     # requireNamespace("topGO")
+                     values$topgo_up <- pcaExplorer::topGOtable(de_symbols, bg_symbols,
                                                    ontology = input$go_cats[1],
                                                    mapping = annoSpecies_df[values$cur_species,]$pkg,
                                                    geneID = "symbol",addGeneToTerms = TRUE)
@@ -1744,8 +1744,8 @@ ideal<- function(dds_obj = NULL,
 
                      incProgress(0.7, detail = "adding gene names to GO terms") # good indicator for showing it has progressed
                      go_ids <- rownames(values$gse_down)
-                     allegs_list <- lapply(go_ids, function(arg) get(arg, get(paste0("org.",organism,".egGO2ALLEGS"))))
-                     genes_list <- lapply(allegs_list, function(arg) unlist(mget(arg,get(paste0("org.",organism,".egSYMBOL")))))
+                     allegs_list <- lapply(go_ids, function(arg) AnnotationDbi::get(arg, get(paste0("org.",organism,".egGO2ALLEGS"))))
+                     genes_list <- lapply(allegs_list, function(arg) unlist(AnnotationDbi::mget(arg,get(paste0("org.",organism,".egSYMBOL")))))
                      degenes <- values$genelistDOWN()
                      DEgenes_list <- lapply(genes_list, function(arg) intersect(arg,degenes))
 
@@ -1799,9 +1799,9 @@ ideal<- function(dds_obj = NULL,
                                           keytype="ENSEMBL",
                                           multiVals="first")
                      incProgress(0.1, detail = "IDs mapped")
-                     ### library(topGO)
-                     requireNamespace("topGO")
-                     values$topgo_down <- topGOtable(de_symbols, bg_symbols,
+                     library(topGO)
+                     # requireNamespace("topGO")
+                     values$topgo_down <- pcaExplorer::topGOtable(de_symbols, bg_symbols,
                                                      ontology = input$go_cats[1], # will take the first ontology
                                                      mapping = annoSpecies_df[values$cur_species,]$pkg,
                                                      geneID = "symbol",addGeneToTerms = TRUE)
@@ -1833,8 +1833,8 @@ ideal<- function(dds_obj = NULL,
 
                      incProgress(0.7, detail = "adding gene names to GO terms") # good indicator for showing it has progressed
                      go_ids <- rownames(values$gse_updown)
-                     allegs_list <- lapply(go_ids, function(arg) get(arg, get(paste0("org.",organism,".egGO2ALLEGS"))))
-                     genes_list <- lapply(allegs_list, function(arg) unlist(mget(arg,get(paste0("org.",organism,".egSYMBOL")))))
+                     allegs_list <- lapply(go_ids, function(arg) AnnotationDbi::get(arg, get(paste0("org.",organism,".egGO2ALLEGS"))))
+                     genes_list <- lapply(allegs_list, function(arg) unlist(AnnotationDbi::mget(arg,get(paste0("org.",organism,".egSYMBOL")))))
                      degenes <- values$genelistDOWN()
                      DEgenes_list <- lapply(genes_list, function(arg) intersect(arg,degenes))
 
@@ -1890,9 +1890,9 @@ ideal<- function(dds_obj = NULL,
                                           keytype="ENSEMBL",
                                           multiVals="first")
                      incProgress(0.1, detail = "IDs mapped")
-                     ### library(topGO)
-                     requireNamespace("topGO")
-                     values$topgo_updown <- topGOtable(de_symbols, bg_symbols,
+                     library(topGO)
+                     # requireNamespace("topGO")
+                     values$topgo_updown <- pcaExplorer::topGOtable(de_symbols, bg_symbols,
                                                        ontology = input$go_cats[1],
                                                        mapping = annoSpecies_df[values$cur_species,]$pkg,
                                                        geneID = "symbol",addGeneToTerms = TRUE)
@@ -1922,8 +1922,8 @@ ideal<- function(dds_obj = NULL,
 
                      incProgress(0.7, detail = "adding gene names to GO terms") # good indicator for showing it has progressed
                      go_ids <- rownames(values$gse_list1)
-                     allegs_list <- lapply(go_ids, function(arg) get(arg, get(paste0("org.",organism,".egGO2ALLEGS"))))
-                     genes_list <- lapply(allegs_list, function(arg) unlist(mget(arg,get(paste0("org.",organism,".egSYMBOL")))))
+                     allegs_list <- lapply(go_ids, function(arg) AnnotationDbi::get(arg, get(paste0("org.",organism,".egGO2ALLEGS"))))
+                     genes_list <- lapply(allegs_list, function(arg) unlist(AnnotationDbi::mget(arg,get(paste0("org.",organism,".egSYMBOL")))))
                      degenes <- values$genelistDOWN()
                      DEgenes_list <- lapply(genes_list, function(arg) intersect(arg,degenes))
 
@@ -1977,9 +1977,9 @@ ideal<- function(dds_obj = NULL,
                                           keytype="ENSEMBL",
                                           multiVals="first")
                      incProgress(0.1, detail = "IDs mapped")
-                     ### library(topGO)
-                     requireNamespace("topGO")
-                     values$topgo_list1 <- topGOtable(de_symbols, bg_symbols,
+                     library(topGO)
+                     # requireNamespace("topGO")
+                     values$topgo_list1 <- pcaExplorer::topGOtable(de_symbols, bg_symbols,
                                                       ontology = input$go_cats[1],
                                                       mapping = annoSpecies_df[values$cur_species,]$pkg,
                                                       geneID = "symbol",addGeneToTerms = TRUE)
@@ -2007,8 +2007,8 @@ ideal<- function(dds_obj = NULL,
                                                       number=200)
                      incProgress(0.7, detail = "adding gene names to GO terms") # good indicator for showing it has progressed
                      go_ids <- rownames(values$gse_list2)
-                     allegs_list <- lapply(go_ids, function(arg) get(arg, get(paste0("org.",organism,".egGO2ALLEGS"))))
-                     genes_list <- lapply(allegs_list, function(arg) unlist(mget(arg,get(paste0("org.",organism,".egSYMBOL")))))
+                     allegs_list <- lapply(go_ids, function(arg) AnnotationDbi::get(arg, get(paste0("org.",organism,".egGO2ALLEGS"))))
+                     genes_list <- lapply(allegs_list, function(arg) unlist(AnnotationDbi::mget(arg,get(paste0("org.",organism,".egSYMBOL")))))
                      degenes <- values$genelistDOWN()
                      DEgenes_list <- lapply(genes_list, function(arg) intersect(arg,degenes))
 
@@ -2062,9 +2062,9 @@ ideal<- function(dds_obj = NULL,
                                           keytype="ENSEMBL",
                                           multiVals="first")
                      incProgress(0.1, detail = "IDs mapped")
-                     ### library(topGO)
-                     requireNamespace("topGO")
-                     values$topgo_list2 <- topGOtable(de_symbols, bg_symbols,
+                     library(topGO)
+                     # requireNamespace("topGO")
+                     values$topgo_list2 <- pcaExplorer::topGOtable(de_symbols, bg_symbols,
                                                       ontology = input$go_cats[1],
                                                       mapping = annoSpecies_df[values$cur_species,]$pkg,
                                                       geneID = "symbol",addGeneToTerms = TRUE)
@@ -2809,7 +2809,9 @@ ideal<- function(dds_obj = NULL,
 
 
 
-    output$ma_brush_out <- renderDataTable({
+    output$ma_brush_out <- DT::renderDataTable({
+      if(nrow(curData())==0)
+        return(NULL)
       datatable(curData(),options=list(pageLength=100))
     })
 
@@ -2819,7 +2821,7 @@ ideal<- function(dds_obj = NULL,
 
       brushedObject <- curData()
 
-      selectedGenes <- brushedObject$ID
+      selectedGenes <- as.character(brushedObject$ID)
       toplot <- assay(values$dds_obj)[selectedGenes,]
       rownames(toplot) <- values$annotation_obj$gene_name[match(rownames(toplot),rownames(values$annotation_obj))]
 
@@ -2831,6 +2833,7 @@ ideal<- function(dds_obj = NULL,
         s <- apply(x, 1, sd, na.rm = TRUE)
         return((x - m)/s)
       }
+
       if(input$rowscale) toplot <- mat_rowscale(toplot)
 
       pheatmap(toplot,cluster_cols = as.logical(input$heatmap_colv))
@@ -2844,7 +2847,7 @@ ideal<- function(dds_obj = NULL,
 
       brushedObject <- curData()
 
-      selectedGenes <- brushedObject$ID
+      selectedGenes <- as.character(brushedObject$ID)
       toplot <- assay(values$dds_obj)[selectedGenes,]
       rownames(toplot) <- values$annotation_obj$gene_name[match(rownames(toplot),rownames(values$annotation_obj))]
       mycolss <- c("#313695","#4575b4","#74add1","#abd9e9","#e0f3f8","#fee090","#fdae61","#f46d43","#d73027","#a50026") # to be consistent with red/blue usual coding
@@ -2856,6 +2859,7 @@ ideal<- function(dds_obj = NULL,
         s = apply(x, 1, sd, na.rm = TRUE)
         return((x - m)/s)
       }
+
       if(input$rowscale) toplot <- mat_rowscale(toplot)
 
       d3heatmap(toplot,Colv = as.logical(input$heatmap_colv),colors = mycolss)
