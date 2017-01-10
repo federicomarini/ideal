@@ -41,9 +41,9 @@ plot_ma <- function(res_obj,
     labels = c("nonDE","DE"))
 
   if(is.null(ylim))
-    p <- p + ylim(c(-2,2))
+    p <- p + coord_cartesian(ylim = c(-2,2))
   else
-    p <- p + ylim(ylim)
+    p <- p + coord_cartesian(ylim = ylim)
 
   if(!is.null(title))
     p <- p + ggtitle(title)
@@ -100,9 +100,9 @@ plot_ma_highlight <- function(res_obj,
     labels = c("nonDE","DE"))
 
   if(is.null(ylim))
-    p <- p + ylim(c(-2,2))
+    p <- p + coord_cartesian(ylim = c(-2,2))
   else
-    p <- p + ylim(ylim)
+    p <- p + coord_cartesian(ylim = ylim)
 
   if(!is.null(title))
     p <- p + ggtitle(title)

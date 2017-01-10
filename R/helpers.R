@@ -4,6 +4,27 @@
 
 
 
+footer <- function(){
+  tags$div(
+    class = "panel-footer",
+    style = "text-align:center",
+    tags$div(
+      class = "foot-inner",
+      list(
+        # hr(),
+        "ideal is a project developed by Federico Marini in the Bioinformatics division of the ",
+        tags$a(href="http://www.unimedizin-mainz.de/imbei","IMBEI"),
+        "- Institute for Medical Biostatistics, Epidemiology and Informatics",br(),
+        "License: ",tags$a(href="https://opensource.org/licenses/MIT","MIT"), br(),
+
+        "Development of the ideal package is on ",
+        tags$a(href="https://github.com/federicomarini/ideal", "GitHub")
+      )
+    )
+  )
+}
+
+
 
 
 
@@ -51,23 +72,3 @@ sepguesser <- function(f) {
 #
 #
 
-
-footer <- function(){
-  tags$div(
-    class = "panel-footer",
-    style = "text-align:center",
-    tags$div(
-      class = "foot-inner",
-      list(
-        # hr(),
-        "ideal is a project developed by Federico Marini in the Bioinformatics division of the ",
-        tags$a(href="http://www.unimedizin-mainz.de/imbei","IMBEI"),
-        "- Institute for Medical Biostatistics, Epidemiology and Informatics",br(),
-        "License: ",tags$a(href="https://opensource.org/licenses/MIT","MIT"), br(),
-
-        "Development of the ideal package is on ",
-        tags$a(href="https://github.com/federicomarini/ideal", "GitHub")
-      )
-    )
-  )
-}

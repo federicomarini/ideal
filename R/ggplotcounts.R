@@ -27,7 +27,8 @@ ggplotCounts <- function(dds,gene,intgroup="condition",annotation_obj=NULL,...){
     scale_x_discrete(name="") +
     geom_jitter(aes_string(x="plotby",y="count"),position = position_jitter(width = 0.1)) +
     scale_color_discrete(name="Experimental\nconditions") +
-    scale_y_log10(name="Normalized counts - log10 scale",limits=c(0.1,NA)) +
+    scale_y_log10(name="Normalized counts - log10 scale") +
+    # coord_cartesian(ylim = c())# ,limits=c(0.1,NA)) +
     theme_bw()
 
   if(!is.null(annotation_obj))

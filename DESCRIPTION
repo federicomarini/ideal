@@ -1,8 +1,8 @@
 Package: ideal
 Type: Package
 Title: Interactive Differential Expression AnaLysis
-Version: 0.3.0
-Date: 2017-01-06
+Version: 0.4.0
+Date: 2017-01-10
 Authors@R: c(person("Federico", "Marini", email = "marinif@uni-mainz.de",
     role = c("aut", "cre")))
 Maintainer: Federico Marini <marinif@uni-mainz.de>
@@ -36,6 +36,8 @@ Imports:
     shinydashboard,
     shinyBS,
     DT,
+    rentrez,
+    topGO,
     knitr,
     rmarkdown,
     shinyAce,
