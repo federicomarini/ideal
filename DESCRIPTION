@@ -12,6 +12,8 @@ Description: This package provides functions for an Interactive Differential
     Shiny application encapsulates the whole package.
 License: MIT + file LICENSE
 LazyData: TRUE
+Depends:
+    topGO
 Imports:
     DESeq2,
     SummarizedExperiment,
@@ -37,7 +39,6 @@ Imports:
     shinyBS,
     DT,
     rentrez,
-    topGO,
     knitr,
     rmarkdown,
     shinyAce,

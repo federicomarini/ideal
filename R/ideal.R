@@ -1711,7 +1711,7 @@ ideal<- function(dds_obj = NULL,
                                           keytype="ENSEMBL",
                                           multiVals="first")
                      incProgress(0.1, detail = "IDs mapped")
-                     library(topGO)
+                     # library(topGO)
                      # requireNamespace("topGO")
                      values$topgo_up <- pcaExplorer::topGOtable(de_symbols, bg_symbols,
                                                    ontology = input$go_cats[1],
@@ -1799,7 +1799,7 @@ ideal<- function(dds_obj = NULL,
                                           keytype="ENSEMBL",
                                           multiVals="first")
                      incProgress(0.1, detail = "IDs mapped")
-                     library(topGO)
+                     # library(topGO)
                      # requireNamespace("topGO")
                      values$topgo_down <- pcaExplorer::topGOtable(de_symbols, bg_symbols,
                                                      ontology = input$go_cats[1], # will take the first ontology
@@ -1890,7 +1890,7 @@ ideal<- function(dds_obj = NULL,
                                           keytype="ENSEMBL",
                                           multiVals="first")
                      incProgress(0.1, detail = "IDs mapped")
-                     library(topGO)
+                     # library(topGO)
                      # requireNamespace("topGO")
                      values$topgo_updown <- pcaExplorer::topGOtable(de_symbols, bg_symbols,
                                                        ontology = input$go_cats[1],
@@ -1977,7 +1977,7 @@ ideal<- function(dds_obj = NULL,
                                           keytype="ENSEMBL",
                                           multiVals="first")
                      incProgress(0.1, detail = "IDs mapped")
-                     library(topGO)
+                     # library(topGO)
                      # requireNamespace("topGO")
                      values$topgo_list1 <- pcaExplorer::topGOtable(de_symbols, bg_symbols,
                                                       ontology = input$go_cats[1],
@@ -2062,7 +2062,7 @@ ideal<- function(dds_obj = NULL,
                                           keytype="ENSEMBL",
                                           multiVals="first")
                      incProgress(0.1, detail = "IDs mapped")
-                     library(topGO)
+                     # library(topGO)
                      # requireNamespace("topGO")
                      values$topgo_list2 <- pcaExplorer::topGOtable(de_symbols, bg_symbols,
                                                       ontology = input$go_cats[1],

@@ -33,11 +33,11 @@
 #' @importFrom UpSetR upset fromList
 #' @import goseq
 #' @import pcaExplorer
-#' @import rentrez 
+#' @import rentrez
 #' @importFrom pheatmap pheatmap
 #' @import d3heatmap
 #' @importFrom limma goana topGO
-#' @import topGO 
+#' @import topGO
 #' @importFrom shinyBS bsTooltip
 #' @importFrom grDevices dev.off pdf
 #' @import methods
