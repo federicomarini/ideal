@@ -7,7 +7,8 @@ plot_ma <- function(res_obj,
                     hlines = NULL,
                     title = NULL,
                     xlab = "mean of normalized counts - log10 scale",
-                    ylim = NULL) {
+                    ylim = NULL,
+                    add_rug = TRUE) {
   ma_df <- data.frame(
     mean = res_obj$baseMean,
     lfc = res_obj$log2FoldChange,
@@ -48,6 +49,9 @@ plot_ma <- function(res_obj,
   if(!is.null(title))
     p <- p + ggtitle(title)
 
+  if(add_rug)
+    p <- p + geom_rug(alpha = 0.3)
+
   p <- p + theme_bw()
 
   p
@@ -64,6 +68,7 @@ plot_ma_highlight <- function(res_obj,
                               title = NULL,
                               xlab = "mean of normalized counts - log10 scale",
                               ylim = NULL,
+                              add_rug = TRUE,
                               intgenes = NULL,
                               intgenes_color = "steelblue",
                               labels_intgenes = TRUE) {
@@ -134,6 +139,9 @@ plot_ma_highlight <- function(res_obj,
     }
 
   }
+
+  if(add_rug)
+    p <- p + geom_rug(alpha = 0.3)
 
 
   p <- p + theme_bw()
