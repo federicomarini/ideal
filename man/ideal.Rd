@@ -58,8 +58,8 @@ ideal()
 ideal(dds)
 ideal(dds_airway)
 
-dds_airway <- DESeq(dds_airway)
-res_airway <- results(dds_airway)
+dds_airway <- DESeq2::DESeq(dds_airway)
+res_airway <- DESeq2::results(dds_airway)
 ideal(dds_airway, res_airway)
 }
 
