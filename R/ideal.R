@@ -48,8 +48,8 @@
 #' ideal(dds)
 #' ideal(dds_airway)
 #'
-#' dds_airway <- DESeq(dds_airway)
-#' res_airway <- results(dds_airway)
+#' dds_airway <- DESeq2::DESeq(dds_airway)
+#' res_airway <- DESeq2::results(dds_airway)
 #' ideal(dds_airway, res_airway)
 #' }
 #'
@@ -193,6 +193,19 @@ ideal<- function(dds_obj = NULL,
             #   img(src = "ideal_logo_v2.png")
             # ),
             includeMarkdown(system.file("extdata", "welcome.md",package = "ideal")),
+
+            ### TODO: proof of principle it works with the carousel, to display functionality at once
+            # bs_carousel(id = "the_beatles", use_indicators = TRUE) %>%
+            #   bs_append(
+            #     content = bs_carousel_image(src = image_uri("inst/extdata/ideal_logo_v2.png")),
+            #     caption = bs_carousel_caption("John Lennon", "Rhythm guitar, vocals")
+            #   ) %>%
+            #   bs_append(
+            #     content = bs_carousel_image(src = image_uri("figure/unnamed-chunk-4-1.png")),
+            #     caption = bs_carousel_caption("Paul McCartney", "Bass guitar, vocals")
+            #   ),
+
+
 
             ## TODO: explore possibility to put a carousel of images: https://github.com/dcurrier/carouselPanel/
             # carouselPanel(
@@ -425,6 +438,112 @@ ideal<- function(dds_obj = NULL,
 
           ),
 
+
+          tabPanel(
+            "MA Plot", icon = icon("photo"),
+            conditionalPanel(
+              condition="!output.checkresu",
+
+              headerPanel("MA plot interactive exploration"),
+
+              fluidRow(column(6,
+                              h4("MA plot - Interactive!"),
+                              plotOutput('plotma', brush = 'ma_brush')),
+                       column(6,
+                              h4("Zoomed section"),
+                              plotOutput("mazoom",click= 'mazoom_click'))
+                       # ,
+                       # column(4,
+                       #        h4("Boxplot for the selected gene"),
+                       #        plotOutput("geneplot")
+                       # )
+              ),
+              fluidRow(column(6,
+                              h4("Selected gene"),
+                              checkboxInput("ylimZero_genes","Set y axis limit to 0",value=TRUE),
+                              plotOutput("genefinder_plot")
+              ),
+              column(6,
+                     h4("Gene infobox"),
+                     htmlOutput("rentrez_infobox"))
+
+              ),
+
+
+              fluidRow(column(6,
+                              h4("volcano plot"),
+                              plotOutput("volcanoplot")
+              )),
+
+
+              # plotOutput("volcanoplot"),
+              fluidRow(radioButtons("heatmap_colv","Cluster samples",choices = list("Yes"=TRUE,"No"=FALSE),selected = TRUE)),
+              fluidRow(
+                column(4,
+                       checkboxInput("rowscale",label = "Scale by rows",value = TRUE)),
+                column(4,
+                       checkboxInput("pseudocounts","use log2(1+counts)",value = TRUE))
+              ),
+              fluidRow(
+                column(6,
+                       plotOutput("heatbrush")
+                ),
+                column(6,
+                       d3heatmapOutput("heatbrushD3"))
+              ),
+
+
+              box(
+                title = "Brushed table", status = "primary", solidHeader = TRUE,
+                collapsible = TRUE, collapsed = TRUE, width = 12,
+                fluidRow(DT::dataTableOutput("ma_brush_out")))
+            ),
+            conditionalPanel(
+              condition="output.checkresu",
+              h2("You did not create the result object yet. Please go the dedicated tab and generate it")
+            )
+          ),
+          tabPanel(
+            "Gene Finder", icon = icon("crosshairs"),
+            conditionalPanel(
+              condition="!output.checkdds",
+              fluidRow(
+                column(6,checkboxInput("ylimZero_genefinder","Set y axis limit to 0",value=TRUE))),
+              fluidRow(
+                column(6,
+                       plotOutput("bp1")
+                ),
+                column(6,
+                       plotOutput("bp2"))
+              ),
+              fluidRow(
+                column(6,
+                       plotOutput("bp3")
+                ),
+                column(6,
+                       plotOutput("bp4"))
+              ),
+
+              plotOutput("ma_highlight"),
+              DT::dataTableOutput("table_combi"),
+
+
+              fileInput(inputId = "gl_ma",
+                        label = "Upload a gene list file",
+                        accept = c("text/csv", "text/comma-separated-values",
+                                   "text/tab-separated-values", "text/plain",
+                                   ".csv", ".tsv"), multiple = FALSE),
+              plotOutput("ma_hl_list"),
+              DT::dataTableOutput("table_combi_list")
+
+
+            ),
+            conditionalPanel(
+              condition="output.checkdds",
+              h2("You did not create the dds object yet. Please go the main tab and generate it")
+            )
+          ),
+
           tabPanel(
             "Gene Lists", icon = icon("list-alt"),
             conditionalPanel(
@@ -523,100 +642,6 @@ ideal<- function(dds_obj = NULL,
             )
           ),
 
-          tabPanel(
-            "MA Plot", icon = icon("photo"),
-            conditionalPanel(
-              condition="!output.checkresu",
-
-              headerPanel("MA plot interactive exploration"),
-
-              fluidRow(column(6,
-                              h4("MA plot - Interactive!"),
-                              plotOutput('plotma', brush = 'ma_brush')),
-                       column(6,
-                              h4("Zoomed section"),
-                              plotOutput("mazoom",click= 'mazoom_click'))
-                       # ,
-                       # column(4,
-                       #        h4("Boxplot for the selected gene"),
-                       #        plotOutput("geneplot")
-                       # )
-              ),
-              fluidRow(column(6,
-                              h4("Selected gene"),
-                              checkboxInput("ylimZero_genes","Set y axis limit to 0",value=TRUE),
-                              plotOutput("genefinder_plot")
-              ),
-              column(6,
-                     h4("Gene infobox"),
-                     htmlOutput("rentrez_infobox"))
-
-              ),
-
-
-              fluidRow(column(6,
-                              h4("volcano plot"),
-                              plotOutput("volcanoplot")
-              )),
-
-
-              # plotOutput("volcanoplot"),
-              fluidRow(radioButtons("heatmap_colv","Cluster samples",choices = list("Yes"=TRUE,"No"=FALSE),selected = TRUE)),
-              fluidRow(
-                column(4,
-                       checkboxInput("rowscale",label = "Scale by rows",value = TRUE)),
-                column(4,
-                       checkboxInput("pseudocounts","use log2(1+counts)",value = TRUE))
-              ),
-              fluidRow(
-                column(6,
-                       plotOutput("heatbrush")
-                ),
-                column(6,
-                       d3heatmapOutput("heatbrushD3"))
-              ),
-
-
-              box(
-                title = "Brushed table", status = "primary", solidHeader = TRUE,
-                collapsible = TRUE, collapsed = TRUE, width = 12,
-                fluidRow(DT::dataTableOutput("ma_brush_out")))
-            ),
-            conditionalPanel(
-              condition="output.checkresu",
-              h2("You did not create the result object yet. Please go the dedicated tab and generate it")
-            )
-          ),
-          tabPanel(
-            "Gene Finder", icon = icon("crosshairs"),
-            conditionalPanel(
-              condition="!output.checkdds",
-              fluidRow(
-                column(6,checkboxInput("ylimZero_genefinder","Set y axis limit to 0",value=TRUE))),
-              fluidRow(
-                column(6,
-                       plotOutput("bp1")
-                ),
-                column(6,
-                       plotOutput("bp2"))
-              ),
-              fluidRow(
-                column(6,
-                       plotOutput("bp3")
-                ),
-                column(6,
-                       plotOutput("bp4"))
-              ),
-
-              plotOutput("ma_highlight"),
-              DT::dataTableOutput("table_combi")
-
-            ),
-            conditionalPanel(
-              condition="output.checkdds",
-              h2("You did not create the dds object yet. Please go the main tab and generate it")
-            )
-          ),
 
           tabPanel(
             "Report Editor",
@@ -1477,6 +1502,24 @@ ideal<- function(dds_obj = NULL,
       } else {
         gl2 <- readLines(input$gl2$datapath)
         return(gl2)
+      }
+    })
+
+
+    observeEvent(input$gl_ma,
+                 {
+                   mydf <- as.data.frame(gl_ma(),stringsAsFactors=FALSE)
+                   names(mydf) <- "Gene Symbol"
+                   values$genelist_ma <- mydf
+                 })
+
+    gl_ma <- reactive({
+      if (is.null(input$gl_ma)) {
+        # User has not uploaded a file yet
+        return(data.frame())
+      } else {
+        gl_ma <- readLines(input$gl_ma$datapath)
+        return(gl_ma)
       }
     })
 
@@ -2769,11 +2812,24 @@ ideal<- function(dds_obj = NULL,
 
     output$ma_highlight <- renderPlot({
       if("symbol" %in% names(values$res_obj)) {
-        plot_ma_highlight(values$res_obj,
-                          intgenes = input$avail_symbols,annotation_obj = values$annotation_obj)
+        plot_ma(values$res_obj,
+                intgenes = input$avail_symbols,annotation_obj = values$annotation_obj)
       } else {
-        plot_ma_highlight(values$res_obj,
-                          intgenes = input$avail_ids,annotation_obj = values$annotation_obj)
+        plot_ma(values$res_obj,
+                intgenes = input$avail_ids,annotation_obj = values$annotation_obj)
+      }
+    })
+
+    output$ma_hl_list <- renderPlot({
+      if(is.null(values$genelist_ma))
+        return(NULL)
+      if("symbol" %in% names(values$res_obj)) {
+        plot_ma(values$res_obj,
+                intgenes = values$genelist_ma$`Gene Symbol`,annotation_obj = values$annotation_obj)
+      } else {
+        # plot_ma(values$res_obj,
+        # intgenes = values$genelist_ma,annotation_obj = values$annotation_obj)
+        return(NULL)
       }
     })
 
@@ -3055,6 +3111,41 @@ ideal<- function(dds_obj = NULL,
 
     output$table_combi <- DT::renderDataTable({
       datatable(cur_combires(),options = list(scrollX=TRUE))
+    })
+
+
+    cur_combires_list <- reactive({
+
+      normCounts <- as.data.frame(counts(estimateSizeFactors(values$dds_obj),normalized=TRUE))
+      normCounts$id <- rownames(normCounts)
+      res_df <- deseqresult2tbl(values$res_obj)
+
+      combi_obj <- dplyr::inner_join(res_df,normCounts,by="id")
+      combi_obj$symbol <- values$annotation_obj$gene_name[match(combi_obj$id,values$annotation_obj$gene_id)]
+
+
+      if("symbol" %in% names(values$res_obj)) {
+        sel_genes <- values$genelist_ma$`Gene Symbol`
+        sel_genes_ids <- values$annotation_obj$gene_id[match(sel_genes,values$annotation_obj$gene_name)]
+      } else {
+        # sel_genes_ids <- values$genelist_ma$`Gene Symbol`
+      }
+
+      if(length(sel_genes_ids) > 0) {
+        combi_obj[match(sel_genes_ids,combi_obj$id),]
+      } else {
+        combi_obj
+      }
+
+
+    })
+
+
+
+    output$table_combi_list <- DT::renderDataTable({
+      if(is.null(values$genelist_ma))
+        return(NULL)
+      datatable(cur_combires_list(),options = list(scrollX=TRUE))
     })
 
 
