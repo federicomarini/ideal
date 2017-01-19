@@ -1,9 +1,38 @@
-
-
-
-
-ggplotCounts <- function(dds,gene,intgroup="condition",annotation_obj=NULL,...){
-  df <- plotCounts(dds,gene,intgroup,returnData = TRUE,...)
+#' Plot normalized counts for a gene
+#'
+#' Plot for normalized counts of a single gene, with jittered points superimposed
+#' on the boxplot
+#'
+#' Note: this function relies on the \code{\link{plotCounts}} function of DESeq2,
+#' therefore pseudocounts of 0.5 are added to each point
+#'
+#' @param dds A \code{\link{DESeqDataSet}} object.
+#' @param gene A character, specifying the name of the gene to plot
+#' @param intgroup Interesting groups: a character vector of
+#' names in \code{colData(dds)} to use for grouping
+#' @param annotation_obj A \code{data.frame} object, with \code{row.names} as gene
+#' identifiers (e.g. ENSEMBL ids) and a column, \code{gene_name}, containing
+#' e.g. HGNC-based gene symbols. Optional.
+#'
+#' @return An object created by \code{ggplot}
+#' @export
+#'
+#' @examples
+#' library(airway)
+#' data(airway)
+#' airway
+#' dds_airway <- DESeq2::DESeqDataSetFromMatrix(assay(airway),
+#'                                              colData = colData(airway),
+#'                                              design=~cell+dex)
+#' ggplotCounts(dds_airway,
+#'              gene = "ENSG00000103196", # CRISPLD2 in the original publication
+#'              intgroup = "dex")
+#'
+#'
+#'
+#'
+ggplotCounts <- function(dds,gene,intgroup="condition",annotation_obj=NULL){
+  df <- plotCounts(dds,gene,intgroup,returnData = TRUE)
   df$sampleID <- rownames(df)
 
   if(!is.null(annotation_obj))
