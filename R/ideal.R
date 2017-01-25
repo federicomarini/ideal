@@ -565,7 +565,10 @@ ideal<- function(dds_obj = NULL,
                          fluidRow(column(width = 6,actionButton("button_enrUP_topgo", "Perform gene set enrichment analysis on the upregulated genes - topGO",class = "btn btn-primary"))),
                          DT::dataTableOutput("DT_gse_up"),
                          DT::dataTableOutput("DT_gse_up_goseq"),
-                         DT::dataTableOutput("DT_gse_up_topgo")
+                         fluidRow(
+                           column(width = 9, DT::dataTableOutput("DT_gse_up_topgo")),
+                           column(width = 3, plotOutput("goterm_heatmap_up_topgo"))
+                           )
                 ),
                 tabPanel("DOWNregu", icon = icon("arrow-circle-down"),
                          fluidRow(column(width = 6,actionButton("button_enrDOWN", "Perform gene set enrichment analysis on the downregulated genes",class = "btn btn-primary"))),
@@ -573,7 +576,10 @@ ideal<- function(dds_obj = NULL,
                          fluidRow(column(width = 6,actionButton("button_enrDOWN_topgo", "Perform gene set enrichment analysis on the downregulated genes - topGO",class = "btn btn-primary"))),
                          DT::dataTableOutput("DT_gse_down"),
                          DT::dataTableOutput("DT_gse_down_goseq"),
-                         DT::dataTableOutput("DT_gse_down_topgo")
+                         fluidRow(
+                           column(width = 9, DT::dataTableOutput("DT_gse_down_topgo")),
+                           column(width = 3, plotOutput("goterm_heatmap_down_topgo"))
+                         )
                 ),
                 tabPanel("UPDOWN", icon = icon("arrows-v"),
                          fluidRow(column(width = 6,actionButton("button_enrUPDOWN", "Perform gene set enrichment analysis on the up- and downregulated genes",class = "btn btn-primary"))),
@@ -581,7 +587,10 @@ ideal<- function(dds_obj = NULL,
                          fluidRow(column(width = 6,actionButton("button_enrUPDOWN_topgo", "Perform gene set enrichment analysis on the up- and downregulated genes - topGO",class = "btn btn-primary"))),
                          DT::dataTableOutput("DT_gse_updown"),
                          DT::dataTableOutput("DT_gse_updown_goseq"),
-                         DT::dataTableOutput("DT_gse_updown_topgo")
+                         fluidRow(
+                           column(width = 9, DT::dataTableOutput("DT_gse_updown_topgo")),
+                           column(width = 3, plotOutput("goterm_heatmap_updown_topgo"))
+                         )
                 ),
                 tabPanel("List1", icon = icon("list"),
                          fileInput(inputId = "gl1",
@@ -594,7 +603,11 @@ ideal<- function(dds_obj = NULL,
                          fluidRow(column(width = 6,actionButton("button_enrLIST1_topgo", "Perform gene set enrichment analysis on the list1 genes - topGO",class = "btn btn-primary"))),
                          DT::dataTableOutput("DT_gse_list1"),
                          DT::dataTableOutput("DT_gse_list1_goseq"),
-                         DT::dataTableOutput("DT_gse_list1_topgo")
+                         fluidRow(
+                           column(width = 9, DT::dataTableOutput("DT_gse_list1_topgo")),
+                           column(width = 3, plotOutput("goterm_heatmap_l1_topgo"))
+                         )
+
                 ),
                 tabPanel("List2", icon = icon("list-alt"),
                          fileInput(inputId = "gl2",
@@ -607,11 +620,14 @@ ideal<- function(dds_obj = NULL,
                          fluidRow(column(width = 6,actionButton("button_enrLIST2_topgo", "Perform gene set enrichment analysis on the list2 genes - topGO",class = "btn btn-primary"))),
                          DT::dataTableOutput("DT_gse_list2"),
                          DT::dataTableOutput("DT_gse_list2_goseq"),
-                         DT::dataTableOutput("DT_gse_list2_topgo")
+                         fluidRow(
+                           column(width = 9, DT::dataTableOutput("DT_gse_list2_topgo")),
+                           column(width = 3, plotOutput("goterm_heatmap_l2_topgo"))
+                         )
                 )
               ),
 
-              verbatimTextOutput("goterm_heatmap_up_topgo"),
+
 
 
 
@@ -625,16 +641,27 @@ ideal<- function(dds_obj = NULL,
               # verbatimTextOutput("debuglists"),
 
               h2("Intersection of gene sets"),
-              checkboxInput("toggle_updown","Use up and down regulated genes", TRUE),
-              checkboxInput("toggle_up","Use up regulated genes", FALSE),
-              checkboxInput("toggle_down","Use down regulated genes", FALSE),
-              checkboxInput("toggle_list1","Use list1 genes", TRUE),
-              checkboxInput("toggle_list2","Use list2 genes", FALSE),
-              checkboxInput("toggle_list3","Use list3 genes", FALSE),
+
+              fluidRow(
+                column(width = 4,
+                       checkboxInput("toggle_updown","Use up and down regulated genes", TRUE),
+                       checkboxInput("toggle_up","Use up regulated genes", FALSE),
+                       checkboxInput("toggle_down","Use down regulated genes", FALSE)
+                ),
+                column(width = 4,
+                       checkboxInput("toggle_list1","Use list1 genes", TRUE),
+                       checkboxInput("toggle_list2","Use list2 genes", FALSE),
+                       checkboxInput("toggle_list3","Use list3 genes", FALSE)
+                       )
+                ),
 
 
-              plotOutput("vennlists"),
-              plotOutput("upsetLists")
+              fluidRow(
+                column(width = 6,plotOutput("vennlists"), offset = 3)),
+              fluidRow(
+                column(width = 6,plotOutput("upsetLists"), offset = 3))
+
+
             ),
             conditionalPanel(
               condition="output.checkresu",
@@ -2250,18 +2277,15 @@ ideal<- function(dds_obj = NULL,
 
 
 
-    output$goterm_heatmap_up_topgo <- renderPrint({
+    output$goterm_heatmap_up_topgo <- renderPlot({
 
       s <- input$DT_gse_up_topgo_rows_selected
       if(length(s) == 0)
         return(NULL)
 
-      print(s)
-
-      print(values$topgo_up[s,])
-
-
-      values$topgo_up[input$DT_gse_up_topgo_rows_selected,]$genes
+      # print(s)
+      # print(values$topgo_up[s,])
+      # values$topgo_up[input$DT_gse_up_topgo_rows_selected,]$genes
 
       # allow only one selected line
       mygenes <- values$topgo_up[input$DT_gse_up_topgo_rows_selected,]$genes[1]
@@ -2270,20 +2294,13 @@ ideal<- function(dds_obj = NULL,
         values$topgo_up[input$DT_gse_up_topgo_rows_selected,]$Term)
 
       genevec <- unlist(strsplit(mygenes,split=","))
-      genevec
-
+      # genevec
       annopkg <- annoSpecies_df$pkg[annoSpecies_df$species==input$speciesSelect]
-
       # genevec_ids <- mapIds(org.Hs.eg.db,genevec,"ENSEMBL","SYMBOL",multiVals="first")
       genevec_ids <- mapIds(eval(parse(text=annopkg)),genevec,"ENSEMBL","SYMBOL",multiVals="first")
-
-      genevec_ids
-
-
-
+      # genevec_ids
       log2things <- assay(normTransform(values$dds_obj))
       #log2things
-
       selectedLogvalues <- log2things[genevec_ids,]
 
       # check that I do not have nas or similar...
@@ -2296,15 +2313,156 @@ ideal<- function(dds_obj = NULL,
       }
       pheatmap(selectedLogvalues,scale="row",labels_row=rowlabs,main = myterm)
 
+    })
 
+    output$goterm_heatmap_down_topgo <- renderPlot({
 
+      s <- input$DT_gse_down_topgo_rows_selected
+      if(length(s) == 0)
+        return(NULL)
 
+      # print(s)
+      # print(values$topgo_up[s,])
+      # values$topgo_up[input$DT_gse_down_topgo_rows_selected,]$genes
 
+      # allow only one selected line
+      mygenes <- values$topgo_down[input$DT_gse_down_topgo_rows_selected,]$genes[1]
+      myterm <- paste0(
+        values$topgo_down[input$DT_gse_down_topgo_rows_selected,]$`GO.ID`, " - ",
+        values$topgo_down[input$DT_gse_down_topgo_rows_selected,]$Term)
 
+      genevec <- unlist(strsplit(mygenes,split=","))
+      # genevec
+      annopkg <- annoSpecies_df$pkg[annoSpecies_df$species==input$speciesSelect]
+      # genevec_ids <- mapIds(org.Hs.eg.db,genevec,"ENSEMBL","SYMBOL",multiVals="first")
+      genevec_ids <- mapIds(eval(parse(text=annopkg)),genevec,"ENSEMBL","SYMBOL",multiVals="first")
+      # genevec_ids
+      log2things <- assay(normTransform(values$dds_obj))
+      #log2things
+      selectedLogvalues <- log2things[genevec_ids,]
 
-      # values$topgo_down
+      # check that I do not have nas or similar...
 
+      if(length(genevec_ids)==length(genevec)){
+        rowlabs <- genevec
+      } else {
+        rowlabs <- genevec_ids
+        # rowlabs <- ifelse(, genevec, genevec_ids)
+      }
+      pheatmap(selectedLogvalues,scale="row",labels_row=rowlabs,main = myterm)
 
+    })
+
+    output$goterm_heatmap_updown_topgo <- renderPlot({
+
+      s <- input$DT_gse_updown_topgo_rows_selected
+      if(length(s) == 0)
+        return(NULL)
+
+      # print(s)
+      # print(values$topgo_up[s,])
+
+      values$topgo_updown[input$DT_gse_updown_topgo_rows_selected,]$genes
+
+      # allow only one selected line
+      mygenes <- values$topgo_updown[input$DT_gse_updown_topgo_rows_selected,]$genes[1]
+      myterm <- paste0(
+        values$topgo_updown[input$DT_gse_updown_topgo_rows_selected,]$`GO.ID`, " - ",
+        values$topgo_updown[input$DT_gse_updown_topgo_rows_selected,]$Term)
+
+      genevec <- unlist(strsplit(mygenes,split=","))
+      # genevec
+      annopkg <- annoSpecies_df$pkg[annoSpecies_df$species==input$speciesSelect]
+      # genevec_ids <- mapIds(org.Hs.eg.db,genevec,"ENSEMBL","SYMBOL",multiVals="first")
+      genevec_ids <- mapIds(eval(parse(text=annopkg)),genevec,"ENSEMBL","SYMBOL",multiVals="first")
+      # genevec_ids
+      log2things <- assay(normTransform(values$dds_obj))
+      #log2things
+      selectedLogvalues <- log2things[genevec_ids,]
+
+      # check that I do not have nas or similar...
+
+      if(length(genevec_ids)==length(genevec)){
+        rowlabs <- genevec
+      } else {
+        rowlabs <- genevec_ids
+        # rowlabs <- ifelse(, genevec, genevec_ids)
+      }
+      pheatmap(selectedLogvalues,scale="row",labels_row=rowlabs,main = myterm)
+
+    })
+
+    output$goterm_heatmap_l1_topgo <- renderPlot({
+
+      s <- input$DT_gse_list1_topgo_rows_selected
+      if(length(s) == 0)
+        return(NULL)
+
+      # print(s)
+      # print(values$topgo_up[s,])
+
+      # allow only one selected line
+      mygenes <- values$topgo_list1[input$DT_gse_list1_topgo_rows_selected,]$genes[1]
+      myterm <- paste0(
+        values$topgo_list1[input$DT_gse_list1_topgo_rows_selected,]$`GO.ID`, " - ",
+        values$topgo_list1[input$DT_gse_list1_topgo_rows_selected,]$Term)
+
+      genevec <- unlist(strsplit(mygenes,split=","))
+      # genevec
+      annopkg <- annoSpecies_df$pkg[annoSpecies_df$species==input$speciesSelect]
+      # genevec_ids <- mapIds(org.Hs.eg.db,genevec,"ENSEMBL","SYMBOL",multiVals="first")
+      genevec_ids <- mapIds(eval(parse(text=annopkg)),genevec,"ENSEMBL","SYMBOL",multiVals="first")
+      # genevec_ids
+      log2things <- assay(normTransform(values$dds_obj))
+      #log2things
+      selectedLogvalues <- log2things[genevec_ids,]
+
+      # check that I do not have nas or similar...
+
+      if(length(genevec_ids)==length(genevec)){
+        rowlabs <- genevec
+      } else {
+        rowlabs <- genevec_ids
+        # rowlabs <- ifelse(, genevec, genevec_ids)
+      }
+      pheatmap(selectedLogvalues,scale="row",labels_row=rowlabs,main = myterm)
+
+    })
+
+    output$goterm_heatmap_l2_topgo <- renderPlot({
+
+      s <- input$DT_gse_list2_topgo_rows_selected
+      if(length(s) == 0)
+        return(NULL)
+
+      # print(s)
+      # print(values$topgo_up[s,])
+
+      # allow only one selected line
+      mygenes <- values$topgo_list2[input$DT_gse_list2_topgo_rows_selected,]$genes[1]
+      myterm <- paste0(
+        values$topgo_list2[input$DT_gse_list2_topgo_rows_selected,]$`GO.ID`, " - ",
+        values$topgo_list2[input$DT_gse_list2_topgo_rows_selected,]$Term)
+
+      genevec <- unlist(strsplit(mygenes,split=","))
+      # genevec
+      annopkg <- annoSpecies_df$pkg[annoSpecies_df$species==input$speciesSelect]
+      # genevec_ids <- mapIds(org.Hs.eg.db,genevec,"ENSEMBL","SYMBOL",multiVals="first")
+      genevec_ids <- mapIds(eval(parse(text=annopkg)),genevec,"ENSEMBL","SYMBOL",multiVals="first")
+      # genevec_ids
+      log2things <- assay(normTransform(values$dds_obj))
+      #log2things
+      selectedLogvalues <- log2things[genevec_ids,]
+
+      # check that I do not have nas or similar...
+
+      if(length(genevec_ids)==length(genevec)){
+        rowlabs <- genevec
+      } else {
+        rowlabs <- genevec_ids
+        # rowlabs <- ifelse(, genevec, genevec_ids)
+      }
+      pheatmap(selectedLogvalues,scale="row",labels_row=rowlabs,main = myterm)
 
     })
 
