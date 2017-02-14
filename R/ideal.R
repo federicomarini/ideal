@@ -440,7 +440,7 @@ ideal<- function(dds_obj = NULL,
 
 
           tabPanel(
-            "MA Plot", icon = icon("photo"),
+            "Summary Plots", icon = icon("photo"),
             conditionalPanel(
               condition="!output.checkresu",
 
@@ -545,7 +545,7 @@ ideal<- function(dds_obj = NULL,
           ),
 
           tabPanel(
-            "Gene Lists", icon = icon("list-alt"),
+            "Functional Analysis", icon = icon("list-alt"),
             conditionalPanel(
               condition="!output.checkresu",
               h2("Gene Set Enrichment on the lists"),
@@ -933,7 +933,7 @@ ideal<- function(dds_obj = NULL,
       box(width = 12, title = "Step 2", status = "warning", solidHeader = TRUE,
           tagList(
             # as in https://groups.google.com/forum/#!topic/shiny-discuss/qQ8yICfvDu0
-            h2("Step 2: Select the DE design and create the DESeqDataSet object"),
+            h2("Select the DE design and create the DESeqDataSet object"),
             fluidRow(
               column(
                 width = 6,
@@ -953,7 +953,7 @@ ideal<- function(dds_obj = NULL,
 
       box(width = 12, title = "Optional Step", status = "info", solidHeader = TRUE,
           tagList(
-            h2("Optional Step: Create the annotation data frame for your dataset"),
+            h2("Create the annotation data frame for your dataset"),
 
             fluidRow(
               column(
@@ -978,7 +978,7 @@ ideal<- function(dds_obj = NULL,
 
       box(width = 12, title = "Optional Step", status = "info", solidHeader = TRUE,
           tagList(
-            h2("Optional Step: Remove sample(s) from the current dataset - suspected outliers!"),
+            h2("Remove sample(s) from the current dataset - suspected outliers!"),
 
             fluidRow(
               column(
@@ -1026,7 +1026,7 @@ ideal<- function(dds_obj = NULL,
         return(NULL)
       box(width = 12, title = "Step 3", status = "success", solidHeader = TRUE,
           tagList(
-            h2("Step 3: Run DESeq!"),
+            h2("Run DESeq!"),
 
             fluidRow(
               column(
@@ -2872,7 +2872,7 @@ ideal<- function(dds_obj = NULL,
       )
 
       print(sub(".*p-value: (.*)","\\1",mcols(values$res_obj, use.names=TRUE)["pvalue","description"]))
-      summary(values$res_obj,alpha = 0.05) # use fdr shiny widget
+      summary(values$res_obj,alpha = input$FDR) # use fdr shiny widget
 
     })
 
@@ -2950,19 +2950,19 @@ ideal<- function(dds_obj = NULL,
 
 
     output$plotma <- renderPlot({
-      plot_ma(values$res_obj,annotation_obj = values$annotation_obj)
+      plot_ma(values$res_obj,annotation_obj = values$annotation_obj,FDR = input$FDR)
     })
 
     output$mazoom <- renderPlot({
       if(is.null(input$ma_brush)) return(ggplot() + annotate("text",label="click and drag to zoom in",0,0) + theme_bw())
 
       if(!is.null(values$annotation_obj))
-        plot_ma(values$res_obj,annotation_obj = values$annotation_obj) +
+        plot_ma(values$res_obj,annotation_obj = values$annotation_obj,FDR = input$FDR) +
         coord_cartesian(xlim = c(input$ma_brush$xmin,input$ma_brush$xmax),
                         ylim = c(input$ma_brush$ymin,input$ma_brush$ymax)) +
         geom_text(aes_string(label="genename"),size=3,hjust=0.25, vjust=-0.75)
       else
-        plot_ma(values$res_obj,annotation_obj = values$annotation_obj) +
+        plot_ma(values$res_obj,annotation_obj = values$annotation_obj,FDR = input$FDR) +
         coord_cartesian(xlim = c(input$ma_brush$xmin,input$ma_brush$xmax),
                         ylim = c(input$ma_brush$ymin,input$ma_brush$ymax))
     })
@@ -2971,10 +2971,10 @@ ideal<- function(dds_obj = NULL,
     output$ma_highlight <- renderPlot({
       if("symbol" %in% names(values$res_obj)) {
         plot_ma(values$res_obj,
-                intgenes = input$avail_symbols,annotation_obj = values$annotation_obj)
+                intgenes = input$avail_symbols,annotation_obj = values$annotation_obj,FDR = input$FDR)
       } else {
         plot_ma(values$res_obj,
-                intgenes = input$avail_ids,annotation_obj = values$annotation_obj)
+                intgenes = input$avail_ids,annotation_obj = values$annotation_obj,FDR = input$FDR)
       }
     })
 
@@ -2983,7 +2983,7 @@ ideal<- function(dds_obj = NULL,
         return(NULL)
       if("symbol" %in% names(values$res_obj)) {
         plot_ma(values$res_obj,
-                intgenes = values$genelist_ma$`Gene Symbol`,annotation_obj = values$annotation_obj)
+                intgenes = values$genelist_ma$`Gene Symbol`,annotation_obj = values$annotation_obj,FDR = input$FDR)
       } else {
         # plot_ma(values$res_obj,
         # intgenes = values$genelist_ma,annotation_obj = values$annotation_obj)
