@@ -152,6 +152,7 @@ ideal<- function(dds_obj = NULL,
 
 
     dashboardBody(
+
       ## Define output size and style of error messages, and also the style of the icons e.g. check
       ## plus, define the myscrollbox div to prevent y overflow when page fills up
       tags$head(

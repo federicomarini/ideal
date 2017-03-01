@@ -13,6 +13,22 @@ opts_chunk$set(
 
 # Data Setup
 
+Following objects were provided to the initial call of the function:
+
+```{r}
+dds_obj
+
+res_obj
+
+head(annotation_obj)
+
+head(countmatrix)
+
+expdesign
+```
+
+
+
 The data provided was used to construct the following objects
 
 ```{r}
