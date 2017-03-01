@@ -64,4 +64,3 @@ ideal(dds_airway, res_airway)
 }
 
 }
-

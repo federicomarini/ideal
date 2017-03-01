@@ -25,4 +25,3 @@ mysep <- sepguesser(system.file("extdata/design_tabs.txt",package = "ideal"))
 # to be used for reading in the same file, without having to specify the sep
 
 }
-

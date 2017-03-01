@@ -27,4 +27,3 @@ res <- results(dds)
 deseqresult2DEgenes(res)
 
 }
-

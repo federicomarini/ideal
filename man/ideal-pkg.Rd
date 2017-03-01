@@ -24,4 +24,3 @@ Federico Marini \email{marinif@uni-mainz.de}, 2016-2017
 
 Maintainer: Federico Marini \email{marinif@uni-mainz.de}
 }
-

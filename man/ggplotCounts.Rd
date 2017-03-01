@@ -44,4 +44,3 @@ ggplotCounts(dds_airway,
 
 
 }
-

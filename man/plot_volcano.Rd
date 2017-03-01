@@ -54,4 +54,3 @@ res_airway <- DESeq2::results(dds_airway)
 plot_volcano(res_airway)
 
 }
-

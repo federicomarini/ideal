@@ -25,4 +25,3 @@ res <- DESeq2::results(dds)
 deseqresult2tbl(res)
 
 }
-

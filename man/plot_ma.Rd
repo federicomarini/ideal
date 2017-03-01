@@ -76,4 +76,3 @@ plot_ma(res_airway, FDR = 0.1,
 
 
 }
-
