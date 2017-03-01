@@ -1,96 +1,119 @@
-[![Linux Build Status](https://travis-ci.org/federicomarini/pcaExplorer.svg?branch=master)](https://travis-ci.org/federicomarini/pcaExplorer)
-[![codecov.io](https://codecov.io/github/federicomarini/pcaExplorer/coverage.svg?branch=master)](https://codecov.io/github/federicomarini/pcaExplorer?branch=master)
-[![Windows Build status](https://ci.appveyor.com/api/projects/status/github/federicomarini/pcaExplorer?svg=true)](https://ci.appveyor.com/project/federicomarini/pcaexplorer)
+[![Linux Build Status](https://travis-ci.org/federicomarini/ideal.svg?branch=master)](https://travis-ci.org/federicomarini/ideal)
+[![codecov.io](https://codecov.io/github/federicomarini/ideal/coverage.svg?branch=master)](https://codecov.io/github/federicomarini/ideal?branch=master)
+[![Windows Build status](https://ci.appveyor.com/api/projects/status/github/federicomarini/ideal?svg=true)](https://ci.appveyor.com/project/federicomarini/ideal)
 
-# pcaExplorer - Interactive exploration of Principal Components of Samples and Genes in RNA-seq data
+# ideal - Interactive Differential Expression AnaLysis in RNA-seq data
 
-`pcaExplorer` is a Bioconductor package containing a Shiny application for
-analyzing expression data in different conditions and experimental factors. 
+`ideal` is a Bioconductor package containing a Shiny application for
+analyzing RNA-Seq data in the context of differential expression. This enables an 
+interactive and at the same time analysis, keeping the functionality accessible, 
+and yet providing a comprehensive selection of graphs and tables to mine the dataset
+at hand.
 
-It is a general-purpose interactive companion tool for RNA-seq analysis, which 
-guides the user in exploring the Principal Components of the data under inspection.
+`ideal` is an R package which fully leverages the infrastructure of the Bioconductor
+project in order to deliver an interactive yet reproducible analysis for the detection
+of differentially expressed genes in RNA-Seq datasets. Graphs, tables, and interactive
+HTML reports can be readily exported and shared across collaborators. The dynamic 
+user interface displays a broad level of content and information, subdivided by 
+thematic tasks. All in all, it aims to enforce a proper analysis, by reaching out
+both life scientists and experienced bioinformaticians, and also fosters the 
+communication between the two sides, offering robust statistical methods and high
+standard of accessible documentation.
 
-`pcaExplorer` provides tools and functionality to detect outlier samples, genes
-that show particular patterns, and additionally provides a functional interpretation of 
-the principal components for further quality assessment and hypothesis generation
-on the input data. 
+It is structured in a similar way to the `pcaExplorer`, also designed  
+as an interactive companion tool for RNA-seq analysis focused rather on the exploratory
+data analysis e.g. using principal components analysis as a main tool.
 
-Moreover, a novel visualization approach is presented to simultaneously assess 
-the effect of more than one experimental factor on the expression levels.
-
-Thanks to its interactive/reactive design, it is designed to become a practical
-companion to any RNA-seq dataset analysis, making exploratory data analysis 
-accessible also to the bench biologist, while providing additional insight also
-for the experienced data analyst.
+The interactive/reactive design of the app, with a dynamically generated user 
+interface makes it easy and immediate to apply the gold standard methods in a way
+that is information-rich and accessible also to the bench biologist, while also
+providing additional insight also for the experienced data analyst. Reproducibility 
+is supported via state saving and automated report generation
 
 ## Installation
 
-`pcaExplorer` can be easily installed using `biocLite()`:
+`ideal` can be easily installed using `biocLite()`:
 
 ```
 source("http://bioconductor.org/biocLite.R")
-biocLite("pcaExplorer")
+biocLite("ideal")
 ```
 
 or, optionally, 
 
 ```
-biocLite("federicomarini/pcaExplorer")
+biocLite("federicomarini/ideal")
 # or alternatively...
-devtools::install_github("federicomarini/pcaExplorer")
+devtools::install_github("federicomarini/ideal")
 ```
 
 
 
 ## Quick start
 
-This command loads the `pcaExplorer` package
+This command loads the `ideal` package
 
 ```
-library("pcaExplorer")
+library("ideal")
 ```
 
-The `pcaExplorer` app can be launched in different modes:
+The main parameters for `ideal` are
 
-- `pcaExplorer(dds = dds, rld = rld)`, where `dds` is a `DESeqDataSet` object and `rld` is a `DESeqTransform`
-object, which were created during an existing session for the analysis of an RNA-seq
-dataset with the `DESeq2` package
+- `dds_obj` - a `DESeqDataSet` object. If not provided, then a `countmatrix` and a 
+`expdesign` need to be provided. If none of the above is provided, it is possible
+to upload the data during the execution of the Shiny App
+- `res_obj` -  a `DESeqResults` object. If not provided, it can be computed during
+the execution of the application
+- `annotation_obj` - a `data.frame` object, with row.names as gene identifiers 
+(e.g. ENSEMBL ids) and a column, `gene_name`, containing e.g. HGNC-based gene
+symbols. If not provided, it can be constructed during the execution via the 
+`org.eg.XX.db` packages
+- `countmatrix` - a count matrix, with genes as rows and samples as columns.
+If not provided, it is possible to upload the data during the execution of
+the Shiny App
+- `expdesign` -a `data.frame` containing the info on the experimental covariates
+of each sample. If not provided, it is possible to upload the data during the
+execution of the Shiny App
 
-- `pcaExplorer(dds = dds)`, where `dds` is a `DESeqDataSet` object. The `rld` object is automatically 
-computed upon launch.
+The `ideal` app can be launched in different modes:
 
-- `pcaExplorer(countmatrix = countmatrix, coldata = coldata)`, where `countmatrix` is a count matrix, generated
-after assigning reads to features such as genes via tools such as `HTSeq-count` or `featureCounts`, and `coldata`
-is a data frame containing the experimental covariates of the experiments, such as condition, tissue, cell line,
-run batch and so on.
+- `ideal(dds_obj = dds, res_obj = res, annotation_obj = anno)`, where the objects 
+are precomputed in the current session and provided as parameters
+- `ideal(dds_obj = dds)`, as in the command above, but where the result object is
+assembled at runtime 
+- `ideal(countmatrix = countmatrix, expdesign = expdesign)`, where instead of 
+passing the defined `DESeqDataSet` object, its components are given, namely the 
+count matrix (e.g. generated after a run of featureCounts or HTSeq-count) and a 
+data frame with the experimental covariates. The design formula can be constructed
+interactively at runtime
+- `ideal()`, where the count matrix and experimental design can simply be uploaded
+at runtime, where all the derived objects can be extracted and computed live. These 
+files have to be formatted as tabular text files, and a function in the package 
+tries to guess the separator, based on heuristics of occurrencies per line of 
+commonly used characters
 
-- `pcaExplorer()`, and then subsequently uploading the count matrix and the covariates data frame through the 
-user interface. These files need to be formatted as tab separated files, which is a common format for storing
-such count values.
+## Accessing the public instance of `ideal` 
 
-Additional parameters and objects that can be provided to the main `pcaExplorer` function are:
+To use `ideal` without installing any additional software, you can 
+access the public instance of the Shiny Server made available at the Institute of 
+Medical Biostatistics, Epidemiology and Informatics (IMBEI) in Mainz.
 
-- `pca2go`, which is an object created by the `pca2go` function, which scans the genes with high loadings in 
-each principal component and each direction, and looks for functions (such as GO Biological Processes) that 
-are enriched above the background. The offline `pca2go` function is based on the routines and algorithms of 
-the `topGO` package, but as an alternative, this object can be computed live during the execution of the app
-exploiting the `goana` function, provided by the `limma` package. Although this likely provides more general
-(and probably less informative) functions, it is a good compromise for obtaining a further data interpretation.
+This resource is accessible at this address: 
 
-- `annotation`, a data frame object, with `row.names` as gene identifiers (e.g. ENSEMBL ids) identical to the 
-row names of the count matrix or `dds` object, and an extra column `gene_name`, containing e.g. HGNC-based 
-gene symbols. This can be used for making information extraction easier, as ENSEMBL ids (a usual choice when
-assigning reads to features) do not provide an immediate readout for which gene they refer to. This can be
-either passed as a parameter when launching the app, or also uploaded as a tab separated text file.
+http://shiny.imbei.uni-mainz.de:3838/ideal
 
+## Deploying to a Shiny Server
+
+TODO: this section will be linked to the deployment-oriented version of the package,
+which will ideally have a separated repository on github to refer to.
 
 
 ## Contact
 
-For additional details regarding the functions of **pcaExplorer**, please consult the documentation or 
+For additional details regarding the functions of **ideal**, please consult the documentation or 
 write an email to marinif@uni-mainz.de. 
 
 ### Bug reports/Issues/New features
 
-Please use https://github.com/federicomarini/pcaExplorer/issues for reporting bugs, issues or for 
+Please use https://github.com/federicomarini/ideal/issues for reporting bugs, issues or for 
 suggesting new features to be implemented.

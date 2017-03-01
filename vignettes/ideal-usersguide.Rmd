@@ -1,5 +1,5 @@
 ---
-title: "ideal Users Guide"
+title: "ideal User's Guide"
 author:
 - name: Federico Marini
   affiliation: 
@@ -23,27 +23,24 @@ output:
   BiocStyle::pdf_document2:
     toc: true
 vignette: >
-  %\VignetteIndexEntry{ideal Users Guide}
+  %\VignetteIndexEntry{ideal User's Guide}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}  
   %\VignettePackage{ideal}
   %\VignetteKeywords{GeneExpression, DifferentialExpression, RNASeq, Sequencing, Visualization, QualityControl, GUI, GeneSetEnrichment, ReportWriting}
 ---
 
-<br>
-**Package**: `r Rpackage("ideal")`<br />
 
-**Authors**: `r packageDescription("ideal")[["Author"]]`<br />
+<!-- **Package**: `r Rpackage("ideal")` -->
 
-**Version**: `r packageDescription("ideal")$Version`<br />
+<!-- **Authors**: `r packageDescription("ideal")[["Author"]]` -->
 
-**Compiled date**: `r Sys.Date()`<br />
+<!-- **Version**: `r packageDescription("ideal")$Version` -->
 
-**License**: `r packageDescription("ideal")[["License"]]`<br />
+**Compiled date**: `r Sys.Date()`
 
-```{r style, echo = FALSE, results = 'asis'}
-# BiocStyle::markdown()
-```
+**License**: `r packageDescription("ideal")[["License"]]`
+
 
 ```{r setup, echo=FALSE, warning=FALSE}
 library(knitr)
@@ -69,8 +66,6 @@ library("devtools")
 install_github("federicomarini/ideal")
 ```
 
-
-
 Once `r Rpackage("ideal")` is installed, it can be loaded by the following command.
 
 ```{r loadlibrary, message=FALSE}
@@ -79,307 +74,301 @@ library("ideal")
 
 
 
-
-
-
 # Introduction
 
-`r Biocpkg("pcaExplorer")` is a Bioconductor package containing a Shiny application for
-analyzing expression data in different conditions and experimental factors. 
+`r Biocpkg("ideal")` is a Bioconductor package containing a Shiny application for
+analyzing RNA-Seq data in the context of differential expression. This enables an 
+interactive and at the same time analysis, keeping the functionality accessible, 
+and yet providing a comprehensive selection of graphs and tables to mine the dataset
+at hand.
 
-It is a general-purpose interactive companion tool for RNA-seq analysis, which 
-guides the user in exploring the Principal Components of the data under inspection.
+`r Biocpkg("ideal")` is an R package which fully leverages the infrastructure of the Bioconductor
+project in order to deliver an interactive yet reproducible analysis for the detection
+of differentially expressed genes in RNA-Seq datasets. Graphs, tables, and interactive
+HTML reports can be readily exported and shared across collaborators. The dynamic 
+user interface displays a broad level of content and information, subdivided by 
+thematic tasks. All in all, it aims to enforce a proper analysis, by reaching out
+both life scientists and experienced bioinformaticians, and also fosters the 
+communication between the two sides, offering robust statistical methods and high
+standard of accessible documentation.
 
-`r Biocpkg("pcaExplorer")` provides tools and functionality to detect outlier samples, genes
-that show particular patterns, and additionally provides a functional interpretation of 
-the principal components for further quality assessment and hypothesis generation
-on the input data. 
+It is structured in a similar way to the `r Biocpkg("pcaExplorer")`, also designed  
+as an interactive companion tool for RNA-seq analysis focused rather on the exploratory
+data analysis e.g. using principal components analysis as a main tool.
 
-Moreover, a novel visualization approach is presented to simultaneously assess 
-the effect of more than one experimental factor on the expression levels.
-
-Thanks to its interactive/reactive design, it is designed to become a practical
-companion to any RNA-seq dataset analysis, making exploratory data analysis 
-accessible also to the bench biologist, while providing additional insight also
-for the experienced data analyst.
-
-Starting from development version 1.1.3, `r Biocpkg("pcaExplorer")` supports reproducible 
-research with state saving and automated report generation. Each generated plot and table 
-can be exported by simple mouse clicks on the dedicated buttons.
+The interactive/reactive design of the app, with a dynamically generated user 
+interface makes it easy and immediate to apply the gold standard methods (in the current implementation, based on `r Biocpkg("DESeq2")`) in a way
+that is information-rich and accessible also to the bench biologist, while also
+providing additional insight also for the experienced data analyst. Reproducibility 
+is supported via state saving and automated report generation.
 
 ## Citation info
 
-If you use `r Biocpkg("pcaExplorer")` for your analysis, please cite it as here below:
+If you use `r Biocpkg("ideal")` for your analysis, please cite it as here below:
 
 ```{r}
-citation("pcaExplorer")
+citation("ideal")
 ```
 
 
 
+# Using the application
 
-# Launching the application
+There are different ways to use `ideal` for interactive differential expression 
+analysis.
 
-After loading the package, the `r Biocpkg("pcaExplorer")` app can be launched in different modes:
+## Launching `ideal` locally
 
-- `pcaExplorer(dds = dds, rlt = rlt)`, where `dds` is a `DESeqDataSet` object and `rlt` is a `DESeqTransform`
-object, which were created during an existing session for the analysis of an RNA-seq
-dataset with the `r Biocpkg("DESeq2")` package
+First load the library
 
-- `pcaExplorer(dds = dds)`, where `dds` is a `DESeqDataSet` object. The `rlt` object is automatically 
-computed upon launch.
+```{r}
+library("ideal")
+```
 
-- `pcaExplorer(countmatrix = countmatrix, coldata = coldata)`, where `countmatrix` is a count matrix, generated
-after assigning reads to features such as genes via tools such as `HTSeq-count` or `featureCounts`, and `coldata`
-is a data frame containing the experimental covariates of the experiments, such as condition, tissue, cell line,
-run batch and so on.
+and then launch the app with the `ideal` function. This takes the following essential 
+parameters as input:
 
-- `pcaExplorer()`, and then subsequently uploading the count matrix and the covariates data frame through the 
-user interface. These files need to be formatted as tab separated files, which is a common format for storing
-such count values.
+- `dds_obj` - a `DESeqDataSet` object. If not provided, then a `countmatrix` and a 
+`expdesign` need to be provided. If none of the above is provided, it is possible
+to upload the data during the execution of the Shiny App
+- `res_obj` -  a `DESeqResults` object. If not provided, it can be computed during
+the execution of the application
+- `annotation_obj` - a `data.frame` object, with row.names as gene identifiers 
+(e.g. ENSEMBL ids) and a column, `gene_name`, containing e.g. HGNC-based gene
+symbols. If not provided, it can be constructed during the execution via the 
+`org.eg.XX.db` packages
+- `countmatrix` - a count matrix, with genes as rows and samples as columns.
+If not provided, it is possible to upload the data during the execution of
+the Shiny App
+- `expdesign` -a `data.frame` containing the info on the experimental covariates
+of each sample. If not provided, it is possible to upload the data during the
+execution of the Shiny App
 
-Additional parameters and objects that can be provided to the main `r Biocpkg("pcaExplorer")` function are:
+Different modalities are supported to launch the application:
 
-- `pca2go`, which is an object created by the `pca2go` function, which scans the genes with high loadings in 
-each principal component and each direction, and looks for functions (such as GO Biological Processes) that 
-are enriched above the background. The offline `pca2go` function is based on the routines and algorithms of 
-the `r Biocpkg("topGO")` package, but as an alternative, this object can be computed live during the execution of the app
-exploiting the `goana` function, provided by the `r Biocpkg("limma")` package. Although this likely provides more general
-(and probably less informative) functions, it is a good compromise for obtaining a further data interpretation.
+- `ideal(dds_obj = dds, res_obj = res, annotation_obj = anno)`, where the objects 
+are precomputed in the current session and provided as parameters
+- `ideal(dds_obj = dds)`, as in the command above, but where the result object is
+assembled at runtime 
+- `ideal(countmatrix = countmatrix, expdesign = expdesign)`, where instead of 
+passing the defined `DESeqDataSet` object, its components are given, namely the 
+count matrix (e.g. generated after a run of featureCounts or HTSeq-count) and a 
+data frame with the experimental covariates. The design formula can be constructed
+interactively at runtime
+- `ideal()`, where the count matrix and experimental design can simply be uploaded
+at runtime, where all the derived objects can be extracted and computed live. These 
+files have to be formatted as tabular text files, and a function in the package 
+tries to guess the separator, based on heuristics of occurrencies per line of 
+commonly used characters
 
-- `annotation`, a data frame object, with `row.names` as gene identifiers (e.g. ENSEMBL ids) identical to the 
-row names of the count matrix or `dds` object, and an extra column `gene_name`, containing e.g. HGNC-based 
-gene symbols. This can be used for making information extraction easier, as ENSEMBL ids (a usual choice when
-assigning reads to features) do not provide an immediate readout for which gene they refer to. This can be
-either passed as a parameter when launching the app, or also uploaded as a tab separated text file. The package
-provides two functions, `get_annotation` and `get_annotation_orgdb`, as a convenient wrapper to obtain the updated
-annotation information, respectively from `biomaRt` or via the `org.XX.eg.db` packages.
+## Accessing the public instance of `ideal` 
 
+To use `r Biocpkg("ideal")` without installing any additional software, you can 
+access the public instance of the Shiny Server made available at the Institute of 
+Medical Biostatistics, Epidemiology and Informatics (IMBEI) in Mainz.
 
+This resource is accessible at this address: 
 
-# Accessing the public instance of `ideal` 
+http://shiny.imbei.uni-mainz.de:3838/ideal
 
+## Deploying to a Shiny Server
 
-# Deploying to a Shiny Server
-
-
-
-
-
-
-# The controls sidebar
-
-Most of the input controls are located in the sidebar, some are as well in the individual tabs of the app.
-By changing one or more of the input parameters, the user can get a fine control on what is displayed.
-
-
-## App settings
-
-Here are the parameters that set input values for most of the tabs. By hovering over with the mouse,
-the user can receive additional information on how to set the parameter, powered by the `r CRANpkg("shinyBS")` package.
-
-- **x-axis PC** - Select the principal component to display on the x axis
-- **y-axis PC** - Select the principal component to display on the y axis
-- **Group/color by** - Select the group of samples to stratify the analysis. Can also assume multiple values.
-- **Nr of (most variant) genes** - Number of genes to select for computing the principal components. The top n genes are
-selected ranked by their variance inter-samples
-- **Alpha** - Color transparency for the plots. Can assume values from 0 (transparent) to 1 (opaque)
-- **Labels size** - Size of the labels for the samples in the principal components plots
-- **Points size** - Size of the points to be plotted in the principal components plots
-- **Variable name size** - Size of the labels for the genes PCA - correspond to the samples names
-- **Scaling factor** - Scale value for resizing the arrow corresponding to the variables in the PCA for the genes. It
-should be used for mere visualization purposes
-- **Color palette** - Select the color palette to be used in the principal components plots. The number of colors 
-is selected automatically according to the number of samples and to the levels of the factors of interest
-and their interactions
-- **Plot style for gene counts** - Plot either boxplots or violin plots, with jittered points superimposed 
-
-## Plot export settings        
-
-**Width** and **height** for the figures to export are input here in cm.
-
-Additional controls available in the single tabs are also assisted by tooltips that show on hovering the mouse.
-Normally they are tightly related to the plot/output they are placed nearby.
+TODO: this section will be linked to the deployment-oriented version of the package,
+which will ideally have a separated repository on github to refer to.
 
 
 
-# The task menu
+# Getting to know the user interace and the functionality
 
-The task menu, accessible by clicking on the cog icon in the upper right part of the application, provides two 
-functionalities:
+The user interface is dynamically displayed according to the provided and computed
+objects, with tabs that are actively usable only once the required input is 
+effectively available.
 
-- `Exit pcaExplorer & save` will close the application and store the content of the `input` and `values` reactive 
-objects in two list objects made available in the global environment, called `pcaExplorer_inputs_YYYYMMDD_HHMMSS` and 
-`pcaExplorer_values_YYYYMMDD_HHMMSS`
-- `Save State as .RData` will similarly store `LiveInputs` and `r_data` in a binary file named
-`pcaExplorerState_YYYYMMDD_HHMMSS.Rdata`, without closing the application 
+Moreover, for some relevant UI widgets, the user can receive additional information 
+by hovering over with the mouse, with the functionality powered by the 
+`r CRANpkg("shinyBS")` package.
+
+For the user which is either new with the app UI/functionality, or not extensively 
+familiar with the topic of differential expression, it is possible to obtain a small
+*guided tour* of the app by clicking on the respective help buttons, marked in [][]red?[][]. These trigger 
+the start of a step-by-step guide and feature introduction, powered by the 
+`r CRANpkg("rintrojs")` package.
+
+## The controls sidebar
+
+Some of the input controls which affect different tabs are located in the sidebar, 
+while others are as well in the individual tabs of the app. By changing one or more 
+of the input parameters, the user can get a fine control on what is computed and displayed.
+
+### App settings
+
+- **Group/color by** - Select the group of samples to stratify the analysis for plotting.
+Can also assume multiple values.
+- **Select the gene(s) of interest - ids** - Select a subset of genes for deeper 
+analysis. If an annotation object is provided, the user can handily select the genes
+e.g. based on their HGNC symbol
+- **False Discovery Rate** - Set as default to 0.05, it is the FDR value for the 
+Benjamini-Hochberg procedure for adjusting p-values in the multiple testing comparison 
+scenario
+
+### Plot export settings   
+
+**Width** and **Height** for the figures to export are input here in cm.
+
+### Quick viewer
+
+This displays a list of the underlying objects with which basically all of the analysis
+can be performed. A green tick icon appears close to each when the respective component
+is either provided or calculated. For obtaining the best analysis experience in `ideal`, 
+it is recommended to provide all of them.
+
+### First steps help
+
+Clicking on this button activated the `intro.js` based tour for getting to know the
+components and the structure of the app. Dedicated step-by-step procedures are also 
+available [][]?[][] in each individual tab.
+
+## The task menu
+
+The task menu, accessible by clicking on the cog icon in the upper right part of 
+the application, provides two functionalities:
+
+- `Exit ideal & save` will close the application and store the content of the `input` and `values` reactive 
+objects in two list objects made available in the `ideal_env` environment, called `ideal_inputs_YYYYMMDD_HHMMSS` and 
+`ideal_values_YYYYMMDD_HHMMSS`
+- `Save State as .RData` will similarly store `LiveInputs` and `r_data` in a binary 
+file named `idealState_YYYYMMDD_HHMMSS.Rdata`, without closing the application 
 
 
            
-# The app panels
+# The main app panels
 
-The `r Biocpkg("pcaExplorer")` app is structured in different panels, each focused on a different aspect of the 
-data exploration. 
+The `r Biocpkg("ideal")` app is a one-paged dashboard, structured in different panels, 
+where each of them is focused on a different aspect of the data exploration. 
 
-Most of the panels work extensively with click-based and brush-based interactions, to gain additional
-depth in the explorations, for example by zooming, subsetting, selecting. This is possible thanks to the 
-recent developments in the `r CRANpkg("shiny")` package/framework.
+On top of the panels, three `valueBox` objects serve as guiding elements for having 
+an overview of the data at hand: how many genes and samples are in the data, how many 
+entries are in the annotation object, and how many genes were found to be differentially
+expressed in the results. Whenever each of the underlying objects is available, the
+background color turns from red to green.
 
-The available panels are the described in the following subsections.
+For the main analysis, the available panels are described in the following subsections.
 
+## Welcome!
 
+The landing page for the app is also where you might likely be reading this text
+(otherwise in the package vignette).
 
-## Data Upload
+<!-- <p align="center"> -->
+<!-- <img src="[][]WHATEVERSCREENSHOT[][]" style="width:800px;"/> -->
+<!-- </p> -->
 
-These **file input** controls are available when no `dds` or `countmatrix` + `coldata` are provided. Additionally,
-it is possible to upload the `annotation` data frame.
+## Data Setup
 
-When the objects are already passed as parameters, a brief overview/summary for them is displayed.
+<!-- <p align="center"> -->
+<!-- <img src="[][]WHATEVERSCREENSHOT[][]" style="width:800px;"/> -->
+<!-- </p> -->
 
-<p align="center">
-<img src="newsnap_01_upload.png" style="width:800px;"/>
-</p>
+The Data Setup panel is where you can upload or inspect the required inputs for 
+running the app. This builds on the primary idea used by `r Biocpkg("pcaExplorer")`
+and extends it with the following aspects:
 
-## Instructions
+- the panel structure appears dynamically in three consecutive mandatory steps, marked with color from red to yellow to green, with optional steps in light blue.
+- the optional step of retrieving the annotation on the fly relieves the user from the task of composing the `data.frame` in advance, and is based on the widely adopted `org.XX.eg.db` Bioconductor packages.
+- when the objects are already passed as parameters, or computed, a brief overview/summary for them is displayed
+- to tighten the concert operations between similar tools with different scope (as pcaExplorer and ideal are), the information flow can move from the data exploration to decisions taken at the moment of testing
 
-This is where you most likely are reading this text (otherwise in the package vignette). 
+A diagnostic mean-dispersion plot is also provided in a collapsible element at the bottom of the panel, shown when the `DESeqDataSet` is generated and the `DESeq` command from the `DESeq2` package has been applied.
 
-<p align="center">
-<img src="newsnap_02_instructions.png" style="width:800px;"/>
-</p>
+## Counts Overview
 
+<!-- <p align="center"> -->
+<!-- <img src="[][]WHATEVERSCREENSHOT[][]" style="width:800px;"/> -->
+<!-- </p> -->
 
-## Counts Table
+As in pcaExplorer, interactive tables for the raw, normalized or (r)log-transformed counts are shown in this tab. The user can also generate a sample-to-sample correlation scatter plot with the selected data.
 
-Interactive tables for the raw, normalized or (r)log-transformed counts are shown in this tab.
-The user can also generate a sample-to-sample correlation scatter plot with the selected data.
+Additionally, `ideal` has an option to include a filter step at the gene level by removing genes with low absolute or averages low values. After this, it might be possible to have to re-run the analysis in step 3 from the Data Setup panel. 
 
-<p align="center">
-<img src="newsnap_03_countstable.png" style="width:800px;"/>
-</p>
+## Extract Results
 
+<!-- <p align="center"> -->
+<!-- <img src="[][]WHATEVERSCREENSHOT[][]" style="width:800px;"/> -->
+<!-- </p> -->
 
-## Data Overview
+This tab is an interface for generating the summary tables after testing for DE. It is usually based on the Wald test, as implemented in DESeq2, but when the factor of interest is assuming more than two levels, the user can also perform an ANOVA-like test across the groups with the likelihood ratio test. Options for enabling/disabling automated independent filtering, adding the additional column of unshrunken log2 fold change values (instead of the moderated estimates used by default), as well as using the Independent Hypothesis Weighting (IHW) framework, are provided.
 
-This panel displays information on the objects in use, either passed as parameters or 
-generated from the count matrix provided. Displayed information comprise the design metadata,
-a sample to sample distance heatmap, the number of million of reads per sample and some
-basic summary for the counts.
+The False Discovery Rate (FDR) can be set from the sidebar panel, and a couple of diagnostic plots, such as the histogram of raw p-values and the distribution of log2fc, are shown below the interactive enhanced version of the table - with clickable elements to link to ENSEMBL database and NCBI website.
 
+## Summary Plots
 
-<p align="center">
-<img src="newsnap_04_overview.png" style="width:800px;"/>
-</p>
+<!-- <p align="center"> -->
+<!-- <img src="[][]WHATEVERSCREENSHOT[][]" style="width:800px;"/> -->
+<!-- </p> -->
 
-## Samples View
-
-This panel displays the PCA projections of sample expression profiles onto any pair of components,
-a scree plot, a zoomed PCA plot, a plot of the genes with top and bottom loadings. Additionally, this section 
-presents a PCA plot where it is possible to remove samples deemed to be outliers in the analysis, which is 
-very useful to check the effect of excluding them. If needed, an interactive 3D visualization of the principal 
-components is also available.
-
-<p align="center">
-<img src="newsnap_05_samples.png" style="width:800px;"/>
-</p>
-
-
-## Genes View
-
-This panel displays the PCA projections of genes abundances onto any pair of components, with samples
-as biplot variables, to identify interesting groups of genes. Zooming is also possible, and clicking on single
-genes, a boxplot is returned, grouped by the factors of interest. A static and an interactive heatmap are 
-provided, including the subset of selected genes, also displayed as (standardized) expression profiles across the 
-samples. These are also reported in `datatable` objects, accessible in the bottom part of the tab.
-
-<p align="center">
-<img src="newsnap_06_genes.png" style="width:800px;"/>
-</p>
+In this tab an interactive MA plot for the contrast selected in the Extract Results tab is displayed. Clicking on a single gene in the zoomed plot (enabled by brushing in the main plot), it is possible to obtain a boxplot for its expression values, flanked by an overview of information accessed live from the Entrez database. Alternatively, a volcano plot of -log10(p-value) versus log fold change can provide a slightly different perspective. The subset of selected genes are also here presented in static and interactive heatmaps, with the underlying data accessible from the collapsible box element.
 
 
-## GeneFinder
+## Gene Finder
 
-The user can search and display the expression values of a gene of interest, either by ID or gene
-name, as provided in the `annotation`. A handy panel for quick screening of shortlisted genes, again grouped by
-the factors of interest. The graphic can be readily exported as it is, and this can be iterated on a shortlisted
-set of genes. For each of them, the underlying data is displayed in an interactive table, also exportable with a 
-click.
+<!-- <p align="center"> -->
+<!-- <img src="[][]WHATEVERSCREENSHOT[][]" style="width:800px;"/> -->
+<!-- </p> -->
 
-<p align="center">
-<img src="newsnap_07_finder.png" style="width:800px;"/>
-</p>
+The functionality in the Gene Finder builds upon the one provided by `pcaExplorer`, and allows to query up to four genes in the same view, which can here be selected from a dropdown input list which supports autocompletion. 
 
-## PCA2GO
+A combined summary table (with both normalized counts and results statistics) is located below an MA plot where the selected genes are marked and annotated on the plot. To avoid repeating this manually, the user can also quickly upload a list of genes as text file (one gene identifier per line), such as members of gene families (e.g. all cytokines, all immunoglobulines, ...) or defined by common function (e.g. all housekeeping genes, or others based on any annotation).
 
-This panel shows the functional annotation of the principal components, with GO functions enriched in the 
-genes with high loadings on the selected principal components. It allows for the live computing of the object,
-that can otherwise provided as a parameter when launching the app. The panel displays a PCA plot for the 
-samples, surrounded on each side by the tables with the functions enriched in each component and direction.
 
-<p align="center">
-<img src="newsnap_08_pca2go.png" style="width:800px;"/>
-</p>
+## Functional Analysis
 
-## Multifactor Exploration
+<!-- <p align="center"> -->
+<!-- <img src="[][]WHATEVERSCREENSHOT[][]" style="width:800px;"/> -->
+<!-- </p> -->
 
-This panel allows for the multifactor exploration of datasets with 2 or more experimental factors. The user has to select 
-first the two factors and the levels for each. Then, it is possible to combine samples from Factor1-Level1 in the selected
-order by clicking on each sample name, one for each level available in the selected Factor2. In order to build the matrix, 
-an equal number of samples for each level of Factor 1 is required, to keep the design somehow balanced.
-A typical case for choosing factors 1 and 2 is for example when different conditions and tissues are present.
+The Functional Analysis tab takes the user from the simple lists of DE genes to insight on the affected biological pathways, with three approaches based on the Gene Ontology (GO) databases. This panel of ideal has a slim interface to 
+- `limma::goana` for the quick yet standard implementation
+- `topGO`, particularly valuable for pruning terms which are topologically less meaningful than their specific nodes
+- `goseq`, which accounts for the specific length bias intrinsic in RNA-Seq assays (longer genes have higher chances of being called DE).
 
-Once constructed, a plot is returned that tries to represent simultaneously the effect of the two factors on the data.
-Each gene is represented by a dot-line-dot structure, with the color that is indicating the tissue (factor 2) where the gene 
-is mostly expressed. Each gene has two dots, one for each condition level (factor 1), and the position of the points is dictated
-by the scores of the principal components calculated on the matrix object. The line connecting the dots is darker when the 
-tissue where the gene is mostly expressed varies throughout the conditions. 
+`r Biocpkg("ideal")` allows the user to work simultaneously with more gene lists, two of which can be uploaded in a custom way (e.g. list of gene families, or extracted from other existing publications). 
 
-This representation is under active development, and it is promising for identifying interesting sets or clusters of genes
-according to their behavior on the Principal Components subspaces. Zooming and exporting of the underlying genes is also
-allowed by brushing on the main plot.
+The interaction among these lists can be visually represented in Venn diagrams, as well as with the appealing alternative from the UpSetR package, where all combination of sets are explicitly shown. 
 
-<p align="center">
-<img src="newsnap_09_multifac.png" style="width:800px;"/>
-</p>
+Each of the methods for GO enrichment delivers its own interactive `DT`-based table, which can then be explored interactively with the display of a heatmap for all the (DE) genes annotated to a particular term, picking the normalized transformed values for comparing robustly the expression values. This is simply triggered by clicking any of the rows for the results tables. Another useful feature is provided by the clickable link to the AmiGO database on each of the GO term identifiers.
 
 
 ## Report Editor
 
-The report editor is the backbone for generating and editing the interactive report on the basis of the 
-uploaded data and the current state of the application. General `Markdown options` and `Editor options`
-are available, and the text editor, based on the `shinyAce` package, contains a comprehensive template 
-report, that can be edited to the best convenience of the user.
+<!-- <p align="center"> -->
+<!-- <img src="[][]WHATEVERSCREENSHOT[][]" style="width:800px;"/> -->
+<!-- </p> -->
 
-The editor supports R code autocompletion, making it easy to add new code chunks for additional sections.
-A preview is available in the tab itself, and the report can be generated, saved and subsequently shared 
-with simple mouse clicks.
+The Report Editor tab works in the same way of `pcaExplorer`, with the scope of providing an interface to full computational reproducibility of the analyses.
 
-<p align="center">
-<img src="newsnap_10_editor.png" style="width:800px;"/>
-</p>
+General `Markdown options` and `Editor options` are available, and the text editor, based on the `shinyAce` package, contains a comprehensive template report, that can be edited to the best convenience of the user.
 
+The code contained in the template report fetches the latest state of the reactive values in the ongoing session, and its output is a comprehensive HTML file that can be expanded, edited, previewed in the tab itself, downloaded, and shared with a few mouse clicks.
 
 ## About
 
-Contains general information on `r Biocpkg("pcaExplorer")`, including the developer's contact, the link to
-the development version in Github, as well as the output of `sessionInfo`, to use for reproducibility sake - 
-or bug reporting. Information for citing `r Biocpkg("pcaExplorer")` is also reported.
+<!-- <p align="center"> -->
+<!-- <img src="[][]WHATEVERSCREENSHOT[][]" style="width:800px;"/> -->
+<!-- </p> -->
 
-<p align="center">
-<img src="newsnap_11_about.png" style="width:800px;"/>
-</p>
 
+The About tab contains the output of `sessionInfo`, plus general information on `r Biocpkg("ideal")`, including the link to the Github development version. If requested, the modular structure of the app can be easily expanded, and many new operations on the same set of input data and derived results can be embedded in the same framework. 
 
 
 
 
+# Running `ideal` on published datasets
 
-# Running `pcaExplorer` on published datasets
-
-We can run `r Biocpkg("pcaExplorer")` for demonstration purpose on published datasets that are available as SummarizedExperiment
-in an experiment Bioconductor packages.
+We can run `r Biocpkg("ideal")` for demonstration purpose on published datasets that are available as SummarizedExperiment in an experiment Bioconductor packages.
 
 We will use the `r Biocpkg("airway")` dataset, which can be installed with this command
+
+[][]or use pasilla[][]
 
 
 ```{r installairway, eval=FALSE}
@@ -387,12 +376,9 @@ source("https://bioconductor.org/biocLite.R")
 biocLite("airway")
 ```
 
-This package provides a `RangedSummarizedExperiment` object of read counts in genes for an RNA-Seq experiment 
-on four human airway smooth muscle cell lines treated with dexamethasone. More details such as gene models and 
-count quantifications can be found in the `r Biocpkg("airway")` package vignette. 
+This package provides a `RangedSummarizedExperiment` object of read counts in genes for an RNA-Seq experiment on four human airway smooth muscle cell lines treated with dexamethasone. More details such as gene models and count quantifications can be found in the `r Biocpkg("airway")` package vignette. 
 
-To run `r Biocpkg("pcaExplorer")` on this dataset, the following commands are required. First, prepare the objects to be 
-passed as parameters of `r Biocpkg("pcaExplorer")`
+To run `r Biocpkg("ideal")` on this dataset, the following commands are required. First, prepare the objects to be passed as parameters of `r Biocpkg("ideal")`
 
 ```{r loadairway, message=FALSE}
 library(airway)
@@ -402,18 +388,21 @@ data(airway)
 
 dds_airway <- DESeqDataSet(airway,design= ~ cell + dex)
 dds_airway
-rld_airway <- rlogTransformation(dds_airway)
-rld_airway
+# run deseq on it
+dds_airway <- DESeq(dds_airway)
+# extract the results
+res_airway <- results(dds_airway, contrast = c("dex","trt","untrt"))
 ```
 
 Then launch the app itself
 
 ```{r launchairway, eval=FALSE}
-pcaExplorer(dds = dds_airway,
-            rlt = rld_airway)
+ideal(dds_obj = dds_airway)
+# or also providing the results object
+ideal(dds_obj = dds_airway,res_obj = res_airway)
 ```
 
-The `annotation` for this dataset can be built by exploiting the `r Biocpkg("org.Hs.eg.db")` package
+The `annotation` for this dataset can be built manually by exploiting the `r Biocpkg("org.Hs.eg.db")` package
 
 ```{r annoairway, message = FALSE}
 library(org.Hs.eg.db)
@@ -424,82 +413,61 @@ annotation_airway <- data.frame(gene_name = genenames_airway,
 head(annotation_airway)                                
 ```
 
-or alternatively, by using the `get_annotation` or `get_annotation_orgdb` wrappers.
-
-```{r annofuncs, eval=FALSE}
-
-anno_df_orgdb <- get_annotation_orgdb(dds = dds_airway,
-                                      orgdb_species = "org.Hs.eg.db",
-                                      idtype = "ENSEMBL")
-
-anno_df_biomart <- get_annotation(dds = dds_airway,
-                                  biomart_dataset = "hsapiens_gene_ensembl",
-                                  idtype = "ensembl_gene_id")
-
-```
-
-```{r echo=FALSE}
-anno_df_orgdb <- get_annotation_orgdb(dds = dds_airway,
-                                      orgdb_species = "org.Hs.eg.db",
-                                      idtype = "ENSEMBL")
-```
-
-```{r}
-head(anno_df_orgdb)
-```
-
+or alternatively, can be handily created at runtime in the optional step.
 
 Then again, the app can be launched with 
 
 ```{r launchairwayanno, eval=FALSE}
-pcaExplorer(dds = dds_airway,
-            rlt = rld_airway,
-            annotation = annotation_airway) # or anno_df_orgdb, or anno_df_biomart
+ideal(dds_obj = dds_airway,
+      annotation_obj = annotation_airway)
 ```
 
 If desired, alternatives can be used. See the well written annotation workflow available at the Bioconductor site (https://bioconductor.org/help/workflows/annotation/annotation/).
 
-# Running `pcaExplorer` on synthetic datasets
-
-For testing and demonstration purposes, a function is also available to generate synthetic datasets whose counts
-are generated based on two or more experimental factors.
-
-This can be called with the command
-
-```{r ddsmultifac}
-dds_multifac <- makeExampleDESeqDataSet_multifac(betaSD_condition = 3,betaSD_tissue = 1)
-```
-
-See all the available parameters by typing `?makeExampleDESeqDataSet_multifac`. Credits are given to the initial
-implementation by Mike Love in the `r Biocpkg("DESeq2")` package.
-
-The following steps run the app with the synthetic dataset
-
-```{r prepsimul}
-dds_multifac <- makeExampleDESeqDataSet_multifac(betaSD_condition = 1,betaSD_tissue = 3)
-dds_multifac
-rld_multifac <- rlogTransformation(dds_multifac)
-rld_multifac
-## checking how the samples cluster on the PCA plot
-pcaplot(rld_multifac,intgroup = c("condition","tissue"))
-```
-
-Launch the app for exploring this dataset with 
-
-```{r launchsimul, eval=FALSE}
-pcaExplorer(dds = dds_multifac,
-            rlt = rld_multifac)
-```
-
-When such a dataset is provided, the panel for multifactorial exploration is also usable at its best.
-
+<!-- # Running `ideal` on synthetic datasets -->
 
 # Functions exported by the package for standalone usage
 
-The functions exported by the `r Biocpkg("pcaExplorer")` package can be also used in a standalone scenario,
-provided the required objects are in the working environment. They are listed here for an overview,
-but please refer to the documentation for additional details. Where possible, for each function a code 
-snippet will be provided for its typical usage.
+The functions exported by the `r Biocpkg("ideal")` package can be also used in a standalone scenario, provided the required objects are in the working environment. They are listed here for an overview, but please refer to the documentation for additional details. Where possible, for each function a code snippet will be provided for its typical usage.
+
+## `createLinkENS`       
+## `createLinkGeneSymbol` 
+## `createLinkGO`
+## `deseqresult2DEgenes`
+## `deseqresult2tbl`      
+## `footer`
+## `geneinfo`
+## `ggplotCounts`
+## `goseqTable`
+## `ideal`
+## `plot_ma`
+## `plot_volcano`
+## `sepguesser`         
+
+
+# Further development
+
+Additional functionality for the `r Biocpkg("ideal")` will be added in the future, as it is tightly related to a topic under current development research. 
+
+Improvements, suggestions, bugs, issues and feedback of any type can be sent to marinif@uni-mainz.de.
+
+
+
+
+
+
+
+
+# Session Info {.unnumbered}
+
+```{r}
+sessionInfo()
+# devtools::session_info()
+```
+
+
+
+
 
 
 
@@ -759,31 +727,171 @@ pair_corr(counts(dds_airway)[1:100,])
 
 
 
-# Further development
 
-Additional functionality for the `r Biocpkg("pcaExplorer")` will be added in the future, as it is tightly related to a topic
-under current development research. 
 
-Improvements, suggestions, bugs, issues and feedback of any type can be sent to marinif@uni-mainz.de.
+
+# HUHUHUHUHUHUHUHUHUHUHUHUHUHU
 
 
 
 
 
 
+###### from the manuscript
+
+1 Introduction
+Gene expression profiling via RNA-seq (Wang et al., 2009) has become a widespread experimental technology for addressing complex biological questions, such as the definition of the mechanisms for transcriptional regulation occurring between two or more different conditions (Oshlack et al., 2010). The quantification of RNA expression levels from the millions of short reads output from the sequencing machines is often followed by differential expression analysis, to robustly identify genes that are correlated with the phenotypes of interest (Anders et al., 2013). Many workflows have been developed for guiding the user across all these steps (Conesa et al., 2016), and a number of them present a graphical interface for enhancing the ease of use (Poplawski et al., 2016).
+Still, none of the existing solutions provides the interactivity and the full flexibility to analyze complex designs (such as multifactorial experimental setups), while also making it easy to reproduce and share the analysis sessions, promoting effective collaboration between scientists with different skill sets. Other published software have similar functionality (Nelson et al., 2017; Harshbarger et al., 2017; Younesy et al., 2015; Metsalu and Vilo, 2015; Russo and Angelini, 2014; Su et al., 2017), thus highlighting the need of such frameworks, but currently none is offering the complete set of features we implemented in our work, with a full integration in the Bioconductor (Huber et al., 2015) environment.
+In our previous work (Poplawski et al., 2016), a selection of such tools has been systematically evaluated, with the help of a set of criteria that cover many essential aspects of every software/framework, including installation, usability, flexibility, hardware requirements, and reproducibility. This allowed us to identify a tool that satisfies all requirements for differential expression analysis, which we intend to fill with our proposal.
+Our solution is a web application contained in a Bioconductor package, developed in the Shiny (Chang et al., 2016) framework, which takes as input a count matrix and the experimental design information, and provides a comprehensive, transparent and reproducible analysis of RNA-seq data, offering multiple types of visualizations to make data interpretation immediate.
+Data exploration is efficient and is based on the existing best practices, and publication-ready graphs and tables can be readily exported with mouse clicks. State saving and automated report generation via knitr/rmarkdown, following a template bundled in the package itself (which can be edited by the experienced users to address specific questions), build the basis for reproducibility, as we formerly proposed in pcaExplorer (currently submitted, plus (Marini and Binder, 2016)).
+The application can additionally be deployed as a standalone web- server, as we did for the publicly hosted version available at http: //shiny.imbei.uni-mainz.de:3838/ideal, where users can explore the functionality of the app.
 
 
-# Session Info {.unnumbered}
+2 Description
+The ideal app is presented in a dashboard that guides the users through the mandatory steps of differential expression analysis, while optionally integrating annotation sources for gene id conversions. The essential information for using the tool is provided in the Welcome panel, and the following tabs are activated once the user has provided the required inputs.
+The workflow constituting the backbone of the DE analysis is based on DESeq2 (Love et al., 2014), which was recently shown to be among the best performing methods for this task (Schurch et al., 2016).
+Once ideal is running, the user can use the Data Setup page to upload the required data (if not already provided as parameters), i.e. the count matrix (generated with tools such as featureCounts (Liao et al., 2014) or HTSeq (Anders et al., 2015)) and a table with the experimental covariates. Optionally, the gene annotation for the species in use can be fetched during runtime, and the uploaded data can be further filtered, either on the samples level or on the gene level. The DESeq main function can be called once the design has been specified.
+A set of basic summary statistics, as well as the (log transformed) normalized values can be retrieved in the Counts Overview tab, alongside with pairwise scatter plots of the values.
+Results can be extracted in the dedicated tab by specifying the relevant contrast, and additionally independent filtering or the Independent Hypothesis Weighting (IHW) framework (Ignatiadis et al., 2016) can be used to ameliorate the multiple testing issue. Interactive tables for the results are shown, with embedded links to the ENSEMBL browser and to the NCBI Gene portal to facilitate deeper exploration of shortlisted genes. When the factor of interest has three or more levels available, the likelihood ratio test can be used instead of the Wald test to allow for an ANOVA-like analysis across groups.
+A number of visualizations is included in the Summary Plots tab, where users can zoom in the log fold change vs average expression value representation by dragging the mouse, or click to obtain a gene expression boxplot, together with an info-box with details on the selected gene. Heatmaps and volcano plots (log fold change vs log10 of the p-value) deliver an alternative view of the underlying result table.
+The Gene Finder tab focuses even more on the quick display of shortlisted genes. Expression data are searchable by the gene identifier provided, or by symbol if a corresponding annotation is provided. Multiple identifiers can be selected from the input widget, or also with a submitted custom list. These can simultaneously be annotated on the MA plot, to help spotting patterns of interest, and their expression values together with their test statistics for DE are summarized in a table.
+To obtain proper interpretation of lists of regulated genes (or custom provided identifiers), the Functional Analysis panel offers three alternatives for gene set overrepresentation analysis, with topGO, goseq and the basic test goana in the limma package. GO terms which are enriched in each list can be interactively displayed, with links to the GO database, as well as heatmaps displaying the expression values for all the genes annotated to a particular signature. These gene sets can also be represented via venn diagrams or upset plots (Lex et al., 2014).
+The Report Editor tab provide the toolset for enabling reproducible research in the DE analysis step, as pcaExplorer did it for the exploratory data analysis. The embedded template fetches the reactive values during runtime, and combines text, code and results into an interactive HTML report, previewed in the app, which can be downloaded with a click. The text editor allows experienced users to add specific chunks of code for additional analyses. State saving into an environment or as binary data is accessible from the task menu of the application.
+A more complete description of the package functionality is included in the package vignette, and a screencast demonstrating a typical usage is available at....
+F.Marini, et al.
+The server-based deployment, as we did for http://shiny. imbei.uni- mainz.de:3838/ideal, []put button for loading demo data?[], can allow users to access the app from a website without any extra software installation. To facilitate this type of usage, we also created a repository with full instructions to get such an instance running, which might be required when working e.g. with sensitive patient data.
+3 Conclusion
+The infrastructure provided by the ideal R/Bioconductor package delivers a web browser application that aims to guarantee ease of use through interactivity and dynamic user interface, together with reproducible research, for the essential step of Differential Expression in RNA-seq analysis. The combination of these two features is a key factor for efficient, quick and robust extraction of information, while leveraging on the facilities available in the Bioconductor project in terms of classes and statistical methods. The wealth of information that can be extracted while running the app might play a critical role when choosing the tools to adopt in a project. Still, to ensure the proper interpretation of the output results, the interaction with collaborators with additional bioinformatics/biostatistics expertise is essential. The design choices for ideal aim for making this communication as robust and easy as possible, possibly defining this tool as the ideal way of approaching this step :). Following the criteria used in our previous overview on RNA-seq analysis interfaces (Poplawski et al., 2016), our package reaches out to the life scientist, being simple to install and use, while offering multiple levels of documentation, being based on robust statistical methods and providing a framework for reproducible research, which can be extended according to the user’s needs.
 
-```{r}
-sessionInfo()
-# devtools::session_info()
-```
 
 
 
 
 
+###### from the thesis
+
+
+
+The following sections describe the ideal software package, first introducing the task it addresses and the analyses which can be included in the downstream . As for pcaExplorer, an overview of the graphical user interface and a description of the package functionality are provided. Briefly, I give details about  the implementation of the standalone package, as well as of the server-based version to be directly accessed on a browser, without extra required operations. ideal is distributed as a package in the Bioconductor project under the open-source MIT license []and is available at?.
+
+
+\subsection{Package description}
+
+RNA-Sequencing is become an essential experimental technology for probing expression values in living organisms and model systems, thus allowing scientists to address complex biological questions, such as the definition of the underlying mechanisms for transcriptional regulation between two or more different conditions, tissues, or combinations thereof \citep{Oshlack2010}.
+
+The robust detection of differentially expressed genes is a basic, popular, yet delicate task in the analysis of count data from RNA-Seq experiments. A number of statistical methods have been proposed for this purpose []ref to my section + one comparison, and similarly many workflows have been developed for guiding the user across the essential steps \citep{Conesa2016}, with some featuring a graphical user interface for increasing the accessibility to such potentially complex methods.
+
+None of the existing solutions provide simultaneously the interactivity in the analysis, to enhance the ease of use, together with the full flexibility for analyzing designs such as multifactorial experimental setups, and also enabling reproducibility and sharing of the analysis sessions. This combination of factors can indeed become a key feature to promote effective collaboration and communication between scientists with different skill sets and expertise backgrounds, and this was my main driver for motivating the efforts in this project.
+
+
+\subsection{UI and components}
+
+ideal, like pcaExplorer, is a single-page web application, also structured as a multi-panel dashboard. Being also implemented in the Shiny framework, it shares the dashboardPage structure with pcaExplorer, which makes it easier to work with in the initial adoption of the tool.
+
+The tabBox element includes a list of single panels, schematized in the lines below:
+
+tabBox(
+	tabPanel("Welcome"),
+	tabPanel("Data Setup"),
+	tabPanel("Counts Overview"),
+	tabPanel("Extract Results"),
+	tabPanel("MA Plot"),
+	tabPanel("Gene Finder"),
+	tabPanel("Gene Lists"),
+	tabPanel("Report Editor"),
+	tabPanel("About")
+)
+
+As for pcaExplorer, the functionality of each panel mentioned above is described in detail in the following sections [][]
+
+The task menu (accessed from the cog on the top right) has the same set of functionalities of pcaExplorer, i.e. "exit ideal and save" to save reactive values to the dedicated \texttt{ideal\_env} environment (following also the naming scheme), and saving the workspace as binary data via "Save state as .RData"
+
+
+
+
+
+
+\subsection{Functionality}
+
+The core aim of ideal is to make differential expression analysis interactive, easy and reproducible. To help and guide the user doing so, the landing page for the app is containing a wealth of information to get started or learn the advanced analytic steps that can be performed during the execution. One way to tutor the newly come user is via an interactive tour of the app to get to know the main components, their location, and also try out the full run on []whatever data gets uploaded - provided it is in the right format.
+
+A first look at the structure of the page reveals three value boxes, whose content gets updated whenever the related data get altered. Their color turns green once they are provided or computed, and to obtain the full access to the capabilities opened up by the package. Also, in the sidebar there is a list of the fundamental reactive objects, on the basis of which all downstream plots, tables, ... are calculated live.
+
+The Data Setup panel extends the idea presented by pcaExplorer by doing the following:
+
+\begin{enumerate}
+\item the panel structure appears dynamically in three consecutive mandatory steps, marked with color from red to yellow to green, with optional steps in light blue. When starting the app without specifying parameters, two pieces of information are needed, i.e. the count matrix and the experimental covariates as a table. Whenever each requirement is loaded, an UI component is generated to inspect it (e.g. via datatable, or leveraging the show methods for S4 classes instances). The relevant variables for the design are then selected from a selectInput with autocompletion, in this case also allowing for any number of factors to be included. Once the DESeqDataSet is created, the latest step runs the DESeq() routine and fills the required slots for subsequently extracting results.
+\item the optional step of retrieving the annotation on the fly relieves the user from the task of composing the data.frame in advance, and is based on the widely adopted org.XX.eg.db Bioconductor packages.
+\item to tighten the concert operations between similar tools with different scope (as pcaExplorer and ideal are), the information flow can move from the data exploration to decisions taken at the moment of testing, e.g. by performing a more data-driven sample removal after inspecting it with pcaExplorer
+\end{enumerate}
+
+A diagnostic mean-dispersion plot is also provided in a collapsible element at the bottom of the panel.
+
+The Counts Overview shares the same functionality of the Counts Table panel of pcaExplorer []ref sec[], with the additional option to include a filter step at the gene level by removing genes with low absolute or averages low values. After this, it might be possible to have to re-run the analysis in step 3 from the Data Setup panel. The rationale behind this expression-level-based filtering step is inherently bound to the reduction of number of statistical tests to perform \citep{Bourgon2010}????, by ignoring genes with low expression levels, for which no robust test statistic can be extracted.
+
+
+The Extract Results in an interface for generating the summary tables after testing for DE. It is usually based on the Wald test, as implemented in DESeq2, but when the factor of interest is assuming more than two levels, the user can also perform an ANOVA-like test across the groups with the likelihood ratio test. These options are showing up dynamically in the user interface, also allowing the choice of enabling/disabling automated independent filtering []deseq2vignette?, adding the additional column of unshrunken log2 fold change values (instead of the moderated estimates used by default), as well as using the Independent Hypothesis Weighting (IHW) framework \citep{Ignatiadis2016} for weighting tests according to an informative covariate (as the mean expression value).
+
+The False Discovery Rate (FDR) is set for the computations by tweaking the App Settings in the dashboard sidebar on the left side. The resulting table can be stored, and a couple of diagnostic plots, such as the histogram of raw p-values and the distribution of log2fc, are shown below the interactive enhanced version of the table. Clickable elements are present in each row to link to the corresponding ENSEMBL databases (a usual choice for annotation due to their completeness and robustness in assigning identifiers []), but also to the NCBI website for the same gene, which can deliver additional information such as relevant publications - this is very useful when checking in depth a small list of shortlisted candidates.
+
+
+
+The exploration of the results continues in the Summary Plots panel. Here, an interactive MA plot for the contrast selected in the Extract Results tab is displayed, and by clicking on a single gene in the zoomed plot, it is possible to obtain a boxplot for its expression values, flanked by an overview of information accessed live from the Entrez database. Alternatively, a volcano plot of -log10(p-value) versus log fold change can provide a slightly different perspective. The subset of selected genes are also here presented in static and interactive heatmaps, with the underlying data accessible from the collapsible box element.
+
+
+
+The functionality in the Gene Finder builds upon the one provided by pcaExplorer, and allows to query up to four genes in the same view, which can here be selected from a dropdown input list which supports autocompletion. A combined summary table (with both normalized counts and results statistics) is located below an MA plot where the selected genes are marked and annotated on the plot. To avoid repeating this manually, the user can also quickly upload a list of genes as text file (one gene identifier per line), such as members of gene families (e.g. all cytokines, all immunoglobulines, ...) or defined by common function (e.g. all housekeeping genes, or others based on any annotation).
+
+
+
+The Functional Analysis takes on where the results table would deliver simple lists of genes. Indeed, the interpretation of the differential expression results should not just be limited to the single genes, but also carried out at the level of higher order molecular pathways or biological processes. Approaches based on the Gene Ontology (GO) databases are very common in this case, and a number of methods have expanded the simple idea of the overrepresentation of gene-to-term assignments. This panel of ideal has a slim interface to \texttt{limma::goana} for the quick yet standard implementation, and also to topGO \citep{Alexa2006} , particularly valuable for pruning terms which are topologically less meaningful than their specific nodes, and goseq \citep{Young2010}, which accounts for the specific length bias intrinsic in RNA-Seq assays (longer genes have higher chances of being called DE).
+
+\texttt{ideal} allows the user to work simultaneously with more gene lists, where the first ones comprise the regulated genes (respectively up, down, and collectively up+down regulated - as suggested in the work of \cite{Hong2013}), and two of these can be uploaded in a custom way (e.g. list of gene families, or extracted from other existing publications). The interaction among these lists can be visually represented in Venn diagrams, as well as with the appealing alternative from the UpSetR package, where all combination of sets are explicitly shown \citep{Lex2014}. 
+
+Each of the methods for GO enrichment delivers its own table, which can then be explored interactively, not just thanks to the datatable instance, but notably also with the display of a heatmap for all the (DE) genes annotated to a particular term, picking the normalized transformed values for comparing robustly the expression values. This functionality is triggered by clicking any of the rows for the results tables. Another useful feature is provided by the clickable link on each of the GO term identifiers, which opens up a browser window with all the big wealth of annotation information for the term of interest.
+
+
+
+
+The Report Editor tab works in the same way of pcaExplorer, with the scope of providing an interface to full computational reproducibility of the analyses. The code contained in the template report fetches the latest state of the reactive values in the ongoing session, and its output is a comprehensive HTML file that can be expanded, edited, previewed, downloaded, and shared with a few mouse clicks.
+
+
+The About tab contains the output of \texttt{sessionInfo}, plus general information on ideal, including the link to the Github development version. If requested, the modular structure of the app can be easily expanded, and many new operations on the same set of input data and derived results can be embedded in the same framework. 
+
+
+\subsection{Analysis workflow with ideal}
+
+
+
+We will focus on the latest of these options to define the common steps for analysis. Typically, the workflow of \texttt{ideal} starts in the Welcome panel, where the user can get a first impression of how to operate with the software. [][][][]an interactive tour of the app is provided, based on the tour.js javascript library????[][][][] The Data Setup UI structure guides through the mandatory steps, and at every step it is possible to obtain a preview for the objects either uploaded or generated. Operations which could otherwise be daunting on the command line are presented in an accessible interface, while still keeping the flexible and powerful framework of DESeq2 under the hood. The Counts Overview is where a first impression on the data can be taken, checking the number of detected genes.
+
+The other fundamental step is to generate the results table, and I retained intact the possibility to deal with multifactorial designs, as well as offering an ANOVA-like comparison of three or more groups, according to the design information. This table can be explored in detail in the Summary Plots tab, also combined with the functionality of the Gene Finder to quickly check the behavior of a selected subset of genes. The Functional Analysis is the first building brick to inspect the enriched molecular functions and pathways, and allowing the integration with custom lists makes it possible to compare the current data with results stemming from prior knowledge or other studies.
+
+Notably, the tabs are effectively accessible only when the required objects are made available during the session. The dynamics of the user interface try to suggest what missing parameters need to be provided. Whenever the exploration is deemed to be complete, or also during the analysis session, the report in the dedicated tab can be updated and previewed. Before closing the application, saving the state in the environment and as binary data, together with the downloaded report, are a solid basis for sharing the results with colleagues, in a way that everyone could reproduce the operations.
+
+ 
+
+
+\subsection{Deployment}
+
+Following the structure of \texttt{pcaExplorer}, the deployment as a standalone web application is easily achieved also for \texttt{ideal}, with the only requirement of a running Shiny Server. Handling of sensitive human patient data can thus occur in a secured way, e.g. with restricted access to an internal instance of the application. This will also avoid the need of external software installation for the users, which could moreover seamlessly access higher performing computing infrastructures.
+
+This implementation of \texttt{ideal} is made available at github.com/federicomarini/ideal\_serveredition 
+
+
+
+\subsection{ideal in a nutshell}
+
+
+ideal is an R package which fully leverages the infrastructure of the Bioconductor project in order to deliver an interactive yet reproducible analysis for the detection of differentially expressed genes in RNA-Seq datasets. Graphs, tables, and interactive HTML reports can be readily exported and shared across collaborators. The dynamic user interface displays a broad level of content and information, subdivided by thematic tasks. All in all, it aims to enforce a proper analysis, by reaching out both life scientists and experienced bioinformaticians, and also fosters the communication between the two sides, offering robust statistical methods and high standard of accessible documentation.
+
+
+
+
+
+
+##### glimma
 
 
 
@@ -1084,4 +1192,15 @@ References
 [11] Huber W, Carey V, Gentleman R, Anders S, Carlson M, Carvalho BS, Bravo HC, Davis S, Gatto L, Girke T, Gottardo R, Hahne F, Hansen KD, Irizarry RA, Lawrence M, Love MI, MacDonald J, Obenchain V, Ole ́s AK, Pag`es H, Reyes A, Shannon P, Smyth GK, Tenenbaum D, Waldron L, Morgan M (2015) Orchestrating high-throughput genomic analysis with Bioconductor, Nature Methods 12(2):151–121.
 [12] Shi W, Oshlack A, Smyth GK (2010) Optimizing the noise versus bias trade-off for Illumina Whole Genome Expression BeadChips, Nucleic Acids Research 38e204.
 [13] Pal B, Bouras T, Shi W, Vaillant F, Sheridan JM, Fu N, Breslin K, Jiang K, Ritchie ME, Young M, Lindeman GJ, Smyth GK, Visvader JE (2013) Global changes in the mammary epigenome are induced by hormonal cues and coordinated by Ezh2, Cell Reports 3:411-426.
+
+
+
+
+
+
+
+
+
+
+
 
