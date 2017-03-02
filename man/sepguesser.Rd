@@ -4,10 +4,13 @@
 \alias{sepguesser}
 \title{Make an educated guess on the separator character}
 \usage{
-sepguesser(f)
+sepguesser(file, sep_list = c(",", "\\t", ";", " "))
 }
 \arguments{
-\item{f}{The name of the file which the data are to be read from}
+\item{file}{The name of the file which the data are to be read from}
+
+\item{sep_list}{A vector containing the candidates for being identified as
+separators. Defaults to \code{c(",", "\t", ";"," ")}}
 }
 \value{
 A character value, corresponding to the guessed separator. One of ","

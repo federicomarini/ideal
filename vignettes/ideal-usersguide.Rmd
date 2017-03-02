@@ -47,6 +47,8 @@ library(knitr)
 set.seed(42)
 opts_chunk$set(comment=NA,
                fig.align="center",
+               fig.width = 7,
+               fig.height = 7,
                warning=FALSE)
 ```
 
@@ -76,37 +78,19 @@ library("ideal")
 
 # Introduction
 
-`r Biocpkg("ideal")` is a Bioconductor package containing a Shiny application for
-analyzing RNA-Seq data in the context of differential expression. This enables an 
-interactive and at the same time analysis, keeping the functionality accessible, 
-and yet providing a comprehensive selection of graphs and tables to mine the dataset
-at hand.
+`r Biocpkg("ideal")` is a Bioconductor package containing a Shiny application for analyzing RNA-Seq data in the context of differential expression. This enables an interactive and at the same time analysis, keeping the functionality accessible, and yet providing a comprehensive selection of graphs and tables to mine the dataset at hand.
 
-`r Biocpkg("ideal")` is an R package which fully leverages the infrastructure of the Bioconductor
-project in order to deliver an interactive yet reproducible analysis for the detection
-of differentially expressed genes in RNA-Seq datasets. Graphs, tables, and interactive
-HTML reports can be readily exported and shared across collaborators. The dynamic 
-user interface displays a broad level of content and information, subdivided by 
-thematic tasks. All in all, it aims to enforce a proper analysis, by reaching out
-both life scientists and experienced bioinformaticians, and also fosters the 
-communication between the two sides, offering robust statistical methods and high
-standard of accessible documentation.
+`r Biocpkg("ideal")` is an R package which fully leverages the infrastructure of the Bioconductor project in order to deliver an interactive yet reproducible analysis for the detection of differentially expressed genes in RNA-Seq datasets. Graphs, tables, and interactive HTML reports can be readily exported and shared across collaborators. The dynamic user interface displays a broad level of content and information, subdivided by thematic tasks. All in all, it aims to enforce a proper analysis, by reaching out both life scientists and experienced bioinformaticians, and also fosters the communication between the two sides, offering robust statistical methods and high standard of accessible documentation.
 
-It is structured in a similar way to the `r Biocpkg("pcaExplorer")`, also designed  
-as an interactive companion tool for RNA-seq analysis focused rather on the exploratory
-data analysis e.g. using principal components analysis as a main tool.
+It is structured in a similar way to the `r Biocpkg("pcaExplorer")`, also designed as an interactive companion tool for RNA-seq analysis focused rather on the exploratory data analysis e.g. using principal components analysis as a main tool.
 
-The interactive/reactive design of the app, with a dynamically generated user 
-interface makes it easy and immediate to apply the gold standard methods (in the current implementation, based on `r Biocpkg("DESeq2")`) in a way
-that is information-rich and accessible also to the bench biologist, while also
-providing additional insight also for the experienced data analyst. Reproducibility 
-is supported via state saving and automated report generation.
+The interactive/reactive design of the app, with a dynamically generated user interface makes it easy and immediate to apply the gold standard methods (in the current implementation, based on `r Biocpkg("DESeq2")`) in a way that is information-rich and accessible also to the bench biologist, while also providing additional insight also for the experienced data analyst. Reproducibility is supported via state saving and automated report generation.
 
 ## Citation info
 
 If you use `r Biocpkg("ideal")` for your analysis, please cite it as here below:
 
-```{r}
+```{r citation}
 citation("ideal")
 ```
 
@@ -114,58 +98,35 @@ citation("ideal")
 
 # Using the application
 
-There are different ways to use `ideal` for interactive differential expression 
-analysis.
+There are different ways to use `ideal` for interactive differential expression analysis.
 
 ## Launching `ideal` locally
 
 First load the library
 
-```{r}
+```{r using}
 library("ideal")
 ```
 
-and then launch the app with the `ideal` function. This takes the following essential 
-parameters as input:
+and then launch the app with the `ideal` function. This takes the following essential parameters as input:
 
-- `dds_obj` - a `DESeqDataSet` object. If not provided, then a `countmatrix` and a 
-`expdesign` need to be provided. If none of the above is provided, it is possible
-to upload the data during the execution of the Shiny App
-- `res_obj` -  a `DESeqResults` object. If not provided, it can be computed during
-the execution of the application
-- `annotation_obj` - a `data.frame` object, with row.names as gene identifiers 
-(e.g. ENSEMBL ids) and a column, `gene_name`, containing e.g. HGNC-based gene
-symbols. If not provided, it can be constructed during the execution via the 
-`org.eg.XX.db` packages
-- `countmatrix` - a count matrix, with genes as rows and samples as columns.
-If not provided, it is possible to upload the data during the execution of
-the Shiny App
-- `expdesign` -a `data.frame` containing the info on the experimental covariates
-of each sample. If not provided, it is possible to upload the data during the
-execution of the Shiny App
+- `dds_obj` - a `DESeqDataSet` object. If not provided, then a `countmatrix` and a `expdesign` need to be provided. If none of the above is provided, it is possible to upload the data during the execution of the Shiny App
+- `res_obj` -  a `DESeqResults` object. If not provided, it can be computed during the execution of the application
+- `annotation_obj` - a `data.frame` object, with row.names as gene identifiers (e.g. ENSEMBL ids) and a column, `gene_name`, containing e.g. HGNC-based gene
+symbols. If not provided, it can be constructed during the execution via the `org.eg.XX.db` packages
+- `countmatrix` - a count matrix, with genes as rows and samples as columns. If not provided, it is possible to upload the data during the execution of the Shiny App
+- `expdesign` -a `data.frame` containing the info on the experimental covariates of each sample. If not provided, it is possible to upload the data during the execution of the Shiny App
 
 Different modalities are supported to launch the application:
 
-- `ideal(dds_obj = dds, res_obj = res, annotation_obj = anno)`, where the objects 
-are precomputed in the current session and provided as parameters
-- `ideal(dds_obj = dds)`, as in the command above, but where the result object is
-assembled at runtime 
-- `ideal(countmatrix = countmatrix, expdesign = expdesign)`, where instead of 
-passing the defined `DESeqDataSet` object, its components are given, namely the 
-count matrix (e.g. generated after a run of featureCounts or HTSeq-count) and a 
-data frame with the experimental covariates. The design formula can be constructed
-interactively at runtime
-- `ideal()`, where the count matrix and experimental design can simply be uploaded
-at runtime, where all the derived objects can be extracted and computed live. These 
-files have to be formatted as tabular text files, and a function in the package 
-tries to guess the separator, based on heuristics of occurrencies per line of 
-commonly used characters
+- `ideal(dds_obj = dds, res_obj = res, annotation_obj = anno)`, where the objects are precomputed in the current session and provided as parameters
+- `ideal(dds_obj = dds)`, as in the command above, but where the result object is assembled at runtime 
+- `ideal(countmatrix = countmatrix, expdesign = expdesign)`, where instead of passing the defined `DESeqDataSet` object, its components are given, namely the count matrix (e.g. generated after a run of featureCounts or HTSeq-count) and a data frame with the experimental covariates. The design formula can be constructed interactively at runtime
+- `ideal()`, where the count matrix and experimental design can simply be uploaded at runtime, where all the derived objects can be extracted and computed live. These files have to be formatted as tabular text files, and a function in the package tries to guess the separator, based on heuristics of occurrencies per line of commonly used characters
 
 ## Accessing the public instance of `ideal` 
 
-To use `r Biocpkg("ideal")` without installing any additional software, you can 
-access the public instance of the Shiny Server made available at the Institute of 
-Medical Biostatistics, Epidemiology and Informatics (IMBEI) in Mainz.
+To use `r Biocpkg("ideal")` without installing any additional software, you can access the public instance of the Shiny Server made available at the Institute of Medical Biostatistics, Epidemiology and Informatics (IMBEI) in Mainz.
 
 This resource is accessible at this address: 
 
@@ -173,43 +134,31 @@ http://shiny.imbei.uni-mainz.de:3838/ideal
 
 ## Deploying to a Shiny Server
 
-TODO: this section will be linked to the deployment-oriented version of the package,
-which will ideally have a separated repository on github to refer to.
+TODO: this section will be linked to the deployment-oriented version of the package, which will ideally have a separated repository on github to refer to.
+
+<!-- Following the structure of \texttt{pcaExplorer}, the deployment as a standalone web application is easily achieved also for \texttt{ideal}, with the only requirement of a running Shiny Server. Handling of sensitive human patient data can thus occur in a secured way, e.g. with restricted access to an internal instance of the application. This will also avoid the need of external software installation for the users, which could moreover seamlessly access higher performing computing infrastructures. -->
+
+<!-- This implementation of \texttt{ideal} is made available at github.com/federicomarini/ideal\_serveredition  -->
 
 
 
 # Getting to know the user interace and the functionality
 
-The user interface is dynamically displayed according to the provided and computed
-objects, with tabs that are actively usable only once the required input is 
-effectively available.
+The user interface is dynamically displayed according to the provided and computed objects, with tabs that are actively usable only once the required input is effectively available.
 
-Moreover, for some relevant UI widgets, the user can receive additional information 
-by hovering over with the mouse, with the functionality powered by the 
-`r CRANpkg("shinyBS")` package.
+Moreover, for some relevant UI widgets, the user can receive additional information by hovering over with the mouse, with the functionality powered by the `r CRANpkg("shinyBS")` package.
 
-For the user which is either new with the app UI/functionality, or not extensively 
-familiar with the topic of differential expression, it is possible to obtain a small
-*guided tour* of the app by clicking on the respective help buttons, marked in [][]red?[][]. These trigger 
-the start of a step-by-step guide and feature introduction, powered by the 
-`r CRANpkg("rintrojs")` package.
+For the user which is either new with the app UI/functionality, or not extensively familiar with the topic of differential expression, it is possible to obtain a small *guided tour* of the app by clicking on the respective help buttons, marked in [][]red?[][]. These trigger the start of a step-by-step guide and feature introduction, powered by the `r CRANpkg("rintrojs")` package.
 
 ## The controls sidebar
 
-Some of the input controls which affect different tabs are located in the sidebar, 
-while others are as well in the individual tabs of the app. By changing one or more 
-of the input parameters, the user can get a fine control on what is computed and displayed.
+Some of the input controls which affect different tabs are located in the sidebar, while others are as well in the individual tabs of the app. By changing one or more of the input parameters, the user can get a fine control on what is computed and displayed.
 
 ### App settings
 
-- **Group/color by** - Select the group of samples to stratify the analysis for plotting.
-Can also assume multiple values.
-- **Select the gene(s) of interest - ids** - Select a subset of genes for deeper 
-analysis. If an annotation object is provided, the user can handily select the genes
-e.g. based on their HGNC symbol
-- **False Discovery Rate** - Set as default to 0.05, it is the FDR value for the 
-Benjamini-Hochberg procedure for adjusting p-values in the multiple testing comparison 
-scenario
+- **Group/color by** - Select the group of samples to stratify the analysis for plotting. Can also assume multiple values.
+- **Select the gene(s) of interest - ids** - Select a subset of genes for deeper analysis. If an annotation object is provided, the user can handily select the genes e.g. based on their HGNC symbol
+- **False Discovery Rate** - Set as default to 0.05, it is the FDR value for the Benjamini-Hochberg procedure for adjusting p-values in the multiple testing comparison scenario
 
 ### Plot export settings   
 
@@ -217,47 +166,32 @@ scenario
 
 ### Quick viewer
 
-This displays a list of the underlying objects with which basically all of the analysis
-can be performed. A green tick icon appears close to each when the respective component
-is either provided or calculated. For obtaining the best analysis experience in `ideal`, 
-it is recommended to provide all of them.
+This displays a list of the underlying objects with which basically all of the analysis can be performed. A green tick icon appears close to each when the respective component is either provided or calculated. For obtaining the best analysis experience in `ideal`, it is recommended to provide all of them.
 
 ### First steps help
 
-Clicking on this button activated the `intro.js` based tour for getting to know the
-components and the structure of the app. Dedicated step-by-step procedures are also 
-available [][]?[][] in each individual tab.
+Clicking on this button activated the `intro.js` based tour for getting to know the components and the structure of the app. Dedicated step-by-step procedures are also available [][]?[][] in each individual tab.
 
 ## The task menu
 
-The task menu, accessible by clicking on the cog icon in the upper right part of 
-the application, provides two functionalities:
+The task menu, accessible by clicking on the cog icon in the upper right part of the application, provides two functionalities:
 
-- `Exit ideal & save` will close the application and store the content of the `input` and `values` reactive 
-objects in two list objects made available in the `ideal_env` environment, called `ideal_inputs_YYYYMMDD_HHMMSS` and 
-`ideal_values_YYYYMMDD_HHMMSS`
-- `Save State as .RData` will similarly store `LiveInputs` and `r_data` in a binary 
-file named `idealState_YYYYMMDD_HHMMSS.Rdata`, without closing the application 
+- `Exit ideal & save` will close the application and store the content of the `input` and `values` reactive objects in a list of two elements in the `ideal_env` environment, respectively called `ideal_inputs_YYYYMMDD_HHMMSS` and `ideal_values_YYYYMMDD_HHMMSS`
+- `Save State as .RData` will similarly store `LiveInputs` and `r_data` in a binary file named `idealState_YYYYMMDD_HHMMSS.Rdata`, without closing the application 
 
 
            
 # The main app panels
 
-The `r Biocpkg("ideal")` app is a one-paged dashboard, structured in different panels, 
-where each of them is focused on a different aspect of the data exploration. 
+The `r Biocpkg("ideal")` app is a one-paged dashboard, structured in different panels, where each of them is focused on a different aspect of the data exploration. 
 
-On top of the panels, three `valueBox` objects serve as guiding elements for having 
-an overview of the data at hand: how many genes and samples are in the data, how many 
-entries are in the annotation object, and how many genes were found to be differentially
-expressed in the results. Whenever each of the underlying objects is available, the
-background color turns from red to green.
+On top of the panels, three `valueBox` objects serve as guiding elements for having an overview of the data at hand: how many genes and samples are in the data, how many entries are in the annotation object, and how many genes were found to be differentially expressed in the results. Whenever each of the underlying objects is available, the background color turns from red to green.
 
 For the main analysis, the available panels are described in the following subsections.
 
 ## Welcome!
 
-The landing page for the app is also where you might likely be reading this text
-(otherwise in the package vignette).
+The landing page for the app is also where you might likely be reading this text (otherwise in the package vignette).
 
 <!-- <p align="center"> -->
 <!-- <img src="[][]WHATEVERSCREENSHOT[][]" style="width:800px;"/> -->
@@ -269,9 +203,7 @@ The landing page for the app is also where you might likely be reading this text
 <!-- <img src="[][]WHATEVERSCREENSHOT[][]" style="width:800px;"/> -->
 <!-- </p> -->
 
-The Data Setup panel is where you can upload or inspect the required inputs for 
-running the app. This builds on the primary idea used by `r Biocpkg("pcaExplorer")`
-and extends it with the following aspects:
+The Data Setup panel is where you can upload or inspect the required inputs for running the app. This builds on the primary idea used by `r Biocpkg("pcaExplorer")` and extends it with the following aspects:
 
 - the panel structure appears dynamically in three consecutive mandatory steps, marked with color from red to yellow to green, with optional steps in light blue.
 - the optional step of retrieving the annotation on the fly relieves the user from the task of composing the `data.frame` in advance, and is based on the widely adopted `org.XX.eg.db` Bioconductor packages.
@@ -327,6 +259,7 @@ A combined summary table (with both normalized counts and results statistics) is
 <!-- </p> -->
 
 The Functional Analysis tab takes the user from the simple lists of DE genes to insight on the affected biological pathways, with three approaches based on the Gene Ontology (GO) databases. This panel of ideal has a slim interface to 
+
 - `limma::goana` for the quick yet standard implementation
 - `topGO`, particularly valuable for pruning terms which are topologically less meaningful than their specific nodes
 - `goseq`, which accounts for the specific length bias intrinsic in RNA-Seq assays (longer genes have higher chances of being called DE).
@@ -391,7 +324,7 @@ dds_airway
 # run deseq on it
 dds_airway <- DESeq(dds_airway)
 # extract the results
-res_airway <- results(dds_airway, contrast = c("dex","trt","untrt"))
+res_airway <- results(dds_airway, contrast = c("dex","trt","untrt"),alpha = 0.05)
 ```
 
 Then launch the app itself
@@ -407,7 +340,8 @@ The `annotation` for this dataset can be built manually by exploiting the `r Bio
 ```{r annoairway, message = FALSE}
 library(org.Hs.eg.db)
 genenames_airway <- mapIds(org.Hs.eg.db,keys = rownames(dds_airway),column = "SYMBOL",keytype="ENSEMBL")
-annotation_airway <- data.frame(gene_name = genenames_airway,
+annotation_airway <- data.frame(gene_id = rownames(dds_airway),
+                                gene_name = genenames_airway,
                                 row.names = rownames(dds_airway),
                                 stringsAsFactors = FALSE)
 head(annotation_airway)                                
@@ -430,19 +364,172 @@ If desired, alternatives can be used. See the well written annotation workflow a
 
 The functions exported by the `r Biocpkg("ideal")` package can be also used in a standalone scenario, provided the required objects are in the working environment. They are listed here for an overview, but please refer to the documentation for additional details. Where possible, for each function a code snippet will be provided for its typical usage.
 
-## `createLinkENS`       
-## `createLinkGeneSymbol` 
-## `createLinkGO`
-## `deseqresult2DEgenes`
-## `deseqresult2tbl`      
-## `footer`
-## `geneinfo`
+## `deseqresult2DEgenes` and `deseqresult2tbl`
+
+`deseqresult2DEgenes` and `deseqresult2tbl` generate a tidy table with the results of DESeq2, sorted by the values in the `padj` column.
+
+```{r res2tbl}
+summary(res_airway)
+res_airway
+
+head(deseqresult2tbl(res_airway))
+```
+
+In particular, `deseqresult2DEgenes` only includes genes detected as DE
+
+```{r res2de}
+head(deseqresult2DEgenes(res_airway,FDR = 0.05))
+# the output in the first lines is the same, but
+dim(res_airway)
+dim(deseqresult2DEgenes(res_airway))
+```
+
+This tables can be enhanced with clickable links to the ENSEMBL and NCBI gene databases by the following commands
+
+```{r res-enhance}
+myde <- deseqresult2DEgenes(res_airway,FDR = 0.05)
+myde$symbol <- mapIds(org.Hs.eg.db,keys = as.character(myde$id),column = "SYMBOL",keytype="ENSEMBL")
+
+myde_enhanced <- myde
+myde_enhanced$id <- ideal:::createLinkENS(myde_enhanced$id,species = "Homo_sapiens")
+myde_enhanced$symbol <- ideal:::createLinkGeneSymbol(myde_enhanced$symbol)
+DT::datatable(myde_enhanced[1:100,], escape = FALSE)
+```
+
+
+
 ## `ggplotCounts`
+
+`ggplotCounts` extends the functionality of the `plotCounts` function of `r Biocpkg("DESeq2")`, and plots the normalized counts of a single gene as a boxplot, with jittered points superimposed.
+
+```{r ggpc1}
+ggplotCounts(dds = dds_airway,
+             gene = "ENSG00000103196", # CRISPLD2 in the original publication
+             intgroup = "dex")
+```
+
+If an `annotation_obj` is provided, their gene name can also be included in the title.
+
+```{r ggpc2}
+ggplotCounts(dds = dds_airway,
+             gene = "ENSG00000103196", # CRISPLD2 in the original publication
+             intgroup = "dex",
+             annotation_obj = annotation_airway)
+```
+
+When used in the context of the app, it is possible to seamless search for genes also by their gene name, making exploration even more immediate.
+
 ## `goseqTable`
-## `ideal`
+
+`goseqTable` is a wrapper to extract the functional GO terms enriched in  in a list of (DE) genes, based on the algorithm and the implementation in the `r Biocpkg("goseq")` package.
+
+Its counterpart, based on the `r Biocpkg("topGO")` package, can be found in the `r Biocpkg("pcaExplorer")` package.
+
+```{r goseq}
+res_subset <- deseqresult2DEgenes(res_airway)[1:100,]
+myde <- res_subset$id
+myassayed <- rownames(res_airway)
+mygo <- goseqTable(de.genes = myde,
+                   assayed.genes = myassayed,
+                   genome = "hg38",
+                   id = "ensGene",
+                   testCats = "GO:BP",
+                   addGeneToTerms = FALSE)
+head(mygo)
+```
+
+As for the results, this table can be enhanced by adding the links for each category to the AmiGO database
+
+```{r go-enhance}
+mygo_enhanced <- mygo
+mygo_enhanced$category <- ideal:::createLinkGO(mygo_enhanced$category)
+DT::datatable(mygo_enhanced,escape=FALSE)
+```
+
+
 ## `plot_ma`
+
+The MA plot provided by `r Biocpkg("ideal")` displays the gene-wise log2-fold changes (logFCs) versus the average expression value. As a main input parameter, a `DESeqResults` object is required. Control on the appearance of the plot can be applied by selecting the False Discovery Rate (`FDR`), the point transparency (`point_alpha`), adding horizontal lines at particular logFC values (`hlines`). The user can also decide to add rug plots in the margins (setting `add_rug` to `TRUE`).
+
+To facilitate the inspection of a particular gene or gene set, `intgenes` can assume the value of a vector of genes (either the IDs or the gene symbols if `symbol` column is provided in `res_obj`. Labels can be added via `labels_intgenes`, while classical labels/title can be also edited as preferred (see `plot_ma` for all details). 
+
+```{r plotma}
+plot_ma(res_airway, FDR = 0.05, hlines = 1, title ="Adding horizontal lines")
+```
+
+```{r plotma2}
+plot_ma(res_airway, FDR = 0.1,
+        intgenes = c("ENSG00000103196",  # CRISPLD2
+                     "ENSG00000120129",  # DUSP1
+                     "ENSG00000163884",  # KLF15
+                     "ENSG00000179094"), # PER1
+        title = "Providing a shortlist of genes"
+       )
+res_airway2 <- res_airway
+res_airway2$symbol <- mapIds(org.Hs.eg.db,keys = rownames(res_airway2),column = "SYMBOL",keytype="ENSEMBL")
+plot_ma(res_airway2, FDR = 0.05,
+        intgenes = c("CRISPLD2",  # CRISPLD2
+                     "DUSP1",  # DUSP1
+                     "KLF15",  # KLF15
+                     "PER1"), # PER1
+        annotation_obj = annotation_airway,
+        hlines = 2,
+        add_rug = FALSE,
+        title = "Putting gene names..."
+       )
+```
+
 ## `plot_volcano`
-## `sepguesser`         
+
+The volcano plot gives a different flavor for the gene overview, displaying log2-fold changes and log p-values
+
+In a way similar to `plot_ma`, genes can be annotated with `intgenes`, and vertical lines can be added via `vlines`. `ylim_up` controls the y axis upper limit to visualize better the bulk of genes - keep in mind that very small p-values due to robust differences/large effect sizes can be "cut out".
+
+```{r plotvolcano}
+plot_volcano(res_airway)
+```
+
+```{r plotvolcano2}
+plot_volcano(res_airway2, FDR = 0.05,
+        intgenes = c("CRISPLD2",  # CRISPLD2
+                     "DUSP1",  # DUSP1
+                     "KLF15",  # KLF15
+                     "PER1"), # PER1
+        title = "Selecting the handful of genes - and displaying the full range for the -log10(pvalue)",
+        ylim_up = -log10(min(res_airway2$pvalue, na.rm =TRUE)))
+```
+
+
+## `sepguesser`   
+
+`sepguesser` makes an educated guess on the separator character for the input text file (`file`). The separator list can be provided as a vector in `sep_list` (defaults to comma, tab, semicolon, and whitespace - which ideally could cover most of the cases). The heuristics is based on the number of occurrencies of each separator in each line.
+
+```{r sepguess}
+sepguesser(system.file("extdata/design_commas.txt",package = "ideal"))
+sepguesser(system.file("extdata/design_semicolons.txt",package = "ideal"))
+sepguesser(system.file("extdata/design_spaces.txt",package = "ideal"))
+anyfile <- system.file("extdata/design_tabs.txt",package = "ideal") # we know it is going to be TAB
+guessed_sep <- sepguesser(anyfile)
+guessed_sep
+# to be used for reading in the same file, without having to specify the sep
+read.delim(anyfile, header = TRUE, as.is = TRUE, 
+           sep = guessed_sep, 
+           quote = "", row.names = 1, check.names = FALSE)
+```
+
+
+
+# Creating and sharing output objects
+
+While running the app, the user can
+
+- generate and save graphics
+- create and export tables
+- generate, preview, download/export an HTML report
+- save the values of the `reactiveValues` in an environment, or in binary format
+
+This functionality to retrieve and share the output is provided by action buttons that are placed close to each element of interest. 
+
 
 
 # Further development
@@ -453,750 +540,12 @@ Improvements, suggestions, bugs, issues and feedback of any type can be sent to 
 
 
 
-
-
-
-
-
 # Session Info {.unnumbered}
 
-```{r}
+```{r sessioninfo}
 sessionInfo()
 # devtools::session_info()
 ```
-
-
-
-
-
-
-
-## `pcaplot`
-
-`pcaplot` plots the sample PCA for `DESeqTransform` objects, such as rlog-transformed data. This is 
-the workhorse of the Samples View tab
-
-```{r func-pcaplot}
-pcaplot(rld_airway,intgroup = c("cell","dex"),ntop = 1000,
-        pcX = 1, pcY = 2, title = "airway dataset PCA on samples - PC1 vs PC2")
-
-# on a different set of principal components...
-pcaplot(rld_airway,intgroup = c("dex"),ntop = 1000,
-        pcX = 1, pcY = 4, title = "airway dataset PCA on samples - PC1 vs PC4",
-        ellipse = TRUE)
-
-```
-
-
-## `pcaplot3d`
-
-Same as for `pcaplot`, but it uses the `threejs` package for the 3d interactive view.
-
-```{r func-pcaplot3d, eval=FALSE}
-pcaplot3d(rld_airway,intgroup = c("cell","dex"),ntop = 1000,
-        pcX = 1, pcY = 2, pcZ = 3)
-# will open up in the viewer
-```
-
-
-## `pcascree`
-
-`pcascree` produces a scree plot of the PC computed on the samples. A `prcomp` object needs to be 
-passed as main argument
-
-```{r func-pcascree}
-pcaobj_airway <- prcomp(t(assay(rld_airway)))
-pcascree(pcaobj_airway,type="pev",
-         title="Proportion of explained proportion of variance - airway dataset")
-```
-
-## `correlatePCs` and `plotPCcorrs`
-
-`correlatePCs` and `plotPCcorrs` respectively compute and plot significance of the (cor)relation 
-of each covariate versus a principal component. The input for `correlatePCs` is a `prcomp` object
-
-```{r func-correlatepcs}
-res_pcairway <- correlatePCs(pcaobj_airway,colData(dds_airway))
-
-res_pcairway
-
-plotPCcorrs(res_pcairway)
-```
-
-## `hi_loadings`
-
-`hi_loadings` extracts and optionally plots the genes with the highest loadings
-
-```{r func-hiloadings}
-# extract the table of the genes with high loadings
-hi_loadings(pcaobj_airway,topN = 10,exprTable=counts(dds_airway))
-# or alternatively plot the values
-hi_loadings(pcaobj_airway,topN = 10,annotation = annotation_airway)
-```
-
-
-## `genespca`
-
-`genespca` computes and plots the principal components of the genes, eventually displaying 
-the samples as in a typical biplot visualization. This is the function in action for the Genes View tab
-
-```{r func-genespca}
-groups_airway <- colData(dds_airway)$dex
-cols_airway <- scales::hue_pal()(2)[groups_airway]
-# with many genes, do not plot the labels of the genes
-genespca(rld_airway,ntop=5000,
-         choices = c(1,2),
-         arrowColors=cols_airway,groupNames=groups_airway,
-         alpha = 0.2,
-         useRownamesAsLabels=FALSE,
-         varname.size = 5
-        )
-# with a smaller number of genes, plot gene names included in the annotation
-genespca(rld_airway,ntop=100,
-         choices = c(1,2),
-         arrowColors=cols_airway,groupNames=groups_airway,
-         alpha = 0.7,
-         varname.size = 5,
-         annotation = annotation_airway
-        )
-
-```
-
-
-## `topGOtable` 
-
-`topGOtable` is a convenient wrapper for extracting functional GO terms enriched in a subset of genes 
-(such as the differentially expressed genes), based on the algorithm and the implementation in the 
-`r Biocpkg("topGO")` package
-
-```{r func-topGOtable, eval=FALSE}
-# example not run due to quite long runtime
-dds_airway <- DESeq(dds_airway)
-res_airway <- results(dds_airway)
-res_airway$symbol <- mapIds(org.Hs.eg.db,
-                            keys=row.names(res_airway),
-                            column="SYMBOL",
-                            keytype="ENSEMBL",
-                            multiVals="first")
-res_airway$entrez <- mapIds(org.Hs.eg.db,
-                            keys=row.names(res_airway),
-                            column="ENTREZID",
-                            keytype="ENSEMBL",
-                            multiVals="first")
-resOrdered <- as.data.frame(res_airway[order(res_airway$padj),])
-head(resOrdered)
-# extract DE genes
-de_df <- resOrdered[resOrdered$padj < .05 & !is.na(resOrdered$padj),]
-de_symbols <- de_df$symbol
-# extract background genes
-bg_ids <- rownames(dds_airway)[rowSums(counts(dds_airway)) > 0]
-bg_symbols <- mapIds(org.Hs.eg.db,
-                     keys=bg_ids,
-                     column="SYMBOL",
-                     keytype="ENSEMBL",
-                     multiVals="first")
-# run the function
-topgoDE_airway <- topGOtable(de_symbols, bg_symbols,
-                             ontology = "BP",
-                             mapping = "org.Hs.eg.db",
-                             geneID = "symbol")
-```
-
-
-## `pca2go`
-
-`pca2go` provides a functional interpretation of the principal components, by extracting the genes
-with the highest loadings for each PC, and then runs internally `topGOtable` on them for efficient functional
-enrichment analysis. Needs a `DESeqTransform` object as main parameter
-
-```{r func-pca2go, eval=FALSE}
-pca2go_airway <- pca2go(rld_airway,
-                        annotation = annotation_airway,
-                        organism = "Hs",
-                        ensToGeneSymbol = TRUE,
-                        background_genes = bg_ids)
-# for a smooth interactive exploration, use DT::datatable
-datatable(pca2go_airway$PC1$posLoad)
-# display it in the normal R session...
-head(pca2go_airway$PC1$posLoad)
-# ... or use it for running the app and display in the dedicated tab
-pcaExplorer(dds_airway,rld_airway,
-            pca2go = pca2go_airway,
-            annotation = annotation_airway)
-
-```
-
-
-## `limmaquickpca2go`
-
-`limmaquickpca2go` is an alternative to `pca2go`, used in the live running app, thanks to its fast 
-implementation based on the `limma::goana` function.
-
-```{r func, message = FALSE, eval = FALSE}
-goquick_airway <- limmaquickpca2go(rld_airway,
-                                   pca_ngenes = 10000,
-                                   inputType = "ENSEMBL",
-                                   organism = "Hs")
-# display it in the normal R session...
-head(goquick_airway$PC1$posLoad)
-# ... or use it for running the app and display in the dedicated tab
-pcaExplorer(dds_airway,rld_airway,
-            pca2go = goquick_airway,
-            annotation = annotation_airway)
-
-
-```
-
-
-## `makeExampleDESeqDataSet_multifac`
-
-`makeExampleDESeqDataSet_multifac` constructs a simulated `DESeqDataSet` of Negative Binomial dataset
-from different conditions. The fold changes between the conditions can be adjusted with the `betaSD_condition`
-`betaSD_tissue` arguments
-
-```{r func-makedataset}
-
-dds_simu <- makeExampleDESeqDataSet_multifac(betaSD_condition = 3,betaSD_tissue = 0.5)
-dds_simu
-dds2_simu <- makeExampleDESeqDataSet_multifac(betaSD_condition = 0.5,betaSD_tissue = 2)
-dds2_simu
-
-rld_simu <- rlogTransformation(dds_simu)
-rld2_simu <- rlogTransformation(dds2_simu)
-pcaplot(rld_simu,intgroup = c("condition","tissue")) + 
-  ggplot2::ggtitle("Simulated data - Big condition effect, small tissue effect")
-pcaplot(rld2_simu,intgroup = c("condition","tissue")) + 
-  ggplot2::ggtitle("Simulated data - Small condition effect, bigger tissue effect")
-```
-
-
-## `distro_expr`
-
-Plots the distribution of expression values, either with density lines, boxplots or 
-violin plots.
-
-```{r eval=FALSE}
-distro_expr(rld_airway,plot_type = "density")
-distro_expr(rld_airway,plot_type = "violin")
-```
-
-```{r}
-distro_expr(rld_airway,plot_type = "boxplot")
-```
-
-
-## `geneprofiler` 
-
-Plots the profile expression of a subset of genes, optionally as standardized values
-
-```{r}
-dds <- makeExampleDESeqDataSet_multifac(betaSD_condition = 3,betaSD_tissue = 1)
-rlt <- DESeq2::rlogTransformation(dds)
-set.seed(42)
-geneprofiler(rlt,paste0("gene",sample(1:1000,20)), plotZ = FALSE)
-```
-
-
-## `get_annotation` and `get_annotation_orgdb`
-
-These two wrapper functions retrieve the latest annotations for the `dds` object, to be
-used in the call to the `pcaExplorer` function. They use respectively the `biomaRt` package
-and the `org.XX.eg.db` packages.
-
-```{r eval=FALSE}
-anno_df_biomart <- get_annotation(dds = dds_airway,
-                                  biomart_dataset = "hsapiens_gene_ensembl",
-                                  idtype = "ensembl_gene_id")
-
-anno_df_orgdb <- get_annotation_orgdb(dds = dds_airway,
-                                      orgdb_species = "org.Hs.eg.db",
-                                      idtype = "ENSEMBL")
-```
-
-
-## `pair_corr`
-
-Plots the pairwise scatter plots and computes the correlation coefficient on the 
-expression matrix provided.
-
-```{r}
-# use a subset of the counts to reduce plotting time, it can be time consuming with many samples
-pair_corr(counts(dds_airway)[1:100,])
-```
-
-
-
-
-
-
-
-# HUHUHUHUHUHUHUHUHUHUHUHUHUHU
-
-
-
-
-
-
-###### from the manuscript
-
-1 Introduction
-Gene expression profiling via RNA-seq (Wang et al., 2009) has become a widespread experimental technology for addressing complex biological questions, such as the definition of the mechanisms for transcriptional regulation occurring between two or more different conditions (Oshlack et al., 2010). The quantification of RNA expression levels from the millions of short reads output from the sequencing machines is often followed by differential expression analysis, to robustly identify genes that are correlated with the phenotypes of interest (Anders et al., 2013). Many workflows have been developed for guiding the user across all these steps (Conesa et al., 2016), and a number of them present a graphical interface for enhancing the ease of use (Poplawski et al., 2016).
-Still, none of the existing solutions provides the interactivity and the full flexibility to analyze complex designs (such as multifactorial experimental setups), while also making it easy to reproduce and share the analysis sessions, promoting effective collaboration between scientists with different skill sets. Other published software have similar functionality (Nelson et al., 2017; Harshbarger et al., 2017; Younesy et al., 2015; Metsalu and Vilo, 2015; Russo and Angelini, 2014; Su et al., 2017), thus highlighting the need of such frameworks, but currently none is offering the complete set of features we implemented in our work, with a full integration in the Bioconductor (Huber et al., 2015) environment.
-In our previous work (Poplawski et al., 2016), a selection of such tools has been systematically evaluated, with the help of a set of criteria that cover many essential aspects of every software/framework, including installation, usability, flexibility, hardware requirements, and reproducibility. This allowed us to identify a tool that satisfies all requirements for differential expression analysis, which we intend to fill with our proposal.
-Our solution is a web application contained in a Bioconductor package, developed in the Shiny (Chang et al., 2016) framework, which takes as input a count matrix and the experimental design information, and provides a comprehensive, transparent and reproducible analysis of RNA-seq data, offering multiple types of visualizations to make data interpretation immediate.
-Data exploration is efficient and is based on the existing best practices, and publication-ready graphs and tables can be readily exported with mouse clicks. State saving and automated report generation via knitr/rmarkdown, following a template bundled in the package itself (which can be edited by the experienced users to address specific questions), build the basis for reproducibility, as we formerly proposed in pcaExplorer (currently submitted, plus (Marini and Binder, 2016)).
-The application can additionally be deployed as a standalone web- server, as we did for the publicly hosted version available at http: //shiny.imbei.uni-mainz.de:3838/ideal, where users can explore the functionality of the app.
-
-
-2 Description
-The ideal app is presented in a dashboard that guides the users through the mandatory steps of differential expression analysis, while optionally integrating annotation sources for gene id conversions. The essential information for using the tool is provided in the Welcome panel, and the following tabs are activated once the user has provided the required inputs.
-The workflow constituting the backbone of the DE analysis is based on DESeq2 (Love et al., 2014), which was recently shown to be among the best performing methods for this task (Schurch et al., 2016).
-Once ideal is running, the user can use the Data Setup page to upload the required data (if not already provided as parameters), i.e. the count matrix (generated with tools such as featureCounts (Liao et al., 2014) or HTSeq (Anders et al., 2015)) and a table with the experimental covariates. Optionally, the gene annotation for the species in use can be fetched during runtime, and the uploaded data can be further filtered, either on the samples level or on the gene level. The DESeq main function can be called once the design has been specified.
-A set of basic summary statistics, as well as the (log transformed) normalized values can be retrieved in the Counts Overview tab, alongside with pairwise scatter plots of the values.
-Results can be extracted in the dedicated tab by specifying the relevant contrast, and additionally independent filtering or the Independent Hypothesis Weighting (IHW) framework (Ignatiadis et al., 2016) can be used to ameliorate the multiple testing issue. Interactive tables for the results are shown, with embedded links to the ENSEMBL browser and to the NCBI Gene portal to facilitate deeper exploration of shortlisted genes. When the factor of interest has three or more levels available, the likelihood ratio test can be used instead of the Wald test to allow for an ANOVA-like analysis across groups.
-A number of visualizations is included in the Summary Plots tab, where users can zoom in the log fold change vs average expression value representation by dragging the mouse, or click to obtain a gene expression boxplot, together with an info-box with details on the selected gene. Heatmaps and volcano plots (log fold change vs log10 of the p-value) deliver an alternative view of the underlying result table.
-The Gene Finder tab focuses even more on the quick display of shortlisted genes. Expression data are searchable by the gene identifier provided, or by symbol if a corresponding annotation is provided. Multiple identifiers can be selected from the input widget, or also with a submitted custom list. These can simultaneously be annotated on the MA plot, to help spotting patterns of interest, and their expression values together with their test statistics for DE are summarized in a table.
-To obtain proper interpretation of lists of regulated genes (or custom provided identifiers), the Functional Analysis panel offers three alternatives for gene set overrepresentation analysis, with topGO, goseq and the basic test goana in the limma package. GO terms which are enriched in each list can be interactively displayed, with links to the GO database, as well as heatmaps displaying the expression values for all the genes annotated to a particular signature. These gene sets can also be represented via venn diagrams or upset plots (Lex et al., 2014).
-The Report Editor tab provide the toolset for enabling reproducible research in the DE analysis step, as pcaExplorer did it for the exploratory data analysis. The embedded template fetches the reactive values during runtime, and combines text, code and results into an interactive HTML report, previewed in the app, which can be downloaded with a click. The text editor allows experienced users to add specific chunks of code for additional analyses. State saving into an environment or as binary data is accessible from the task menu of the application.
-A more complete description of the package functionality is included in the package vignette, and a screencast demonstrating a typical usage is available at....
-F.Marini, et al.
-The server-based deployment, as we did for http://shiny. imbei.uni- mainz.de:3838/ideal, []put button for loading demo data?[], can allow users to access the app from a website without any extra software installation. To facilitate this type of usage, we also created a repository with full instructions to get such an instance running, which might be required when working e.g. with sensitive patient data.
-3 Conclusion
-The infrastructure provided by the ideal R/Bioconductor package delivers a web browser application that aims to guarantee ease of use through interactivity and dynamic user interface, together with reproducible research, for the essential step of Differential Expression in RNA-seq analysis. The combination of these two features is a key factor for efficient, quick and robust extraction of information, while leveraging on the facilities available in the Bioconductor project in terms of classes and statistical methods. The wealth of information that can be extracted while running the app might play a critical role when choosing the tools to adopt in a project. Still, to ensure the proper interpretation of the output results, the interaction with collaborators with additional bioinformatics/biostatistics expertise is essential. The design choices for ideal aim for making this communication as robust and easy as possible, possibly defining this tool as the ideal way of approaching this step :). Following the criteria used in our previous overview on RNA-seq analysis interfaces (Poplawski et al., 2016), our package reaches out to the life scientist, being simple to install and use, while offering multiple levels of documentation, being based on robust statistical methods and providing a framework for reproducible research, which can be extended according to the user’s needs.
-
-
-
-
-
-
-###### from the thesis
-
-
-
-The following sections describe the ideal software package, first introducing the task it addresses and the analyses which can be included in the downstream . As for pcaExplorer, an overview of the graphical user interface and a description of the package functionality are provided. Briefly, I give details about  the implementation of the standalone package, as well as of the server-based version to be directly accessed on a browser, without extra required operations. ideal is distributed as a package in the Bioconductor project under the open-source MIT license []and is available at?.
-
-
-\subsection{Package description}
-
-RNA-Sequencing is become an essential experimental technology for probing expression values in living organisms and model systems, thus allowing scientists to address complex biological questions, such as the definition of the underlying mechanisms for transcriptional regulation between two or more different conditions, tissues, or combinations thereof \citep{Oshlack2010}.
-
-The robust detection of differentially expressed genes is a basic, popular, yet delicate task in the analysis of count data from RNA-Seq experiments. A number of statistical methods have been proposed for this purpose []ref to my section + one comparison, and similarly many workflows have been developed for guiding the user across the essential steps \citep{Conesa2016}, with some featuring a graphical user interface for increasing the accessibility to such potentially complex methods.
-
-None of the existing solutions provide simultaneously the interactivity in the analysis, to enhance the ease of use, together with the full flexibility for analyzing designs such as multifactorial experimental setups, and also enabling reproducibility and sharing of the analysis sessions. This combination of factors can indeed become a key feature to promote effective collaboration and communication between scientists with different skill sets and expertise backgrounds, and this was my main driver for motivating the efforts in this project.
-
-
-\subsection{UI and components}
-
-ideal, like pcaExplorer, is a single-page web application, also structured as a multi-panel dashboard. Being also implemented in the Shiny framework, it shares the dashboardPage structure with pcaExplorer, which makes it easier to work with in the initial adoption of the tool.
-
-The tabBox element includes a list of single panels, schematized in the lines below:
-
-tabBox(
-	tabPanel("Welcome"),
-	tabPanel("Data Setup"),
-	tabPanel("Counts Overview"),
-	tabPanel("Extract Results"),
-	tabPanel("MA Plot"),
-	tabPanel("Gene Finder"),
-	tabPanel("Gene Lists"),
-	tabPanel("Report Editor"),
-	tabPanel("About")
-)
-
-As for pcaExplorer, the functionality of each panel mentioned above is described in detail in the following sections [][]
-
-The task menu (accessed from the cog on the top right) has the same set of functionalities of pcaExplorer, i.e. "exit ideal and save" to save reactive values to the dedicated \texttt{ideal\_env} environment (following also the naming scheme), and saving the workspace as binary data via "Save state as .RData"
-
-
-
-
-
-
-\subsection{Functionality}
-
-The core aim of ideal is to make differential expression analysis interactive, easy and reproducible. To help and guide the user doing so, the landing page for the app is containing a wealth of information to get started or learn the advanced analytic steps that can be performed during the execution. One way to tutor the newly come user is via an interactive tour of the app to get to know the main components, their location, and also try out the full run on []whatever data gets uploaded - provided it is in the right format.
-
-A first look at the structure of the page reveals three value boxes, whose content gets updated whenever the related data get altered. Their color turns green once they are provided or computed, and to obtain the full access to the capabilities opened up by the package. Also, in the sidebar there is a list of the fundamental reactive objects, on the basis of which all downstream plots, tables, ... are calculated live.
-
-The Data Setup panel extends the idea presented by pcaExplorer by doing the following:
-
-\begin{enumerate}
-\item the panel structure appears dynamically in three consecutive mandatory steps, marked with color from red to yellow to green, with optional steps in light blue. When starting the app without specifying parameters, two pieces of information are needed, i.e. the count matrix and the experimental covariates as a table. Whenever each requirement is loaded, an UI component is generated to inspect it (e.g. via datatable, or leveraging the show methods for S4 classes instances). The relevant variables for the design are then selected from a selectInput with autocompletion, in this case also allowing for any number of factors to be included. Once the DESeqDataSet is created, the latest step runs the DESeq() routine and fills the required slots for subsequently extracting results.
-\item the optional step of retrieving the annotation on the fly relieves the user from the task of composing the data.frame in advance, and is based on the widely adopted org.XX.eg.db Bioconductor packages.
-\item to tighten the concert operations between similar tools with different scope (as pcaExplorer and ideal are), the information flow can move from the data exploration to decisions taken at the moment of testing, e.g. by performing a more data-driven sample removal after inspecting it with pcaExplorer
-\end{enumerate}
-
-A diagnostic mean-dispersion plot is also provided in a collapsible element at the bottom of the panel.
-
-The Counts Overview shares the same functionality of the Counts Table panel of pcaExplorer []ref sec[], with the additional option to include a filter step at the gene level by removing genes with low absolute or averages low values. After this, it might be possible to have to re-run the analysis in step 3 from the Data Setup panel. The rationale behind this expression-level-based filtering step is inherently bound to the reduction of number of statistical tests to perform \citep{Bourgon2010}????, by ignoring genes with low expression levels, for which no robust test statistic can be extracted.
-
-
-The Extract Results in an interface for generating the summary tables after testing for DE. It is usually based on the Wald test, as implemented in DESeq2, but when the factor of interest is assuming more than two levels, the user can also perform an ANOVA-like test across the groups with the likelihood ratio test. These options are showing up dynamically in the user interface, also allowing the choice of enabling/disabling automated independent filtering []deseq2vignette?, adding the additional column of unshrunken log2 fold change values (instead of the moderated estimates used by default), as well as using the Independent Hypothesis Weighting (IHW) framework \citep{Ignatiadis2016} for weighting tests according to an informative covariate (as the mean expression value).
-
-The False Discovery Rate (FDR) is set for the computations by tweaking the App Settings in the dashboard sidebar on the left side. The resulting table can be stored, and a couple of diagnostic plots, such as the histogram of raw p-values and the distribution of log2fc, are shown below the interactive enhanced version of the table. Clickable elements are present in each row to link to the corresponding ENSEMBL databases (a usual choice for annotation due to their completeness and robustness in assigning identifiers []), but also to the NCBI website for the same gene, which can deliver additional information such as relevant publications - this is very useful when checking in depth a small list of shortlisted candidates.
-
-
-
-The exploration of the results continues in the Summary Plots panel. Here, an interactive MA plot for the contrast selected in the Extract Results tab is displayed, and by clicking on a single gene in the zoomed plot, it is possible to obtain a boxplot for its expression values, flanked by an overview of information accessed live from the Entrez database. Alternatively, a volcano plot of -log10(p-value) versus log fold change can provide a slightly different perspective. The subset of selected genes are also here presented in static and interactive heatmaps, with the underlying data accessible from the collapsible box element.
-
-
-
-The functionality in the Gene Finder builds upon the one provided by pcaExplorer, and allows to query up to four genes in the same view, which can here be selected from a dropdown input list which supports autocompletion. A combined summary table (with both normalized counts and results statistics) is located below an MA plot where the selected genes are marked and annotated on the plot. To avoid repeating this manually, the user can also quickly upload a list of genes as text file (one gene identifier per line), such as members of gene families (e.g. all cytokines, all immunoglobulines, ...) or defined by common function (e.g. all housekeeping genes, or others based on any annotation).
-
-
-
-The Functional Analysis takes on where the results table would deliver simple lists of genes. Indeed, the interpretation of the differential expression results should not just be limited to the single genes, but also carried out at the level of higher order molecular pathways or biological processes. Approaches based on the Gene Ontology (GO) databases are very common in this case, and a number of methods have expanded the simple idea of the overrepresentation of gene-to-term assignments. This panel of ideal has a slim interface to \texttt{limma::goana} for the quick yet standard implementation, and also to topGO \citep{Alexa2006} , particularly valuable for pruning terms which are topologically less meaningful than their specific nodes, and goseq \citep{Young2010}, which accounts for the specific length bias intrinsic in RNA-Seq assays (longer genes have higher chances of being called DE).
-
-\texttt{ideal} allows the user to work simultaneously with more gene lists, where the first ones comprise the regulated genes (respectively up, down, and collectively up+down regulated - as suggested in the work of \cite{Hong2013}), and two of these can be uploaded in a custom way (e.g. list of gene families, or extracted from other existing publications). The interaction among these lists can be visually represented in Venn diagrams, as well as with the appealing alternative from the UpSetR package, where all combination of sets are explicitly shown \citep{Lex2014}. 
-
-Each of the methods for GO enrichment delivers its own table, which can then be explored interactively, not just thanks to the datatable instance, but notably also with the display of a heatmap for all the (DE) genes annotated to a particular term, picking the normalized transformed values for comparing robustly the expression values. This functionality is triggered by clicking any of the rows for the results tables. Another useful feature is provided by the clickable link on each of the GO term identifiers, which opens up a browser window with all the big wealth of annotation information for the term of interest.
-
-
-
-
-The Report Editor tab works in the same way of pcaExplorer, with the scope of providing an interface to full computational reproducibility of the analyses. The code contained in the template report fetches the latest state of the reactive values in the ongoing session, and its output is a comprehensive HTML file that can be expanded, edited, previewed, downloaded, and shared with a few mouse clicks.
-
-
-The About tab contains the output of \texttt{sessionInfo}, plus general information on ideal, including the link to the Github development version. If requested, the modular structure of the app can be easily expanded, and many new operations on the same set of input data and derived results can be embedded in the same framework. 
-
-
-\subsection{Analysis workflow with ideal}
-
-
-
-We will focus on the latest of these options to define the common steps for analysis. Typically, the workflow of \texttt{ideal} starts in the Welcome panel, where the user can get a first impression of how to operate with the software. [][][][]an interactive tour of the app is provided, based on the tour.js javascript library????[][][][] The Data Setup UI structure guides through the mandatory steps, and at every step it is possible to obtain a preview for the objects either uploaded or generated. Operations which could otherwise be daunting on the command line are presented in an accessible interface, while still keeping the flexible and powerful framework of DESeq2 under the hood. The Counts Overview is where a first impression on the data can be taken, checking the number of detected genes.
-
-The other fundamental step is to generate the results table, and I retained intact the possibility to deal with multifactorial designs, as well as offering an ANOVA-like comparison of three or more groups, according to the design information. This table can be explored in detail in the Summary Plots tab, also combined with the functionality of the Gene Finder to quickly check the behavior of a selected subset of genes. The Functional Analysis is the first building brick to inspect the enriched molecular functions and pathways, and allowing the integration with custom lists makes it possible to compare the current data with results stemming from prior knowledge or other studies.
-
-Notably, the tabs are effectively accessible only when the required objects are made available during the session. The dynamics of the user interface try to suggest what missing parameters need to be provided. Whenever the exploration is deemed to be complete, or also during the analysis session, the report in the dedicated tab can be updated and previewed. Before closing the application, saving the state in the environment and as binary data, together with the downloaded report, are a solid basis for sharing the results with colleagues, in a way that everyone could reproduce the operations.
-
- 
-
-
-\subsection{Deployment}
-
-Following the structure of \texttt{pcaExplorer}, the deployment as a standalone web application is easily achieved also for \texttt{ideal}, with the only requirement of a running Shiny Server. Handling of sensitive human patient data can thus occur in a secured way, e.g. with restricted access to an internal instance of the application. This will also avoid the need of external software installation for the users, which could moreover seamlessly access higher performing computing infrastructures.
-
-This implementation of \texttt{ideal} is made available at github.com/federicomarini/ideal\_serveredition 
-
-
-
-\subsection{ideal in a nutshell}
-
-
-ideal is an R package which fully leverages the infrastructure of the Bioconductor project in order to deliver an interactive yet reproducible analysis for the detection of differentially expressed genes in RNA-Seq datasets. Graphs, tables, and interactive HTML reports can be readily exported and shared across collaborators. The dynamic user interface displays a broad level of content and information, subdivided by thematic tasks. All in all, it aims to enforce a proper analysis, by reaching out both life scientists and experienced bioinformaticians, and also fosters the communication between the two sides, offering robust statistical methods and high standard of accessible documentation.
-
-
-
-
-
-
-##### glimma
-
-
-
-Contents
-1 Quick start 3
-2 Creating and sharing output 6
-3 Multi-dimensional scaling plots 7
-4 Mean-difference plots 9
-4.1 General .................................... 9 4.2 Plottingoptions................................ 10 4.3 Tableoptions ................................. 11
-5 XYplots 13
-6 Using microarray data 15
-7 Appendix 20
-7.1 Extramean-differenceplots ......................... 20 7.1.1 edgeR-styleanalysis ......................... 20 7.1.2 DESeq2-styleanalysis ........................ 20
-7.2 Rsessioninformation............................. 20
-2
-1 Quick start
-Glimma is a Bioconductor [11] package for interactive visualization of results from dif- ferential expression analyses of RNA-sequencing (RNA-seq) and microarray data. Its functionality is intended to enhance reporting capabilities so that results can be explored more conveniently by end-users. Glimma, which loosely stands for interactive Graphics from limma, extends some of the popular plotting capabilities in the limma [1] pack- age such as multi-dimensional scaling (MDS) plots and mean-difference (MD) plots. For seamless integration between the analysis by external packages and Glimma’s interactive plots, Glimma accepts differential expression results from limma, edgeR [3] or DESeq2 [4] packages as input and creates an html page which presents the results interactively. Figure 1 gives an overview of the input data types and processing functions in Glimma. The displays within Glimma were inspired by visualisations from Degust software [2].
-Figure 1: Overview of workflow showing the input and output types for functions in Glimma.
-> set.seed(20161000)
-> options(digits=2)
-> options(width=100)
-> options(browser="false")
-The main dataset used in this vignette is taken from an RNA-seq experiment exam- ining lymphoma cell lines in mice with alterations to the Smchd1 gene [5]. The count data is available as an edgeR DGEList object within Glimma for 4 wildtype samples and 3 samples that have a null allele of the Smchd1 gene (we call these samples Smchd1-null).
-￼> library(Glimma)
-> library(limma)
-> library(edgeR)
-> data(lymphomaRNAseq)
-> rnaseq <- lymphomaRNAseq
-> rnaseq$samples$group
-[1] Smchd1-null Smchd1-null Smchd1-null Smchd1-null WT
-Levels: WT Smchd1-null
-WT WT
-3
-Lowly expressed genes are removed from downstream analysis and TMM-normalisation [9] is carried out.
-> rnaseq <- rnaseq[rowSums(cpm(rnaseq)>1)>=3,]
-> rnaseq <- calcNormFactors(rnaseq)
-Using the glMDSPlot functon, an interactive MDS plot can be created to examine the clustering of samples in an unsupervised fashion. Distances in the plot represent similarities and dissimilarities between samples. Glimma’s MDS plot allows users to interactively browse through different dimensions of the plot. A MDS plot is created here using a DGEList object of sample expression and vector specifying sample groups, a screen-capture of the html output is shown in Figure 2.
-> groups <- rnaseq$samples$group
-> glMDSPlot(rnaseq, groups=groups)
-Figure 2: Interactive MDS plot where the dimensions displayed in the MDS plot (left) can be changed by clicking on the associated bars in the barplot (right). Samples, or points, in the MDS plot are colored by genotype.
-We demonstrate the usage of Glimma by carrying out a limma-style analysis and using the corresponding output as input to Glimma functions. The same functions would work just as easily on output from edgeR or DESeq2 analyses, where examples of these are shown explicitly in the Appendix in Section 7. Here, differential expression of genes between Smchd1-null and wildtype samples is carried out using limma’s voom with quality weights method [6, 7]. An adjusted p-value cutoff of 5% detects 882 genes as down- regulated in the Smchd1-null group relative to wildtypes, and 634 genes as up-regulated.
-> design <- model.matrix(~0+groups)
-> contrasts <- cbind(Smchd1null.vs.WT=c(-1,1))
-> vm <- voomWithQualityWeights(rnaseq, design=design)
-> fit <- lmFit(vm, design=design)
-> fit <- contrasts.fit(fit, contrasts)
-> fit <- eBayes(fit)
-> dt <- decideTests(fit)
-> summary(dt)
-￼4
-   Smchd1null.vs.WT
--1              882
-0             10079
-1               634
-Glimma’s interactive MD plot displays gene-wise log2-fold changes (logFCs) against average expression values together with a plot of sample expression. This allows users to see summarised results from all of the genes as a whole whilst being able to scrutinise the expression of individual genes at the same time. Using the glMDPlot function, a MD plot is created using fit which is an MArrayLM object, and dt a TestResults object that is used to highlight differentially expressed (DE) genes. The EList object from voom contains log2-counts per million (logCPM) values which are used in the plot of sample expression. A screen-capture of the html output is shown in Figure 3.
-> glMDPlot(fit, status=dt, counts=vm, groups=groups, side.main="Symbols")
-Figure 3: Interactive MD plot where gene-wise logFCs are plotted against mean expres- sion values (top left). Significantly up- and down-regulated genes are highlighted in red and blue respectively. A table of associated gene information is displayed (bottom). Sam- ple expression is displayed for an given gene (top right) by selecting a point in the main plot or a row in the table.
-For a general plot of any two gene-wise summarised statistics, the glXYPlot allows one to plot any two vectors of equal length against each other and associate these with sample expression. We display below the R-code for creating a volcano plot using logFC values and log-odds. It is important to ensure that ordering of genes is the same for the two vectors and the expression matrix!
-> glXYPlot(x=fit$coef, y=fit$lod, xlab="logFC", ylab="logodds",
-+   status=dt, counts=vm, groups=groups, anno=fit$genes)
-￼5
-2 Creating and sharing output
-All interactive plots are automatically saved as html files in a “glimma-plots” folder that is created in the current working directory, unless specified otherwise using the path and folderarguments. BydefaultMDSplotsaresavedas“MDS-Plot.html”,MDplotsas“MD- Plot.html”, and XY plots “XY-Plot.html”. Alternate file names can be specified using the html argument. As each plot is created and saved, an html page is also launched automatically in your default web browser; launch can be set to FALSE if this is not desired.
-Glimma’s interactive plots can be distributed to collaborators by sharing the complete “glimma-plots” folder with its contents. Note that sharing html files alone will not work. In an Rmarkdown analysis report the interactive plots can be included as links in their
-relevant sections
-6
-3 Multi-dimensional scaling plots
-Interactive MDS plots show similarities between the transcriptional profile of samples via unsupervised clustering. Glimma’s MDS plot can be created on expression data in the form of a numeric matrix, DGEList, Elist, or DESeqDataSet object. Raw counts in an DGEList are automatically converted by glMDSPlot into logCPM values using normali- sation factors within the object. For an equivalent plot using an expression matrix, raw counts need to be manually converted to logCPM values. An example is shown below us- ing the cpm function in edgeR which takes into account the normalisation factors stored within the DGEList.
-> lcpm <- cpm(rnaseq, log=TRUE, normalized.lib.sizes=TRUE)
-> glMDSPlot(lcpm, groups=groups)
-The output contains two key components. On the left is an MDS plot showing two consecutive dimensions plotted against each other with each sample represented by a point in the plot. The distance between two samples reflect the leading logFC or typical logFC of genes separating the samples. By default the top 500 genes are used to calculate distances unless specified otherwise using the top argument. For more information on MDS plots, see ?limma::plotMDS.
-On the right, a barplot is displayed representing the proportion of variation in the data that is explained by the dimensions or eigenvectors in the MDS plot. Dimension 1 which explains the largest proportion of variation is associated with the first, left-most bar. The second bar is associated with dimensions 2, the third bar is for dimensions 3, and so on. Clicking on a bar on the page will highlight two consecutive bars and display the associated dimensions in the MDS plot.
-Hovering your cursor over each of the points in the MDS plot brings up sample information such as sample labels and groups which can be specified using the labels and groups arguments. The coloring of points in the plot are associated with each unique group label. Typically groups would be a vector specifying the main condition by which samples are separated, but for more complex experimental designs a dataframe can also be used to represent multiple categorical variables.
-To demonstrate this, a dataframe is created using genotype and sequencing lane information (all samples were sequenced on lane 4 except for the last sample which was sequenced on lane 3). An interactive MDS plot is created by using the dataframe to define groups. The screen-captures in Figure 4 from the html output shows the switching of sample colors by genotype to sequencing lane, and a change in the displayed dimensions.
-> groups.df <- as.data.frame(cbind(
-+   genotype=as.character(groups),
-+   lane=c(rep(4,6),3)))
-> groups.df
-     genotype lane
-1 Smchd1-null    4
-2 Smchd1-null    4
-3 Smchd1-null    4
-4 Smchd1-null    4
-7
-5 WT4 6 WT4 7 WT3
-> glMDSPlot(lcpm, groups=groups.df)
-Figure 4: Interactive MDS plots showing (A) dimensions 1 and 2 with samples colored by group (or genotype) and (B) dimensions 2 and 3 with sampled colored by sequencing lane.
-￼8
-4 Mean-difference plots 4.1 General
-Mean-difference plots provide a visual summary of the results and are useful for high- lighting genes with unusually large absolute logFCs amongst all of the genes that are tested. When “stand out” genes are spotted in the MD plot it is often of interest to see the expression of individual samples for that gene to check the consistency of expression within groups and for the potential of outliers. Glimma’s MD plot makes that connection between summarised results (across all genes) and individual sample expression (for any selected gene) so that the data can be interrogated more thoroughly by having the two plots side-by-side.
-Figure 5: Layout of MD plots with three key components – two plots on top and a table below. Green arrows represent the direction of interaction between components.
-The interactive MD plot contains three key components which interact with each other to show multiple aspects of the data in the one display. The layout of such a plot is shown in Figure 5. The main component is a plot of gene-wise summarised statistics which takes the top-left panel of the html page. Gene-wise logFCs are plotted against gene-wise average logCPM values where each point on the plot represents a single gene. Hovering your cursor over or clicking on a gene (or point) within the main plot brings the expression of each sample for the selected gene in a plot in the top-right panel At the same time, associated gene information is displayed in the table below.
-Users can simply scroll through the table looking for any gene that is of interest, or hone into specific genes or groups of genes using the search function in the table. Clicking on a gene (or row) in the table interacts with both of the plots simultaneously – the selected gene is highlighted in the MD plot and next to it, the expression each sample is displayed.
-The order of genes displayed in the table can be re-ordered in an increasing or decreas- ing fashion by clicking on the header of a column. This is useful to see which genes have the smallest raw or adjusted p-value, or for sorting genes into those that are most up- or down-regulated in terms of logFC. The ordering function in the table used in conjunction with the search function can be especially powerful as an exploratory tool, for example,
-￼9
-one can search by a keyword of interest, say “structural maintanence” and then order the reduced table of genes by adjusted p-value.
-When working with limma output, average expression values, logFCs and associated gene information are automatically extracted from MArrayLM objects. By default the last coefficient in the object is used unless specifed otherwise using the coef argument. In it’s simplest form, glMDSPlot can take an MArrayLM object alone with counts unspecified, as shown in the R-code below. In this way, only the main plot and table will be displayed.
-> glMDPlot(fit)
-When it is used, counts can be raw or transformed counts (e.g. cpm or logCPM) that must have the same ordering of genes as in the main argument x. If raw counts are given, they can be transformed into logCPM values by setting transform to TRUE.
-4.2 Plotting options
-Sample expression can be sorted into groups using the groups argument, where groups is a vector matching in length and order to the samples (or columns) in counts. Typically groups will be a character or factor vector separating samples into different conditions, as demonstrated in Section 1. However, groups can also be a numeric vector associating expression values with a covariate of interest, for example, the age of mice at the time of RNA extraction.
-> groups.age <- runif(ncol(rnaseq), min=3, max=12)
-> groups.age
-[1]  3.6 10.9 11.2  8.9  7.6 10.4  9.5
-In the main plot, up- and down-regulated genes can be highlighted using the status argument which is a vector containing integer values of -1 to represent down-regulated genes, 0 for no differential expression, and 1 for up-regulated genes. These values can be given in the form of a numeric vector that is of the same length and ordering of genes in x. Alternatively, if a matrix or a TestResults object is supplied, then the column specified by coef will be used to highlight genes. By default, down-regulated genes are colored in blue and up-regulated genes are in red. Alternatively, your own colors can be specified using the cols argument which accepts both R-defined colors such as “blue”, and numeric values which references your current color palette.
-In the side sample expression plot, side.main specifies the column from table which is used as the main title, for example, side.main= “GeneName”. side.xlab and side.ylab is used to specify the labels for x- and y- axes. Sample labels which appear when clicking on or hovering over a point can be changed using the samples argument; and colors of points can be specified using the sample.cols argument. Other arguments include jitter which jitters points horizontally to minimise the amount of overlap (does not apply when groups is numeric), side.log which re-scales the y-axis to a log-scale (but does not transform the data), and side.gridstep which adds horizontal grid lines to the plot.
-Using the age of mice in the sample expression plot, we demonstrate the use of some of the options described above (Figure 6). Notice that the color of points in both the MD plot and sample expression plot has changed, and more informative labels have been specified.
-10
-> cols <- c("yellow","blue","magenta")
-> sample.cols <- c("limegreen", "purple")[groups]
-> glMDPlot(fit, status=dt, counts=vm, groups=groups.age,
-+   sample.cols=sample.cols, cols=cols,
-+   side.ylab="logCPM", side.xlab="Age (in months)",
-+   side.main="Symbols", main=colnames(dt))
-Figure 6: Interactive MD plot (left) where sample expression (right) has been stratified by age. The table is not displayed here to highlight changes to MD and sample expression plots.
-4.3 Table options
-Gene information is automatically extracted from MArrayLM and DGEList objects and displayed within the table, along with the values for average gene expression, logFC and adjusted p-value. glMDPlot does this by looking under the $genes slot of x.
-Extra gene annotation can be added to the table using the anno argument. This would combine and display both the gene information from x and anno, where anno is a dataframe with the same ordering and number of genes as in x. To display specific columns in the table use the display.columns argument.
-In the example below, we create extra gene annotation, where ID combines gene sym- bol with Entrez gene ID and DE specifies whether genes are downregulated, upregulated or not differentially expressed (notDE). Using display.columns, we display only ID and DE, and full gene names from fit$genes.
-> ID <- paste(fit$genes$Symbols, fit$genes$GeneID)
-> DE <- c("downregulated", "notDE", "upregulated")[as.factor(dt)]
-> anno <- as.data.frame(cbind(ID, DE))
-> head(anno)
-           ID            DE
-1 Abca1 11303 downregulated
-2 Abca2 11305         notDE
-3 Abcb7 11306         notDE
-4 Abcg1 11307 downregulated
-5  Abi1 11308         notDE
-6  Abl1 11350 downregulated
-￼11
-> glMDPlot(fit, counts=vm, groups=groups, side.main="ID",
-+   anno=anno, display.columns=c("ID", "GeneName", "DE"))
-Figure 7: Interactive MD plot with changes to default gene information displayed in the table.
-Adjusted p-values that are included in the table are automatically calculated using the Benjamini and Hochberg method [10] on raw p-values stored within x. Other multiple- testing correction methods that are available in stats::p.adjust can be specified to the p.adj.method argument.
-When performing differential expression analyses using edgeR, the examples in this section would work by simply replacing limma’s MArrayLM object with either of edgeR’s DGEExact or DGELRT object; the same goes for DESeqDataSet objects from a DESeq2- style analysis. LogFC values, average expression values and raw p-values are automat- ically extracted from all objects. Gene information, however, is only automatically ex- tracted from the limma and edgeR objects but not for DESeq2. See Subsection ?? and ?? for examples using output from edgeR and DESeq2.
-￼12
-5 XY plots
-Glimma’s XY plots have the same layout as MD plots (Figure 5) but can be used to display any gene-wise summary statistic against any other gene-wise summary statistic as the main plot in the top left panel. The MD plot is essentially the XY plot with the x-component specified as average logCPM values and the y-component specified as logFC values. Since the XY plot is for general usage it works with basic R objects such as vectors, matrices and dataframes, rather than MArrayLM, DGEExact, DGELRT or DESeqDataSet objects where gene information or raw p-values could otherwise be automatically extracted. The two main arguments in glXYPlot are x and y, both of which are numeric vectors of equal length. To create a volcano plot, we specify x as the logFC between Smchd1-null versus wildtype, and y as the log-odds that the gene is DE.
-> glXYPlot(x=fit$coef, y=fit$lod)
-Since no other information is given to the function, genes are automatically assigned gene identifiers (GeneID) and labels remain as ‘x’ and ‘y’. The labels can be specified as something more meaningful, such as ‘logFC’ and ‘logodds’ using the xlab and ylab arguments.
-Other arguments in XY plot are analogous to those that are in the MD plot. In brief, status and cols are used to highlight DE genes in the main plot; anno adds gene information to the table where display.columns specifies the columns that are display; counts is used to add a plot of sample expression with groups separating observations into different conditions; samples and sample.cols labels and colors points in the sample expression plot, where jitter is applied to points avoid overlapping, and side.main is used as the title label.
-Using some of the options mentioned, an enhanced version of the volcano plot is created using the R-code below (Figure 8).
-> glXYPlot(x=fit$coef, y=fit$lod, xlab="logFC", ylab="logodds",
-+   status=dt, anno=anno, side.main="ID",
-+   counts=vm, groups=groups, sample.cols=sample.cols)
-The XY plot allows users to come up with an unlimited number of plotting combi- nations between any two gene-wise statistcs for a dataset and relate these to sample- specific expression. It can also be used to compare results between datasets, for example the logFC from one experiment could be plotted against the logFC from a second ex- periment, with the corresponding sample expression presented in the left-hand panel as before.
-13
-￼Figure 8: Interactive volcano plot (top left) with DE genes highlighted, and samples in the sample expression plot (top right) separated into genotype.
-14
-6 Using microarray data
-Although Glimma was developed with RNA-sequencing data analyses in mind and de- signed to interact specifically with the limma, edgeR and DESeq2, it can be just as easily applied to microarray data especially when the data is processed with limma.
-In this section, we demonstrate the usage of Glimma on an Illumina microarray dataset taken from a study on the Ezh2 gene in mouse mammary epithelium [13]. The study includes two cell populations, one that is enriched for mammary stem cells (labeled as DP) and another that is enriched for luminal progenitor cells (labeled as Lum). In each population, there are three samples where the Ezh2 gene has been knocked-out (labeled as cre Ezh2) and three wildtype samples (labeled as ev).
-For this dataset, normexp [12] background correction and normalisation was carried out, and probes are removed from downstream analysis if they were not detected in any of the samples or are of low quality. Probes are considered as “detected” if they have a detection score of greater than 0.95, and are considered to have reasonable quality if it is graded as “Good” or better. The pre-processed expression data is available within Glimma as an EListRaw object and a targets file of associated sample information is included.
-> data(arraydata)
-> arrays <- arraydata$arrays
-> targets <- arraydata$targets
-> dim(arrays)
-[1] 10571 12
-> targets
-   Array SampleID    Condition
-Chip Section Experiment
-1 1
-2 2
-3 3
-4 4
-5 5
-6 6
-7 7
-8 8
-9 9
-10    10
-11    11
-12    12    TB.09        DP ev 5233006024
-A          2
-B          1
-C          2
-D          1
-E          1
-F          1
-A          2
-B          2
-C          3
-D          3
-E          3
-F          3
-TB.05        DP ev 5233006042
-TB.04 Lum cre Ezh2 5233006042
-TB.06  DP cre Ezh2 5233006042
-TB.01        DP ev 5233006042
-TB.03       Lum ev 5233006042
-TB.02  DP cre Ezh2 5233006042
-TB.08 Lum cre Ezh2 5233006024
- TB.7       Lum ev 5233006024
-TB.11       Lum ev 5233006024
-TB.12 Lum cre Ezh2 5233006024
-TB.10  DP cre Ezh2 5233006024
-An MDS plot is created on the Elist object with samples colored by sample condition, the Illumina beadchip on which samples were processed on, and experiment number. The plot shows that samples separate first by cell population (DP and Lum) over Dimension 1 (Figure 9A), and then separate by the beadchip and experiment over Dimension 2 (Fig- ure 9B,C). Variations in the experimental design are easily explored using the interactive plot.
-15
-￼Figure 9: Interactive MDS plot with samples colored by condition (A), beadchip (B) and experiment (C). The plot showing the proportion of variation explained by each dimension (top right panel) has been hidden in panels B and C, to highlight the change in MDS Color Group.
-> glMDSPlot(arrays, groups=targets[,c("Condition", "Chip", "Experiment")])
-Within each cell population we test for the probes that are DE for Ezh2 knock-out versus wildtype using a limma-style analysis. Sample conditions and experiment number is included as parameters used in linear modelling. Using an adjusted p-value of 0.1, 131 probes are detected as DE in the mammary stem cell-enriched population, and 85 probes
-16
-are detected in the luminal population.
-> design <- model.matrix(~0+targets$Condition+as.factor(targets$Experiment)) > contrasts <- cbind(
-+   DP_Ezh2KO.vs.WT=c(1,-1,0,0,0,0),
-+   Lum_Ezh2KO.vs.WT=c(0,0,1,-1,0,0))
-> fit <- lmFit(arrays, design)
-> fit <- contrasts.fit(fit, contrasts)
-> fit <- eBayes(fit)
-> dt <- decideTests(fit, p.value=0.1)
-> summary(dt)
-   DP_Ezh2KO.vs.WT Lum_Ezh2KO.vs.WT
--1              37               65
-0            10440            10486
-1               94               20
-A MD plot is created for each of the comparisons, with sample expression grouped by condition and colored by experiment number. Since gene identifiers are non-unique in microarray data, probe identifiers are used to label sample expression plots. Amongst the DE top genes that are displayed (as ranked by adjusted p-value), probe 6940037 is up- regulated in the comparison of Ezh2 knock-out versus wildtype in both cell populations (Figure ??).
-> sample.cols <- c("purple", "magenta", "green")[targets$Experiment]
-> for (COEF in 1:2) {
-+
-+
-+ +}
-glMDPlot(fit, status=dt, coef=COEF, main=colnames(fit)[COEF],
-  counts=arrays, groups=targets$Condition, sample.cols=sample.cols,
-  side.ylab="Log-expression", side.main="ProbeID")
-To take a look at both comparisons at the same time, the logFC for DP Ezh2 knock- out versus wildtype is plotted against the logFC for Lum Ezh2 knock-out versus wildtype (Figure 11). Probes that are DE in either one of the comparisons are highlighted in the plot in black, and probes that are DE in both comparisons are highlighted in the plot in red. We search specifically for “Ltf” to find probe 6940037 using the table’s search bar. Probe 6940037 has the largest positive logFC in both comparisons. In general, logFCs in the two cell populations are postively correlated for the comparison between Ezh2 knock-out versus wildtype.
-> dt2 <- rep(0, nrow(dt))
-> dt2[rowSums(dt!=0)==1] <- -1
-> dt2[rowSums(dt!=0)==2] <- 1
-> table(dt2)
-dt2
--1 0 1
-184 10371 16
-17
-￼Figure 10: Interactive MD plot for the comparison between Ezh2 knock-out and wild- type for A) mammary stem cell-enriched samples and B) luminal populations, where up- regulated genes are colored in red and down-regulated genes are colored in blue. Samples in the sample expression plot are grouped by condition and colored by experiment num- ber. Both tables in A) and B) show the top DE genes are ranked by adjusted p-value. Probe 6940037 for gene Ltf is amongst the top DE genes in both comparisons.
-18
-> cols <- c("black", "grey", "red")
-> glXYPlot(fit$coef[,1], y=fit$coef[,2], xlab="DP", ylab="Lum",
-+   status=dt2, cols=cols, anno=fit$genes, side.main="ProbeID",
-+   counts=arrays, groups=targets$Condition, sample.cols=sample.cols,
-+   side.ylab="Log-expression", main="logFCs")
-Figure 11: Interactive plot of logFCs for Ezh2 knock-out versus wildtype in DP (x-axis) and Lum (y-axis) in the top left panel. Probes that are DE in one comparison are highlighted in black, and probes that are DE in both comparisons are highlighted in red. Sample expression is separated into conditions and colored by experiment number. The table of results is restricted to those that match with “Ltf”.
-￼19
-7 Appendix
-7.1 Extra mean-difference plots
-7.1.1 edgeR-style analysis
-In the R code below, DE analysis is carried out using edgeR’s exact test method. A MD plot is created using a DGEExact object, and dt.edger which is limma’s TestResults object is used to highlight genes that are detected as differentially expressed. Since raw counts are given to the glMDPlot function, a logCPM transformation is carried out using the transform argument. For an analysis using edgeR’s likelihood ratio tests, one can easily replace the DGEExact object below with a DGELRT object.
-> groups <- rnaseq$samples$group
-> design <- model.matrix(~groups)
-> colnames(design) <- c("WT", "Smchd1null.vs.WT")
-> rnaseq.edger <- estimateDisp(rnaseq, design=design)
-> fit.edger <- exactTest(rnaseq.edger)
-> dt.edger <- decideTestsDGE(fit.edger)
-> glMDPlot(fit.edger, status=dt.edger, counts=rnaseq, groups=groups, transform=TRUE)
-7.1.2 DESeq2-style analysis
-Differential expression analysis is carried out here using DESeq2. A MD plot is created using a DESeqResults object. Genes are highlighted (without distinction between up- or down-regulation) using the numeric vector dt.deseq2.
-> # BUG regarding the scale of sample expression
-> library(DESeq2)
-> rnaseq.deseq2 <- DESeqDataSetFromMatrix(
-+   rnaseq$counts, colData=rnaseq$samples, design=~group)
-> mcols(rnaseq.deseq2) <- DataFrame(mcols(rnaseq.deseq2), rnaseq$genes)
-> rnaseq.deseq2 <- DESeq(rnaseq.deseq2)
-> fit.deseq2 <- results(rnaseq.deseq2, contrast=c("group", "Smchd1-null", "WT"))
-> dt.deseq2 <- as.numeric(fit.deseq2$padj<0.05)
-> glMDPlot(fit.deseq2, status=dt.deseq2, counts=rnaseq, groups=groups, transform=FALSE, + samples=colnames(rnaseq), anno=rnaseq$genes)
-7.2 R session information
-> sessionInfo()
-R Under development (unstable) (2016-12-02 r71716)
-Platform: x86_64-pc-linux-gnu (64-bit)
-Running under: Ubuntu 16.04.1 LTS
-locale:
- [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C
- [4] LC_COLLATE=C               LC_MONETARY=en_US.UTF-8
-LC_TIME=en_US.UTF-8
-LC_MESSAGES=en_US.UTF-8
-20
- [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                  LC_ADDRESS=C
-[10] LC_TELEPHONE=C             LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C
-attached base packages:
-[1] stats     graphics  grDevices utils     datasets  methods   base
-other attached packages:
-[1] edgeR_3.17.5  limma_3.31.13 Glimma_1.3.20
-loaded via a namespace (and not attached):
-[1] compiler_3.4.0  tools_3.4.0     grid_3.4.0      locfit_1.5-9.1  knitr_1.15.1    jsonlite
-[7] lattice_0.20-34
-21
-References
-[1] Ritchie ME, Phipson B, Wu D, Hu Y, Law CW, Shi W, Smyth GK. (2015) limma powers differential expression analyses for RNA-sequencing and microarray studies, Nucleic Acids Research, 43(7):e47.
-[2] Powell DR. (2015) Degust: Visualize, explore and appreciate RNA-seq differential gene-expression data, http://victorian-bioinformatics-consortium.github.io/ degust/.
-[3] Robinson MD, McCarthy DJ, Smyth GK. (2010) edgeR: a Bioconductor package for differential expression analysis of digital gene expression data, Bioinformatics, 26(1):139–40.
-[4] Love MI, Huber W, Anders S. (2014) Moderated estimation of fold change and dis- persion for RNA-seq data with DESeq2, Genome Biology, 15(12):550.
-[5] Liu R, Chen K, Jansz N, Blewitt ME, Ritchie, ME (2016) Transcriptional profiling of the epigenetic regulator Smchd1, Genomics Data, 7:144–7.
-[6] Law CW, Chen Y, Shi W, Smyth GK (2014) Voom: precision weights unlock linear model analysis tools for RNA-seq read counts, Genome Biology, 15:R29.
-[7] Liu R, Holik AZ, Su S, Jansz N, Chen K, Leong HS, Blewitt ME, Asselin-Labat ML, Smyth GK, Ritchie ME (2015) Why weight? Combining voom with estimates of sample quality improves power in RNA-seq analyses, Nucleic Acids Research, 43(15):e97.
-[8] McCarthy DJ, Smyth GK (2009) Testing significance relative to a fold-change thresh- old is a TREAT, Bioinformatics, 25(6):765-71.
-[9] Robinson MD, Oshlack A (2010) A scaling normalization method for differential ex- pression analysis of RNA-seq data, Genome Biology, 11:R25.
-[10] Benjamini Y, Hochberg Y (1995) Controlling the false discovery rate: a practical and powerful approach to multiple testing, Journal of the Royal Statistical Society Series B 57, 289-300.
-[11] Huber W, Carey V, Gentleman R, Anders S, Carlson M, Carvalho BS, Bravo HC, Davis S, Gatto L, Girke T, Gottardo R, Hahne F, Hansen KD, Irizarry RA, Lawrence M, Love MI, MacDonald J, Obenchain V, Ole ́s AK, Pag`es H, Reyes A, Shannon P, Smyth GK, Tenenbaum D, Waldron L, Morgan M (2015) Orchestrating high-throughput genomic analysis with Bioconductor, Nature Methods 12(2):151–121.
-[12] Shi W, Oshlack A, Smyth GK (2010) Optimizing the noise versus bias trade-off for Illumina Whole Genome Expression BeadChips, Nucleic Acids Research 38e204.
-[13] Pal B, Bouras T, Shi W, Vaillant F, Sheridan JM, Fu N, Breslin K, Jiang K, Ritchie ME, Young M, Lindeman GJ, Smyth GK, Visvader JE (2013) Global changes in the mammary epigenome are induced by hormonal cues and coordinated by Ezh2, Cell Reports 3:411-426.
-
-
-
-
-
 
 
 

@@ -1,6 +1,6 @@
 #' Extract functional terms enriched in the DE genes, based on goseq
 #'
-#' A wrapper for extracting functional GO terms enriched in the a list of (DE) genes,
+#' A wrapper for extracting functional GO terms enriched in a list of (DE) genes,
 #' based on the algorithm and the implementation in the goseq package
 #'
 #' Note: the feature length retrieval is based on the \code{\link{goseq}} function,

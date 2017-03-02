@@ -37,7 +37,7 @@ to each GO term}
 A table containing the computed GO Terms and related enrichment scores
 }
 \description{
-A wrapper for extracting functional GO terms enriched in the a list of (DE) genes,
+A wrapper for extracting functional GO terms enriched in a list of (DE) genes,
 based on the algorithm and the implementation in the goseq package
 }
 \details{
