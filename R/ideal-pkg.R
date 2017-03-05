@@ -38,6 +38,7 @@
 #' @import d3heatmap
 #' @importFrom limma goana topGO
 #' @import topGO
+#' @import rintrojs
 #' @importFrom shinyBS bsTooltip
 #' @importFrom grDevices dev.off pdf
 #' @import methods
