@@ -1,20 +1,10 @@
 ## About `ideal`
 
-`ideal` is a Bioconductor package containing a Shiny application for
-interactively analyzing RNA-seq expression data, by interactive exploration of the 
-results of a Differential Expression analysis.
+`ideal` is a Bioconductor package containing a Shiny application for interactively analyzing RNA-seq expression data, by interactive exploration of the results of a Differential Expression analysis.
 
-`ideal` 
+Thanks to its interactive/reactive design, it is designed to become a practical companion to any RNA-seq dataset analysis, making downstream and exploratory data analysis accessible also to the bench biologist, while providing additional quick insight also for the experienced data analyst.
 
-Thanks to its interactive/reactive design, it is designed to become a practical
-companion to any RNA-seq dataset analysis, making downstream and exploratory 
-data analysis accessible also to the bench biologist, while providing additional 
-quick insight also for the experienced data analyst.
-
-`ideal` was developed in the Bioinformatics Division led by Harald Binder 
-at the IMBEI (Institut für Medizinische Biometrie, Epidemiologie und Informatik) 
-in the University Medical Center of the Johannes Gutenberg University Mainz.
-
+`ideal` was developed by Federico Marini in the Bioinformatics Division led by Harald Binder at the IMBEI (Institut für Medizinische Biometrie, Epidemiologie und Informatik) in the University Medical Center of the Johannes Gutenberg University Mainz.
 
 
 ## Developers
@@ -31,4 +21,29 @@ All code for `ideal` is available on
 
 If you use `ideal` for your analysis, please cite it as here below:
 
-...
+```r
+citation("ideal")
+```
+
+```
+## 
+## To cite package 'ideal' in publications use:
+## 
+##   Federico Marini (2017). ideal: Interactive Differential
+##   Expression AnaLysis. R package version 0.4.0.
+##   https://github.com/federicomarini/ideal
+## 
+## A BibTeX entry for LaTeX users is
+## 
+##   @Manual{,
+##     title = {ideal: Interactive Differential Expression AnaLysis},
+##     author = {Federico Marini},
+##     year = {2017},
+##     note = {R package version 0.4.0},
+##     url = {https://github.com/federicomarini/ideal},
+##   }
+```
+
+<hr/>
+
+## Session Info
