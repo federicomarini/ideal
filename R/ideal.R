@@ -83,10 +83,10 @@ ideal<- function(dds_obj = NULL,
 
 
 
-#
-#   # components defined in separated .R files
-#   shinyApp(ui = ideal_ui, server = ideal_server)
-#
+  #
+  #   # components defined in separated .R files
+  #   shinyApp(ui = ideal_ui, server = ideal_server)
+  #
 
 
 
@@ -146,12 +146,20 @@ ideal<- function(dds_obj = NULL,
                  fluidRow(column(6,p("DESeqDataset")), column(6,uiOutput("ok_dds"))),
                  fluidRow(column(6,p("Annotation")), column(6,uiOutput("ok_anno"))),
                  fluidRow(column(6,p("Results")), column(6,uiOutput("ok_resu")))
-               ))
+               )),
+      menuItem("First steps help", icon = icon("question-circle"),
+               actionButton("btn", "Click me for a quick tour", icon("info"),
+                            style="color: #ffffff; background-color: #0092AC; border-color: #2e6da4")
+      )
     ),
 
 
 
     dashboardBody(
+      introjsUI(),
+      # must include in UI
+
+
 
       ## Define output size and style of error messages, and also the style of the icons e.g. check
       ## plus, define the myscrollbox div to prevent y overflow when page fills up
@@ -167,8 +175,13 @@ ideal<- function(dds_obj = NULL,
                         }
                         #myScrollBox{
                         overflow-y: scroll;
-}
-"))
+
+                        .dataTables_wrapper{
+                        overflow-x: scroll;
+                        }
+
+  }
+                        "))
         ),
 
       # value boxes to always have an overview on the available data
@@ -187,13 +200,13 @@ ideal<- function(dds_obj = NULL,
 
           tabPanel(
             # "Welcome!",  icon = icon("info-circle"),
-            "Welcome!",  icon = icon("home"),
+            title = "Welcome!",  icon = icon("home"), value="tab-welcome",
             # carouselPanel(
             #   img(src = "www/ideal_logo_v2.png"),
             #   img(src = "ideal_logo_v2.png"),
             #   img(src = "ideal_logo_v2.png")
             # ),
-            includeMarkdown(system.file("extdata", "welcome.md",package = "ideal")),
+
 
             ### TODO: proof of principle it works with the carousel, to display functionality at once
             # bs_carousel(id = "the_beatles", use_indicators = TRUE) %>%
@@ -214,57 +227,102 @@ ideal<- function(dds_obj = NULL,
             #   plotOutput("distPlot2")
             # ),
             # img(src = "ideal_logo_v2.png"),
-            includeMarkdown(system.file("extdata", "instructions.md",package = "ideal"))
+
+
+            fluidRow(
+              column(
+                width = 8,
+                introBox(includeMarkdown(system.file("extdata", "welcome.md",package = "ideal"))
+                         ,data.step = 1,data.intro = "welcome on board!"),
+
+                br(),br(),
+
+                p("If you see a grey box like this one open below..."),
+
+                shinyBS::bsCollapse(id = "help_welcome",open = "Help", # alt: "Help"
+                                    # think of a general trigger for this? something like a variable that assumes NULL
+                                    shinyBS::bsCollapsePanel("Help", includeMarkdown(system.file("extdata", "help_welcome.md",package = "ideal")))
+                ),
+
+                actionButton("introexample", "If you see a button like this...", icon("info"),
+                             style="color: #ffffff; background-color: #0092AC; border-color: #2e6da4"),
+                p("... you can click on that to start a tour based on introJS"),
+                br(),br(),
+
+                introBox(includeMarkdown(system.file("extdata", "instructions.md",package = "ideal")),data.step = 2,data.intro = "follow here")
+              )
+            )
+
           ),
 
 
           tabPanel(
-            "Data Setup",icon = icon("upload"),
+            "Data Setup",icon = icon("upload"), # value="tab-ds",
+            value = "tab-datasetup",
 
-            box(width = 12, title = "Step 1", status = "danger", solidHeader = TRUE,
-                h2("Upload your count matrix and the info on the experimental design"),
+            headerPanel("Setup your data for the analysis"),
 
-                fluidRow(
-                  column(
-                    width = 4,
-                    uiOutput("upload_count_matrix"),
-                    uiOutput("upload_metadata")
-                  )
-                ),
-
-                fluidRow(
-                  column(
-                    width = 6,
-                    box(width = NULL, title = "Count matrix preview",status = "primary",
-                        solidHeader = TRUE,collapsible = TRUE, collapsed = TRUE,
-                        fluidRow(
-                          column(
-                            width = 12,
-                            offset = 0.5,
-                            DT::dataTableOutput("dt_cm"))
-                        )
-                    )
-                  ),
-                  column(
-                    width = 6,
-                    box(width = NULL, title = "Experimental design preview",status = "primary",
-                        solidHeader = TRUE,collapsible = TRUE, collapsed = TRUE,
-                        fluidRow(
-                          column(
-                            width = 12,
-                            offset = 0.5,
-                            DT::dataTableOutput("dt_ed"))
-                        )
-                    )
-                  )
+            fluidRow(
+              column(
+                width = 8,
+                shinyBS::bsCollapse(id = "help_datasetup",open = NULL, # alt: "Help"
+                                    # think of a general trigger for this? something like a variable that assumes NULL
+                                    shinyBS::bsCollapsePanel("Help",includeMarkdown(system.file("extdata", "help_datasetup.md",package = "ideal")))
                 )
-
-
+              )
             ),
+
+            actionButton("btn2", "Click me for a quick tour of the section", icon("info"),
+                         style="color: #ffffff; background-color: #0092AC; border-color: #2e6da4"), br(),
+
+            introBox(box(width = 12, title = "Step 1", status = "danger", solidHeader = TRUE,
+                         h2("Upload your count matrix and the info on the experimental design"),
+
+                         fluidRow(
+                           column(
+                             width = 4,
+                             uiOutput("upload_count_matrix"),
+                             uiOutput("upload_metadata"),
+                             br(),
+                             "... or you can also ",
+                             actionButton("btn_loaddemo", "Load the demo airway data", icon = icon("play-circle"),
+                                          class = "btn btn-info"),br(), p()
+                           )
+                         ),
+
+                         fluidRow(
+                           column(
+                             width = 6,
+                             box(width = NULL, title = "Count matrix preview",status = "primary",
+                                 solidHeader = TRUE,collapsible = TRUE, collapsed = TRUE,
+                                 fluidRow(
+                                   column(
+                                     width = 12,
+                                     offset = 0.5,
+                                     DT::dataTableOutput("dt_cm"))
+                                 )
+                             )
+                           ),
+                           column(
+                             width = 6,
+                             box(width = NULL, title = "Experimental design preview",status = "primary",
+                                 solidHeader = TRUE,collapsible = TRUE, collapsed = TRUE,
+                                 fluidRow(
+                                   column(
+                                     width = 12,
+                                     offset = 0.5,
+                                     DT::dataTableOutput("dt_ed"))
+                                 )
+                             )
+                           )
+                         )
+
+
+            ), data.step = 3,data.intro = "upload your data and do stuff"),
             # h2("Step 1: Upload your count matrix and the info on the experimental design"),
 
 
-            uiOutput("ui_step2"),
+            introBox(uiOutput("ui_step2"),data.step = 4,data.intro = "yeah, go on"),
 
             # hr(),
             fluidRow(
@@ -291,6 +349,22 @@ ideal<- function(dds_obj = NULL,
             icon = icon("eye"),
             conditionalPanel(
               condition="!output.checkdds",
+
+              headerPanel("Get an overview on your data"),
+
+              fluidRow(
+                column(
+                  width = 8,
+                  shinyBS::bsCollapse(id = "help_countsoverview",open = NULL, # alt: "Help"
+                                      # think of a general trigger for this? something like a variable that assumes NULL
+                                      shinyBS::bsCollapsePanel("Help",includeMarkdown(system.file("extdata", "help_overview.md",package = "ideal")))
+                  )
+                  )
+                ),
+              ### to control colors of action buttons
+              # actionButton("run", "Run Analysis", icon("paper-plane"),
+                           # style="color: #fff; background-color: #337ab7; border-color: #2e6da4"),
+
               selectInput("countstable_unit", label = "Data scale in the table",
                           choices = list("Counts (raw)" = "raw_counts",
                                          "Counts (normalized)" = "normalized_counts",
@@ -350,6 +424,18 @@ ideal<- function(dds_obj = NULL,
             conditionalPanel(
               condition="!output.checkdds",
 
+              headerPanel("Extract and inspect the DE results"),
+
+              fluidRow(
+                column(
+                  width = 8,
+                  shinyBS::bsCollapse(id = "help_extractresults",open = NULL, # alt: "Help"
+                                      # think of a general trigger for this? something like a variable that assumes NULL
+                                      shinyBS::bsCollapsePanel("Help",includeMarkdown(system.file("extdata", "help_results.md",package = "ideal")))
+                  )
+                )
+              ),
+
               # conditionalPanel(
               #   condition="output.checkresu==0",
               #   h2('RESU not provided')
@@ -370,10 +456,11 @@ ideal<- function(dds_obj = NULL,
                   wellPanel(
                     width = 4,
                     uiOutput("fac1"),
-                    uiOutput("fac2")
-                  ),
-                  # continuous covariate
-                  uiOutput("facnum")
+                    uiOutput("fac2"),
+                    # continuous covariate
+                    uiOutput("facnum")
+                  )
+
                 ),
                 column(
                   width = 4,
@@ -400,7 +487,7 @@ ideal<- function(dds_obj = NULL,
                                 choices = c(TRUE,FALSE), selected = TRUE),
                     selectInput("resu_addmle",label = "Add the unshrunken MLE of log2 fold change",
                                 choices = c(TRUE,FALSE), selected = TRUE),
-                    selectInput("resu_ihw", "Use Independent Hypothesis Weighting as a filtering function",
+                    selectInput("resu_ihw", "Use Independent Hypothesis Weighting (IHW) as a filtering function",
                                 choices = c(TRUE, FALSE), selected = FALSE)
                   )
                 )
@@ -445,7 +532,17 @@ ideal<- function(dds_obj = NULL,
             conditionalPanel(
               condition="!output.checkresu",
 
-              headerPanel("MA plot interactive exploration"),
+              headerPanel("Interactive graphical exploration of the results"),
+
+              fluidRow(
+                column(
+                  width = 8,
+                  shinyBS::bsCollapse(id = "help_summaryplots",open = NULL, # alt: "Help"
+                                      # think of a general trigger for this? something like a variable that assumes NULL
+                                      shinyBS::bsCollapsePanel("Help",includeMarkdown(system.file("extdata", "help_plots.md",package = "ideal")))
+                  )
+                )
+              ),
 
               fluidRow(column(6,
                               h4("MA plot - Interactive!"),
@@ -508,6 +605,19 @@ ideal<- function(dds_obj = NULL,
             "Gene Finder", icon = icon("crosshairs"),
             conditionalPanel(
               condition="!output.checkdds",
+
+              headerPanel("Find your gene(s) of interest"),
+
+              fluidRow(
+                column(
+                  width = 8,
+                  shinyBS::bsCollapse(id = "help_genefinder",open = NULL, # alt: "Help"
+                                      # think of a general trigger for this? something like a variable that assumes NULL
+                                      shinyBS::bsCollapsePanel("Help",includeMarkdown(system.file("extdata", "help_genefinder.md",package = "ideal")))
+                  )
+                )
+              ),
+
               fluidRow(
                 column(6,checkboxInput("ylimZero_genefinder","Set y axis limit to 0",value=TRUE))),
               fluidRow(
@@ -549,7 +659,19 @@ ideal<- function(dds_obj = NULL,
             "Functional Analysis", icon = icon("list-alt"),
             conditionalPanel(
               condition="!output.checkresu",
-              h2("Gene Set Enrichment on the lists"),
+
+              headerPanel("Find functions enriched in gene sets"),
+
+              fluidRow(
+                column(
+                  width = 8,
+                  shinyBS::bsCollapse(id = "help_functionalanalysis",open = NULL, # alt: "Help"
+                                      # think of a general trigger for this? something like a variable that assumes NULL
+                                      shinyBS::bsCollapsePanel("Help",includeMarkdown(system.file("extdata", "help_funcanalysis.md",package = "ideal")))
+                  )
+                )
+              ),
+
 
               selectInput("go_cats",label = "Select the GO category(ies) of interest",
                           choices = list("GO Biological Process" = "BP", "GO Molecular Function" = "MF", "GO Cellular Component" = "CC"),
@@ -569,7 +691,7 @@ ideal<- function(dds_obj = NULL,
                          fluidRow(
                            column(width = 9, DT::dataTableOutput("DT_gse_up_topgo")),
                            column(width = 3, plotOutput("goterm_heatmap_up_topgo"))
-                           )
+                         )
                 ),
                 tabPanel("DOWNregu", icon = icon("arrow-circle-down"),
                          fluidRow(column(width = 6,actionButton("button_enrDOWN", "Perform gene set enrichment analysis on the downregulated genes",class = "btn btn-primary"))),
@@ -653,8 +775,8 @@ ideal<- function(dds_obj = NULL,
                        checkboxInput("toggle_list1","Use list1 genes", TRUE),
                        checkboxInput("toggle_list2","Use list2 genes", FALSE),
                        checkboxInput("toggle_list3","Use list3 genes", FALSE)
-                       )
-                ),
+                )
+              ),
 
 
               fluidRow(
@@ -674,6 +796,18 @@ ideal<- function(dds_obj = NULL,
           tabPanel(
             "Report Editor",
             icon = icon("pencil"),
+
+            headerPanel("Create, view and export a report of your analysis"),
+
+            fluidRow(
+              column(
+                width = 8,
+                shinyBS::bsCollapse(id = "help_reporteditor",open = NULL, # alt: "Help"
+                                    # think of a general trigger for this? something like a variable that assumes NULL
+                                    shinyBS::bsCollapsePanel("Help",includeMarkdown(system.file("extdata", "help_report.md",package = "ideal")))
+                )
+              )
+            ),
 
 
             fluidRow(
@@ -737,11 +871,17 @@ ideal<- function(dds_obj = NULL,
           ),
           tabPanel(
             "About", icon = icon("institution"),
-            includeMarkdown(system.file("extdata", "about.md",package = "ideal")),
-            hr(),
 
-            h4("Session Info"),
-            verbatimTextOutput("sessioninfo")
+            # headerPanel("Information on ideal/session"),
+
+            fluidRow(
+              column(
+                width = 8,
+                includeMarkdown(system.file("extdata", "about.md",package = "ideal")),
+
+                verbatimTextOutput("sessioninfo")
+              )
+            )
           )
           ,tabPanel(
             "devel", icon = icon("github")
@@ -766,11 +906,43 @@ ideal<- function(dds_obj = NULL,
 
 
     skin="blue"
-  )
+        )
 
 
 
   ideal_server <- shinyServer(function(input, output, session) {
+
+
+    observeEvent(input$btn, {
+      intro <- data.frame(element=c("#btn","#box_ddsobj","#box_annobj","#uploadcmfile"),
+                          intro=c("In Codd we trust","first boxieee","here is info on the annotation","next tab"))
+      introjs(session,
+              events = list(
+                "onchange" = "if (this._currentStep<2) {
+        $('a[data-value=\"tab-datasetup\"]').removeClass('active');
+        $('a[data-value=\"tab-welcome\"]').addClass('active');
+        $('a[data-value=\"tab-welcome\"]').trigger('click');
+  }
+        if (this._currentStep>1) {
+        $('a[data-value=\"tab-welcome\"]').removeClass('active');
+        $('a[data-value=\"tab-datasetup\"]').addClass('active');
+        $('a[data-value=\"tab-datasetup\"]').trigger('click');
+        }"
+              )
+              # , options = list(steps= intro)
+      )
+    })
+
+    observeEvent(input$btn2, {
+      intro <- data.frame(element=c("#Step1","#upload_count_matrix","#ui_step2","#ddsdesign","#ui_stepanno","#ui_step3"),
+                          intro=c("txt","textcm","text2","first boxieee","here is info on the annotation","next tab"))
+      introjs(session,
+              options = list(steps= intro)
+      )
+    })
+
+
+
 
     ## Update directory
     userdir <- tempfile()
@@ -866,7 +1038,9 @@ ideal<- function(dds_obj = NULL,
     ## count matrix
     output$upload_count_matrix <- renderUI({
       if (!is.null(dds_obj) | !is.null(countmatrix)) {
-        NULL
+        return(fluidRow(column(
+          width = 12,
+          tags$li("You already provided a count matrix or a DESeqDataSet object as input. You can check your input data in the collapsible box here below."), offset = 2)))
       } else {
         return(fileInput(inputId = "uploadcmfile",
                          label = "Upload a count matrix file",
@@ -893,7 +1067,10 @@ ideal<- function(dds_obj = NULL,
     ## exp design
     output$upload_metadata <- renderUI({
       if (!is.null(dds_obj) | !is.null(expdesign)) {
-        NULL
+        return(fluidRow(column(
+          width = 12,
+          tags$li("You already provided a matrix/data.frame with the experimental covariates or a DESeqDataSet object as input. You can check your input data in the collapsible box here below."), offset = 2)))
+
       } else {
         return(fileInput(inputId = "uploadmetadatafile",
                          label = "Upload a sample metadata matrix file",
@@ -914,6 +1091,24 @@ ideal<- function(dds_obj = NULL,
       return(expdesign)
     })
 
+
+    # load the demo data
+    observeEvent(input$btn_loaddemo,withProgress(
+                 {
+                   requireNamespace("airway",quietly = TRUE)
+                   data(airway,package="airway",envir = environment())
+
+                   cm_airway <- assay(airway)
+                   ed_airway <- as.data.frame(colData(airway))
+
+                   values$countmatrix <- cm_airway
+                   values$expdesign <- ed_airway
+
+                   # just to be sure, erase the annotation and the rest
+                   values$dds_obj <- NULL
+                   values$annotation_obj <- NULL
+                   values$res_obj <- NULL
+                 }, message = "Loading demo data"))
 
 
 
@@ -1783,9 +1978,9 @@ ideal<- function(dds_obj = NULL,
                      # library(topGO)
                      # requireNamespace("topGO")
                      values$topgo_up <- pcaExplorer::topGOtable(de_symbols, bg_symbols,
-                                                   ontology = input$go_cats[1],
-                                                   mapping = annoSpecies_df[values$cur_species,]$pkg,
-                                                   geneID = "symbol",addGeneToTerms = TRUE)
+                                                                ontology = input$go_cats[1],
+                                                                mapping = annoSpecies_df[values$cur_species,]$pkg,
+                                                                geneID = "symbol",addGeneToTerms = TRUE)
                      incProgress(0.89)
                    })
                  })
@@ -1871,9 +2066,9 @@ ideal<- function(dds_obj = NULL,
                      # library(topGO)
                      # requireNamespace("topGO")
                      values$topgo_down <- pcaExplorer::topGOtable(de_symbols, bg_symbols,
-                                                     ontology = input$go_cats[1], # will take the first ontology
-                                                     mapping = annoSpecies_df[values$cur_species,]$pkg,
-                                                     geneID = "symbol",addGeneToTerms = TRUE)
+                                                                  ontology = input$go_cats[1], # will take the first ontology
+                                                                  mapping = annoSpecies_df[values$cur_species,]$pkg,
+                                                                  geneID = "symbol",addGeneToTerms = TRUE)
                      incProgress(0.89)
 
 
@@ -1962,9 +2157,9 @@ ideal<- function(dds_obj = NULL,
                      # library(topGO)
                      # requireNamespace("topGO")
                      values$topgo_updown <- pcaExplorer::topGOtable(de_symbols, bg_symbols,
-                                                       ontology = input$go_cats[1],
-                                                       mapping = annoSpecies_df[values$cur_species,]$pkg,
-                                                       geneID = "symbol",addGeneToTerms = TRUE)
+                                                                    ontology = input$go_cats[1],
+                                                                    mapping = annoSpecies_df[values$cur_species,]$pkg,
+                                                                    geneID = "symbol",addGeneToTerms = TRUE)
                      incProgress(0.89)
                    })
                  })
@@ -2049,9 +2244,9 @@ ideal<- function(dds_obj = NULL,
                      # library(topGO)
                      # requireNamespace("topGO")
                      values$topgo_list1 <- pcaExplorer::topGOtable(de_symbols, bg_symbols,
-                                                      ontology = input$go_cats[1],
-                                                      mapping = annoSpecies_df[values$cur_species,]$pkg,
-                                                      geneID = "symbol",addGeneToTerms = TRUE)
+                                                                   ontology = input$go_cats[1],
+                                                                   mapping = annoSpecies_df[values$cur_species,]$pkg,
+                                                                   geneID = "symbol",addGeneToTerms = TRUE)
                      incProgress(0.89)
                    })
                  })
@@ -2134,9 +2329,9 @@ ideal<- function(dds_obj = NULL,
                      # library(topGO)
                      # requireNamespace("topGO")
                      values$topgo_list2 <- pcaExplorer::topGOtable(de_symbols, bg_symbols,
-                                                      ontology = input$go_cats[1],
-                                                      mapping = annoSpecies_df[values$cur_species,]$pkg,
-                                                      geneID = "symbol",addGeneToTerms = TRUE)
+                                                                   ontology = input$go_cats[1],
+                                                                   mapping = annoSpecies_df[values$cur_species,]$pkg,
+                                                                   geneID = "symbol",addGeneToTerms = TRUE)
                      incProgress(0.89)
                    })
                  })
@@ -2602,9 +2797,15 @@ ideal<- function(dds_obj = NULL,
     })
 
     output$choose_fac <- renderUI({
-      selectInput("choose_expfac",label = "choose the experimental factor to build the contrast upon",
+      selectInput("choose_expfac",label = "Choose the experimental factor to build the contrast upon (must be in the design formula)",
                   choices = c("",design_factors()), selected = "")
     })
+
+
+    observe({
+      updateSelectizeInput(session = session, inputId = 'color_by', selected = input$choose_expfac)
+    })
+
 
 
     ## LRT test...
@@ -2727,7 +2928,7 @@ ideal<- function(dds_obj = NULL,
     output$fac1 <- renderUI({
       shiny::validate(
         need(input$choose_expfac!="",
-             "Please select one level of the factor to build the contrast upon - contrast1"
+             "Please select an experimental factor to generate the results"
         )
       )
       fac1 <- input$choose_expfac
@@ -2735,14 +2936,14 @@ ideal<- function(dds_obj = NULL,
 
       fac1_levels <- levels(fac1_vals)
       if(class(colData(values$dds_obj)[,fac1]) == "factor")
-        selectInput("fac1_c1","c1",choices = c("",fac1_levels), selected = "")
+        selectInput("fac1_c1","Select the name of the numerator level for the fold change",choices = c("",fac1_levels), selected = "")
       # selectInput("fac1_c2","c2",choices = fac1_levels)
     })
 
     output$fac2 <- renderUI({
       shiny::validate(
         need(input$choose_expfac!="",
-             "Please select the other level of the factor to build the contrast upon - contrast2"
+             ""
         )
       )
       fac1 <- input$choose_expfac
@@ -2750,13 +2951,13 @@ ideal<- function(dds_obj = NULL,
       fac1_levels <- levels(fac1_vals)
       if(class(colData(values$dds_obj)[,fac1]) == "factor")
         # selectInput("fac1_c1","c1",choices = fac1_levels)
-        selectInput("fac1_c2","c2",choices = c("",fac1_levels), selected = "")
+        selectInput("fac1_c2","Select the name of the denominator level for the fold change (must be different from the numerator)",choices = c("",fac1_levels), selected = "")
     })
 
     output$facnum <- renderPrint({
       shiny::validate(
         need(input$choose_expfac!="",
-             "Please select one level of the factor to build the contrast upon - contrast1_NUM!"
+             ""
         )
       )
       fac1 <- input$choose_expfac
@@ -2970,6 +3171,11 @@ ideal<- function(dds_obj = NULL,
 
 
     output$ma_highlight <- renderPlot({
+
+      shiny::validate(
+        need(!is.null(values$res_obj),message = "Please generate the results object to display the plot and show the combined tables")
+      )
+
       if("symbol" %in% names(values$res_obj)) {
         plot_ma(values$res_obj,
                 intgenes = input$avail_symbols,annotation_obj = values$annotation_obj,FDR = input$FDR)
@@ -3242,6 +3448,9 @@ ideal<- function(dds_obj = NULL,
 
     cur_combires <- reactive({
 
+      if(is.null(values$res_obj))
+        return(NULL)
+
       normCounts <- as.data.frame(counts(estimateSizeFactors(values$dds_obj),normalized=TRUE))
       normCounts$id <- rownames(normCounts)
       res_df <- deseqresult2tbl(values$res_obj)
@@ -3274,6 +3483,9 @@ ideal<- function(dds_obj = NULL,
 
 
     cur_combires_list <- reactive({
+
+      if(is.null(values$res_obj))
+        return(NULL)
 
       normCounts <- as.data.frame(counts(estimateSizeFactors(values$dds_obj),normalized=TRUE))
       normCounts$id <- rownames(normCounts)
@@ -3718,7 +3930,7 @@ ideal<- function(dds_obj = NULL,
   shinyApp(ui = ideal_ui, server = ideal_server)
 
 
-}
+  }
 
 
 
