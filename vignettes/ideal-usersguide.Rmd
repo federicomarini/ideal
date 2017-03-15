@@ -425,6 +425,8 @@ When used in the context of the app, it is possible to seamless search for genes
 
 Its counterpart, based on the `r Biocpkg("topGO")` package, can be found in the `r Biocpkg("pcaExplorer")` package.
 
+<!-- maybe eval=FALSE here? -->
+
 ```{r goseq}
 res_subset <- deseqresult2DEgenes(res_airway)[1:100,]
 myde <- res_subset$id
@@ -439,6 +441,8 @@ head(mygo)
 ```
 
 As for the results, this table can be enhanced by adding the links for each category to the AmiGO database
+
+<!-- maybe eval=FALSE here? -->
 
 ```{r go-enhance}
 mygo_enhanced <- mygo

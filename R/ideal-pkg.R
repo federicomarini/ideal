@@ -33,6 +33,7 @@
 #' @importFrom UpSetR upset fromList
 #' @import goseq
 #' @import pcaExplorer
+#' @importFrom IHW ihw
 #' @import rentrez
 #' @importFrom pheatmap pheatmap
 #' @import d3heatmap

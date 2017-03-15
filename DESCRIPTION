@@ -1,8 +1,8 @@
 Package: ideal
 Type: Package
 Title: Interactive Differential Expression AnaLysis
-Version: 0.6.0
-Date: 2017-03-10
+Version: 0.6.1
+Date: 2017-03-15
 Authors@R: c(person("Federico", "Marini", email = "marinif@uni-mainz.de",
     role = c("aut", "cre")))
 Maintainer: Federico Marini <marinif@uni-mainz.de>
@@ -24,6 +24,7 @@ Imports:
     d3heatmap,
     pheatmap,
     pcaExplorer,
+    IHW,
     gplots,
     UpSetR,
     goseq,
@@ -50,7 +51,8 @@ Suggests:
     testthat,
     BiocStyle,
     airway,
-    org.Hs.eg.db
+    org.Hs.eg.db,
+    TxDb.Hsapiens.UCSC.hg38.knownGene
 URL: https://github.com/federicomarini/ideal
 BugReports: https://github.com/federicomarini/ideal/issues
 biocViews: GeneExpression, DifferentialExpression, RNASeq, Sequencing,
