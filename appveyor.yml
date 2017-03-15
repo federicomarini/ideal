@@ -14,7 +14,7 @@ install:
 
 build_script:
   - travis-tool.sh install_bioc_deps
-#  - travis-tool.sh install_bioc airway GO.db org.Hs.eg.db
+  - travis-tool.sh install_bioc airway org.Hs.eg.db GO.db TxDb.Hsapiens.UCSC.hg38.knownGene
 
 
 test_script:
