@@ -272,7 +272,7 @@ ideal<- function(dds_obj = NULL,
               )
             ),
 
-            actionButton("btn2", "Click me for a quick tour of the section", icon("info"),
+            actionButton("tour_datasetup", "Click me for a quick tour of the section", icon("info"),
                          style="color: #ffffff; background-color: #0092AC; border-color: #2e6da4"), br(),
 
             introBox(box(width = 12, title = "Step 1", status = "danger", solidHeader = TRUE,
@@ -322,7 +322,7 @@ ideal<- function(dds_obj = NULL,
             # h2("Step 1: Upload your count matrix and the info on the experimental design"),
 
 
-            introBox(uiOutput("ui_step2"),data.step = 4,data.intro = "yeah, go on"),
+            uiOutput("ui_step2"),
 
             # hr(),
             fluidRow(
@@ -361,6 +361,11 @@ ideal<- function(dds_obj = NULL,
                   )
                   )
                 ),
+
+              actionButton("tour_countsoverview", "Click me for a quick tour of the section", icon("info"),
+                           style="color: #ffffff; background-color: #0092AC; border-color: #2e6da4"), br(),
+
+
               ### to control colors of action buttons
               # actionButton("run", "Run Analysis", icon("paper-plane"),
                            # style="color: #fff; background-color: #337ab7; border-color: #2e6da4"),
@@ -435,6 +440,11 @@ ideal<- function(dds_obj = NULL,
                   )
                 )
               ),
+
+              actionButton("tour_results", "Click me for a quick tour of the section", icon("info"),
+                           style="color: #ffffff; background-color: #0092AC; border-color: #2e6da4"), br(),
+
+
 
               # conditionalPanel(
               #   condition="output.checkresu==0",
@@ -544,6 +554,9 @@ ideal<- function(dds_obj = NULL,
                 )
               ),
 
+              actionButton("tour_plots", "Click me for a quick tour of the section", icon("info"),
+                           style="color: #ffffff; background-color: #0092AC; border-color: #2e6da4"), br(),
+
               fluidRow(column(6,
                               h4("MA plot - Interactive!"),
                               plotOutput('plotma', brush = 'ma_brush')),
@@ -617,6 +630,8 @@ ideal<- function(dds_obj = NULL,
                   )
                 )
               ),
+              actionButton("tour_genefinder", "Click me for a quick tour of the section", icon("info"),
+                           style="color: #ffffff; background-color: #0092AC; border-color: #2e6da4"), br(),
 
               fluidRow(
                 column(6,checkboxInput("ylimZero_genefinder","Set y axis limit to 0",value=TRUE))),
@@ -671,7 +686,8 @@ ideal<- function(dds_obj = NULL,
                   )
                 )
               ),
-
+              actionButton("tour_funcanalysis", "Click me for a quick tour of the section", icon("info"),
+                           style="color: #ffffff; background-color: #0092AC; border-color: #2e6da4"), br(),
 
               selectInput("go_cats",label = "Select the GO category(ies) of interest",
                           choices = list("GO Biological Process" = "BP", "GO Molecular Function" = "MF", "GO Cellular Component" = "CC"),
@@ -809,6 +825,8 @@ ideal<- function(dds_obj = NULL,
               )
             ),
 
+            actionButton("tour_report", "Click me for a quick tour of the section", icon("info"),
+                         style="color: #ffffff; background-color: #0092AC; border-color: #2e6da4"), br(),
 
             fluidRow(
               column(
@@ -883,21 +901,21 @@ ideal<- function(dds_obj = NULL,
               )
             )
           )
-          ,tabPanel(
-            "devel", icon = icon("github")
-            # ,
-            # verbatimTextOutput("debugihw"),
-            #
-            # plotOutput("ihwp1"),
-            # plotOutput("ihwp2"),
-            # plotOutput("ihwp3"),
-            # plotOutput("ihwp4"),
-            # plotOutput("ihwp5"),
-            # plotOutput("ihwp6"),
-            # plotOutput("ihwp7"),
-            # plotOutput("ihwp8")
-
-          )
+          # ,tabPanel(
+          #   "devel", icon = icon("github")
+          #   # ,
+          #   # verbatimTextOutput("debugihw"),
+          #   #
+          #   # plotOutput("ihwp1"),
+          #   # plotOutput("ihwp2"),
+          #   # plotOutput("ihwp3"),
+          #   # plotOutput("ihwp4"),
+          #   # plotOutput("ihwp5"),
+          #   # plotOutput("ihwp6"),
+          #   # plotOutput("ihwp7"),
+          #   # plotOutput("ihwp8")
+          #
+          # )
 
         )
       )
@@ -933,14 +951,58 @@ ideal<- function(dds_obj = NULL,
       )
     })
 
-    observeEvent(input$btn2, {
-      intro <- data.frame(element=c("#Step1","#upload_count_matrix","#ui_step2","#ddsdesign","#ui_stepanno","#ui_step3"),
-                          intro=c("txt","textcm","text2","first boxieee","here is info on the annotation","next tab"))
+
+    # here will go the coded - i.e. not explicitly wrapped in introBox - steps
+    intro_datasetup <- read.delim(system.file("extdata", "intro_datasetup.txt",package = "ideal"), sep=";", stringsAsFactors = FALSE)
+    intro_countsoverview <- read.delim(system.file("extdata", "intro_countsoverview.txt",package = "ideal"), sep=";", stringsAsFactors = FALSE)
+    intro_results <- read.delim(system.file("extdata", "intro_results.txt",package = "ideal"), sep=";", stringsAsFactors = FALSE)
+    intro_plots <- read.delim(system.file("extdata", "intro_plots.txt",package = "ideal"), sep=";", stringsAsFactors = FALSE)
+    intro_genefinder <- read.delim(system.file("extdata", "intro_genefinder.txt",package = "ideal"), sep=";", stringsAsFactors = FALSE)
+    intro_funcanalysis <- read.delim(system.file("extdata", "intro_funcanalysis.txt",package = "ideal"), sep=";", stringsAsFactors = FALSE)
+    intro_report <- read.delim(system.file("extdata", "intro_report.txt",package = "ideal"), sep=";", stringsAsFactors = FALSE)
+
+
+    observeEvent(input$tour_datasetup, {
       introjs(session,
-              options = list(steps= intro)
+              options = list(steps= intro_datasetup)
       )
     })
 
+    observeEvent(input$tour_countsoverview, {
+      introjs(session,
+              options = list(steps = intro_countsoverview)
+      )
+    })
+
+    observeEvent(input$tour_results, {
+      introjs(session,
+              options = list(steps = intro_results)
+      )
+    })
+
+    observeEvent(input$tour_plots, {
+      introjs(session,
+              options = list(steps = intro_plots)
+      )
+    })
+
+    observeEvent(input$tour_genefinder, {
+      introjs(session,
+              options = list(steps = intro_genefinder)
+      )
+    })
+
+    observeEvent(input$tour_funcanalysis, {
+      introjs(session,
+              options = list(steps = intro_funcanalysis)
+      )
+    })
+
+    observeEvent(input$tour_report, {
+      introjs(session,
+              options = list(steps = intro_report)
+      )
+    })
 
 
 
