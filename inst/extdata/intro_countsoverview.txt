@@ -1,2 +1,8 @@
 element;intro
-elem1;text1
+#step1;text1
+#showcountmat;txt for that
+#threshold_rowsums;
+#threshold_rowmeans;
+#detected_genes;
+#featfilt_dds;
+#compute_pairwisecorr;

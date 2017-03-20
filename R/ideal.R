@@ -464,7 +464,7 @@ ideal<- function(dds_obj = NULL,
                   width = 4,
                   # factor as covariate
                   wellPanel(
-                    width = 4,
+                    width = 4, id = "factor_opts",
                     uiOutput("fac1"),
                     uiOutput("fac2"),
                     # continuous covariate
@@ -492,7 +492,7 @@ ideal<- function(dds_obj = NULL,
               fluidRow(
                 column(
                   width = 4,
-                  wellPanel(
+                  wellPanel(id = "resu_opts",
                     selectInput("resu_indfil",label = "Apply independent filtering automatically",
                                 choices = c(TRUE,FALSE), selected = TRUE),
                     selectInput("resu_addmle",label = "Add the unshrunken MLE of log2 fold change",
@@ -833,6 +833,7 @@ ideal<- function(dds_obj = NULL,
                 width = 6,
                 box(
                   title = "markdown options", status = "primary", solidHeader = TRUE, collapsible = TRUE, width = 9, collapsed = TRUE,
+                  id = "md_opts",
                   radioButtons("rmd_dl_format", label = "Choose Format:", c("HTML" = "html", "R Markdown" = "rmd"), inline = TRUE),
                   textInput("report_title", "Title: "),
                   textInput("report_author", "Author: "),
@@ -847,6 +848,7 @@ ideal<- function(dds_obj = NULL,
                 width = 6,
                 box(
                   title = "editor options", status = "primary", solidHeader = TRUE, collapsible = TRUE, width = 9, collapsed = TRUE,
+                  id = "editor_opts",
                   checkboxInput("enableAutocomplete", "Enable AutoComplete", TRUE),
                   conditionalPanel(
                     "input.enableAutocomplete",
@@ -1013,7 +1015,6 @@ ideal<- function(dds_obj = NULL,
     # file.copy(file.path(userdir, "code_All.R"), newuserdir)
     # userdir <- newuserdir
     # dir.create(file.path(userdir, "data"))
-
 
 
     ## placeholder for the figures to export
@@ -3976,6 +3977,27 @@ ideal<- function(dds_obj = NULL,
     #     hist(x, breaks = bins, col = 'steelblue', border = 'white')
     #
     #   })
+
+
+    ## here, all export of plots and tables
+    # output$download_genesPca_countsplot <- downloadHandler(filename = function() {
+    #   input$filename_genesPca_countsplot
+    # }, content = function(file) {
+    #   ggsave(file, exportPlots$genesBoxplot, width = input$export_width,
+    #          height = input$export_height, units = "cm")
+    # })
+    # output$download_genesHeatmap <- downloadHandler(filename = function() {
+    #   input$filename_genesHeatmap
+    # }, content = function(file) {
+    #   pdf(file)
+    #   brushedObject <- curData_brush()
+    #   selectedGenes <- brushedObject$ids
+    #   toplot <- assay(values$myrlt)[selectedGenes, ]
+    #   rownames(toplot) <- values$myannotation$gene_name[match(rownames(toplot),
+    #                                                           rownames(values$myannotation))]
+    #   aheatmap(toplot, Colv = as.logical(input$heatmap_colv))
+    #   dev.off()
+    # })
 
 
 

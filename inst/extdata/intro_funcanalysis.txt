@@ -1,2 +1,8 @@
 element;intro
 elem1;text1
+#go_cats;
+#button_enrUPDOWN_topgo;
+#DT_gse_updown_topgo;
+#goterm_heatmap_updown_topgo;
+#vennlists;
+#upsetLists;

@@ -1,2 +1,11 @@
 element;intro
 elem1;text1
+#plotma;
+#mazoom;
+#color_by;
+#genefinder_plot;
+#rentrez_infobox;
+#volcanoplot;
+#heatbrush;
+#heatbrushD3;
+#ma_brush_out;

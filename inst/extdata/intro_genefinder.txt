@@ -1,2 +1,9 @@
 element;intro
 elem1;text1
+#available_genes;
+#color_by;
+#bp1;
+#ma_highlight;
+#table_combi;
+#ma_hl_list;
+#table_combi_list;

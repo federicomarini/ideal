@@ -1,7 +1,14 @@
 element;intro
 #Step1;txt
-#upload_count_matrix;textcm
+#upload_count_matrix;text for uploading count matrix
+#upload_metadata;text for metadata upload
+#btn_loaddemo;text for loading the demo
 #ui_step2;text2
-#ddsdesign;first boxieee
-#ui_stepanno;here is info on the annotation
+#ddsdesign;textfor selecting design
+#button_diydds;text for dds creation
+#ui_stepanno;txt
+#ui_selectspecies;txt
+#button_getanno;txt
+#ui_stepoutlier;txtoutlier
 #ui_step3;next tab
+#button_rundeseq;txt for deseq run

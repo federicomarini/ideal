@@ -1,2 +1,14 @@
 element;intro
 elem1;text1
+#choose_fac;
+#factor_opts;
+#fac1;
+#fac2;
+#resu_opts;
+#resu_indfil;
+#resu_ihw;
+#button_runresults;
+#diyres_summary;
+#table_res;
+#pvals_hist;
+#logfc_hist;

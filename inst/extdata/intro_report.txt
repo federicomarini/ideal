@@ -1,2 +1,8 @@
 element;intro
 elem1;text1
+#md_opts;
+#editor_opts;
+#updatepreview_button;
+#report_tabbox;
+#acereport_rmd;
+#saveRmd;
