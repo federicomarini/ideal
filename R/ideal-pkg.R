@@ -24,6 +24,7 @@
 #' @importFrom AnnotationDbi mapIds select
 #' @import shinyAce
 #' @import BiocParallel
+#' @importFrom BiocInstaller biocLite
 #' @import knitr
 #' @import rmarkdown
 #' @import plyr

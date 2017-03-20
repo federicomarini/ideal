@@ -1,8 +1,8 @@
 Package: ideal
 Type: Package
 Title: Interactive Differential Expression AnaLysis
-Version: 0.6.1
-Date: 2017-03-15
+Version: 0.6.2
+Date: 2017-03-20
 Authors@R: c(person("Federico", "Marini", email = "marinif@uni-mainz.de",
     role = c("aut", "cre")))
 Maintainer: Federico Marini <marinif@uni-mainz.de>
@@ -45,6 +45,7 @@ Imports:
     rmarkdown,
     shinyAce,
     BiocParallel,
+    BiocInstaller,
     grDevices,
     methods
 Suggests:
