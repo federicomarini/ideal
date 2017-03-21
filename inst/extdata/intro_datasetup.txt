@@ -6,6 +6,7 @@ element;intro
 #box_resobj;... and the third is about the DESeqResults object you will compute in the following tabs. They turn from red to green as you have populated the underlying objects.
 #upload_metadata;Back to uploading the data. Here you do it for your matrix/data frame for the experimental design. Again, refer to the collapsible help for the format specs.
 #btn_loaddemo;If you have no data available, you can always use the demo data, which are the expression values contained in the airway package. For the rest of the tour, I will refer to that dataset. If you did not provide any data yet, please load the demo before moving further.
+#qvmenu;After clicking the 'Load demo' button, you can see that the reactiveValues for the relevant objects are now available by the green tick icon.
 #ui_step2;Once you have count matrix and experimental design available, the next section shows up.
 #ddsdesign;Here you can select the design relevant for differential expression. In case you use the airway data, please select 'cell' and 'dex' for accounting for cell type and dexamethasone treatment. Then click on the 'next' button.
 #button_diydds;Once you selected the design relevant covariates, you can create the DESeqDataSet object. Do so by clicking on this button.

@@ -139,7 +139,7 @@ ideal<- function(dds_obj = NULL,
 
       ),
       menuItem("Plot export settings", icon = icon("paint-brush")),
-      menuItem("Quick viewer", icon = icon("flash"),
+      menuItem("Quick viewer", icon = icon("flash"), id = "qvmenu",
                fluidRow(
                  fluidRow(column(6,p("Count matrix")), column(6,uiOutput("ok_cm"))),
                  fluidRow(column(6,p("Experimental design")), column(6,uiOutput("ok_ed"))),
