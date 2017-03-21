@@ -1,14 +1,16 @@
 element;intro
-elem1;text1
-#choose_fac;
-#factor_opts;
-#fac1;
-#fac2;
-#resu_opts;
-#resu_indfil;
-#resu_ihw;
-#button_runresults;
-#diyres_summary;
-#table_res;
-#pvals_hist;
-#logfc_hist;
+#Welcome;Welcome to the tour for the Results tab!
+#choose_fac;You will need to setup the contrast for displaying the results. Do so by selecting the factor of interest here, e.g. 'dex' if you are interested in the gene regulation upon dexamethasone treatment. You could also select 'cell' if you are interested in the effect of cell type. If you select a factor with three or more levels, you can do an ANOVA-like analysis of your data (please refer to the DESeq2 vignette for more details).
+#FDR; First things first, you need to select your False Discovery Rate. The value of 0.05 can be fine in most cases, if you want to be more strict select e.g. 0.01, if you want to be more liberal, select 0.1. This value will be used to select genes after the Benjamini-Hochberg procedure for adjusting p-values
+#factor_opts;Here select 'dex'.
+#fac1;As a numerator, take 'trt' for treated...
+#fac2;... and as a numerator, select 'untrt' for untreated. Thus, the log fold change will be positive if the expression values are higher in trt compared to untrt.
+#resu_opts;In this box you can select additional options for generating the results:
+#resu_indfil;whether you want to apply independent filtering to ameliorate the multiple testing correction (you select out genes with low average counts levels)...
+#resu_ihw;... or instead of filtering completely out, you use the Independent Hypothesis Weighting framework for weighting hypothesis tests.
+#button_runresults;Once you are done with selecting the options, you can extract the results.
+#diyres_summary;Here's an overview in text form...
+#box_resobj;... and here you can see the info box turned green.
+#table_res;You can explore the interactive table here - normally sorted on the padj column. If you have ENSEMBL genes as identifiers, and used the annotation df, you will have both clickable gene ids and names. The links will take you directly to the corresponding databases.
+#pvals_hist;As diagnostic tools, you can check the histogram of raw p-values - which should look relatively uniform in the [0,1] interval, with a peak on the left if you have detected a number of DE genes.
+#logfc_hist;Additionally, you can check how big the effects of the regulation are, by checking the histogram of moderated logFoldChanges. Once you are ready, click on the 'Done' button to end the tour, and eventually move on to the next tabs.

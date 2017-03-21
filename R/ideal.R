@@ -233,7 +233,7 @@ ideal<- function(dds_obj = NULL,
               column(
                 width = 8,
                 introBox(includeMarkdown(system.file("extdata", "welcome.md",package = "ideal"))
-                         ,data.step = 1,data.intro = "welcome on board!"),
+                         ,data.step = 1,data.intro = "Welcome to ideal - the Interactive Differential Expression Analysis tool that also enables reproducible analyses! Click on the 'next' button to proceed with the first interactive tour."),
 
                 br(),br(),
 
@@ -249,7 +249,7 @@ ideal<- function(dds_obj = NULL,
                 p("... you can click on that to start a tour based on introJS"),
                 br(),br(),
 
-                introBox(includeMarkdown(system.file("extdata", "instructions.md",package = "ideal")),data.step = 2,data.intro = "follow here")
+                introBox(includeMarkdown(system.file("extdata", "instructions.md",package = "ideal")),data.step = 2,data.intro = "Here you can read the Instructions to learn the basics of ideal. If you click out of the intro-highlighted area, you are about to interrupt the tour. Don't worry, you can resume it anytime by re-clicking on the tour button. Once you are done with the first reading, you can move on to the next tab, where you will learn how to load your data.")
               )
             )
 
@@ -318,7 +318,7 @@ ideal<- function(dds_obj = NULL,
                          )
 
 
-            ), data.step = 3,data.intro = "upload your data and do stuff"),
+            ), data.step = 3,data.intro = "In this tab you can upload your data. You basically need three mandatory steps, highlighted in these boxes, from red through yellow to green - with a couple of optional steps. Your expression count data need to be in tabular format, with identifiers as the first column and the sample names as headers - you should be fine with common outputs from featureCounts or HTSeq-count. The first basic tour ends here, click on 'Done' to exit and continue with the section-based tours."),
             # h2("Step 1: Upload your count matrix and the info on the experimental design"),
 
 

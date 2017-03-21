@@ -1,11 +1,11 @@
 element;intro
-elem1;text1
-#plotma;
-#mazoom;
-#color_by;
-#genefinder_plot;
-#rentrez_infobox;
-#volcanoplot;
-#heatbrush;
-#heatbrushD3;
-#ma_brush_out;
+#Welcome;Welcome to the tour for the Summary Plots tab!
+#plotma;As a graphical overview of your results, here's an MA Plot. You can click and drag with your mouse on this plot, and if you do so...
+#mazoom;... you will obtain a zoomed version in this plot. If you provided the annotation, you might see the gene names close to each dot.
+#color_by;You will likely want to see how each gene behaves in the contrast you selected. This input is updated based on the contrast you selected in the previous tab, but you can change its value and/or select multiple factors. The gene dot/box-plots will be displayed stratified on these factors...
+#genefinder_plot;... in this plot.
+#rentrez_infobox;In this box, you can have a quick summary on the gene you clicked, with the link to the ENTREZ database.
+#volcanoplot;If you want another flavour to explore the results, you can also plot them as a volcano with -log10(pvalue) VS logFC
+#heatbrush;For the area you selected by zooming, you can have a static heatmap including the underlying genes...
+#heatbrushD3;... or an interactive version of that.
+#ma_brush_out; The underlying data will be contained in the collapsible box here below in case you want the tabular format. Once you are ready, click on the 'Done' button to end the tour, and eventually move on to the next tabs.

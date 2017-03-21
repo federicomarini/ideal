@@ -1,14 +1,19 @@
 element;intro
-#Step1;txt
-#upload_count_matrix;text for uploading count matrix
-#upload_metadata;text for metadata upload
-#btn_loaddemo;text for loading the demo
-#ui_step2;text2
-#ddsdesign;textfor selecting design
-#button_diydds;text for dds creation
-#ui_stepanno;txt
-#ui_selectspecies;txt
-#button_getanno;txt
-#ui_stepoutlier;txtoutlier
-#ui_step3;next tab
-#button_rundeseq;txt for deseq run
+#Welcome;Welcome to the tour for the Data Setup tab!
+#upload_count_matrix;Here you can upload your count matrix. Please read in the collapsible help about the formats that are accepted
+#box_ddsobj;Up here you have three Info Boxes. The first is a summary for your DESeqDataSet object you will create soon...
+#box_annobj;... the second will contain the overview on the annotation object you can provide or compute...
+#box_resobj;... and the third is about the DESeqResults object you will compute in the following tabs. They turn from red to green as you have populated the underlying objects.
+#upload_metadata;Back to uploading the data. Here you do it for your matrix/data frame for the experimental design. Again, refer to the collapsible help for the format specs.
+#btn_loaddemo;If you have no data available, you can always use the demo data, which are the expression values contained in the airway package. For the rest of the tour, I will refer to that dataset. If you did not provide any data yet, please load the demo before moving further.
+#ui_step2;Once you have count matrix and experimental design available, the next section shows up.
+#ddsdesign;Here you can select the design relevant for differential expression. In case you use the airway data, please select 'cell' and 'dex' for accounting for cell type and dexamethasone treatment. Then click on the 'next' button.
+#button_diydds;Once you selected the design relevant covariates, you can create the DESeqDataSet object. Do so by clicking on this button.
+#box_ddsobj;See how the box turns green and shows an overview on the data.
+#ui_stepanno;You can (it's not mandatory) add some annotation data for the analysis. It is recommended as this enhances your plots e.g. by adding gene names or enabling all functional analyses options
+#ui_selectspecies;First select the species here according to your data. For the airway dataset, select Human. You can start typing here, options will pop up. Keep in mind you need the corresponding org.XX.eg.db packages installed for this.
+#button_getanno;Then click on this button to generate the annotation dataframe.
+#box_annobj;Again, see how the box turns green.
+#ui_stepoutlier;In case you suspect you have outliers in your dataset - which you can identify for example with the pcaExplorer package - you can exclude those samples in this section.
+#ui_step3;Otherwise, you are all set to run DESeq on your data.
+#button_rundeseq;Do this by clicking on this button, and hold tight - it can take a short while, also depending on the number of samples you have. Once you are ready, click on the 'Done' button to end the tour, and eventually move on to the next tabs.
