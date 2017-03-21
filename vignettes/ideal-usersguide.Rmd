@@ -20,8 +20,6 @@ abstract: >
 output: 
   BiocStyle::html_document2:
     toc_float: true
-  BiocStyle::pdf_document2:
-    toc: true
 vignette: >
   %\VignetteIndexEntry{ideal User's Guide}
   %\VignetteEngine{knitr::rmarkdown}
