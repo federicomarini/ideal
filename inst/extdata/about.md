@@ -30,7 +30,7 @@ citation("ideal")
 ## To cite package 'ideal' in publications use:
 ## 
 ##   Federico Marini (2017). ideal: Interactive Differential
-##   Expression AnaLysis. R package version 0.4.0.
+##   Expression AnaLysis. R package version 0.6.2.
 ##   https://github.com/federicomarini/ideal
 ## 
 ## A BibTeX entry for LaTeX users is
@@ -39,7 +39,7 @@ citation("ideal")
 ##     title = {ideal: Interactive Differential Expression AnaLysis},
 ##     author = {Federico Marini},
 ##     year = {2017},
-##     note = {R package version 0.4.0},
+##     note = {R package version 0.6.2},
 ##     url = {https://github.com/federicomarini/ideal},
 ##   }
 ```

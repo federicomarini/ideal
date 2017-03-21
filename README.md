@@ -2,7 +2,7 @@
 [![codecov.io](https://codecov.io/github/federicomarini/ideal/coverage.svg?branch=master)](https://codecov.io/github/federicomarini/ideal?branch=master)
 [![Windows Build status](https://ci.appveyor.com/api/projects/status/github/federicomarini/ideal?svg=true)](https://ci.appveyor.com/project/federicomarini/ideal)
 
-# ideal - Interactive Differential Expression AnaLysis in RNA-seq data
+# `ideal` - Interactive Differential Expression AnaLysis in RNA-seq data
 
 `ideal` is a Bioconductor package containing a Shiny application for
 analyzing RNA-Seq data in the context of differential expression. This enables an 
@@ -104,8 +104,10 @@ http://shiny.imbei.uni-mainz.de:3838/ideal
 
 ## Deploying to a Shiny Server
 
-TODO: this section will be linked to the deployment-oriented version of the package,
-which will ideally have a separated repository on github to refer to.
+A deployment-oriented version of the package is available at 
+https://github.com/federicomarini/ideal_serveredition. This repository contains also
+detailed instruction to setup the running instance of a Shiny Server, where `ideal` 
+can be run without further installation for the end-users.
 
 
 ## Contact

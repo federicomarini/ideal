@@ -54,6 +54,10 @@ opts_chunk$set(comment=NA,
 
 # Getting started
 
+<p align="center">
+<img src="ideal_logo_v2.png"/>
+</p>
+
 `r Biocpkg("ideal")` is an R package distributed as part of the [Bioconductor](http://bioconductor.org) project. To install the package, start R and enter:
 
 ```{r installation, eval=FALSE}
@@ -134,7 +138,10 @@ http://shiny.imbei.uni-mainz.de:3838/ideal
 
 ## Deploying to a Shiny Server
 
-TODO: this section will be linked to the deployment-oriented version of the package, which will ideally have a separated repository on github to refer to.
+A deployment-oriented version of the package is available at https://github.com/federicomarini/ideal_serveredition. This repository contains also detailed instruction to setup the running instance of a Shiny Server, where `ideal` can be run without further installation for the end-users.
+
+Please note that you still need `ideal` to be installed there once during the setup phase - for this operation, you might require root administrator permissions. 
+
 
 <!-- Following the structure of \texttt{pcaExplorer}, the deployment as a standalone web application is easily achieved also for \texttt{ideal}, with the only requirement of a running Shiny Server. Handling of sensitive human patient data can thus occur in a secured way, e.g. with restricted access to an internal instance of the application. This will also avoid the need of external software installation for the users, which could moreover seamlessly access higher performing computing infrastructures. -->
 
@@ -148,7 +155,15 @@ The user interface is dynamically displayed according to the provided and comput
 
 Moreover, for some relevant UI widgets, the user can receive additional information by hovering over with the mouse, with the functionality powered by the `r CRANpkg("shinyBS")` package.
 
-For the user which is either new with the app UI/functionality, or not extensively familiar with the topic of differential expression, it is possible to obtain a small *guided tour* of the app by clicking on the respective help buttons, marked in [][]red?[][]. These trigger the start of a step-by-step guide and feature introduction, powered by the `r CRANpkg("rintrojs")` package.
+For the user which is either new with the app UI/functionality, or not extensively familiar with the topic of differential expression, it is possible to obtain a small *guided tour* of the App by clicking on the respective help buttons, marked in the app like this.
+
+<button id="btn" type="button" class="btn btn-default action-button" style="color: #ffffff; background-color: #0092AC; border-color: #2e6da4">
+  <i class="fa fa-info"></i>
+  Click me for a quick tour
+</button>
+
+
+These trigger the start of a step-by-step guide and feature introduction, powered by the `r CRANpkg("rintrojs")` package.
 
 ## The controls sidebar
 
@@ -170,7 +185,7 @@ This displays a list of the underlying objects with which basically all of the a
 
 ### First steps help
 
-Clicking on this button activated the `intro.js` based tour for getting to know the components and the structure of the app. Dedicated step-by-step procedures are also available [][]?[][] in each individual tab.
+Clicking on this button activated the `intro.js` based tour for getting to know the components and the structure of the app. Dedicated step-by-step procedures are also available in each individual tab.
 
 ## The task menu
 
@@ -193,30 +208,41 @@ For the main analysis, the available panels are described in the following subse
 
 The landing page for the app is also where you might likely be reading this text (otherwise in the package vignette).
 
-<!-- <p align="center"> -->
-<!-- <img src="[][]WHATEVERSCREENSHOT[][]" style="width:800px;"/> -->
-<!-- </p> -->
+<p align="center">
+<img src="ss_01_welcome.png" style="width:800px;"/>
+</p>
+
 
 ## Data Setup
 
-<!-- <p align="center"> -->
-<!-- <img src="[][]WHATEVERSCREENSHOT[][]" style="width:800px;"/> -->
-<!-- </p> -->
+<p align="center">
+<img src="ss_02_datasetup_s1.png" style="width:800px;"/>
+</p>
 
 The Data Setup panel is where you can upload or inspect the required inputs for running the app. This builds on the primary idea used by `r Biocpkg("pcaExplorer")` and extends it with the following aspects:
 
 - the panel structure appears dynamically in three consecutive mandatory steps, marked with color from red to yellow to green, with optional steps in light blue.
 - the optional step of retrieving the annotation on the fly relieves the user from the task of composing the `data.frame` in advance, and is based on the widely adopted `org.XX.eg.db` Bioconductor packages.
 - when the objects are already passed as parameters, or computed, a brief overview/summary for them is displayed
-- to tighten the concert operations between similar tools with different scope (as pcaExplorer and ideal are), the information flow can move from the data exploration to decisions taken at the moment of testing
+- to tighten the concert operations between similar tools with different scope (as `r Biocpkg("pcaExplorer")` and `r Biocpkg("ideal")` are), the information flow can move from the data exploration to decisions taken at the moment of testing
+
+<p align="center">
+<img src="ss_03_datasetup_s2.png" style="width:800px;"/>
+</p>
 
 A diagnostic mean-dispersion plot is also provided in a collapsible element at the bottom of the panel, shown when the `DESeqDataSet` is generated and the `DESeq` command from the `DESeq2` package has been applied.
 
+<p align="center">
+<img src="ss_04_datasetup_s3.png" style="width:800px;"/>
+</p>
+
+
+
 ## Counts Overview
 
-<!-- <p align="center"> -->
-<!-- <img src="[][]WHATEVERSCREENSHOT[][]" style="width:800px;"/> -->
-<!-- </p> -->
+<p align="center">
+<img src="ss_05_overview.png" style="width:800px;"/>
+</p>
 
 As in pcaExplorer, interactive tables for the raw, normalized or (r)log-transformed counts are shown in this tab. The user can also generate a sample-to-sample correlation scatter plot with the selected data.
 
@@ -224,28 +250,33 @@ Additionally, `ideal` has an option to include a filter step at the gene level b
 
 ## Extract Results
 
-<!-- <p align="center"> -->
-<!-- <img src="[][]WHATEVERSCREENSHOT[][]" style="width:800px;"/> -->
-<!-- </p> -->
+<p align="center">
+<img src="ss_06_results_p1.png" style="width:800px;"/>
+</p>
 
 This tab is an interface for generating the summary tables after testing for DE. It is usually based on the Wald test, as implemented in DESeq2, but when the factor of interest is assuming more than two levels, the user can also perform an ANOVA-like test across the groups with the likelihood ratio test. Options for enabling/disabling automated independent filtering, adding the additional column of unshrunken log2 fold change values (instead of the moderated estimates used by default), as well as using the Independent Hypothesis Weighting (IHW) framework, are provided.
+
+<p align="center">
+<img src="ss_07_results_p2.png" style="width:800px;"/>
+</p>
 
 The False Discovery Rate (FDR) can be set from the sidebar panel, and a couple of diagnostic plots, such as the histogram of raw p-values and the distribution of log2fc, are shown below the interactive enhanced version of the table - with clickable elements to link to ENSEMBL database and NCBI website.
 
 ## Summary Plots
 
-<!-- <p align="center"> -->
-<!-- <img src="[][]WHATEVERSCREENSHOT[][]" style="width:800px;"/> -->
-<!-- </p> -->
+
+<p align="center">
+<img src="ss_08_summaryplots.png" style="width:800px;"/>
+</p>
 
 In this tab an interactive MA plot for the contrast selected in the Extract Results tab is displayed. Clicking on a single gene in the zoomed plot (enabled by brushing in the main plot), it is possible to obtain a boxplot for its expression values, flanked by an overview of information accessed live from the Entrez database. Alternatively, a volcano plot of -log10(p-value) versus log fold change can provide a slightly different perspective. The subset of selected genes are also here presented in static and interactive heatmaps, with the underlying data accessible from the collapsible box element.
 
 
 ## Gene Finder
 
-<!-- <p align="center"> -->
-<!-- <img src="[][]WHATEVERSCREENSHOT[][]" style="width:800px;"/> -->
-<!-- </p> -->
+<p align="center">
+<img src="ss_09_genefinder.png" style="width:800px;"/>
+</p>
 
 The functionality in the Gene Finder builds upon the one provided by `pcaExplorer`, and allows to query up to four genes in the same view, which can here be selected from a dropdown input list which supports autocompletion. 
 
@@ -254,9 +285,10 @@ A combined summary table (with both normalized counts and results statistics) is
 
 ## Functional Analysis
 
-<!-- <p align="center"> -->
-<!-- <img src="[][]WHATEVERSCREENSHOT[][]" style="width:800px;"/> -->
-<!-- </p> -->
+
+<p align="center">
+<img src="ss_10_funcanalysis.png" style="width:800px;"/>
+</p>
 
 The Functional Analysis tab takes the user from the simple lists of DE genes to insight on the affected biological pathways, with three approaches based on the Gene Ontology (GO) databases. This panel of ideal has a slim interface to 
 
@@ -273,9 +305,9 @@ Each of the methods for GO enrichment delivers its own interactive `DT`-based ta
 
 ## Report Editor
 
-<!-- <p align="center"> -->
-<!-- <img src="[][]WHATEVERSCREENSHOT[][]" style="width:800px;"/> -->
-<!-- </p> -->
+<p align="center">
+<img src="ss_11_report.png" style="width:800px;"/>
+</p>
 
 The Report Editor tab works in the same way of `pcaExplorer`, with the scope of providing an interface to full computational reproducibility of the analyses.
 
@@ -285,9 +317,9 @@ The code contained in the template report fetches the latest state of the reacti
 
 ## About
 
-<!-- <p align="center"> -->
-<!-- <img src="[][]WHATEVERSCREENSHOT[][]" style="width:800px;"/> -->
-<!-- </p> -->
+<p align="center">
+<img src="ss_12_about.png" style="width:800px;"/>
+</p>
 
 
 The About tab contains the output of `sessionInfo`, plus general information on `r Biocpkg("ideal")`, including the link to the Github development version. If requested, the modular structure of the app can be easily expanded, and many new operations on the same set of input data and derived results can be embedded in the same framework. 
@@ -301,7 +333,7 @@ We can run `r Biocpkg("ideal")` for demonstration purpose on published datasets 
 
 We will use the `r Biocpkg("airway")` dataset, which can be installed with this command
 
-[][]or use pasilla[][]
+<!-- [][]or use pasilla[][] -->
 
 
 ```{r installairway, eval=FALSE}
