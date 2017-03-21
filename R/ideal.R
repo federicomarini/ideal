@@ -138,7 +138,16 @@ ideal<- function(dds_obj = NULL,
                numericInput("FDR","False Discovery Rate",value = 0.05, min = 0, max = 1, step = 0.01)
 
       ),
-      menuItem("Plot export settings", icon = icon("paint-brush")),
+      menuItem("Plot export settings", icon = icon("paint-brush"),
+               numericInput("export_width",label = "Width of exported figures (cm)",value = 16,min = 2),
+               shinyBS::bsTooltip(
+                 "export_width", paste0("Width of the figures to export, expressed in cm"),
+                 "right", options = list(container = "body")),
+               numericInput("export_height",label = "Height of exported figures (cm)",value = 10,min = 2),
+               shinyBS::bsTooltip(
+                 "export_height", paste0("Height of the figures to export, expressed in cm"),
+                 "right", options = list(container = "body"))
+               ),
       menuItem("Quick viewer", icon = icon("flash"), id = "qvmenu",
                fluidRow(
                  fluidRow(column(6,p("Count matrix")), column(6,uiOutput("ok_cm"))),
@@ -518,14 +527,21 @@ ideal<- function(dds_obj = NULL,
 
 
               DT::dataTableOutput("table_res"),
+              downloadButton("downloadTblResu","Download", class = "btn btn-success"),
               fluidRow(
                 column(
                   width = 6,
-                  plotOutput("pvals_hist")
+                  plotOutput("pvals_hist"),
+                  div(align = "right", style = "margin-right:15px; margin-bottom:10px",
+                      downloadButton("download_plot_pvals_hist", "Download Plot"),
+                      textInput("filename_plot_pvals_hist",label = "Save as...",value = "plot_pvals_hist.pdf"))
                 ),
                 column(
                   width = 6,
-                  plotOutput("logfc_hist")
+                  plotOutput("logfc_hist"),
+                  div(align = "right", style = "margin-right:15px; margin-bottom:10px",
+                      downloadButton("download_plot_logfc_hist", "Download Plot"),
+                      textInput("filename_plot_logfc_hist",label = "Save as...",value = "plot_logfc_hist.pdf"))
                 )
               )
             ),
@@ -559,10 +575,16 @@ ideal<- function(dds_obj = NULL,
 
               fluidRow(column(6,
                               h4("MA plot - Interactive!"),
-                              plotOutput('plotma', brush = 'ma_brush')),
+                              plotOutput('plotma', brush = 'ma_brush'),
+                              div(align = "right", style = "margin-right:15px; margin-bottom:10px",
+                                  downloadButton("download_plot_ma", "Download Plot"),
+                                  textInput("filename_plot_ma",label = "Save as...",value = "plot_ma.pdf"))),
                        column(6,
                               h4("Zoomed section"),
-                              plotOutput("mazoom",click= 'mazoom_click'))
+                              plotOutput("mazoom",click= 'mazoom_click'),
+                              div(align = "right", style = "margin-right:15px; margin-bottom:10px",
+                                  downloadButton("download_plot_mazoom", "Download Plot"),
+                                  textInput("filename_plot_mazoom",label = "Save as...",value = "plot_mazoom.pdf")))
                        # ,
                        # column(4,
                        #        h4("Boxplot for the selected gene"),
@@ -572,7 +594,10 @@ ideal<- function(dds_obj = NULL,
               fluidRow(column(6,
                               h4("Selected gene"),
                               checkboxInput("ylimZero_genes","Set y axis limit to 0",value=TRUE),
-                              plotOutput("genefinder_plot")
+                              plotOutput("genefinder_plot"),
+                              div(align = "right", style = "margin-right:15px; margin-bottom:10px",
+                                  downloadButton("download_plot_genefinder", "Download Plot"),
+                                  textInput("filename_plot_genefinder",label = "Save as...",value = "plot_genefinder.pdf"))
               ),
               column(6,
                      h4("Gene infobox"),
@@ -583,7 +608,10 @@ ideal<- function(dds_obj = NULL,
 
               fluidRow(column(6,
                               h4("volcano plot"),
-                              plotOutput("volcanoplot")
+                              plotOutput("volcanoplot"),
+                              div(align = "right", style = "margin-right:15px; margin-bottom:10px",
+                                  downloadButton("download_plot_volcanoplot", "Download Plot"),
+                                  textInput("filename_plot_volcanoplot",label = "Save as...",value = "plot_volcanoplot.pdf"))
               )),
 
 
@@ -597,7 +625,10 @@ ideal<- function(dds_obj = NULL,
               ),
               fluidRow(
                 column(6,
-                       plotOutput("heatbrush")
+                       plotOutput("heatbrush"),
+                       div(align = "right", style = "margin-right:15px; margin-bottom:10px",
+                           downloadButton("download_plot_heatbrush", "Download Plot"),
+                           textInput("filename_plot_heatbrush",label = "Save as...",value = "plot_heatbrush.pdf"))
                 ),
                 column(6,
                        d3heatmapOutput("heatbrushD3"))
@@ -607,7 +638,8 @@ ideal<- function(dds_obj = NULL,
               box(
                 title = "Brushed table", status = "primary", solidHeader = TRUE,
                 collapsible = TRUE, collapsed = TRUE, width = 12,
-                fluidRow(DT::dataTableOutput("ma_brush_out")))
+                fluidRow(DT::dataTableOutput("ma_brush_out"),
+                         downloadButton("downloadTblMabrush","Download", class = "btn btn-success")))
             ),
             conditionalPanel(
               condition="output.checkresu",
@@ -637,22 +669,37 @@ ideal<- function(dds_obj = NULL,
                 column(6,checkboxInput("ylimZero_genefinder","Set y axis limit to 0",value=TRUE))),
               fluidRow(
                 column(6,
-                       plotOutput("bp1")
+                       plotOutput("bp1"),
+                       div(align = "right", style = "margin-right:15px; margin-bottom:10px",
+                           downloadButton("download_plotbp1", "Download Plot"),
+                           textInput("filename_plotbp1",label = "Save as...",value = "plotbp1.pdf"))
                 ),
                 column(6,
-                       plotOutput("bp2"))
+                       plotOutput("bp2"),
+                       div(align = "right", style = "margin-right:15px; margin-bottom:10px",
+                           downloadButton("download_plotbp2", "Download Plot"),
+                           textInput("filename_plotbp2",label = "Save as...",value = "plotbp2.pdf")))
               ),
               fluidRow(
                 column(6,
-                       plotOutput("bp3")
+                       plotOutput("bp3"),
+                       div(align = "right", style = "margin-right:15px; margin-bottom:10px",
+                           downloadButton("download_plotbp3", "Download Plot"),
+                           textInput("filename_plotbp3",label = "Save as...",value = "plotbp3.pdf"))
                 ),
                 column(6,
-                       plotOutput("bp4"))
+                       plotOutput("bp4"),
+                       div(align = "right", style = "margin-right:15px; margin-bottom:10px",
+                           downloadButton("download_plotbp4", "Download Plot"),
+                           textInput("filename_plotbp4",label = "Save as...",value = "plotbp4.pdf")))
               ),
 
               plotOutput("ma_highlight"),
+              div(align = "right", style = "margin-right:15px; margin-bottom:10px",
+                  downloadButton("download_plot_mahighlight", "Download Plot"),
+                  textInput("filename_plot_mahighlight",label = "Save as...",value = "plot_mahighlight.pdf")),
               DT::dataTableOutput("table_combi"),
-
+              downloadButton("downloadTblCombi","Download", class = "btn btn-success"),
 
               fileInput(inputId = "gl_ma",
                         label = "Upload a gene list file",
@@ -660,8 +707,11 @@ ideal<- function(dds_obj = NULL,
                                    "text/tab-separated-values", "text/plain",
                                    ".csv", ".tsv"), multiple = FALSE),
               plotOutput("ma_hl_list"),
-              DT::dataTableOutput("table_combi_list")
-
+              div(align = "right", style = "margin-right:15px; margin-bottom:10px",
+                  downloadButton("download_plot_mahllist", "Download Plot"),
+                  textInput("filename_plot_mahllist",label = "Save as...",value = "plot_mahllist.pdf")),
+              DT::dataTableOutput("table_combi_list"),
+              downloadButton("downloadTblCombiList","Download", class = "btn btn-success")
 
             ),
             conditionalPanel(
@@ -705,7 +755,8 @@ ideal<- function(dds_obj = NULL,
                          DT::dataTableOutput("DT_gse_up"),
                          DT::dataTableOutput("DT_gse_up_goseq"),
                          fluidRow(
-                           column(width = 9, DT::dataTableOutput("DT_gse_up_topgo")),
+                           column(width = 9, DT::dataTableOutput("DT_gse_up_topgo"),
+                                  downloadButton("downloadGOTbl_up","Download", class = "btn btn-success")),
                            column(width = 3, plotOutput("goterm_heatmap_up_topgo"))
                          )
                 ),
@@ -716,7 +767,8 @@ ideal<- function(dds_obj = NULL,
                          DT::dataTableOutput("DT_gse_down"),
                          DT::dataTableOutput("DT_gse_down_goseq"),
                          fluidRow(
-                           column(width = 9, DT::dataTableOutput("DT_gse_down_topgo")),
+                           column(width = 9, DT::dataTableOutput("DT_gse_down_topgo"),
+                                  downloadButton("downloadGOTbl_down","Download", class = "btn btn-success")),
                            column(width = 3, plotOutput("goterm_heatmap_down_topgo"))
                          )
                 ),
@@ -727,7 +779,8 @@ ideal<- function(dds_obj = NULL,
                          DT::dataTableOutput("DT_gse_updown"),
                          DT::dataTableOutput("DT_gse_updown_goseq"),
                          fluidRow(
-                           column(width = 9, DT::dataTableOutput("DT_gse_updown_topgo")),
+                           column(width = 9, DT::dataTableOutput("DT_gse_updown_topgo"),
+                                  downloadButton("downloadGOTbl_updown","Download", class = "btn btn-success")),
                            column(width = 3, plotOutput("goterm_heatmap_updown_topgo"))
                          )
                 ),
@@ -743,7 +796,8 @@ ideal<- function(dds_obj = NULL,
                          DT::dataTableOutput("DT_gse_list1"),
                          DT::dataTableOutput("DT_gse_list1_goseq"),
                          fluidRow(
-                           column(width = 9, DT::dataTableOutput("DT_gse_list1_topgo")),
+                           column(width = 9, DT::dataTableOutput("DT_gse_list1_topgo"),
+                                  downloadButton("downloadGOTbl_l1","Download", class = "btn btn-success")),
                            column(width = 3, plotOutput("goterm_heatmap_l1_topgo"))
                          )
 
@@ -760,7 +814,8 @@ ideal<- function(dds_obj = NULL,
                          DT::dataTableOutput("DT_gse_list2"),
                          DT::dataTableOutput("DT_gse_list2_goseq"),
                          fluidRow(
-                           column(width = 9, DT::dataTableOutput("DT_gse_list2_topgo")),
+                           column(width = 9, DT::dataTableOutput("DT_gse_list2_topgo"),
+                                  downloadButton("downloadGOTbl_l2","Download", class = "btn btn-success")),
                            column(width = 3, plotOutput("goterm_heatmap_l2_topgo"))
                          )
                 )
@@ -796,9 +851,17 @@ ideal<- function(dds_obj = NULL,
 
 
               fluidRow(
-                column(width = 6,plotOutput("vennlists"), offset = 3)),
+                column(width = 6,plotOutput("vennlists"),
+                       div(align = "right", style = "margin-right:15px; margin-bottom:10px",
+                           downloadButton("download_plot_vennlists", "Download Plot"),
+                           textInput("filename_plot_vennlists",label = "Save as...",value = "plot_vennlists.pdf")),
+                       offset = 3)),
               fluidRow(
-                column(width = 6,plotOutput("upsetLists"), offset = 3))
+                column(width = 6,plotOutput("upsetLists"),
+                       div(align = "right", style = "margin-right:15px; margin-bottom:10px",
+                           downloadButton("download_plot_upsetlists", "Download Plot"),
+                           textInput("filename_plot_upsetlists",label = "Save as...",value = "plot_upsetlists.pdf")),
+                       offset = 3))
 
 
             ),
@@ -3178,6 +3241,7 @@ ideal<- function(dds_obj = NULL,
       p <- ggplot(res_df, aes_string("pvalue")) +
         geom_histogram(binwidth = 0.01) + theme_bw()
 
+      exportPlots$plot_pvals_hist <- p
       p
 
     })
@@ -3190,6 +3254,8 @@ ideal<- function(dds_obj = NULL,
       res_df <- as.data.frame(values$res_obj)
       p <- ggplot(res_df, aes_string("log2FoldChange")) +
         geom_histogram(binwidth = 0.1) + theme_bw()
+
+      exportPlots$plot_logfc_hist <- p
 
       p
 
@@ -3215,21 +3281,26 @@ ideal<- function(dds_obj = NULL,
 
 
     output$plotma <- renderPlot({
-      plot_ma(values$res_obj,annotation_obj = values$annotation_obj,FDR = input$FDR)
+      p <- plot_ma(values$res_obj,annotation_obj = values$annotation_obj,FDR = input$FDR)
+      exportPlots$plot_ma <- p
+      p
     })
 
     output$mazoom <- renderPlot({
       if(is.null(input$ma_brush)) return(ggplot() + annotate("text",label="click and drag to zoom in",0,0) + theme_bw())
 
       if(!is.null(values$annotation_obj))
-        plot_ma(values$res_obj,annotation_obj = values$annotation_obj,FDR = input$FDR) +
+        p <- plot_ma(values$res_obj,annotation_obj = values$annotation_obj,FDR = input$FDR) +
         coord_cartesian(xlim = c(input$ma_brush$xmin,input$ma_brush$xmax),
                         ylim = c(input$ma_brush$ymin,input$ma_brush$ymax)) +
         geom_text(aes_string(label="genename"),size=3,hjust=0.25, vjust=-0.75)
       else
-        plot_ma(values$res_obj,annotation_obj = values$annotation_obj,FDR = input$FDR) +
+        p <-  plot_ma(values$res_obj,annotation_obj = values$annotation_obj,FDR = input$FDR) +
         coord_cartesian(xlim = c(input$ma_brush$xmin,input$ma_brush$xmax),
                         ylim = c(input$ma_brush$ymin,input$ma_brush$ymax))
+
+      exportPlots$plot_mazoom <- p
+      p
     })
 
 
@@ -3240,25 +3311,31 @@ ideal<- function(dds_obj = NULL,
       )
 
       if("symbol" %in% names(values$res_obj)) {
-        plot_ma(values$res_obj,
+        p <- plot_ma(values$res_obj,
                 intgenes = input$avail_symbols,annotation_obj = values$annotation_obj,FDR = input$FDR)
       } else {
-        plot_ma(values$res_obj,
+        p <- plot_ma(values$res_obj,
                 intgenes = input$avail_ids,annotation_obj = values$annotation_obj,FDR = input$FDR)
       }
+
+      exportPlots$plot_mahighlight <- p
+      p
     })
 
     output$ma_hl_list <- renderPlot({
       if(is.null(values$genelist_ma))
         return(NULL)
       if("symbol" %in% names(values$res_obj)) {
-        plot_ma(values$res_obj,
+        p <- plot_ma(values$res_obj,
                 intgenes = values$genelist_ma$`Gene Symbol`,annotation_obj = values$annotation_obj,FDR = input$FDR)
       } else {
         # plot_ma(values$res_obj,
         # intgenes = values$genelist_ma,annotation_obj = values$annotation_obj)
         return(NULL)
       }
+
+      exportPlots$plot_mahllist <- p
+      p
     })
 
 
@@ -3363,7 +3440,9 @@ ideal<- function(dds_obj = NULL,
 
 
     output$volcanoplot <- renderPlot({
-      plot_volcano(values$res_obj, FDR = input$FDR)
+      p <- plot_volcano(values$res_obj, FDR = input$FDR)
+      exportPlots$plot_volcanoplot <- p
+      p
     })
 
 
@@ -3428,10 +3507,9 @@ ideal<- function(dds_obj = NULL,
       if(input$ylimZero_genes)
         p <- p + ylim(0.1, NA)
 
+
+      exportPlots$plot_genefinder <- p
       p
-
-
-
     })
 
 
@@ -3613,6 +3691,7 @@ ideal<- function(dds_obj = NULL,
       p <- ggplotCounts(values$dds_obj, myid, intgroup = input$color_by,annotation_obj=values$annotation_obj)
       if(input$ylimZero_genefinder)
         p <- p + ylim(0.1, NA)
+      exportPlots$plotbp1 <- p
       p
     })
 
@@ -3645,6 +3724,7 @@ ideal<- function(dds_obj = NULL,
       p <- ggplotCounts(values$dds_obj, myid, intgroup = input$color_by,annotation_obj=values$annotation_obj)
       if(input$ylimZero_genefinder)
         p <- p + ylim(0.1, NA)
+      exportPlots$plotbp2 <- p
       p
     })
 
@@ -3677,6 +3757,7 @@ ideal<- function(dds_obj = NULL,
       p <- ggplotCounts(values$dds_obj, myid, intgroup = input$color_by,annotation_obj=values$annotation_obj)
       if(input$ylimZero_genefinder)
         p <- p + ylim(0.1, NA)
+      exportPlots$plotbp3 <- p
       p
     })
 
@@ -3709,6 +3790,7 @@ ideal<- function(dds_obj = NULL,
       p <- ggplotCounts(values$dds_obj, myid, intgroup = input$color_by,annotation_obj=values$annotation_obj)
       if(input$ylimZero_genefinder)
         p <- p + ylim(0.1, NA)
+      exportPlots$plotbp4 <- p
       p
     })
 
@@ -3979,7 +4061,222 @@ ideal<- function(dds_obj = NULL,
     #   })
 
 
+
     ## here, all export of plots and tables
+    output$download_plot_pvals_hist <- downloadHandler(filename = function() {
+      input$filename_plot_pvals_hist
+    }, content = function(file) {
+      ggsave(file, exportPlots$plot_pvals_hist, width = input$export_width,
+             height = input$export_height, units = "cm")
+    })
+
+    output$download_plot_logfc_hist <- downloadHandler(filename = function() {
+      input$filename_plot_logfc_hist
+    }, content = function(file) {
+      ggsave(file, exportPlots$plot_logfc_hist, width = input$export_width,
+             height = input$export_height, units = "cm")
+    })
+
+    output$download_plot_ma <- downloadHandler(filename = function() {
+      input$filename_plot_ma
+    }, content = function(file) {
+      ggsave(file, exportPlots$plot_ma, width = input$export_width,
+             height = input$export_height, units = "cm")
+    })
+
+    output$download_plot_mazoom <- downloadHandler(filename = function() {
+      input$filename_plot_mazoom
+    }, content = function(file) {
+      ggsave(file, exportPlots$plot_mazoom, width = input$export_width,
+             height = input$export_height, units = "cm")
+    })
+
+    output$download_plot_mahighlight <- downloadHandler(filename = function() {
+      input$filename_plot_mahighlight
+    }, content = function(file) {
+      ggsave(file, exportPlots$plot_mahighlight, width = input$export_width,
+             height = input$export_height, units = "cm")
+    })
+
+    output$download_plot_mahllist <- downloadHandler(filename = function() {
+      input$filename_plot_mahllist
+    }, content = function(file) {
+      ggsave(file, exportPlots$plot_mahllist, width = input$export_width,
+             height = input$export_height, units = "cm")
+    })
+
+    output$download_plot_volcanoplot <- downloadHandler(filename = function() {
+      input$filename_plot_volcanoplot
+    }, content = function(file) {
+      ggsave(file, exportPlots$plot_volcanoplot, width = input$export_width,
+             height = input$export_height, units = "cm")
+    })
+
+    output$download_plot_genefinder <- downloadHandler(filename = function() {
+      input$filename_plot_genefinder
+    }, content = function(file) {
+      ggsave(file, exportPlots$plot_genefinder, width = input$export_width,
+             height = input$export_height, units = "cm")
+    })
+
+    output$download_plotbp1 <- downloadHandler(filename = function() {
+      input$filename_plotbp1
+    }, content = function(file) {
+      ggsave(file, exportPlots$plotbp1, width = input$export_width,
+             height = input$export_height, units = "cm")
+    })
+
+    output$download_plotbp2 <- downloadHandler(filename = function() {
+      input$filename_plotbp2
+    }, content = function(file) {
+      ggsave(file, exportPlots$plotbp2, width = input$export_width,
+             height = input$export_height, units = "cm")
+    })
+
+    output$download_plotbp3 <- downloadHandler(filename = function() {
+      input$filename_plotbp3
+    }, content = function(file) {
+      ggsave(file, exportPlots$plotbp3, width = input$export_width,
+             height = input$export_height, units = "cm")
+    })
+
+    output$download_plotbp4 <- downloadHandler(filename = function() {
+      input$filename_plotbp4
+    }, content = function(file) {
+      ggsave(file, exportPlots$plotbp4, width = input$export_width,
+             height = input$export_height, units = "cm")
+    })
+
+    # tbls
+
+    output$downloadTblResu <- downloadHandler(
+      filename = function() {
+        "table_results.csv"
+      },
+      content = function(file) {
+        mydf <- as.data.frame(values$res_obj[order(values$res_obj$padj),])
+        write.csv(mydf, file)
+      }
+    )
+
+    output$downloadTblMabrush <- downloadHandler(
+      filename = function() {
+        "table_mabrush.csv"
+      },
+      content = function(file) {
+        write.csv(curData(), file)
+      }
+    )
+
+    output$downloadTblCombi <- downloadHandler(
+      filename = function() {
+        "table_combi.csv"
+      },
+      content = function(file) {
+        write.csv(cur_combires(), file)
+      }
+    )
+
+    output$downloadTblCombiList <- downloadHandler(
+      filename = function() {
+        "table_combilist.csv"
+      },
+      content = function(file) {
+        write.csv(cur_combires_list(), file)
+      }
+    )
+
+    # base graphics plots
+
+    output$download_plot_heatbrush <- downloadHandler(filename = function() {
+      input$filename_plot_heatbrush
+    }, content = function(file) {
+      pdf(file)
+      brushedObject <- curData()
+
+      selectedGenes <- as.character(brushedObject$ID)
+      toplot <- assay(values$dds_obj)[selectedGenes,]
+      rownames(toplot) <- values$annotation_obj$gene_name[match(rownames(toplot),rownames(values$annotation_obj))]
+
+      if(input$pseudocounts) toplot <- log2(1+toplot)
+
+      mat_rowscale <- function(x)
+      {
+        m <- apply(x, 1, mean, na.rm = TRUE)
+        s <- apply(x, 1, sd, na.rm = TRUE)
+        return((x - m)/s)
+      }
+
+      if(input$rowscale) toplot <- mat_rowscale(toplot)
+
+      pheatmap(toplot,cluster_cols = as.logical(input$heatmap_colv))
+      dev.off()
+    })
+
+    output$download_plot_vennlists <- downloadHandler(filename = function() {
+      input$filename_plot_vennlists
+    }, content = function(file) {
+      pdf(file)
+      gplots::venn(gll())
+      dev.off()
+    })
+
+    output$download_plot_upsetlists <- downloadHandler(filename = function() {
+      input$filename_plot_upsetlists
+    }, content = function(file) {
+      pdf(file)
+      UpSetR::upset(fromList(gll()))
+      dev.off()
+    })
+
+
+    ## GO tbls topGO
+
+    output$downloadGOTbl_up <- downloadHandler(
+      filename = function() {
+        "table_GOresults_up.csv"
+      },
+      content = function(file) {
+        write.csv(values$topgo_up, file)
+      }
+    )
+
+    output$downloadGOTbl_down <- downloadHandler(
+      filename = function() {
+        "table_GOresults_down.csv"
+      },
+      content = function(file) {
+        write.csv(values$topgo_down, file)
+      }
+    )
+
+    output$downloadGOTbl_updown <- downloadHandler(
+      filename = function() {
+        "table_GOresults_updown.csv"
+      },
+      content = function(file) {
+        write.csv(values$topgo_updown, file)
+      }
+    )
+
+    output$downloadGOTbl_l1 <- downloadHandler(
+      filename = function() {
+        "table_GOresults_list1.csv"
+      },
+      content = function(file) {
+        write.csv(values$topgo_list1, file)
+      }
+    )
+
+    output$downloadGOTbl_l2 <- downloadHandler(
+      filename = function() {
+        "table_GOresults_list2.csv"
+      },
+      content = function(file) {
+        write.csv(values$topgo_list2, file)
+      }
+    )
+
     # output$download_genesPca_countsplot <- downloadHandler(filename = function() {
     #   input$filename_genesPca_countsplot
     # }, content = function(file) {
@@ -3998,9 +4295,6 @@ ideal<- function(dds_obj = NULL,
     #   aheatmap(toplot, Colv = as.logical(input$heatmap_colv))
     #   dev.off()
     # })
-
-
-
 
 
 
