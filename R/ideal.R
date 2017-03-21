@@ -3372,38 +3372,38 @@ ideal<- function(dds_obj = NULL,
     ## TODO: same thing but with the volcano plot?
 
 
-    output$geneplot <- renderPlot({
-
-      # if(length(input$color_by_G)==0) return(ggplot() + annotate("text",label="select an experimental factor",0,0) + theme_bw())
-      if(is.null(input$ma_brush)) return(NULL)
-
-      if(is.null(input$mazoom_click)) return(ggplot() + annotate("text",label="click to generate the boxplot\nfor the selected gene",0,0) + theme_bw())
-
-      selectedGene <- as.character(curDataClick()$ID)
-      selectedGeneSymbol <- values$annotation_obj$gene_name[match(selectedGene,rownames(values$annotation_obj))]
-      # plotCounts(dds_cleaner,)
-      genedata <- plotCounts(values$dds_obj,gene=selectedGene,intgroup = input$color_by,returnData = TRUE)
-
-      # onlyfactors <- genedata[match(input$color_by_G,colnames(genedata))]
-      # onlyfactors <- genedata[,match(input$color_by_G,colnames(genedata))]
-      onlyfactors <- genedata[,match(input$color_by,colnames(genedata))]
-
-      ## intgroup can be a vector of factors. then i need interactions of the two factors
-      # plotCounts(ddsmf_global,gene="ENSMUSG00000026080",intgroup = c("tissue","condition"),returnData = T) -> dh
-      # dh$f1f2 <- interaction(dh$tissue,dh$condition)
-      # dh  %>% ggplot(aes(x=f1f2,y=count,fill=f1f2)) + geom_boxplot()
-
-
-
-      # genedata$plotby <- lapply(1:ncol(onlyfactors),function(arg) onlyfactors[,arg]) %>% interaction()
-      genedata$plotby <- interaction(onlyfactors)
-
-
-
-      ggplot(genedata,aes_string(x="plotby",y="count",fill="plotby")) + geom_boxplot() + scale_y_log10(name="Normalized counts") + labs(title=paste0("Normalized counts for ",selectedGeneSymbol," - ",selectedGene)) +  scale_x_discrete(name="") + geom_jitter(aes_string(x="plotby",y="count"),position = position_jitter(width = 0.1)) + scale_fill_discrete(name="Experimental\nconditions")
-      # exportPlots$genesZoom <- res
-      # res
-    })
+    # output$geneplot <- renderPlot({
+    #
+    #   # if(length(input$color_by_G)==0) return(ggplot() + annotate("text",label="select an experimental factor",0,0) + theme_bw())
+    #   if(is.null(input$ma_brush)) return(NULL)
+    #
+    #   if(is.null(input$mazoom_click)) return(ggplot() + annotate("text",label="click to generate the boxplot\nfor the selected gene",0,0) + theme_bw())
+    #
+    #   selectedGene <- as.character(curDataClick()$ID)
+    #   selectedGeneSymbol <- values$annotation_obj$gene_name[match(selectedGene,rownames(values$annotation_obj))]
+    #   # plotCounts(dds_cleaner,)
+    #   genedata <- plotCounts(values$dds_obj,gene=selectedGene,intgroup = input$color_by,returnData = TRUE)
+    #
+    #   # onlyfactors <- genedata[match(input$color_by_G,colnames(genedata))]
+    #   # onlyfactors <- genedata[,match(input$color_by_G,colnames(genedata))]
+    #   onlyfactors <- genedata[,match(input$color_by,colnames(genedata))]
+    #
+    #   ## intgroup can be a vector of factors. then i need interactions of the two factors
+    #   # plotCounts(ddsmf_global,gene="ENSMUSG00000026080",intgroup = c("tissue","condition"),returnData = T) -> dh
+    #   # dh$f1f2 <- interaction(dh$tissue,dh$condition)
+    #   # dh  %>% ggplot(aes(x=f1f2,y=count,fill=f1f2)) + geom_boxplot()
+    #
+    #
+    #
+    #   # genedata$plotby <- lapply(1:ncol(onlyfactors),function(arg) onlyfactors[,arg]) %>% interaction()
+    #   genedata$plotby <- interaction(onlyfactors)
+    #
+    #
+    #
+    #   ggplot(genedata,aes_string(x="plotby",y="count",fill="plotby")) + geom_boxplot() + scale_y_log10(name="Normalized counts") + labs(title=paste0("Normalized counts for ",selectedGeneSymbol," - ",selectedGene)) +  scale_x_discrete(name="") + geom_jitter(aes_string(x="plotby",y="count"),position = position_jitter(width = 0.1)) + scale_fill_discrete(name="Experimental\nconditions")
+    #   # exportPlots$genesZoom <- res
+    #   # res
+    # })
 
 
     output$genefinder_plot <- renderPlot({
