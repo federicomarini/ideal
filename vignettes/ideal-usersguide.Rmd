@@ -457,7 +457,7 @@ Its counterpart, based on the `r Biocpkg("topGO")` package, can be found in the 
 
 <!-- maybe eval=FALSE here? -->
 
-```{r goseq}
+```{r goseq, eval=FALSE}
 res_subset <- deseqresult2DEgenes(res_airway)[1:100,]
 myde <- res_subset$id
 myassayed <- rownames(res_airway)
@@ -474,8 +474,9 @@ As for the results, this table can be enhanced by adding the links for each cate
 
 <!-- maybe eval=FALSE here? -->
 
-```{r go-enhance}
+```{r go-enhance, eval=FALSE}
 mygo_enhanced <- mygo
+# using the unexported function to link the GO term to the entry in the AmiGO db
 mygo_enhanced$category <- ideal:::createLinkGO(mygo_enhanced$category)
 DT::datatable(mygo_enhanced,escape=FALSE)
 ```

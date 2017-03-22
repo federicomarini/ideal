@@ -40,12 +40,13 @@
 #' myde <- res_subset$id
 #' myassayed <- rownames(res_airway)
 #'
+#' \dontrun{
 #' mygo <- goseqTable(myde,
 #'                    myassayed,
 #'                    testCats = "GO:BP",
 #'                    addGeneToTerms = FALSE)
 #' head(mygo)
-#'
+#' }
 #'
 goseqTable <- function(de.genes,                  # Differentially expressed genes
                        assayed.genes,             # background genes, normally = rownames(cds) or filtering to genes

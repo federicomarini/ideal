@@ -59,11 +59,12 @@ res_subset <- deseqresult2DEgenes(res_airway)[1:100,]
 myde <- res_subset$id
 myassayed <- rownames(res_airway)
 
+\dontrun{
 mygo <- goseqTable(myde,
                    myassayed,
                    testCats = "GO:BP",
                    addGeneToTerms = FALSE)
 head(mygo)
-
+}
 
 }
