@@ -453,12 +453,14 @@ When used in the context of the app, it is possible to seamless search for genes
 
 `goseqTable` is a wrapper to extract the functional GO terms enriched in  in a list of (DE) genes, based on the algorithm and the implementation in the `r Biocpkg("goseq")` package.
 
-Its counterpart, based on the `r Biocpkg("topGO")` package, can be found in the `r Biocpkg("pcaExplorer")` package.
+Its counterpart, based on the `r Biocpkg("topGO")` package, can be found in the `r Biocpkg("pcaExplorer")` package. 
+
+*Please note that the following code chunks are not run only for reducing compilation time. The reader is invited to try out the functionality by simply executing these commands.*
 
 <!-- maybe eval=FALSE here? -->
 
 ```{r goseq, eval=FALSE}
-res_subset <- deseqresult2DEgenes(res_airway)[1:100,]
+res_subset <- deseqresult2DEgenes(res_airway)[1:100,] # taking only a subset of the DE genes
 myde <- res_subset$id
 myassayed <- rownames(res_airway)
 mygo <- goseqTable(de.genes = myde,
