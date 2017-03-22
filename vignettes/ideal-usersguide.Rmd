@@ -37,6 +37,8 @@ vignette: >
 
 **Compiled date**: `r Sys.Date()`
 
+**Last edited**: 2017-03-22
+
 **License**: `r packageDescription("ideal")[["License"]]`
 
 
