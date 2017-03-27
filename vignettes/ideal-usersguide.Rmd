@@ -493,7 +493,8 @@ The MA plot provided by `r Biocpkg("ideal")` displays the gene-wise log2-fold ch
 To facilitate the inspection of a particular gene or gene set, `intgenes` can assume the value of a vector of genes (either the IDs or the gene symbols if `symbol` column is provided in `res_obj`. Labels can be added via `labels_intgenes`, while classical labels/title can be also edited as preferred (see `plot_ma` for all details). 
 
 ```{r plotma}
-plot_ma(res_airway, FDR = 0.05, hlines = 1, title ="Adding horizontal lines")
+plot_ma(res_airway, FDR = 0.05, hlines = 1,
+        title ="Adding horizontal lines", add_rug = FALSE)
 ```
 
 ```{r plotma2}
@@ -502,7 +503,8 @@ plot_ma(res_airway, FDR = 0.1,
                      "ENSG00000120129",  # DUSP1
                      "ENSG00000163884",  # KLF15
                      "ENSG00000179094"), # PER1
-        title = "Providing a shortlist of genes"
+        title = "Providing a shortlist of genes",
+        add_rug = FALSE
        )
 res_airway2 <- res_airway
 res_airway2$symbol <- mapIds(org.Hs.eg.db,keys = rownames(res_airway2),column = "SYMBOL",keytype="ENSEMBL")
