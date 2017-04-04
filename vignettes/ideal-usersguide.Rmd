@@ -43,13 +43,12 @@ vignette: >
 
 
 ```{r setup, echo=FALSE, warning=FALSE}
-library(knitr)
 set.seed(42)
-opts_chunk$set(comment=NA,
-               fig.align="center",
-               fig.width = 7,
-               fig.height = 7,
-               warning=FALSE)
+# knitr::opts_chunk$set(comment=NA,
+#                fig.align="center",
+#                fig.width = 7,
+#                fig.height = 7,
+#                warning=FALSE)
 ```
 
 # Getting started
@@ -492,12 +491,9 @@ The MA plot provided by `r Biocpkg("ideal")` displays the gene-wise log2-fold ch
 
 To facilitate the inspection of a particular gene or gene set, `intgenes` can assume the value of a vector of genes (either the IDs or the gene symbols if `symbol` column is provided in `res_obj`. Labels can be added via `labels_intgenes`, while classical labels/title can be also edited as preferred (see `plot_ma` for all details). 
 
-```{r plotma}
+```{r plotma, eval=FALSE}
 plot_ma(res_airway, FDR = 0.05, hlines = 1,
         title ="Adding horizontal lines", add_rug = FALSE)
-```
-
-```{r plotma2}
 plot_ma(res_airway, FDR = 0.1,
         intgenes = c("ENSG00000103196",  # CRISPLD2
                      "ENSG00000120129",  # DUSP1
@@ -506,6 +502,9 @@ plot_ma(res_airway, FDR = 0.1,
         title = "Providing a shortlist of genes",
         add_rug = FALSE
        )
+```
+
+```{r plotma2}
 res_airway2 <- res_airway
 res_airway2$symbol <- mapIds(org.Hs.eg.db,keys = rownames(res_airway2),column = "SYMBOL",keytype="ENSEMBL")
 plot_ma(res_airway2, FDR = 0.05,
@@ -526,7 +525,7 @@ The volcano plot gives a different flavor for the gene overview, displaying log2
 
 In a way similar to `plot_ma`, genes can be annotated with `intgenes`, and vertical lines can be added via `vlines`. `ylim_up` controls the y axis upper limit to visualize better the bulk of genes - keep in mind that very small p-values due to robust differences/large effect sizes can be "cut out".
 
-```{r plotvolcano}
+```{r plotvolcano, eval = FALSE}
 plot_volcano(res_airway)
 ```
 
