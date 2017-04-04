@@ -96,9 +96,9 @@ citation("ideal")
 
 # Using the application
 
-There are different ways to use `ideal` for interactive differential expression analysis.
+There are different ways to use `r Biocpkg("ideal")` for interactive differential expression analysis.
 
-## Launching `ideal` locally
+## Launching `r Biocpkg("ideal")` locally
 
 First load the library
 
@@ -122,7 +122,7 @@ Different modalities are supported to launch the application:
 - `ideal(countmatrix = countmatrix, expdesign = expdesign)`, where instead of passing the defined `DESeqDataSet` object, its components are given, namely the count matrix (e.g. generated after a run of featureCounts or HTSeq-count) and a data frame with the experimental covariates. The design formula can be constructed interactively at runtime
 - `ideal()`, where the count matrix and experimental design can simply be uploaded at runtime, where all the derived objects can be extracted and computed live. These files have to be formatted as tabular text files, and a function in the package tries to guess the separator, based on heuristics of occurrencies per line of commonly used characters
 
-## Accessing the public instance of `ideal` 
+## Accessing the public instance of `r Biocpkg("ideal")` 
 
 To use `r Biocpkg("ideal")` without installing any additional software, you can access the public instance of the Shiny Server made available at the Institute of Medical Biostatistics, Epidemiology and Informatics (IMBEI) in Mainz.
 
@@ -132,9 +132,9 @@ http://shiny.imbei.uni-mainz.de:3838/ideal
 
 ## Deploying to a Shiny Server
 
-A deployment-oriented version of the package is available at https://github.com/federicomarini/ideal_serveredition. This repository contains also detailed instruction to setup the running instance of a Shiny Server, where `ideal` can be run without further installation for the end-users.
+A deployment-oriented version of the package is available at https://github.com/federicomarini/ideal_serveredition. This repository contains also detailed instruction to setup the running instance of a Shiny Server, where `r Biocpkg("ideal")` can be run without further installation for the end-users.
 
-Please note that you still need `ideal` to be installed there once during the setup phase - for this operation, you might require root administrator permissions. 
+Please note that you still need `r Biocpkg("ideal")` to be installed there once during the setup phase - for this operation, you might require root administrator permissions. 
 
 
 <!-- Following the structure of \texttt{pcaExplorer}, the deployment as a standalone web application is easily achieved also for \texttt{ideal}, with the only requirement of a running Shiny Server. Handling of sensitive human patient data can thus occur in a secured way, e.g. with restricted access to an internal instance of the application. This will also avoid the need of external software installation for the users, which could moreover seamlessly access higher performing computing infrastructures. -->
@@ -175,7 +175,7 @@ Some of the input controls which affect different tabs are located in the sideba
 
 ### Quick viewer
 
-This displays a list of the underlying objects with which basically all of the analysis can be performed. A green tick icon appears close to each when the respective component is either provided or calculated. For obtaining the best analysis experience in `ideal`, it is recommended to provide all of them.
+This displays a list of the underlying objects with which basically all of the analysis can be performed. A green tick icon appears close to each when the respective component is either provided or calculated. For obtaining the best analysis experience in `r Biocpkg("ideal")`, it is recommended to provide all of them.
 
 ### First steps help
 
@@ -202,16 +202,8 @@ For the main analysis, the available panels are described in the following subse
 
 The landing page for the app is also where you might likely be reading this text (otherwise in the package vignette).
 
-<p align="center">
-<img src="ss_01_welcome.png" style="width:800px;"/>
-</p>
-
 
 ## Data Setup
-
-<p align="center">
-<img src="ss_02_datasetup_s1.png" style="width:800px;"/>
-</p>
 
 The Data Setup panel is where you can upload or inspect the required inputs for running the app. This builds on the primary idea used by `r Biocpkg("pcaExplorer")` and extends it with the following aspects:
 
@@ -220,15 +212,7 @@ The Data Setup panel is where you can upload or inspect the required inputs for 
 - when the objects are already passed as parameters, or computed, a brief overview/summary for them is displayed
 - to tighten the concert operations between similar tools with different scope (as `r Biocpkg("pcaExplorer")` and `r Biocpkg("ideal")` are), the information flow can move from the data exploration to decisions taken at the moment of testing
 
-<p align="center">
-<img src="ss_03_datasetup_s2.png" style="width:800px;"/>
-</p>
-
 A diagnostic mean-dispersion plot is also provided in a collapsible element at the bottom of the panel, shown when the `DESeqDataSet` is generated and the `DESeq` command from the `DESeq2` package has been applied.
-
-<p align="center">
-<img src="ss_04_datasetup_s3.png" style="width:800px;"/>
-</p>
 
 
 
@@ -238,21 +222,13 @@ A diagnostic mean-dispersion plot is also provided in a collapsible element at t
 <img src="ss_05_overview.png" style="width:800px;"/>
 </p>
 
-As in pcaExplorer, interactive tables for the raw, normalized or (r)log-transformed counts are shown in this tab. The user can also generate a sample-to-sample correlation scatter plot with the selected data.
+As in `r Biocpkg("pcaExplorer")`, interactive tables for the raw, normalized or (r)log-transformed counts are shown in this tab. The user can also generate a sample-to-sample correlation scatter plot with the selected data.
 
-Additionally, `ideal` has an option to include a filter step at the gene level by removing genes with low absolute or averages low values. After this, it might be possible to have to re-run the analysis in step 3 from the Data Setup panel. 
+Additionally, `r Biocpkg("ideal")` has an option to include a filter step at the gene level by removing genes with low absolute or averages low values. After this, it might be possible to have to re-run the analysis in step 3 from the Data Setup panel. 
 
 ## Extract Results
 
-<p align="center">
-<img src="ss_06_results_p1.png" style="width:800px;"/>
-</p>
-
 This tab is an interface for generating the summary tables after testing for DE. It is usually based on the Wald test, as implemented in DESeq2, but when the factor of interest is assuming more than two levels, the user can also perform an ANOVA-like test across the groups with the likelihood ratio test. Options for enabling/disabling automated independent filtering, adding the additional column of unshrunken log2 fold change values (instead of the moderated estimates used by default), as well as using the Independent Hypothesis Weighting (IHW) framework, are provided.
-
-<p align="center">
-<img src="ss_07_results_p2.png" style="width:800px;"/>
-</p>
 
 The False Discovery Rate (FDR) can be set from the sidebar panel, and a couple of diagnostic plots, such as the histogram of raw p-values and the distribution of log2fc, are shown below the interactive enhanced version of the table - with clickable elements to link to ENSEMBL database and NCBI website.
 
@@ -272,7 +248,7 @@ In this tab an interactive MA plot for the contrast selected in the Extract Resu
 <img src="ss_09_genefinder.png" style="width:800px;"/>
 </p>
 
-The functionality in the Gene Finder builds upon the one provided by `pcaExplorer`, and allows to query up to four genes in the same view, which can here be selected from a dropdown input list which supports autocompletion. 
+The functionality in the Gene Finder builds upon the one provided by `r Biocpkg("pcaExplorer")`, and allows to query up to four genes in the same view, which can here be selected from a dropdown input list which supports autocompletion. 
 
 A combined summary table (with both normalized counts and results statistics) is located below an MA plot where the selected genes are marked and annotated on the plot. To avoid repeating this manually, the user can also quickly upload a list of genes as text file (one gene identifier per line), such as members of gene families (e.g. all cytokines, all immunoglobulines, ...) or defined by common function (e.g. all housekeeping genes, or others based on any annotation).
 
@@ -299,11 +275,7 @@ Each of the methods for GO enrichment delivers its own interactive `DT`-based ta
 
 ## Report Editor
 
-<p align="center">
-<img src="ss_11_report.png" style="width:800px;"/>
-</p>
-
-The Report Editor tab works in the same way of `pcaExplorer`, with the scope of providing an interface to full computational reproducibility of the analyses.
+The Report Editor tab works in the same way of `r Biocpkg("pcaExplorer")`, with the scope of providing an interface to full computational reproducibility of the analyses.
 
 General `Markdown options` and `Editor options` are available, and the text editor, based on the `shinyAce` package, contains a comprehensive template report, that can be edited to the best convenience of the user.
 
@@ -311,17 +283,12 @@ The code contained in the template report fetches the latest state of the reacti
 
 ## About
 
-<p align="center">
-<img src="ss_12_about.png" style="width:800px;"/>
-</p>
-
-
 The About tab contains the output of `sessionInfo`, plus general information on `r Biocpkg("ideal")`, including the link to the Github development version. If requested, the modular structure of the app can be easily expanded, and many new operations on the same set of input data and derived results can be embedded in the same framework. 
 
 
 
 
-# Running `ideal` on an exemplary data set
+# Running `r Biocpkg("ideal")` on an exemplary data set
 
 We can run `r Biocpkg("ideal")` for demonstration purpose on published datasets that are available as SummarizedExperiment in an experiment Bioconductor packages.
 
@@ -653,6 +620,17 @@ While running the app, the user can
 - save the values of the `reactiveValues` in an environment, or in binary format
 
 This functionality to retrieve and share the output is provided by action buttons that are placed close to each element of interest. 
+
+
+# Enhancing `ideal`
+
+The `annotation_obj` is a quick helper to make your data and results easier to read. For creating it, you can exploit the corresponding `org.XX.eg.db` packages, available in Bioconductor.
+
+Currently available are the following (in alphabetical order): `r Biocpkg("org.Ag.eg.db")`, `r Biocpkg("org.At.tair.db")`, `r Biocpkg("org.Bt.eg.db")`, `r Biocpkg("org.Ce.eg.db")`, `r Biocpkg("org.Cf.eg.db")`, `r Biocpkg("org.Dm.eg.db")`, `r Biocpkg("org.Dr.eg.db")`, `r Biocpkg("org.EcK12.eg.db")`, `r Biocpkg("org.EcSakai.eg.db")`, `r Biocpkg("org.Gg.eg.db")`, `r Biocpkg("org.Hs.eg.db")`, `r Biocpkg("org.Mm.eg.db")`, `r Biocpkg("org.Mmu.eg.db")`, `r Biocpkg("org.Pf.plasmo.db")`, `r Biocpkg("org.Pt.eg.db")`, `r Biocpkg("org.Rn.eg.db")`, `r Biocpkg("org.Sc.sgd.db")`, `r Biocpkg("org.Sco.eg.db")`, `r Biocpkg("org.Ss.eg.db")`, `r Biocpkg("org.Tgondii.eg.db")` and `r Biocpkg("org.Xl.eg.db")`. They can all be easily installed with `biocLite("orgdb_packagename")`.
+
+In a similar way, for using at best the `goseq` package, the gene length information can also be computed if the corresponding `TxDb` packages are installed. Currently, following `TxDb` packages are available: `r Biocpkg("TxDb.Athaliana.BioMart.plantsmart22")`,  `r Biocpkg("TxDb.Athaliana.BioMart.plantsmart25")`, `r Biocpkg("TxDb.Athaliana.BioMart.plantsmart28")`,  `r Biocpkg("TxDb.Btaurus.UCSC.bosTau8.refGene")`, `r Biocpkg("TxDb.Celegans.UCSC.ce11.refGene")`,  `r Biocpkg("TxDb.Celegans.UCSC.ce6.ensGene")`, `r Biocpkg("TxDb.Cfamiliaris.UCSC.canFam3.refGene")`,  `r Biocpkg("TxDb.Dmelanogaster.UCSC.dm3.ensGene")`, `r Biocpkg("TxDb.Dmelanogaster.UCSC.dm6.ensGene")`,  `r Biocpkg("TxDb.Drerio.UCSC.danRer10.refGene")`, `r Biocpkg("TxDb.Ggallus.UCSC.galGal4.refGene")`,  `r Biocpkg("TxDb.Hsapiens.UCSC.hg18.knownGene")`, `r Biocpkg("TxDb.Hsapiens.UCSC.hg19.knownGene")`,  `r Biocpkg("TxDb.Hsapiens.UCSC.hg19.lincRNAsTranscripts")`, `r Biocpkg("TxDb.Hsapiens.UCSC.hg38.knownGene")`,  `r Biocpkg("TxDb.Mmulatta.UCSC.rheMac3.refGene")`, `r Biocpkg("TxDb.Mmulatta.UCSC.rheMac8.refGene")`,  `r Biocpkg("TxDb.Mmusculus.UCSC.mm10.ensGene")`, `r Biocpkg("TxDb.Mmusculus.UCSC.mm10.knownGene")`,  `r Biocpkg("TxDb.Mmusculus.UCSC.mm9.knownGene")`, `r Biocpkg("TxDb.Ptroglodytes.UCSC.panTro4.refGene")`,  `r Biocpkg("TxDb.Rnorvegicus.UCSC.rn4.ensGene")`, `r Biocpkg("TxDb.Rnorvegicus.UCSC.rn5.refGene")`,  `r Biocpkg("TxDb.Rnorvegicus.UCSC.rn6.refGene")`, `r Biocpkg("TxDb.Scerevisiae.UCSC.sacCer2.sgdGene")`,  `r Biocpkg("TxDb.Scerevisiae.UCSC.sacCer3.sgdGene")`, `r Biocpkg("TxDb.Sscrofa.UCSC.susScr3.refGen")`.
+
+As for the `org.XX.eg.db` above, these can all be quickly installed with `biocLite("txdb_packagename")`.
 
 
 
