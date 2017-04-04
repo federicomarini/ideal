@@ -653,6 +653,7 @@ Currently available are the following (in alphabetical order):
 They can all be easily installed with `biocLite("orgdb_packagename")`.
 
 In a similar way, for using at best the `goseq` package, the gene length information can also be computed if the corresponding `TxDb` packages are installed. Currently, following `TxDb` packages are available: 
+
 - `r Biocpkg("TxDb.Athaliana.BioMart.plantsmart22")`
 - `r Biocpkg("TxDb.Athaliana.BioMart.plantsmart25")`
 - `r Biocpkg("TxDb.Athaliana.BioMart.plantsmart28")`
