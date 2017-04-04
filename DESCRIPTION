@@ -53,7 +53,9 @@ Suggests:
     BiocStyle,
     airway,
     org.Hs.eg.db,
-    TxDb.Hsapiens.UCSC.hg38.knownGene
+    TxDb.Hsapiens.UCSC.hg38.knownGene,
+    DEFormats,
+    edgeR
 URL: https://github.com/federicomarini/ideal
 BugReports: https://github.com/federicomarini/ideal/issues
 biocViews: GeneExpression, DifferentialExpression, RNASeq, Sequencing,
