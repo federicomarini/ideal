@@ -626,9 +626,60 @@ This functionality to retrieve and share the output is provided by action button
 
 The `annotation_obj` is a quick helper to make your data and results easier to read. For creating it, you can exploit the corresponding `org.XX.eg.db` packages, available in Bioconductor.
 
-Currently available are the following (in alphabetical order): `r Biocpkg("org.Ag.eg.db")`, `r Biocpkg("org.At.tair.db")`, `r Biocpkg("org.Bt.eg.db")`, `r Biocpkg("org.Ce.eg.db")`, `r Biocpkg("org.Cf.eg.db")`, `r Biocpkg("org.Dm.eg.db")`, `r Biocpkg("org.Dr.eg.db")`, `r Biocpkg("org.EcK12.eg.db")`, `r Biocpkg("org.EcSakai.eg.db")`, `r Biocpkg("org.Gg.eg.db")`, `r Biocpkg("org.Hs.eg.db")`, `r Biocpkg("org.Mm.eg.db")`, `r Biocpkg("org.Mmu.eg.db")`, `r Biocpkg("org.Pf.plasmo.db")`, `r Biocpkg("org.Pt.eg.db")`, `r Biocpkg("org.Rn.eg.db")`, `r Biocpkg("org.Sc.sgd.db")`, `r Biocpkg("org.Sco.eg.db")`, `r Biocpkg("org.Ss.eg.db")`, `r Biocpkg("org.Tgondii.eg.db")` and `r Biocpkg("org.Xl.eg.db")`. They can all be easily installed with `biocLite("orgdb_packagename")`.
+Currently available are the following (in alphabetical order): 
 
-In a similar way, for using at best the `goseq` package, the gene length information can also be computed if the corresponding `TxDb` packages are installed. Currently, following `TxDb` packages are available: `r Biocpkg("TxDb.Athaliana.BioMart.plantsmart22")`,  `r Biocpkg("TxDb.Athaliana.BioMart.plantsmart25")`, `r Biocpkg("TxDb.Athaliana.BioMart.plantsmart28")`,  `r Biocpkg("TxDb.Btaurus.UCSC.bosTau8.refGene")`, `r Biocpkg("TxDb.Celegans.UCSC.ce11.refGene")`,  `r Biocpkg("TxDb.Celegans.UCSC.ce6.ensGene")`, `r Biocpkg("TxDb.Cfamiliaris.UCSC.canFam3.refGene")`,  `r Biocpkg("TxDb.Dmelanogaster.UCSC.dm3.ensGene")`, `r Biocpkg("TxDb.Dmelanogaster.UCSC.dm6.ensGene")`,  `r Biocpkg("TxDb.Drerio.UCSC.danRer10.refGene")`, `r Biocpkg("TxDb.Ggallus.UCSC.galGal4.refGene")`,  `r Biocpkg("TxDb.Hsapiens.UCSC.hg18.knownGene")`, `r Biocpkg("TxDb.Hsapiens.UCSC.hg19.knownGene")`,  `r Biocpkg("TxDb.Hsapiens.UCSC.hg19.lincRNAsTranscripts")`, `r Biocpkg("TxDb.Hsapiens.UCSC.hg38.knownGene")`,  `r Biocpkg("TxDb.Mmulatta.UCSC.rheMac3.refGene")`, `r Biocpkg("TxDb.Mmulatta.UCSC.rheMac8.refGene")`,  `r Biocpkg("TxDb.Mmusculus.UCSC.mm10.ensGene")`, `r Biocpkg("TxDb.Mmusculus.UCSC.mm10.knownGene")`,  `r Biocpkg("TxDb.Mmusculus.UCSC.mm9.knownGene")`, `r Biocpkg("TxDb.Ptroglodytes.UCSC.panTro4.refGene")`,  `r Biocpkg("TxDb.Rnorvegicus.UCSC.rn4.ensGene")`, `r Biocpkg("TxDb.Rnorvegicus.UCSC.rn5.refGene")`,  `r Biocpkg("TxDb.Rnorvegicus.UCSC.rn6.refGene")`, `r Biocpkg("TxDb.Scerevisiae.UCSC.sacCer2.sgdGene")`,  `r Biocpkg("TxDb.Scerevisiae.UCSC.sacCer3.sgdGene")`, `r Biocpkg("TxDb.Sscrofa.UCSC.susScr3.refGen")`.
+- `r Biocpkg("org.Ag.eg.db")`
+- `r Biocpkg("org.At.tair.db")`
+- `r Biocpkg("org.Bt.eg.db")`
+- `r Biocpkg("org.Ce.eg.db")`
+- `r Biocpkg("org.Cf.eg.db")`
+- `r Biocpkg("org.Dm.eg.db")`
+- `r Biocpkg("org.Dr.eg.db")`
+- `r Biocpkg("org.EcK12.eg.db")`
+- `r Biocpkg("org.EcSakai.eg.db")`
+- `r Biocpkg("org.Gg.eg.db")`
+- `r Biocpkg("org.Hs.eg.db")`
+- `r Biocpkg("org.Mm.eg.db")`
+- `r Biocpkg("org.Mmu.eg.db")`
+- `r Biocpkg("org.Pf.plasmo.db")`
+- `r Biocpkg("org.Pt.eg.db")`
+- `r Biocpkg("org.Rn.eg.db")`
+- `r Biocpkg("org.Sc.sgd.db")`
+- `r Biocpkg("org.Sco.eg.db")`
+- `r Biocpkg("org.Ss.eg.db")`
+- `r Biocpkg("org.Tgondii.eg.db")`
+- `r Biocpkg("org.Xl.eg.db")`
+
+They can all be easily installed with `biocLite("orgdb_packagename")`.
+
+In a similar way, for using at best the `goseq` package, the gene length information can also be computed if the corresponding `TxDb` packages are installed. Currently, following `TxDb` packages are available: 
+- `r Biocpkg("TxDb.Athaliana.BioMart.plantsmart22")`
+- `r Biocpkg("TxDb.Athaliana.BioMart.plantsmart25")`
+- `r Biocpkg("TxDb.Athaliana.BioMart.plantsmart28")`
+- `r Biocpkg("TxDb.Btaurus.UCSC.bosTau8.refGene")`
+- `r Biocpkg("TxDb.Celegans.UCSC.ce11.refGene")`
+- `r Biocpkg("TxDb.Celegans.UCSC.ce6.ensGene")`
+- `r Biocpkg("TxDb.Cfamiliaris.UCSC.canFam3.refGene")`
+- `r Biocpkg("TxDb.Dmelanogaster.UCSC.dm3.ensGene")`
+- `r Biocpkg("TxDb.Dmelanogaster.UCSC.dm6.ensGene")` 
+- `r Biocpkg("TxDb.Drerio.UCSC.danRer10.refGene")`
+- `r Biocpkg("TxDb.Ggallus.UCSC.galGal4.refGene")`
+- `r Biocpkg("TxDb.Hsapiens.UCSC.hg18.knownGene")`
+- `r Biocpkg("TxDb.Hsapiens.UCSC.hg19.knownGene")`
+- `r Biocpkg("TxDb.Hsapiens.UCSC.hg19.lincRNAsTranscripts")`
+- `r Biocpkg("TxDb.Hsapiens.UCSC.hg38.knownGene")`
+- `r Biocpkg("TxDb.Mmulatta.UCSC.rheMac3.refGene")`
+- `r Biocpkg("TxDb.Mmulatta.UCSC.rheMac8.refGene")`
+- `r Biocpkg("TxDb.Mmusculus.UCSC.mm10.ensGene")`
+- `r Biocpkg("TxDb.Mmusculus.UCSC.mm10.knownGene")`
+- `r Biocpkg("TxDb.Mmusculus.UCSC.mm9.knownGene")`
+- `r Biocpkg("TxDb.Ptroglodytes.UCSC.panTro4.refGene")`
+- `r Biocpkg("TxDb.Rnorvegicus.UCSC.rn4.ensGene")`
+- `r Biocpkg("TxDb.Rnorvegicus.UCSC.rn5.refGene")`
+- `r Biocpkg("TxDb.Rnorvegicus.UCSC.rn6.refGene")`
+- `r Biocpkg("TxDb.Scerevisiae.UCSC.sacCer2.sgdGene")`
+- `r Biocpkg("TxDb.Scerevisiae.UCSC.sacCer3.sgdGene")`
+- `r Biocpkg("TxDb.Sscrofa.UCSC.susScr3.refGene")`
 
 As for the `org.XX.eg.db` above, these can all be quickly installed with `biocLite("txdb_packagename")`.
 

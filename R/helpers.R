@@ -64,44 +64,6 @@ sepguesser <- function(file, sep_list = c(",", "\t", ";"," ")) {
 
 
 
-# this function is a (long running) one-liner to install
-# - all org.XX.eg.db packages
-# and/or
-# - all TxDb packages
-setup_idealannotation <- function(orgdb_pkgs = TRUE,
-                        TxDb_pkgs = TRUE) {
-
-  all_orgdb <- c("org.Ag.eg.db", "org.At.tair.db", "org.Bt.eg.db", "org.Ce.eg.db",
-                 "org.Cf.eg.db", "org.Dm.eg.db", "org.Dr.eg.db", "org.EcK12.eg.db",
-                 "org.EcSakai.eg.db", "org.Gg.eg.db", "org.Hs.eg.db", "org.Mm.eg.db",
-                 "org.Mmu.eg.db", "org.Pf.plasmo.db", "org.Pt.eg.db", "org.Rn.eg.db",
-                 "org.Sc.sgd.db", "org.Sco.eg.db", "org.Ss.eg.db", "org.Tgondii.eg.db",
-                 "org.Xl.eg.db")
-
-  all_txdb <- c("TxDb.Athaliana.BioMart.plantsmart22",  "TxDb.Athaliana.BioMart.plantsmart25",
-                "TxDb.Athaliana.BioMart.plantsmart28",  "TxDb.Btaurus.UCSC.bosTau8.refGene",
-                "TxDb.Celegans.UCSC.ce11.refGene",  "TxDb.Celegans.UCSC.ce6.ensGene",
-                "TxDb.Cfamiliaris.UCSC.canFam3.refGene",  "TxDb.Dmelanogaster.UCSC.dm3.ensGene",
-                "TxDb.Dmelanogaster.UCSC.dm6.ensGene",  "TxDb.Drerio.UCSC.danRer10.refGene",
-                "TxDb.Ggallus.UCSC.galGal4.refGene",  "TxDb.Hsapiens.UCSC.hg18.knownGene",
-                "TxDb.Hsapiens.UCSC.hg19.knownGene",  "TxDb.Hsapiens.UCSC.hg19.lincRNAsTranscripts",
-                "TxDb.Hsapiens.UCSC.hg38.knownGene",  "TxDb.Mmulatta.UCSC.rheMac3.refGene",
-                "TxDb.Mmulatta.UCSC.rheMac8.refGene",  "TxDb.Mmusculus.UCSC.mm10.ensGene",
-                "TxDb.Mmusculus.UCSC.mm10.knownGene",  "TxDb.Mmusculus.UCSC.mm9.knownGene",
-                "TxDb.Ptroglodytes.UCSC.panTro4.refGene",  "TxDb.Rnorvegicus.UCSC.rn4.ensGene",
-                "TxDb.Rnorvegicus.UCSC.rn5.refGene",  "TxDb.Rnorvegicus.UCSC.rn6.refGene",
-                "TxDb.Scerevisiae.UCSC.sacCer2.sgdGene",  "TxDb.Scerevisiae.UCSC.sacCer3.sgdGene",
-                "TxDb.Sscrofa.UCSC.susScr3.refGen")
-
-  if(orgdb_pkgs)
-    BiocInstaller::biocLite(all_orgdb,suppressUpdates = TRUE)
-
-  if(TxDb_pkgs)
-    BiocInstaller::biocLite(all_txdb,suppressUpdates = TRUE)
-
-}
-
-
 
 # combineTogether <- function(normCounts,resuTable,anns) {
 #   combinedCountsAndRes <- inner_join(resuTable,normCounts,by="id")
