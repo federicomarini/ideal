@@ -1,0 +1,9 @@
+element;intro
+#Welcome;Welcome to the tour for the GeneFinder tab!
+#available_genes;In this widget you will have a list of all the available genes, as id or gene symbols (if you provided the annotation). You can select up to 4 to be displayed in this section - autocompletion is also supported.
+#color_by;Again, select the factors to stratify the plots upon.
+#bp1;Here you see the plot for the first gene. Close by you can see the same for the other genes.
+#ma_highlight;For all the genes you selected, you also get an MA plot where the genes of interest have been marked in blue...
+#table_combi;... and a combined table for both results and normalized counts.
+#ma_hl_list;In case you want to have more genes at once, you can upload a text file format containing the ids of the genes (one per row)...
+#table_combi_list;... and you will get the same output as above, but for your uploaded list. Once you are ready, click on the 'Done' button to end the tour, and eventually move on to the next tabs.

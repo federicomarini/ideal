@@ -1,0 +1,9 @@
+element;intro
+#Welcome;Welcome to the tour for the Counts Overview tab!
+#showcountmat;First of all, here's your count matrix. The table can be explored, and you can change the unit (raw, normalized, log transformed) for your counts.
+#detected_genes;Here's an overview on the genes that got detected in your samples. These numbers depend on two threshold values:
+#threshold_rowsums;you can select a threshold on the sum of counts by row...
+#threshold_rowmeans;... or a threshold on the mean values of the counts - normally more strict/robust on calling a gene detected. If you change the values here...
+#detected_genes;... you can see how the summary also changes.
+#featfilt_dds;Using the current filtering criteria, you can also choose to filter out genes that are not expressed. If you do so, keep in mind you might need to rerun the Step 3 in the Data Setup tab.
+#compute_pairwisecorr;In any case, you can display a scatter plot for the counts values and compute a pairwise correlation between all samples. Keeping in mind this might take some time to display all points, you can click on the Run button. Otherwise, you can end the tour and move on to the next tab.

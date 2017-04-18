@@ -1,0 +1,9 @@
+element;intro
+#Welcome;Welcome to the tour for the Report Editor tab!
+#md_opts;In this box you have a number of options for the Markdown document - mainly for the final appearance of your report...
+#editor_opts;... and here some options for the shinyAce-based text editor. You can leave them unchanged in most cases.
+#updatepreview_button;The interesting part comes here. By clicking on this button, you can indeed update the preview for your HTML report.
+#report_tabbox;The report can be viewed and customized here. Click on the 'Edit report' tab here...
+#acereport_rmd;... and you'll see the underlying details for the template analysis which is included in the 'ideal' package. You can edit that as it fits you best, and then again 'Update report'.
+#saveRmd; When you are done with editing the report, you can generate and save the HTML version for it - you can then store and share this.
+#tasks-menu;In the upper right corner, the tasks menu (small cog icon) gives you the options to save the state (input and relevant reactiveValues) of the app in the environment and as binary RData. Once you are ready to proceed, click on the 'Done' button to end the tour, and eventually move on to the next tab.
