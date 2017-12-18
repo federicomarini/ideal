@@ -17,13 +17,15 @@ environment:
   matrix:
   - R_VERSION: release
     R_ARCH: x64
+    _R_CHECK_FORCE_SUGGESTS_: false
   - R_VERSION: devel
     R_ARCH: x64
+    _R_CHECK_FORCE_SUGGESTS_: false
 
 
 build_script:
   - travis-tool.sh install_bioc_deps
-  - travis-tool.sh install_bioc airway org.Hs.eg.db GO.db TxDb.Hsapiens.UCSC.hg38.knownGene
+  - travis-tool.sh install_bioc GenomeInfoDbData airway org.Hs.eg.db GO.db TxDb.Hsapiens.UCSC.hg38.knownGene
 
 
 test_script:
