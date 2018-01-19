@@ -18,7 +18,7 @@ abstract: >
   produces a wealth of effective visualizations to facilitate data interpretation,
   in a comprehensive and accessible way for a wide range of scientists.
 output: 
-  BiocStyle::html_document2:
+  BiocStyle::html_document:
     toc_float: true
 vignette: >
   %\VignetteIndexEntry{ideal User's Guide}
