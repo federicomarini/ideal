@@ -2524,7 +2524,7 @@ ideal<- function(dds_obj = NULL,
         return(NULL)
       mytbl <- values$topgo_up
       mytbl$GO.ID <- createLinkGO(mytbl$GO.ID)
-      DT::datatable(mytbl,escape=FALSE,selection = selection=list(mode="single"))
+      DT::datatable(mytbl,escape=FALSE, selection=list(mode="single"))
     })
     output$DT_gse_down_topgo <- DT::renderDataTable({
       # if not null...
@@ -2532,7 +2532,7 @@ ideal<- function(dds_obj = NULL,
         return(NULL)
       mytbl <- values$topgo_down
       mytbl$GO.ID <- createLinkGO(mytbl$GO.ID)
-      DT::datatable(mytbl,escape=FALSE,selection = selection=list(mode="single"))
+      DT::datatable(mytbl,escape=FALSE, selection=list(mode="single"))
     })
     output$DT_gse_updown_topgo <- DT::renderDataTable({
       # if not null...
@@ -2540,7 +2540,7 @@ ideal<- function(dds_obj = NULL,
         return(NULL)
       mytbl <- values$topgo_updown
       mytbl$GO.ID <- createLinkGO(mytbl$GO.ID)
-      DT::datatable(mytbl,escape=FALSE,selection = selection=list(mode="single"))
+      DT::datatable(mytbl,escape=FALSE, selection=list(mode="single"))
     })
     output$DT_gse_list1_topgo <- DT::renderDataTable({
       # if not null...
@@ -2549,7 +2549,7 @@ ideal<- function(dds_obj = NULL,
       mytbl <- values$topgo_list1
       # mytbl$GOid <- rownames(mytbl)
       mytbl$GO.ID <- createLinkGO(mytbl$GO.ID)
-      DT::datatable(mytbl,escape=FALSE,selection = selection=list(mode="single"))
+      DT::datatable(mytbl,escape=FALSE, selection=list(mode="single"))
     })
     output$DT_gse_list2_topgo <- DT::renderDataTable({
       # if not null...
@@ -2558,7 +2558,7 @@ ideal<- function(dds_obj = NULL,
       mytbl <- values$topgo_list2
       # mytbl$GOid <- rownames(mytbl)
       mytbl$GO.ID <- createLinkGO(mytbl$GO.ID)
-      DT::datatable(mytbl,escape=FALSE,selection = selection=list(mode="single"))
+      DT::datatable(mytbl,escape=FALSE, selection=list(mode="single"))
     })
 
 
@@ -3151,21 +3151,43 @@ ideal<- function(dds_obj = NULL,
                    value = 0,{
                      # handling the experimental covariate correctly to extract the results...
                      if(class(colData(values$dds_obj)[,input$choose_expfac]) == "factor") {
-                       if(input$resu_ihw)
-                         values$res_obj <- results(values$dds_obj,contrast = c(input$choose_expfac, input$fac1_c1, input$fac1_c2),
-                                                   independentFiltering = input$resu_indfil, alpha = input$FDR, addMLE = input$resu_addmle,
+                       if(input$resu_ihw) {
+                         values$res_obj <- results(values$dds_obj,
+                                                   contrast = c(input$choose_expfac, input$fac1_c1, input$fac1_c2),
+                                                   independentFiltering = input$resu_indfil, 
+                                                   alpha = input$FDR,
+                                                   addMLE = input$resu_addmle,
                                                    filterFun = ihw)
-                       else
-                         values$res_obj <- results(values$dds_obj,contrast = c(input$choose_expfac, input$fac1_c1, input$fac1_c2),
-                                                   independentFiltering = input$resu_indfil, alpha = input$FDR, addMLE = input$resu_addmle)
+                         incProgress(amount = 0.15,detail = "Results extracted. Shrinking the logFC now...")
+                         values$res_obj <- lfcShrink(values$dds_obj,
+                                                     contrast = c(input$choose_expfac, input$fac1_c1, input$fac1_c2),
+                                                     values$res_obj)
+                         incProgress(amount = 0.8,detail = "logFC shrunken, adding annotation info...")
+                       } else {
+                         values$res_obj <- results(values$dds_obj,
+                                                   contrast = c(input$choose_expfac, input$fac1_c1, input$fac1_c2),
+                                                   independentFiltering = input$resu_indfil, 
+                                                   alpha = input$FDR, 
+                                                   addMLE = input$resu_addmle)
+                         incProgress(amount = 0.15,detail = "Results extracted. Shrinking the logFC now...")
+                         values$res_obj <- lfcShrink(values$dds_obj,
+                                                     contrast = c(input$choose_expfac, input$fac1_c1, input$fac1_c2),
+                                                     values$res_obj)
+                         incProgress(amount = 0.8,detail = "logFC shrunken, adding annotation info...")
+                         
+                       }
                      }
-                     ## think more whether to include or not the IHW and ihw as filterFun...
+                     
                      if(class(colData(values$dds_obj)[,input$choose_expfac]) %in% c("integer","numeric"))
                        values$res_obj <- results(values$dds_obj,name = input$choose_expfac,
-                                                 independentFiltering = input$resu_indfil, alpha = input$FDR, addMLE = input$resu_addmle)
+                                                 independentFiltering = input$resu_indfil, 
+                                                 alpha = input$FDR, addMLE = input$resu_addmle)
+                     
+                     # adding info from the annotation
                      if(!is.null(values$annotation_obj))
-                       values$res_obj$symbol <- values$annotation_obj$gene_name[match(rownames(values$res_obj),
-                                                                                      rownames(values$annotation_obj))]
+                       values$res_obj$symbol <- values$annotation_obj$gene_name[
+                         match(rownames(values$res_obj),
+                               rownames(values$annotation_obj))]
                    })
     })
 
