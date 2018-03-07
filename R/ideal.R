@@ -514,7 +514,7 @@ ideal<- function(dds_obj = NULL,
                     selectInput("resu_indfil",label = "Apply independent filtering automatically",
                                 choices = c(TRUE,FALSE), selected = TRUE),
                     selectInput("resu_addmle",label = "Add the unshrunken MLE of log2 fold change",
-                                choices = c(TRUE,FALSE), selected = TRUE),
+                                choices = c(TRUE,FALSE), selected = FALSE),
                     selectInput("resu_ihw", "Use Independent Hypothesis Weighting (IHW) as a filtering function",
                                 choices = c(TRUE, FALSE), selected = FALSE)
                   )
