@@ -513,8 +513,8 @@ ideal<- function(dds_obj = NULL,
                   wellPanel(id = "resu_opts",
                     selectInput("resu_indfil",label = "Apply independent filtering automatically",
                                 choices = c(TRUE,FALSE), selected = TRUE),
-                    selectInput("resu_addmle",label = "Add the unshrunken MLE of log2 fold change",
-                                choices = c(TRUE,FALSE), selected = FALSE),
+                    selectInput("resu_lfcshrink",label = "Shrink the log fold change for the contrast of interest",
+                                choices = c(TRUE,FALSE), selected = TRUE),
                     selectInput("resu_ihw", "Use Independent Hypothesis Weighting (IHW) as a filtering function",
                                 choices = c(TRUE, FALSE), selected = FALSE)
                   )
@@ -3125,13 +3125,13 @@ ideal<- function(dds_obj = NULL,
         )
       }
 
-      if((class(colData(values$dds_obj)[,fac1]) %in% c("integer","numeric"))){
-
-        shiny::validate(
-          need(input$resu_addmle==FALSE,
-               "Set the Add the unshrunken MLE to FALSE")
-        )
-      }
+      # if((class(colData(values$dds_obj)[,fac1]) %in% c("integer","numeric"))){
+      # 
+      #   shiny::validate(
+      #     need(input$resu_lfcshrink==FALSE,
+      #          "Set the Add the unshrunken MLE to FALSE")
+      #   )
+      # }
       shiny::validate(
         need("results" %in% mcols(mcols(values$dds_obj))$type ,
              "I couldn't find results. you should first run DESeq() with the button up here"
@@ -3156,32 +3156,40 @@ ideal<- function(dds_obj = NULL,
                                                    contrast = c(input$choose_expfac, input$fac1_c1, input$fac1_c2),
                                                    independentFiltering = input$resu_indfil, 
                                                    alpha = input$FDR,
-                                                   addMLE = input$resu_addmle,
                                                    filterFun = ihw)
-                         incProgress(amount = 0.15,detail = "Results extracted. Shrinking the logFC now...")
-                         values$res_obj <- lfcShrink(values$dds_obj,
-                                                     contrast = c(input$choose_expfac, input$fac1_c1, input$fac1_c2),
-                                                     values$res_obj)
-                         incProgress(amount = 0.8,detail = "logFC shrunken, adding annotation info...")
+                         
+                         if(input$resu_lfcshrink) {
+                           incProgress(amount = 0.15,detail = "Results extracted. Shrinking the logFC now...")
+                           values$res_obj <- lfcShrink(values$dds_obj,
+                                                       contrast = c(input$choose_expfac, input$fac1_c1, input$fac1_c2),
+                                                       res = values$res_obj)
+                           incProgress(amount = 0.8,detail = "logFC shrunken, adding annotation info...")
+                         } else {
+                           incProgress(amount = 0.9,detail = "logFC left unshrunken, adding annotation info...")
+                         }
                        } else {
                          values$res_obj <- results(values$dds_obj,
                                                    contrast = c(input$choose_expfac, input$fac1_c1, input$fac1_c2),
                                                    independentFiltering = input$resu_indfil, 
-                                                   alpha = input$FDR, 
-                                                   addMLE = input$resu_addmle)
-                         incProgress(amount = 0.15,detail = "Results extracted. Shrinking the logFC now...")
-                         values$res_obj <- lfcShrink(values$dds_obj,
-                                                     contrast = c(input$choose_expfac, input$fac1_c1, input$fac1_c2),
-                                                     values$res_obj)
-                         incProgress(amount = 0.8,detail = "logFC shrunken, adding annotation info...")
-                         
+                                                   alpha = input$FDR)
+                         if(input$resu_lfcshrink) {
+                           incProgress(amount = 0.15,detail = "Results extracted. Shrinking the logFC now...")
+                           values$res_obj <- lfcShrink(values$dds_obj,
+                                                       contrast = c(input$choose_expfac, input$fac1_c1, input$fac1_c2),
+                                                       res = values$res_obj)
+                           incProgress(amount = 0.8,detail = "logFC shrunken, adding annotation info...")
+                         } else {
+                           incProgress(amount = 0.9,detail = "logFC left unshrunken, adding annotation info...")
+                         }
                        }
                      }
                      
                      if(class(colData(values$dds_obj)[,input$choose_expfac]) %in% c("integer","numeric"))
                        values$res_obj <- results(values$dds_obj,name = input$choose_expfac,
                                                  independentFiltering = input$resu_indfil, 
-                                                 alpha = input$FDR, addMLE = input$resu_addmle)
+                                                 alpha = input$FDR
+                                                 # , addMLE = input$resu_lfcshrink
+                                                 )
                      
                      # adding info from the annotation
                      if(!is.null(values$annotation_obj))
