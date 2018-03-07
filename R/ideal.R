@@ -123,7 +123,9 @@ ideal<- function(dds_obj = NULL,
 
     dashboardSidebar(
       width = 280,
-      menuItem("App settings",icon = icon("cogs"),
+      menuItem("App settings",
+               icon = icon("cogs"),
+               startExpanded = TRUE,
                uiOutput("color_by"),
                uiOutput("available_genes"),
 
@@ -138,7 +140,9 @@ ideal<- function(dds_obj = NULL,
                numericInput("FDR","False Discovery Rate",value = 0.05, min = 0, max = 1, step = 0.01)
 
       ),
-      menuItem("Plot export settings", icon = icon("paint-brush"),
+      menuItem("Plot export settings", 
+               icon = icon("paint-brush"),
+               startExpanded = TRUE,
                numericInput("export_width",label = "Width of exported figures (cm)",value = 16,min = 2),
                shinyBS::bsTooltip(
                  "export_width", paste0("Width of the figures to export, expressed in cm"),
@@ -148,7 +152,10 @@ ideal<- function(dds_obj = NULL,
                  "export_height", paste0("Height of the figures to export, expressed in cm"),
                  "right", options = list(container = "body"))
                ),
-      menuItem("Quick viewer", icon = icon("flash"), id = "qvmenu",
+      menuItem("Quick viewer", 
+               icon = icon("flash"), 
+               startExpanded = TRUE,
+               id = "qvmenu",
                fluidRow(
                  fluidRow(column(6,p("Count matrix")), column(6,uiOutput("ok_cm"))),
                  fluidRow(column(6,p("Experimental design")), column(6,uiOutput("ok_ed"))),
@@ -156,7 +163,9 @@ ideal<- function(dds_obj = NULL,
                  fluidRow(column(6,p("Annotation")), column(6,uiOutput("ok_anno"))),
                  fluidRow(column(6,p("Results")), column(6,uiOutput("ok_resu")))
                )),
-      menuItem("First steps help", icon = icon("question-circle"),
+      menuItem("First steps help", 
+               icon = icon("question-circle"),
+               startExpanded = TRUE,
                actionButton("btn", "Click me for a quick tour", icon("info"),
                             style="color: #ffffff; background-color: #0092AC; border-color: #2e6da4")
       )
