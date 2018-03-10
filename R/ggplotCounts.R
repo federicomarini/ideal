@@ -47,16 +47,28 @@ ggplotCounts <- function(dds,gene,intgroup="condition",annotation_obj=NULL){
   onlyfactors <- df[,match(intgroup,colnames(df))]
   df$plotby <- interaction(onlyfactors)
 
-
+  base_breaks <- function(n = 10){
+    function(x) {
+      axisTicks(log10(range(x, na.rm = TRUE)), log = TRUE, n = n)
+    }
+  }
+  
   p <-
     ggplot(df, aes_string(x="plotby",y="count",col="plotby")) +
     geom_boxplot(outlier.shape = NA) +
     # geom_text(data = jittered_df,aes(x=conditionj,y=countj,label=sampleID)) +
     geom_text(aes_string(label="sampleID"),hjust=-.1,vjust=0) +
     scale_x_discrete(name="") +
-    geom_jitter(aes_string(x="plotby",y="count"),position = position_jitter(width = 0.1)) +
+    geom_jitter(aes_string(x="plotby",y="count"),
+                position = position_jitter(width = 0.1)) +
     scale_color_discrete(name="Experimental\nconditions") +
-    scale_y_log10(name="Normalized counts - log10 scale") +
+    scale_y_continuous(name="Normalized counts",
+                       # trans = "log10",
+                       breaks = base_breaks()
+                       # labels = trans_format("log10")
+                       ) +
+    # coord_trans(y="log10") +
+    # scale_y_log10(name="Normalized counts - log10 scale") +
     # coord_cartesian(ylim = c())# ,limits=c(0.1,NA)) +
     theme_bw()
 
@@ -64,7 +76,6 @@ ggplotCounts <- function(dds,gene,intgroup="condition",annotation_obj=NULL){
     p <- p + labs(title=paste0("Normalized counts for ",genesymbol," - ",gene))
   else
     p <- p + labs(title=paste0("Normalized counts for ",gene))
-
 
   p
 
