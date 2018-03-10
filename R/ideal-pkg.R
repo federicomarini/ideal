@@ -41,7 +41,7 @@
 #' @import topGO
 #' @import rintrojs
 #' @importFrom shinyBS bsTooltip
-#' @importFrom grDevices dev.off pdf
+#' @importFrom grDevices dev.off pdf axisTicks
 #' @import methods
 #'
 #' @author
