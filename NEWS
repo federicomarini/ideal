@@ -1,3 +1,22 @@
+CHANGES IN VERSION 1.4.0
+------------------------
+
+NEW FEATURES
+
+    o Specified single go term selection for generating heatmaps of gene signatures
+    o Added support for logFC shrinkage, following the latest devels of DESeq2
+
+BUG FIXES
+
+    o Corrected output for the vignette, as html_document2 is now deprecated
+    o Menus are back in the expanded form
+    o Fixed the behavior with addMLE
+
+OTHER NOTES
+
+    o Added further progress indicators to give feedback during lengthy steps
+    o Improved ggplotCounts for better scale display, using exact arg matching
+
 CHANGES IN VERSION  0.99.0
 --------------------------
 
