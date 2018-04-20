@@ -13,6 +13,8 @@
 #' @param annotation_obj A \code{data.frame} object, with \code{row.names} as gene
 #' identifiers (e.g. ENSEMBL ids) and a column, \code{gene_name}, containing
 #' e.g. HGNC-based gene symbols. Optional.
+#' @param transform Logical value, corresponding whether to have log scale y-axis
+#' or not. Defaults to TRUE.
 #'
 #' @return An object created by \code{ggplot}
 #' @export
@@ -31,7 +33,8 @@
 #'
 #'
 #'
-ggplotCounts <- function(dds,gene,intgroup="condition",annotation_obj=NULL){
+ggplotCounts <- function(dds,gene,intgroup="condition",annotation_obj=NULL,
+                         transform = TRUE){
   df <- plotCounts(dds,gene,intgroup,returnData = TRUE)
   df$sampleID <- rownames(df)
 
@@ -47,11 +50,11 @@ ggplotCounts <- function(dds,gene,intgroup="condition",annotation_obj=NULL){
   onlyfactors <- df[,match(intgroup,colnames(df))]
   df$plotby <- interaction(onlyfactors)
 
-  base_breaks <- function(n = 10){
-    function(x) {
-      axisTicks(log10(range(x, na.rm = TRUE)), log = TRUE, nint = n)
-    }
-  }
+  # base_breaks <- function(n = 10){
+  #   function(x) {
+  #     axisTicks(log10(range(x, na.rm = TRUE)), log = TRUE, nint = n)
+  #   }
+  # }
   
   p <-
     ggplot(df, aes_string(x="plotby",y="count",col="plotby")) +
@@ -61,16 +64,16 @@ ggplotCounts <- function(dds,gene,intgroup="condition",annotation_obj=NULL){
     scale_x_discrete(name="") +
     geom_jitter(aes_string(x="plotby",y="count"),
                 position = position_jitter(width = 0.1)) +
-    scale_color_discrete(name="Experimental\nconditions") +
-    scale_y_continuous(name="Normalized counts",
-                       # trans = "log10",
-                       breaks = base_breaks()
-                       # labels = trans_format("log10")
-                       ) +
-    # coord_trans(y="log10") +
+    scale_color_discrete(name="Experimental\nconditions")
+  
+  if(transform)
+    p <- p + scale_y_log10(name="Normalized counts (log10 scale)")
+  else
+    p <- p + scale_y_continuous(name="Normalized counts")
+  
     # scale_y_log10(name="Normalized counts - log10 scale") +
     # coord_cartesian(ylim = c())# ,limits=c(0.1,NA)) +
-    theme_bw()
+  p <- p + theme_bw()
 
   if(!is.null(annotation_obj))
     p <- p + labs(title=paste0("Normalized counts for ",genesymbol," - ",gene))
@@ -80,3 +83,4 @@ ggplotCounts <- function(dds,gene,intgroup="condition",annotation_obj=NULL){
   p
 
 }
+

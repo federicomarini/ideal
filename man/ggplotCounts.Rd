@@ -4,7 +4,8 @@
 \alias{ggplotCounts}
 \title{Plot normalized counts for a gene}
 \usage{
-ggplotCounts(dds, gene, intgroup = "condition", annotation_obj = NULL)
+ggplotCounts(dds, gene, intgroup = "condition", annotation_obj = NULL,
+  transform = TRUE)
 }
 \arguments{
 \item{dds}{A \code{\link{DESeqDataSet}} object.}
@@ -17,6 +18,9 @@ names in \code{colData(dds)} to use for grouping}
 \item{annotation_obj}{A \code{data.frame} object, with \code{row.names} as gene
 identifiers (e.g. ENSEMBL ids) and a column, \code{gene_name}, containing
 e.g. HGNC-based gene symbols. Optional.}
+
+\item{transform}{Logical value, corresponding whether to have log scale y-axis
+or not. Defaults to TRUE.}
 }
 \value{
 An object created by \code{ggplot}
