@@ -15,7 +15,8 @@ BUG FIXES
 OTHER NOTES
 
     o Added further progress indicators to give feedback during lengthy steps
-    o Improved ggplotCounts for better scale display, using exact arg matching
+    o Improved ggplotCounts for better scale display, using exact arg matching,
+    defaulting to the transformed counts
 
 CHANGES IN VERSION  0.99.0
 --------------------------
