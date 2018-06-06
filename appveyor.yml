@@ -28,7 +28,7 @@ environment:
 build_script:
   - travis-tool.sh install_bioc_deps
   - travis-tool.sh install_bioc graph DelayedArray GenomeInfoDbData airway
-    org.Hs.eg.db GO.db TxDb.Hsapiens.UCSC.hg38.knownGene
+    geneLenDataBase org.Hs.eg.db GO.db TxDb.Hsapiens.UCSC.hg38.knownGene
 
 
 test_script:
