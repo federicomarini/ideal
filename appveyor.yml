@@ -16,13 +16,13 @@ environment:
 
   matrix:
   - R_VERSION: release
-    R_ARCH: x64
-    _R_CHECK_FORCE_SUGGESTS_: false
-    GCC_PATH: mingw_64
+    #R_ARCH: x64
+    #_R_CHECK_FORCE_SUGGESTS_: false
+    #GCC_PATH: mingw_64
   - R_VERSION: devel
-    R_ARCH: x64
-    _R_CHECK_FORCE_SUGGESTS_: false
-    GCC_PATH: mingw_64
+    #R_ARCH: x64
+    #_R_CHECK_FORCE_SUGGESTS_: false
+    #GCC_PATH: mingw_64
   USE_RTOOLS: true
 
 build_script:
