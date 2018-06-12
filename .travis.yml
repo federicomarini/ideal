@@ -19,3 +19,7 @@ r_packages:
 
 after_success:
   - Rscript -e 'library(covr); codecov()'
+  
+before_install:
+  - sudo apt-get -qq update
+  - sudo apt-get install -y libpng-dev  
