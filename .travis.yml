@@ -1,7 +1,7 @@
 # R for travis: see documentation at https://docs.travis-ci.com/user/languages/r
 
 language: r
-r: bioc-release
+r: bioc-devel
 
 sudo: false
 cache: packages
@@ -23,5 +23,3 @@ after_success:
 before_install:
   - sudo apt-get -qq update
   - sudo apt-get install -y libpng-dev  
-
-latex: false
