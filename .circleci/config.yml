@@ -14,6 +14,12 @@ defaults: &steps
             >> ${BASH_ENV}
 
     ## install dependencies ------------------
+    
+    - restore_cache:
+          keys:
+            - deps1-{{ .Branch }}-{{ checksum "DESCRIPTION" }}
+            - deps1-{{ .Branch }}
+            - deps1-
 
     - run:
         name: Install devtools and dependencies
@@ -21,6 +27,11 @@ defaults: &steps
           Rscript \
             -e 'if (!requireNamespace("devtools", quietly = TRUE)) install.packages("devtools")' \
             -e 'devtools::install_deps(dependencies = TRUE)'
+            
+    - save_cache:
+          key: deps1-{{ .Branch }}-{{ checksum "DESCRIPTION" }}
+          paths:
+            - "/usr/local/lib/R/site-library"
 
     ## build and test -----------------
 
