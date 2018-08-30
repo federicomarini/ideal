@@ -60,8 +60,9 @@ set.seed(42)
 `r Biocpkg("ideal")` is an R package distributed as part of the [Bioconductor](http://bioconductor.org) project. To install the package, start R and enter:
 
 ```{r installation, eval=FALSE}
-source("http://bioconductor.org/biocLite.R")
-biocLite("ideal")
+if (!requireNamespace("BiocManager", quietly=TRUE))
+    install.packages("BiocManager")
+BiocManager::install("ideal")
 ```
 
 The GitHub repository for `r Biocpkg("ideal")` is https://github.com/federicomarini/ideal. This is the place to file an issue, report a bug, or provide a pull request.
@@ -298,8 +299,9 @@ We will use the `r Biocpkg("airway")` dataset, which can be installed with this 
 
 
 ```{r installairway, eval=FALSE}
-source("https://bioconductor.org/biocLite.R")
-biocLite("airway")
+if (!requireNamespace("BiocManager", quietly=TRUE))
+    install.packages("BiocManager")
+BiocManager::install("airway")
 ```
 
 This package provides a `RangedSummarizedExperiment` object of read counts in genes for an RNA-Seq experiment on four human airway smooth muscle cell lines treated with dexamethasone. More details such as gene models and count quantifications can be found in the `r Biocpkg("airway")` package vignette. 

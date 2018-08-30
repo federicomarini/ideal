@@ -1,7 +1,7 @@
 Package: ideal
 Type: Package
 Title: Interactive Differential Expression AnaLysis
-Version: 1.5.0
+Version: 1.5.1
 Date: 2018-04-20
 Authors@R: c(person("Federico", "Marini", email =
         "marinif@uni-mainz.de", role = c("aut", "cre")))
