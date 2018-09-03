@@ -35,14 +35,15 @@ is supported via state saving and automated report generation
 `ideal` can be easily installed using `biocLite()`:
 
 ```
-source("http://bioconductor.org/biocLite.R")
-biocLite("ideal")
+if (!requireNamespace("BiocManager", quietly=TRUE))
+    install.packages("BiocManager")
+BiocManager::install("ideal")
 ```
 
 or, optionally, 
 
 ```
-biocLite("federicomarini/ideal")
+BiocManager::install("federicomarini/ideal")
 # or alternatively...
 devtools::install_github("federicomarini/ideal")
 ```

@@ -17,8 +17,9 @@ results of a Differential Expression analysis.
 *[ideal](http://bioconductor.org/packages/ideal)* is an R package distributed as part of the [Bioconductor](http://bioconductor.org) project. To install the package, start R and enter:
 
 ```r
-source("http://bioconductor.org/biocLite.R")
-biocLite("ideal")
+if (!requireNamespace("BiocManager", quietly=TRUE))
+    install.packages("BiocManager")
+BiocManager::install("ideal")
 ```
 
 If you prefer, you can install and use the development version, which can be retrieved via Github (https://github.com/federicomarini/ideal). To do so, use
@@ -279,8 +280,9 @@ We will use the *[airway](http://bioconductor.org/packages/airway)* dataset, whi
 
 
 ```r
-source("https://bioconductor.org/biocLite.R")
-biocLite("airway")
+if (!requireNamespace("BiocManager", quietly=TRUE))
+    install.packages("BiocManager")
+BiocManager::install("airway")
 ```
 
 This package provides a `RangedSummarizedExperiment` object of read counts in genes for an RNA-Seq experiment on four human airway smooth muscle cell lines treated with dexamethasone. More details such as gene models and count quantifications can be found in the *[airway](http://bioconductor.org/packages/airway)* package vignette. 
