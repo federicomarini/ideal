@@ -652,7 +652,7 @@ Currently available are the following (in alphabetical order):
 - `r Biocpkg("org.Tgondii.eg.db")`
 - `r Biocpkg("org.Xl.eg.db")`
 
-They can all be easily installed with `biocLite("orgdb_packagename")`.
+They can all be easily installed with `BiocManager::install("orgdb_packagename")`.
 
 In a similar way, for using at best the `goseq` package, the gene length information can also be computed if the corresponding `TxDb` packages are installed. Currently, following `TxDb` packages are available: 
 
@@ -684,7 +684,7 @@ In a similar way, for using at best the `goseq` package, the gene length informa
 - `r Biocpkg("TxDb.Scerevisiae.UCSC.sacCer3.sgdGene")`
 - `r Biocpkg("TxDb.Sscrofa.UCSC.susScr3.refGene")`
 
-As for the `org.XX.eg.db` above, these can all be quickly installed with `biocLite("txdb_packagename")`.
+As for the `org.XX.eg.db` above, these can all be quickly installed with `BiocManager::install("txdb_packagename")`.
 
 
 

@@ -32,7 +32,7 @@ is supported via state saving and automated report generation
 
 ## Installation
 
-`ideal` can be easily installed using `biocLite()`:
+`ideal` can be easily installed using `BiocManager::install()`:
 
 ```
 if (!requireNamespace("BiocManager", quietly=TRUE))

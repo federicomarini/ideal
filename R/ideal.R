@@ -1605,12 +1605,12 @@ ideal<- function(dds_obj = NULL,
 
       shiny::validate(
         need(require(annopkg,character.only=TRUE),
-             paste0("The package ",annopkg, " is not installed/available. Try installing it with biocLite('",annopkg,"')"))
+             paste0("The package ",annopkg, " is not installed/available. Try installing it with BiocManager::install('",annopkg,"')"))
       )
 
       retmsg <- paste0(annopkg," - package available and loaded")
       # if (!require(annopkg,character.only=TRUE)) {
-      # stop("The package",annopkg, "is not installed/available. Try installing it with biocLite() ?")
+      # stop("The package",annopkg, "is not installed/available. Try installing it with BiocManager::install() ?")
       # }
       retmsg <- paste0(retmsg," - ",gsub(".eg.db","",gsub("org.","",annopkg)))
       retmsg
@@ -2042,7 +2042,7 @@ ideal<- function(dds_obj = NULL,
                      inputType <- "SYMBOL" # will be replaced by input$...
                      annopkg <- paste0("org.",organism,".eg.db")
                      if (!require(annopkg,character.only=TRUE)) {
-                       stop("The package",annopkg, "is not installed/available. Try installing it with biocLite() ?")
+                       stop("The package",annopkg, "is not installed/available. Try installing it with BiocManager::install() ?")
                      }
                      listGenesEntrez <-  as.character(AnnotationDbi::mapIds(eval(parse(text=annopkg)), keys = values$genelistUP(),
                                                                             column="ENTREZID", keytype=inputType))
@@ -2129,7 +2129,7 @@ ideal<- function(dds_obj = NULL,
                      inputType <- "SYMBOL" # will be replaced by input$...
                      annopkg <- paste0("org.",organism,".eg.db")
                      if (!require(annopkg,character.only=TRUE)) {
-                       stop("The package",annopkg, "is not installed/available. Try installing it with biocLite() ?")
+                       stop("The package",annopkg, "is not installed/available. Try installing it with BiocManager::install() ?")
                      }
                      listGenesEntrez <-  as.character(AnnotationDbi::mapIds(eval(parse(text=annopkg)), keys = values$genelistDOWN(),
                                                                             column="ENTREZID", keytype=inputType))
@@ -2219,7 +2219,7 @@ ideal<- function(dds_obj = NULL,
                      inputType <- "SYMBOL" # will be replaced by input$...
                      annopkg <- paste0("org.",organism,".eg.db")
                      if (!require(annopkg,character.only=TRUE)) {
-                       stop("The package",annopkg, "is not installed/available. Try installing it with biocLite() ?")
+                       stop("The package",annopkg, "is not installed/available. Try installing it with BiocManager::install() ?")
                      }
                      listGenesEntrez <-  as.character(AnnotationDbi::mapIds(eval(parse(text=annopkg)), keys = values$genelistUPDOWN(),
                                                                             column="ENTREZID", keytype=inputType))
@@ -2308,7 +2308,7 @@ ideal<- function(dds_obj = NULL,
                      inputType <- "SYMBOL" # will be replaced by input$...
                      annopkg <- paste0("org.",organism,".eg.db")
                      if (!require(annopkg,character.only=TRUE)) {
-                       stop("The package",annopkg, "is not installed/available. Try installing it with biocLite() ?")
+                       stop("The package",annopkg, "is not installed/available. Try installing it with BiocManager::install() ?")
                      }
                      listGenesEntrez <- AnnotationDbi::mapIds(eval(parse(text=annopkg)), keys = as.character(values$genelist1$`Gene Symbol`),
                                                               column="ENTREZID", keytype=inputType)
@@ -2394,7 +2394,7 @@ ideal<- function(dds_obj = NULL,
                      inputType <- "SYMBOL" # will be replaced by input$...
                      annopkg <- paste0("org.",organism,".eg.db")
                      if (!require(annopkg,character.only=TRUE)) {
-                       stop("The package",annopkg, "is not installed/available. Try installing it with biocLite() ?")
+                       stop("The package",annopkg, "is not installed/available. Try installing it with BiocManager::install() ?")
                      }
                      listGenesEntrez <- AnnotationDbi::mapIds(eval(parse(text=annopkg)), keys = as.character(values$genelist2$`Gene Symbol`),
                                                               column="ENTREZID", keytype=inputType)
