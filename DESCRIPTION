@@ -1,8 +1,8 @@
 Package: ideal
 Type: Package
 Title: Interactive Differential Expression AnaLysis
-Version: 1.5.1
-Date: 2018-04-20
+Version: 1.5.2
+Date: 2018-09-05
 Authors@R: c(person("Federico", "Marini", email =
         "marinif@uni-mainz.de", role = c("aut", "cre")))
 Maintainer: Federico Marini <marinif@uni-mainz.de>
@@ -28,4 +28,5 @@ biocViews: GeneExpression, DifferentialExpression, RNASeq, Sequencing,
         Visualization, QualityControl, GUI, GeneSetEnrichment,
         ReportWriting
 VignetteBuilder: knitr
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.0
+Encoding: UTF-8
