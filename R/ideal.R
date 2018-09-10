@@ -3314,8 +3314,34 @@ ideal<- function(dds_obj = NULL,
       
     })
     
+    output$pvals_hist_strat <- renderPlot({
+      shiny::validate(
+        need(!is.null(values$res_obj),message = "")
+      )
+      
+      res_df <- as.data.frame(values$res_obj)
+      res_df <- dplyr::filter(res_df, !is.na(pvalue))
+      
+      res_df <- mutate(
+        res_df, 
+        stratum = cut(baseMean, include.lowest = T, 
+                      breaks = signif(quantile(baseMean, probs = seq(0,1, length.out = 10)),2)))
+  
+      p <- ggplot(res_df, aes_string("pvalue")) +
+        geom_histogram(binwidth = 0.01, boundary = 0) + 
+        facet_wrap(~stratum) + 
+        theme_bw()
+      
+      p <- p + ggtitle(
+        label = "p-value histogram",
+        subtitle = "stratified on the different value classes of mean expression values")
+      
+      exportPlots$plot_pvals_hist <- p
+      p
+      
+    })
     
-
+    
     output$logfc_hist <- renderPlot({
       shiny::validate(
         need(!is.null(values$res_obj),message = "")
