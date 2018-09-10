@@ -139,17 +139,68 @@ if(!is.null(values$res_obj)) {
     cur_res$symbol <- values$annotation_obj$gene_name[match(rownames(cur_res),
                                                           rownames(values$annotation_obj))]
   }
-  
+```
+
+```{r}
   res_df <- as.data.frame(values$res_obj)
+  res_df <- dplyr::filter(res_df, !is.na(pvalue))
+
   p1 <- ggplot(res_df, aes_string("pvalue")) +
     geom_histogram(binwidth = 0.01, boundary = 0) + theme_bw()
+  # for visual estimation of the false discovery proportion in the first bin
+  alpha <- binw <- input$FDR
+  pi0 <- 2*mean(res_df$pvalue > 0.5)
+  p1 <- p1 + geom_hline(yintercept = pi0 * binw * nrow(res_df), col = "steelblue") + 
+    geom_vline(xintercept = alpha, col = "red")
+  
+  p1 <- p1 + ggtitle(
+    label = "p-value histogram",
+    subtitle = paste0(
+      "Expected nulls = ", pi0 * binw * nrow(res_df), 
+      " - #elements in the selected bins = ", sum(res_df$pvalue < alpha)
+    ))
 
   print(p1)
   
-  p2 <- ggplot(res_df, aes_string("log2FoldChange")) +
+  
+  
+  res_df <- mutate(
+    res_df, 
+    stratum = cut(baseMean, include.lowest = T, 
+                  breaks = signif(quantile(baseMean, probs = seq(0,1, length.out = 10)),2)))
+  
+  p2 <- ggplot(res_df, aes_string("pvalue")) +
+    geom_histogram(binwidth = 0.01, boundary = 0) + 
+    facet_wrap(~stratum) + 
+    theme_bw()
+      
+  p2 <- p2 + ggtitle(
+    label = "p-value histogram",
+    subtitle = "stratified on the different value classes of mean expression values")
+  
+  phi <- input$FDR
+  res_df <- mutate(res_df, rank = rank(pvalue))
+  m <- nrow(res_df)
+  
+  p3 <- ggplot(filter(res_df, rank <= 6000), 
+              aes(x = rank, y = pvalue)) + 
+    geom_line() + 
+    geom_abline(slope = phi/m, col = "red") + 
+    theme_bw()
+  
+  p3 <- p3 + ggtitle(
+    label = "Schweder-Spjotvoll plot",
+    subtitle = paste0(
+      "Intersection point at rank ", with(arrange(res_df,rank), last(which(pvalue <= phi * rank / m))))
+    )
+  
+  p4 <- ggplot(res_df, aes_string("log2FoldChange")) +
     geom_histogram(binwidth = 0.1) + theme_bw()
+  p4 <- p4 + ggtitle("Histogram of the log2 fold changes")
+  print(p4)
+    
+    
 
-  print(p2)
 
   mydf <- as.data.frame(values$res_obj[order(values$res_obj$padj),])#[1:500,]
   rownames(mydf) <- createLinkENS(rownames(mydf),species = annoSpecies_df$ensembl_db[match(input$speciesSelect,annoSpecies_df$species)]) ## TODO: check what are the species from ensembl and
