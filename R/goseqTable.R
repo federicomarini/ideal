@@ -83,7 +83,7 @@ goseqTable <- function(de.genes,                  # Differentially expressed gen
   goseq_out$p.adj <- p.adjust(goseq_out$over_represented_pvalue,method="BH")
 
   # to reduce the load for adding the genes
-  goseq_out <- goseq_out[1:nTop,]
+  goseq_out <- goseq_out[seq_len(nTop),]
 
   if(addGeneToTerms) {
     # for adding the gene ids/names...
