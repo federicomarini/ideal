@@ -3342,6 +3342,36 @@ ideal<- function(dds_obj = NULL,
     })
     
     
+    output$pvals_ss <- renderPlot({
+      shiny::validate(
+        need(!is.null(values$res_obj),message = "")
+      )
+      
+      res_df <- as.data.frame(values$res_obj)
+      res_df <- dplyr::filter(res_df, !is.na(pvalue))
+      
+      phi <- input$FDR
+      res_df <- mutate(res_df, rank = rank(pvalue))
+      m <- nrow(res_df)
+      
+      p <- ggplot(filter(res_df, rank <= 6000), 
+                  aes(x = rank, y = pvalue)) + 
+        geom_line() + 
+        geom_abline(slope = phi/m, col = "red") + 
+        theme_bw()
+      
+      p <- p + ggtitle(
+        label = "Schweder-Spjotvoll plot",
+        subtitle = paste0(
+          "Intersection point at rank ", with(arrange(res_df,rank), last(which(pvalue <= phi * rank / m))))
+        )
+      
+      exportPlots$plot_pvals_ss <- p
+      p
+    })
+    
+    
+
     output$logfc_hist <- renderPlot({
       shiny::validate(
         need(!is.null(values$res_obj),message = "")
