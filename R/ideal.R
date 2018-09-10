@@ -3336,7 +3336,7 @@ ideal<- function(dds_obj = NULL,
         label = "p-value histogram",
         subtitle = "stratified on the different value classes of mean expression values")
       
-      exportPlots$plot_pvals_hist <- p
+      exportPlots$plot_pvals_hist_strat <- p
       p
       
     })
@@ -3355,7 +3355,7 @@ ideal<- function(dds_obj = NULL,
       m <- nrow(res_df)
       
       p <- ggplot(filter(res_df, rank <= 6000), 
-                  aes(x = rank, y = pvalue)) + 
+                  aes_string(x = "rank", y = "pvalue")) + 
         geom_line() + 
         geom_abline(slope = phi/m, col = "red") + 
         theme_bw()
