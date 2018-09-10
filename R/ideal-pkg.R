@@ -26,8 +26,7 @@
 #' @import BiocParallel
 #' @import knitr
 #' @import rmarkdown
-#' @import plyr
-#' @importFrom dplyr inner_join tbl_df filter mutate arrange
+#' @importFrom dplyr inner_join tbl_df filter mutate arrange last 
 #' @importMethodsFrom GOstats hyperGTest summary
 #' @import GO.db
 #' @importFrom UpSetR upset fromList
