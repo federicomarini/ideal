@@ -3324,7 +3324,7 @@ ideal<- function(dds_obj = NULL,
       
       res_df <- mutate(
         res_df, 
-        stratum = cut(baseMean, include.lowest = T, 
+        stratum = cut(baseMean, include.lowest = TRUE, 
                       breaks = signif(quantile(baseMean, probs = seq(0,1, length.out = 10)),2)))
   
       p <- ggplot(res_df, aes_string("pvalue")) +
