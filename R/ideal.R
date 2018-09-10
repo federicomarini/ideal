@@ -538,12 +538,27 @@ ideal<- function(dds_obj = NULL,
               DT::dataTableOutput("table_res"),
               downloadButton("downloadTblResu","Download", class = "btn btn-success"),
               fluidRow(
+                h3("Diagnostic plots"),
                 column(
                   width = 6,
                   plotOutput("pvals_hist"),
                   div(align = "right", style = "margin-right:15px; margin-bottom:10px",
                       downloadButton("download_plot_pvals_hist", "Download Plot"),
                       textInput("filename_plot_pvals_hist",label = "Save as...",value = "plot_pvals_hist.pdf"))
+                ),
+                column(
+                  width = 6,
+                  plotOutput("pvals_hist_strat"),
+                  div(align = "right", style = "margin-right:15px; margin-bottom:10px",
+                      downloadButton("download_plot_pvals_hist_strat", "Download Plot"),
+                      textInput("filename_plot_pvals_hist_strat",label = "Save as...",value = "plot_pvals_hist_strat.pdf"))
+                ),
+                column(
+                  width = 6,
+                  plotOutput("pvals_ss"),
+                  div(align = "right", style = "margin-right:15px; margin-bottom:10px",
+                      downloadButton("download_plot_pvals_ss", "Download Plot"),
+                      textInput("filename_plot_pvals_ss",label = "Save as...",value = "plot_pvals_ss.pdf"))
                 ),
                 column(
                   width = 6,
@@ -3275,15 +3290,31 @@ ideal<- function(dds_obj = NULL,
       shiny::validate(
         need(!is.null(values$res_obj),message = "")
       )
-
+      
       res_df <- as.data.frame(values$res_obj)
+      res_df <- dplyr::filter(res_df, !is.na(pvalue))
       p <- ggplot(res_df, aes_string("pvalue")) +
-        geom_histogram(binwidth = 0.01) + theme_bw()
-
+        geom_histogram(binwidth = 0.01, boundary = 0) + theme_bw()
+      
+      # for visual estimation of the false discovery proportion in the first bin
+      alpha <- binw <- input$FDR
+      pi0 <- 2*mean(res_df$pvalue > 0.5)
+      p <- p + geom_hline(yintercept = pi0 * binw * nrow(res_df), col = "steelblue") + 
+        geom_vline(xintercept = alpha, col = "red")
+      
+      p <- p + ggtitle(
+        label = "p-value histogram",
+        subtitle = paste0(
+          "Expected nulls = ", pi0 * binw * nrow(res_df), 
+          " - #elements in the selected bins = ", sum(res_df$pvalue < alpha)
+        ))
+      
       exportPlots$plot_pvals_hist <- p
       p
-
+      
     })
+    
+    
 
     output$logfc_hist <- renderPlot({
       shiny::validate(
@@ -3291,8 +3322,14 @@ ideal<- function(dds_obj = NULL,
       )
 
       res_df <- as.data.frame(values$res_obj)
+      res_df <- dplyr::filter(res_df, !is.na(pvalue))
+      
       p <- ggplot(res_df, aes_string("log2FoldChange")) +
         geom_histogram(binwidth = 0.1) + theme_bw()
+      
+      p <- p + ggtitle(
+        "Histogram of the log2 fold changes"
+      )
 
       exportPlots$plot_logfc_hist <- p
 

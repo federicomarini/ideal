@@ -142,7 +142,7 @@ if(!is.null(values$res_obj)) {
   
   res_df <- as.data.frame(values$res_obj)
   p1 <- ggplot(res_df, aes_string("pvalue")) +
-    geom_histogram(binwidth = 0.01) + theme_bw()
+    geom_histogram(binwidth = 0.01, boundary = 0) + theme_bw()
 
   print(p1)
   

@@ -27,7 +27,7 @@
 #' @import knitr
 #' @import rmarkdown
 #' @import plyr
-#' @importFrom dplyr inner_join tbl_df
+#' @importFrom dplyr inner_join tbl_df filter mutate arrange
 #' @importMethodsFrom GOstats hyperGTest summary
 #' @import GO.db
 #' @importFrom UpSetR upset fromList
