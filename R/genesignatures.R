@@ -18,7 +18,6 @@ sig_heatmap <- function(vst_data, my_signature,
   
   mydata <- assay(vst_data)
   
-  
   signature_original_ids <- names(annovec)[match(my_signature,annovec)]
   
   mydata_sig <- mydata[signature_original_ids,]

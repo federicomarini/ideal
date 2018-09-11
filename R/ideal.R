@@ -943,7 +943,7 @@ ideal<- function(dds_obj = NULL,
             fluidRow(
               column(
                 width = 8, offset = 2,
-                plotOutput("sigheat")
+                plotOutput("sig_heat")
               )
             )
             
@@ -2932,6 +2932,19 @@ ideal<- function(dds_obj = NULL,
     
     output$sig_convcheck <- renderPrint({
       head(values$anno_vec)
+    })
+    
+    
+    
+    output$sig_heat <- renderPlot({
+      sig_heatmap(values$vst_obj,annovec = values$anno_vec,
+                  my_signature = values$gene_signatures[[input$sig_selectsig]],
+                  title = names(values$gene_signatures)[match(input$sig_selectsig,names(values$gene_signatures))],
+                  cluster_rows = input$sig_clusterrows,
+                  cluster_cols = input$sig_clustercols,
+                  center_mean = input$sig_centermean,
+                  scale_row = input$sig_scalerow)
+              
     })
 
 
