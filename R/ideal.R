@@ -912,13 +912,22 @@ ideal<- function(dds_obj = NULL,
               ),
               column(
                 width = 6,
-                h4("Conversion options")
+                h4("Conversion options"),
+                uiOutput("sig_ui_id_data"),
+                uiOutput("sig_ui_id_sigs"),
+                uiOutput("sig_ui_orgdbpkg"),
+                actionButton("sig_convert_setup",
+                             label = "Apply id conversion between data and signatures"),
+                verbatimTextOutput("sig_convcheck")
+                
               )
             ),
             fluidRow(
               column(
                 width = 6,
                 uiOutput("sig_ui_selectsig"),
+                checkboxInput("sig_useDEonly",
+                              label = "Use only DE genes in the signature",value = FALSE),
                 verbatimTextOutput("sig_sigmembers")
               ),
               column(
@@ -2886,12 +2895,44 @@ ideal<- function(dds_obj = NULL,
     })
 
 
-
-
-
-
-
-
+    output$sig_ui_id_data <- renderUI({
+      if (is.null(values$dds_obj)) #
+        return(NULL)
+      selectInput("sig_id_data", "select the id type in your data", choices=c("ENSEMBL","ENTREZID","REFSEQ","SYMBOL"))
+    })
+    
+    output$sig_ui_id_sigs <- renderUI({
+      if (is.null(values$gene_signatures)) #
+        return(NULL)
+      selectInput("sig_id_sigs", "select the id type in your signatures", choices=c("ENSEMBL","ENTREZID","REFSEQ","SYMBOL"), selected = "SYMBOL")
+    })
+    
+    available_orgdb <- rownames(installed.packages())[
+      grep(pattern = "^org.*db$",rownames(installed.packages()))]
+    
+    output$sig_ui_orgdbpkg <- renderUI({
+      selectInput("sig_orgdbpkg", "Select the organism package for matching", 
+                  choices=available_orgdb)
+    })
+    
+    observeEvent(input$sig_convert_setup,
+                 {
+                   withProgress(message="Matching the identifiers",
+                                detail = "Locating package", value = 0,{
+                                  require(input$sig_orgdbpkg,character.only=TRUE)
+                                  incProgress(0.1,detail = "Matching identifiers")
+                                  
+                                  x <- get(input$sig_orgdbpkg)
+                                  values$anno_vec <- mapIds(x, rownames(values$dds_obj),
+                                                            column = input$sig_id_sigs,
+                                                            keytype = input$sig_id_data)
+                                  
+                                })
+                 })
+    
+    output$sig_convcheck <- renderPrint({
+      head(values$anno_vec)
+    })
 
 
 
