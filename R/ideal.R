@@ -94,7 +94,9 @@ ideal<- function(dds_obj = NULL,
 
 
 
+  # ui definition -----------------------------------------------------------
   ideal_ui <- shinydashboard::dashboardPage(
+    # header definition -----------------------------------------------------------
     shinydashboard::dashboardHeader(
       title = paste0("ideal - Interactive Differential Expression AnaLysis ",
                      packageVersion("ideal")),
@@ -120,7 +122,7 @@ ideal<- function(dds_obj = NULL,
       )
     ),
 
-
+    # sidebar definition -----------------------------------------------------------
     dashboardSidebar(
       width = 280,
       menuItem("App settings",
@@ -172,7 +174,7 @@ ideal<- function(dds_obj = NULL,
     ),
 
 
-
+    # body definition -----------------------------------------------------------
     dashboardBody(
       introjsUI(),
       # must include in UI
@@ -215,7 +217,7 @@ ideal<- function(dds_obj = NULL,
         tabBox(
           width=12,
 
-
+          # ui panel welcome -----------------------------------------------------------
           tabPanel(
             # "Welcome!",  icon = icon("info-circle"),
             title = "Welcome!",  icon = icon("home"), value="tab-welcome",
@@ -273,7 +275,7 @@ ideal<- function(dds_obj = NULL,
 
           ),
 
-
+          # ui panel data setup -----------------------------------------------------------
           tabPanel(
             "Data Setup",icon = icon("upload"), # value="tab-ds",
             value = "tab-datasetup",
@@ -361,7 +363,7 @@ ideal<- function(dds_obj = NULL,
 
 
 
-
+          # ui panel counts overview -----------------------------------------------------------
           tabPanel(
             "Counts Overview",
             icon = icon("eye"),
@@ -439,7 +441,7 @@ ideal<- function(dds_obj = NULL,
           ),
 
 
-
+          # ui panel extract results -----------------------------------------------------------
           tabPanel(
             "Extract Results", icon = icon("table"),
 
@@ -576,7 +578,7 @@ ideal<- function(dds_obj = NULL,
 
           ),
 
-
+          # ui panel summary plots -----------------------------------------------------------
           tabPanel(
             "Summary Plots", icon = icon("photo"),
             conditionalPanel(
@@ -670,6 +672,7 @@ ideal<- function(dds_obj = NULL,
               h2("You did not create the result object yet. Please go the dedicated tab and generate it")
             )
           ),
+          # ui panel gene finder -----------------------------------------------------------
           tabPanel(
             "Gene Finder", icon = icon("crosshairs"),
             conditionalPanel(
@@ -743,7 +746,7 @@ ideal<- function(dds_obj = NULL,
               h2("You did not create the dds object yet. Please go the main tab and generate it")
             )
           ),
-
+          # ui panel functional analysis ----------------------------------------------------------
           tabPanel(
             "Functional Analysis", icon = icon("list-alt"),
             conditionalPanel(
@@ -894,8 +897,52 @@ ideal<- function(dds_obj = NULL,
               h2("You did not create the result object yet. Please go the dedicated tab and generate it")
             )
           ),
+          
+          # ui panel signatures explorer ---------------------------------------------------------
+          tabPanel(
+            "Signatures Explorer",
+            icon = icon("map"),
+            fluidRow(
+              column(
+                width = 6,
+                fileInput("sig_gmtin","gmt input file"),
+                uiOutput("sig_ui_nrsigs"),
+                actionButton("sig_button_computevst",
+                             label = "Compute the variance stabilized transformed data")
+              ),
+              column(
+                width = 6,
+                h4("Conversion options")
+              )
+            ),
+            fluidRow(
+              column(
+                width = 6,
+                uiOutput("sig_ui_selectsig"),
+                verbatimTextOutput("sig_sigmembers")
+              ),
+              column(
+                width = 6,
+                checkboxInput("sig_clusterrows",label = "Cluster rows"),
+                checkboxInput("sig_clustercols", label = "Cluster columns"),
+                checkboxInput("sig_centermean", label = "Center mean"),
+                checkboxInput("sig_scalerow", label = "Standardize by row")
+                
+                
+              )
+            ),
+            fluidRow(
+              column(
+                width = 8, offset = 2,
+                plotOutput("sigheat")
+              )
+            )
+            
+            
+            
+          ),
 
-
+          # ui panel report editor -----------------------------------------------------------
           tabPanel(
             "Report Editor",
             icon = icon("pencil"),
@@ -976,6 +1023,7 @@ ideal<- function(dds_obj = NULL,
                                  height="800px"))
             )
           ),
+          # ui panel about -----------------------------------------------------------
           tabPanel(
             "About", icon = icon("institution"),
 
@@ -1009,17 +1057,17 @@ ideal<- function(dds_obj = NULL,
         )
       )
       ,footer() # TODO: decide where to place the footer
-        ),
+    ),
 
 
     skin="blue"
-        )
+  )
 
 
-
+  # server definition -----------------------------------------------------------
   ideal_server <- shinyServer(function(input, output, session) {
 
-
+    # server tours setup -----------------------------------------------------------
     observeEvent(input$btn, {
       intro <- data.frame(element=c("#btn","#box_ddsobj","#box_annobj","#uploadcmfile"),
                           intro=c("In Codd we trust","first boxieee","here is info on the annotation","next tab"))
@@ -1103,7 +1151,7 @@ ideal<- function(dds_obj = NULL,
     # userdir <- newuserdir
     # dir.create(file.path(userdir, "data"))
 
-
+    # server setup reactivevalues -----------------------------------------------------------
     ## placeholder for the figures to export
     exportPlots <- reactiveValues()
     # expfig_fig1 <- NULL
@@ -1126,8 +1174,7 @@ ideal<- function(dds_obj = NULL,
       values$expdesign <- as.data.frame(colData(dds_obj))
     }
 
-    # info boxes, to keep on top of the page  on the left side?
-
+    # server info boxes -----------------------------------------------------------
     output$box_ddsobj <- renderUI({
       if(!is.null(values$dds_obj))
         return(valueBox("dds object",
@@ -1140,9 +1187,6 @@ ideal<- function(dds_obj = NULL,
                         icon = icon("list"),
                         color = "red",width = NULL))
 
-      # "", paste0(25 + input$count, "%"), icon = icon("list"),
-      # color = "purple"
-      # )
     })
 
     output$box_annobj <- renderUI({
@@ -1183,8 +1227,7 @@ ideal<- function(dds_obj = NULL,
     values$ihwres <- NULL
 
 
-
-    ###### uploading data
+    # server uploading data -----------------------------------------------------------
     ## count matrix
     output$upload_count_matrix <- renderUI({
       if (!is.null(dds_obj) | !is.null(countmatrix)) {
@@ -1272,7 +1315,7 @@ ideal<- function(dds_obj = NULL,
     })
 
 
-
+    # server ui steps -----------------------------------------------------------
     output$ui_step2 <- renderUI({
       if (is.null(values$expdesign) | is.null(values$countmatrix))
         return(NULL)
@@ -1385,8 +1428,6 @@ ideal<- function(dds_obj = NULL,
 
             verbatimTextOutput("printDIYresults"),
 
-            # verbatimTextOutput("printdds"),
-            # verbatimTextOutput("printres"),
             uiOutput("ui_stepend")
           )
       )
@@ -1410,7 +1451,7 @@ ideal<- function(dds_obj = NULL,
       plotDispEsts(values$dds_obj)
     })
 
-
+    # server ok objects -----------------------------------------------------------
     output$ok_cm <- renderUI({
       if (is.null(values$countmatrix))
         return(NULL)
@@ -1535,30 +1576,16 @@ ideal<- function(dds_obj = NULL,
     observeEvent(input$uploadcmfile,
                  {
                    values$countmatrix <- readCountmatrix()
-                   # if(!is.null(values$expdesign)){
-                   #   withProgress(message="Computing the objects...",value = 0,{
-                   #
-                   #     values$dds_object <- DESeqDataSetFromMatrix(countData = values$countmatrix,
-                   #                                                 colData = values$expdesign,
-                   #                                                 design=~1)})
-                   # }
                  })
 
     observeEvent(input$uploadmetadatafile,
                  {
                    values$expdesign <- readMetadata()
-                   # if(!is.null(values$countmatrix)){
-                   #   withProgress(message="Computing the objects...",value = 0,{
-                   #
-                   #     values$dds_object <- DESeqDataSetFromMatrix(countData = values$countmatrix,
-                   #                                                 colData = values$expdesign,
-                   #                                                 design=~1)})
-                   # }
                  })
 
 
 
-    # for retrieving the annotation
+    # server retrieving anno --------------------------------------------------
     annoSpecies_df <- data.frame(species=c("","Anopheles","Arabidopsis","Bovine","Worm",
                                            "Canine","Fly","Zebrafish","E coli strain K12",
                                            "E coli strain Sakai","Chicken","Human","Mouse",
@@ -1632,7 +1659,7 @@ ideal<- function(dds_obj = NULL,
 
     })
 
-
+    # server outliers --------------------------------------------------------
     output$ui_selectoutliers <- renderUI({
       if(is.null(values$dds_obj))
         return(NULL)
@@ -1680,7 +1707,7 @@ ideal<- function(dds_obj = NULL,
 
 
 
-
+    # server run deseq --------------------------------------------------------
     output$rundeseq <- renderUI({
       if(is.null(values$dds_obj))
         return(NULL)
@@ -1725,8 +1752,7 @@ ideal<- function(dds_obj = NULL,
 
 
 
-    ###### counts overview
-
+    # server counts overview --------------------------------------------------------
     current_countmat <- reactive({
       if(input$countstable_unit=="raw_counts")
         return(counts(values$dds_obj,normalized=FALSE))
@@ -1833,15 +1859,7 @@ ideal<- function(dds_obj = NULL,
 
 
 
-
-
-
-
-
-
-
-
-    #### MANAGING THE GENE LISTS
+    # server managing gene lists --------------------------------------------------------
     ## gene lists upload
 
     observeEvent(input$gl1,
@@ -2489,7 +2507,8 @@ ideal<- function(dds_obj = NULL,
 
 
 
-
+    # server gse datatables --------------------------------------------------------
+    
     output$DT_gse_up <- DT::renderDataTable({
       # if not null...
       if(is.null(values$gse_up))
@@ -2621,8 +2640,7 @@ ideal<- function(dds_obj = NULL,
     })
 
 
-
-
+    # server gse heatmaps --------------------------------------------------------
     output$goterm_heatmap_up_topgo <- renderPlot({
 
       s <- input$DT_gse_up_topgo_rows_selected
@@ -2811,8 +2829,61 @@ ideal<- function(dds_obj = NULL,
       pheatmap(selectedLogvalues,scale="row",labels_row=rowlabs,main = myterm)
 
     })
+    
+    
+    
+    
 
+    # server signature explorer ------------------------------------------------------
+    loaded_gmt <- reactive({
+      if (is.null(input$sig_gmtin))
+        return(NULL)
+      mysigs <- read_gmt(input$sig_gmtin$datapath)
+      return(mysigs)
+    })
+    
+    observeEvent(input$sig_gmtin,
+                 {
+                   values$gene_signatures <- loaded_gmt()
+                 })
+    
+    output$sig_ui_nrsigs <- renderUI({
+      if(!is.null(values$gene_signatures))
+        return(valueBox("Gene signatures",
+                        paste0(length(values$gene_signatures), " gene signatures"),
+                        icon = icon("list"),
+                        color = "green",width = NULL))
+      else
+        return(valueBox("Gene signatures",
+                        "yet to be loaded",
+                        icon = icon("list"),
+                        color = "red",width = NULL))
+    })
+    
+    observeEvent(input$sig_button_computevst,
+                 {
+                   withProgress(message="Computing the variance stabilized transformed data...",
+                                detail = "This step can take a little while",
+                                value = 0,{
+                                  values$vst_obj <- vst(values$dds_obj)
+                                })
+                 })
 
+    output$sig_ui_selectsig <- renderUI({
+      if(!is.null(values$gene_signatures))
+        return(selectizeInput("sig_selectsig", label = "Select the gene signature",
+                              choices = NULL, selected = NULL, multiple = FALSE))
+      else
+        return(NULL)
+    })
+
+    observe({
+      updateSelectizeInput(session = session, inputId = 'sig_selectsig', choices = c(Choose = '', names(values$gene_signatures)), server = TRUE)
+    })
+    
+    output$sig_sigmembers <- renderPrint({
+      values$gene_signatures[[input$sig_selectsig]]
+    })
 
 
 
@@ -2907,7 +2978,7 @@ ideal<- function(dds_obj = NULL,
 
 
 
-
+    # server ui update/observers --------------------------------------------------------
     output$color_by <- renderUI({
       if(is.null(values$dds_obj))
         return(NULL)
@@ -2958,7 +3029,7 @@ ideal<- function(dds_obj = NULL,
 
 
 
-    ## LRT test...
+    # server DE results --------------------------------------------------------
     # nrl <- reactive
     output$lrtavailable <- renderUI({
       if(is.null(values$dds_obj))
@@ -3285,7 +3356,7 @@ ideal<- function(dds_obj = NULL,
       datatable(mydf, escape = FALSE)
     })
 
-
+    # server resu diagnostics --------------------------------------------------------
     output$pvals_hist <- renderPlot({
       shiny::validate(
         need(!is.null(values$res_obj),message = "")
@@ -3616,7 +3687,7 @@ ideal<- function(dds_obj = NULL,
     #   # res
     # })
 
-
+    # server genefinder --------------------------------------------------------
     output$genefinder_plot <- renderPlot({
 
       shiny::validate(
@@ -3930,8 +4001,7 @@ ideal<- function(dds_obj = NULL,
 
 
 
-
-    ## REPORT EDITOR
+    # server report editor --------------------------------------------------------
     ### yaml generation
     rmd_yaml <- reactive({
       paste0("---",
@@ -4103,7 +4173,7 @@ ideal<- function(dds_obj = NULL,
 
 
 
-    ## STATE SAVING
+    # server state saving --------------------------------------------------------
     ### to environment
     observe({
       if(is.null(input$task_exit_and_save) || input$task_exit_and_save ==0 ) return()
@@ -4193,7 +4263,8 @@ ideal<- function(dds_obj = NULL,
     #   })
 
 
-
+    # server export plots and tables --------------------------------------------------------
+    
     ## here, all export of plots and tables
     output$download_plot_pvals_hist <- downloadHandler(filename = function() {
       input$filename_plot_pvals_hist
@@ -4433,17 +4504,13 @@ ideal<- function(dds_obj = NULL,
 
   })
 
-
-
-
-
+  
+  
+  
+  
   shinyApp(ui = ideal_ui, server = ideal_server)
-
-
-  }
-
-
-
-
+  
+  
+}
 
 
