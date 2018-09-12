@@ -98,9 +98,11 @@ ideal<- function(dds_obj = NULL,
   ideal_ui <- shinydashboard::dashboardPage(
     # header definition -----------------------------------------------------------
     shinydashboard::dashboardHeader(
-      title = paste0("ideal - Interactive Differential Expression AnaLysis ",
-                     packageVersion("ideal")),
-      titleWidth = 900,
+      title = tags$span(
+        img(src = "ideal/ideal_logo_v2.png", height = "50px"),
+        paste0("ideal - Interactive Differential Expression AnaLysis ",
+                     packageVersion("ideal"))),
+      titleWidth = 600,
 
       # TODO:
       # http://stackoverflow.com/questions/31440564/adding-a-company-logo-to-shinydashboard-header
@@ -1070,7 +1072,7 @@ ideal<- function(dds_obj = NULL,
     ),
 
 
-    skin="blue"
+    skin="black"
   )
 
 
