@@ -926,15 +926,16 @@ ideal<- function(dds_obj = NULL,
               column(
                 width = 6,
                 uiOutput("sig_ui_selectsig"),
+                uiOutput("sig_ui_annocoldata"),
                 checkboxInput("sig_useDEonly",
                               label = "Use only DE genes in the signature",value = FALSE),
                 verbatimTextOutput("sig_sigmembers")
               ),
               column(
                 width = 6,
-                checkboxInput("sig_clusterrows",label = "Cluster rows"),
+                checkboxInput("sig_clusterrows",label = "Cluster rows", value = TRUE),
                 checkboxInput("sig_clustercols", label = "Cluster columns"),
-                checkboxInput("sig_centermean", label = "Center mean"),
+                checkboxInput("sig_centermean", label = "Center mean",value = TRUE),
                 checkboxInput("sig_scalerow", label = "Standardize by row")
                 
                 
@@ -2893,6 +2894,15 @@ ideal<- function(dds_obj = NULL,
     output$sig_sigmembers <- renderPrint({
       values$gene_signatures[[input$sig_selectsig]]
     })
+    
+    output$sig_ui_annocoldata <- renderUI({
+      if(!is.null(values$dds_obj))
+        return(selectizeInput("sig_annocoldata", label = "Select the colData to decorate",
+                              choices = names(colData(values$dds_obj)),
+                              selected = NULL, multiple = TRUE))
+      else
+        return(NULL)
+    })
 
 
     output$sig_ui_id_data <- renderUI({
@@ -2937,13 +2947,16 @@ ideal<- function(dds_obj = NULL,
     
     
     output$sig_heat <- renderPlot({
-      sig_heatmap(values$vst_obj,annovec = values$anno_vec,
-                  my_signature = values$gene_signatures[[input$sig_selectsig]],
-                  title = names(values$gene_signatures)[match(input$sig_selectsig,names(values$gene_signatures))],
-                  cluster_rows = input$sig_clusterrows,
-                  cluster_cols = input$sig_clustercols,
-                  center_mean = input$sig_centermean,
-                  scale_row = input$sig_scalerow)
+      
+      print(sig_heatmap(values$vst_obj,
+                        annovec = values$anno_vec,
+                        # anno_colData = colData(values$vst_obj)[,input$sig_annocoldata, drop = FALSE],
+                        my_signature = values$gene_signatures[[input$sig_selectsig]],
+                        title = names(values$gene_signatures)[match(input$sig_selectsig,names(values$gene_signatures))],
+                        cluster_rows = input$sig_clusterrows,
+                        cluster_cols = input$sig_clustercols,
+                        center_mean = input$sig_centermean,
+                        scale_row = input$sig_scalerow))
               
     })
 

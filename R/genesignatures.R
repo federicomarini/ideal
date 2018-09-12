@@ -14,11 +14,18 @@ read_gmt <- function(gmtfile){
 sig_heatmap <- function(vst_data, my_signature,
                         de_only = FALSE, annovec, title = "",
                         cluster_rows = TRUE, cluster_cols = FALSE,
-                        center_mean = TRUE, scale_row = FALSE) {
+                        center_mean = TRUE, scale_row = FALSE
+                        # ,
+                        #anno_colData
+                        ) {
   
   mydata <- assay(vst_data)
   
   signature_original_ids <- names(annovec)[match(my_signature,annovec)]
+  
+  sig_to_keep <- (signature_original_ids %in% rownames(mydata))#
+  my_signature <- my_signature[sig_to_keep]
+  signature_original_ids <- signature_original_ids[sig_to_keep]
   
   mydata_sig <- mydata[signature_original_ids,]
   
@@ -30,6 +37,7 @@ sig_heatmap <- function(vst_data, my_signature,
     mydata_sig <- mydata_sig - rowMeans(mydata_sig)
   
   pheatmap(mydata_sig,
+           # annotation_col = anno_colData,
            cluster_rows = cluster_rows, cluster_cols = cluster_cols,
            scale = ifelse(scale_row,"row","none"),main = title,
            labels_row = my_signature[!to_remove])
