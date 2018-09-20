@@ -43,7 +43,6 @@
 #'                                              design=~cell+dex)
 #' \dontrun{
 #'
-#'
 #' ideal()
 #' ideal(dds)
 #' ideal(dds_airway)
@@ -71,28 +70,14 @@ ideal<- function(dds_obj = NULL,
 
   ## upload max 300mb files - can be changed if necessary
   options(shiny.maxRequestSize=300*1024^2)
-  #
   options(shiny.launch.browser = TRUE)
 
   ## ------------------------------------------------------------------ ##
   ##                          Define UI                                 ##
   ## ------------------------------------------------------------------ ##
 
-  # source(file.path("R/ideal_ui.R"),local = TRUE)
-  # source(file.path("R/ideal_server.R"), local= TRUE)
-
-
-
-  #
   #   # components defined in separated .R files
   #   shinyApp(ui = ideal_ui, server = ideal_server)
-  #
-
-
-
-  # runApp(appDir = system.file("shiny", package = "ideal"))
-
-
 
   # ui definition -----------------------------------------------------------
   ideal_ui <- shinydashboard::dashboardPage(
