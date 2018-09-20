@@ -4,9 +4,6 @@
 interactively analyzing RNA-seq expression data, by interactive exploration of the 
 results of a Differential Expression analysis.
 
-
-
-
 ## Getting started
 
 *[ideal](http://bioconductor.org/packages/ideal)* is an R package distributed as part of the [Bioconductor](http://bioconductor.org) project. To install the package, start R and enter:
@@ -19,7 +16,6 @@ BiocManager::install("ideal")
 
 If you prefer, you can install and use the development version, which can be retrieved via Github (https://github.com/federicomarini/ideal). To do so, use
 
-
 ```r
 library("devtools")
 install_github("federicomarini/ideal")
@@ -27,12 +23,9 @@ install_github("federicomarini/ideal")
 
 Once *ideal* is installed, it can be loaded by the following command.
 
-
 ```r
 library("ideal")
 ```
-
-
 
 ## Introduction
 
@@ -47,7 +40,6 @@ The interactive/reactive design of the app, with a dynamically generated user in
 ### Citation info
 
 If you use *[ideal](http://bioconductor.org/packages/ideal)* for your analysis, please cite it as here below:
-
 
 ```r
 citation("ideal")
@@ -81,7 +73,6 @@ There are different ways to use `ideal` for interactive differential expression 
 ### Launching `ideal` locally
 
 First load the library
-
 
 ```r
 library("ideal")

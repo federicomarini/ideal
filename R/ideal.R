@@ -225,8 +225,6 @@ ideal<- function(dds_obj = NULL,
               column(
                 width = 8,
                 includeMarkdown(system.file("extdata", "welcome.md",package = "ideal")),
-              #            ,data.step = 1,data.intro = "Welcome to ideal - the Interactive Differential Expression Analysis tool that also enables reproducible analyses! Click on the 'next' button to proceed with the first interactive tour.")
-              # ,
                 br(),br(),
                 p("If you see a grey box like this one open below..."),
 
@@ -244,9 +242,6 @@ ideal<- function(dds_obj = NULL,
                 br(),br(),
                 # introBox(
                 uiOutput("ui_instructions")
-                
-              # ,
-              # data.step = 2,data.intro = "Here you can read the Instructions to learn the basics of ideal. If you click out of the intro-highlighted area, you are about to interrupt the tour. Don't worry, you can resume it anytime by re-clicking on the tour button. Once you are done with the first reading, you can move on to the next tab, where you will learn how to load your data.")
               )
             )
           ), # end of Welcome panel
@@ -272,56 +267,51 @@ ideal<- function(dds_obj = NULL,
             actionButton("tour_datasetup", "Click me for a quick tour of the section", icon("info"),
                          style="color: #ffffff; background-color: #0092AC; border-color: #2e6da4"), br(),
 
-            introBox(box(width = 12, title = "Step 1", status = "danger", solidHeader = TRUE,
-                         h2("Upload your count matrix and the info on the experimental design"),
+            box(
+              width = 12, 
+              title = "Step 1", status = "danger", solidHeader = TRUE,
+              h2("Upload your count matrix and the info on the experimental design"),
 
-                         fluidRow(
-                           column(
-                             width = 4,
-                             uiOutput("upload_count_matrix"),
-                             uiOutput("upload_metadata"),
-                             br(),
-                             "... or you can also ",
-                             actionButton("btn_loaddemo", "Load the demo airway data", icon = icon("play-circle"),
-                                          class = "btn btn-info"),br(), p()
-                           )
-                         ),
-
-                         fluidRow(
-                           column(
-                             width = 6,
-                             box(width = NULL, title = "Count matrix preview",status = "primary",
-                                 solidHeader = TRUE,collapsible = TRUE, collapsed = TRUE,
-                                 fluidRow(
-                                   column(
-                                     width = 12,
-                                     offset = 0.5,
-                                     DT::dataTableOutput("dt_cm"))
-                                 )
-                             )
-                           ),
-                           column(
-                             width = 6,
-                             box(width = NULL, title = "Experimental design preview",status = "primary",
-                                 solidHeader = TRUE,collapsible = TRUE, collapsed = TRUE,
-                                 fluidRow(
-                                   column(
-                                     width = 12,
-                                     offset = 0.5,
-                                     DT::dataTableOutput("dt_ed"))
-                                 )
-                             )
-                           )
-                         )
-
-
-            ), data.step = 3,data.intro = "In this tab you can upload your data. You basically need three mandatory steps, highlighted in these boxes, from red through yellow to green - with a couple of optional steps. Your expression count data need to be in tabular format, with identifiers as the first column and the sample names as headers - you should be fine with common outputs from featureCounts or HTSeq-count. The first basic tour ends here, click on 'Done' to exit and continue with the section-based tours."),
-            # h2("Step 1: Upload your count matrix and the info on the experimental design"),
-
-
+              fluidRow(
+                column(
+                  width = 4,
+                  uiOutput("upload_count_matrix"),
+                  uiOutput("upload_metadata"),
+                  br(),
+                  "... or you can also ",
+                  actionButton("btn_loaddemo", "Load the demo airway data", icon = icon("play-circle"),
+                               class = "btn btn-info"),br(), p()
+                )
+              ),
+              
+              fluidRow(
+                column(
+                  width = 6,
+                  box(width = NULL, title = "Count matrix preview",status = "primary",
+                      solidHeader = TRUE,collapsible = TRUE, collapsed = TRUE,
+                      fluidRow(
+                        column(
+                          width = 12,
+                          offset = 0.5,
+                          DT::dataTableOutput("dt_cm"))
+                      )
+                  )
+                ),
+                column(
+                  width = 6,
+                  box(width = NULL, title = "Experimental design preview",status = "primary",
+                      solidHeader = TRUE,collapsible = TRUE, collapsed = TRUE,
+                      fluidRow(
+                        column(
+                          width = 12,
+                          offset = 0.5,
+                          DT::dataTableOutput("dt_ed"))
+                      )
+                  )
+                )
+              )
+            ),
             uiOutput("ui_step2"),
-
-            # hr(),
             fluidRow(
               column(
                 width = 6,
@@ -333,8 +323,6 @@ ideal<- function(dds_obj = NULL,
                 uiOutput("ui_stepoutlier")
               )
             ),
-            # hr(),
-
             uiOutput("ui_step3")
           ), # end of Data Setup panel
           # ui panel counts overview -----------------------------------------------------------
@@ -343,27 +331,23 @@ ideal<- function(dds_obj = NULL,
             icon = icon("eye"),
             conditionalPanel(
               condition="!output.checkdds",
-
               headerPanel("Get an overview on your data"),
-
               fluidRow(
                 column(
                   width = 8,
-                  shinyBS::bsCollapse(id = "help_countsoverview",open = NULL, # alt: "Help"
-                                      # think of a general trigger for this? something like a variable that assumes NULL
-                                      shinyBS::bsCollapsePanel("Help",includeMarkdown(system.file("extdata", "help_overview.md",package = "ideal")))
+                  shinyBS::bsCollapse(
+                    id = "help_countsoverview",open = NULL, 
+                    shinyBS::bsCollapsePanel(
+                      "Help",
+                      includeMarkdown(system.file("extdata", "help_overview.md",package = "ideal")))
                   )
                   )
                 ),
 
-              actionButton("tour_countsoverview", "Click me for a quick tour of the section", icon("info"),
-                           style="color: #ffffff; background-color: #0092AC; border-color: #2e6da4"), br(),
-
-
-              ### to control colors of action buttons
-              # actionButton("run", "Run Analysis", icon("paper-plane"),
-                           # style="color: #fff; background-color: #337ab7; border-color: #2e6da4"),
-
+              actionButton("tour_countsoverview", "Click me for a quick tour of the section", 
+                           icon("info"),
+                           style="color: #ffffff; background-color: #0092AC; border-color: #2e6da4"),
+              br(),
               selectInput("countstable_unit", label = "Data scale in the table",
                           choices = list("Counts (raw)" = "raw_counts",
                                          "Counts (normalized)" = "normalized_counts",
@@ -399,14 +383,12 @@ ideal<- function(dds_obj = NULL,
                 )
               ),
 
-
               h3("Sample to sample scatter plots"),
               selectInput("corr_method","Correlation method palette",choices = list("pearson","spearman")),
               p("Compute sample to sample correlations on the normalized counts - warning, it can take a while to plot all points (depending mostly on the number of samples you provided)."),
               actionButton("compute_pairwisecorr", "Run", class = "btn btn-primary"),
               uiOutput("pairwise_plotUI"),
               uiOutput("heatcorr_plotUI")
-
             ),
             conditionalPanel(
               condition="output.checkdds",
@@ -416,35 +398,25 @@ ideal<- function(dds_obj = NULL,
           # ui panel extract results -----------------------------------------------------------
           tabPanel(
             "Extract Results", icon = icon("table"),
-
             # see: http://stackoverflow.com/questions/21609436/r-shiny-conditionalpanel-output-value?noredirect=1&lq=1
             conditionalPanel(
               condition="!output.checkdds",
-
               headerPanel("Extract and inspect the DE results"),
-
               fluidRow(
                 column(
                   width = 8,
-                  shinyBS::bsCollapse(id = "help_extractresults",open = NULL, # alt: "Help"
-                                      # think of a general trigger for this? something like a variable that assumes NULL
-                                      shinyBS::bsCollapsePanel("Help",includeMarkdown(system.file("extdata", "help_results.md",package = "ideal")))
+                  shinyBS::bsCollapse(
+                    id = "help_extractresults",open = NULL,
+                    shinyBS::bsCollapsePanel(
+                      "Help",
+                      includeMarkdown(system.file("extdata", "help_results.md",package = "ideal")))
                   )
                 )
               ),
 
               actionButton("tour_results", "Click me for a quick tour of the section", icon("info"),
-                           style="color: #ffffff; background-color: #0092AC; border-color: #2e6da4"), br(),
-
-
-
-              # conditionalPanel(
-              #   condition="output.checkresu==0",
-              #   h2('RESU not provided')
-              # ),
-
-              # "Data Overview", icon = icon("eye"),
-
+                           style="color: #ffffff; background-color: #0092AC; border-color: #2e6da4"),
+              br(),
               fluidRow(
                 column(
                   width = 6,
@@ -476,7 +448,6 @@ ideal<- function(dds_obj = NULL,
 
                   uiOutput("runlrt")
                 )
-
               ),
 
               ## general options for result function
@@ -495,7 +466,6 @@ ideal<- function(dds_obj = NULL,
                 )
               ),
               #, evtl also the *filter* parameter of the function, i.e. baseMean if not specified
-
               fluidRow(
                 column(
                   width = 6,
@@ -504,10 +474,6 @@ ideal<- function(dds_obj = NULL,
                   verbatimTextOutput("diyres_summary")
                 )
               ),
-
-
-
-
 
               DT::dataTableOutput("table_res"),
               downloadButton("downloadTblResu","Download", class = "btn btn-success"),
@@ -554,65 +520,59 @@ ideal<- function(dds_obj = NULL,
             "Summary Plots", icon = icon("photo"),
             conditionalPanel(
               condition="!output.checkresu",
-
               headerPanel("Interactive graphical exploration of the results"),
-
               fluidRow(
                 column(
                   width = 8,
-                  shinyBS::bsCollapse(id = "help_summaryplots",open = NULL, # alt: "Help"
-                                      # think of a general trigger for this? something like a variable that assumes NULL
-                                      shinyBS::bsCollapsePanel("Help",includeMarkdown(system.file("extdata", "help_plots.md",package = "ideal")))
+                  shinyBS::bsCollapse(
+                    id = "help_summaryplots",open = NULL, 
+                    shinyBS::bsCollapsePanel(
+                      "Help",
+                      includeMarkdown(system.file("extdata", "help_plots.md",package = "ideal")))
                   )
                 )
               ),
 
               actionButton("tour_plots", "Click me for a quick tour of the section", icon("info"),
-                           style="color: #ffffff; background-color: #0092AC; border-color: #2e6da4"), br(),
-
-              fluidRow(column(6,
-                              h4("MA plot - Interactive!"),
-                              plotOutput('plotma', brush = 'ma_brush'),
-                              div(align = "right", style = "margin-right:15px; margin-bottom:10px",
-                                  downloadButton("download_plot_ma", "Download Plot"),
-                                  textInput("filename_plot_ma",label = "Save as...",value = "plot_ma.pdf"))),
-                       column(6,
-                              h4("Zoomed section"),
-                              plotOutput("mazoom",click= 'mazoom_click'),
-                              div(align = "right", style = "margin-right:15px; margin-bottom:10px",
-                                  downloadButton("download_plot_mazoom", "Download Plot"),
-                                  textInput("filename_plot_mazoom",label = "Save as...",value = "plot_mazoom.pdf")))
-                       # ,
-                       # column(4,
-                       #        h4("Boxplot for the selected gene"),
-                       #        plotOutput("geneplot")
-                       # )
+                           style="color: #ffffff; background-color: #0092AC; border-color: #2e6da4"),
+              br(),
+              fluidRow(
+                column(6,
+                       h4("MA plot - Interactive!"),
+                       plotOutput('plotma', brush = 'ma_brush'),
+                       div(align = "right", style = "margin-right:15px; margin-bottom:10px",
+                           downloadButton("download_plot_ma", "Download Plot"),
+                           textInput("filename_plot_ma",label = "Save as...",value = "plot_ma.pdf"))),
+                column(6,
+                       h4("Zoomed section"),
+                       plotOutput("mazoom",click= 'mazoom_click'),
+                       div(align = "right", style = "margin-right:15px; margin-bottom:10px",
+                           downloadButton("download_plot_mazoom", "Download Plot"),
+                           textInput("filename_plot_mazoom",label = "Save as...",value = "plot_mazoom.pdf")))
               ),
-              fluidRow(column(6,
-                              h4("Selected gene"),
-                              checkboxInput("ylimZero_genes","Set y axis limit to 0",value=TRUE),
-                              plotOutput("genefinder_plot"),
-                              div(align = "right", style = "margin-right:15px; margin-bottom:10px",
-                                  downloadButton("download_plot_genefinder", "Download Plot"),
-                                  textInput("filename_plot_genefinder",label = "Save as...",value = "plot_genefinder.pdf"))
-              ),
-              column(6,
-                     h4("Gene infobox"),
-                     htmlOutput("rentrez_infobox"))
-
+              fluidRow(
+                column(6,
+                       h4("Selected gene"),
+                       checkboxInput("ylimZero_genes","Set y axis limit to 0",value=TRUE),
+                       plotOutput("genefinder_plot"),
+                       div(align = "right", style = "margin-right:15px; margin-bottom:10px",
+                           downloadButton("download_plot_genefinder", "Download Plot"),
+                           textInput("filename_plot_genefinder",label = "Save as...",value = "plot_genefinder.pdf"))
+                ),
+                column(6,
+                       h4("Gene infobox"),
+                       htmlOutput("rentrez_infobox"))
               ),
 
-
-              fluidRow(column(6,
-                              h4("volcano plot"),
-                              plotOutput("volcanoplot"),
-                              div(align = "right", style = "margin-right:15px; margin-bottom:10px",
-                                  downloadButton("download_plot_volcanoplot", "Download Plot"),
-                                  textInput("filename_plot_volcanoplot",label = "Save as...",value = "plot_volcanoplot.pdf"))
+              fluidRow(
+                column(6,
+                       h4("volcano plot"),
+                       plotOutput("volcanoplot"),
+                       div(align = "right", style = "margin-right:15px; margin-bottom:10px",
+                           downloadButton("download_plot_volcanoplot", "Download Plot"),
+                           textInput("filename_plot_volcanoplot",label = "Save as...",value = "plot_volcanoplot.pdf"))
               )),
 
-
-              # plotOutput("volcanoplot"),
               fluidRow(radioButtons("heatmap_colv","Cluster samples",choices = list("Yes"=TRUE,"No"=FALSE),selected = TRUE)),
               fluidRow(
                 column(4,
@@ -631,7 +591,6 @@ ideal<- function(dds_obj = NULL,
                        d3heatmapOutput("heatbrushD3"))
               ),
 
-
               box(
                 title = "Brushed table", status = "primary", solidHeader = TRUE,
                 collapsible = TRUE, collapsed = TRUE, width = 12,
@@ -648,21 +607,21 @@ ideal<- function(dds_obj = NULL,
             "Gene Finder", icon = icon("crosshairs"),
             conditionalPanel(
               condition="!output.checkdds",
-
               headerPanel("Find your gene(s) of interest"),
-
               fluidRow(
                 column(
                   width = 8,
-                  shinyBS::bsCollapse(id = "help_genefinder",open = NULL, # alt: "Help"
-                                      # think of a general trigger for this? something like a variable that assumes NULL
-                                      shinyBS::bsCollapsePanel("Help",includeMarkdown(system.file("extdata", "help_genefinder.md",package = "ideal")))
+                  shinyBS::bsCollapse(
+                    id = "help_genefinder",open = NULL,
+                    shinyBS::bsCollapsePanel(
+                      "Help",
+                      includeMarkdown(system.file("extdata", "help_genefinder.md",package = "ideal")))
                   )
                 )
               ),
               actionButton("tour_genefinder", "Click me for a quick tour of the section", icon("info"),
-                           style="color: #ffffff; background-color: #0092AC; border-color: #2e6da4"), br(),
-
+                           style="color: #ffffff; background-color: #0092AC; border-color: #2e6da4"),
+              br(),
               fluidRow(
                 column(6,checkboxInput("ylimZero_genefinder","Set y axis limit to 0",value=TRUE))),
               fluidRow(
@@ -710,7 +669,6 @@ ideal<- function(dds_obj = NULL,
                   textInput("filename_plot_mahllist",label = "Save as...",value = "plot_mahllist.pdf")),
               DT::dataTableOutput("table_combi_list"),
               downloadButton("downloadTblCombiList","Download", class = "btn btn-success")
-
             ),
             conditionalPanel(
               condition="output.checkdds",
@@ -722,15 +680,15 @@ ideal<- function(dds_obj = NULL,
             "Functional Analysis", icon = icon("list-alt"),
             conditionalPanel(
               condition="!output.checkresu",
-
               headerPanel("Find functions enriched in gene sets"),
-
               fluidRow(
                 column(
                   width = 8,
-                  shinyBS::bsCollapse(id = "help_functionalanalysis",open = NULL, # alt: "Help"
-                                      # think of a general trigger for this? something like a variable that assumes NULL
-                                      shinyBS::bsCollapsePanel("Help",includeMarkdown(system.file("extdata", "help_funcanalysis.md",package = "ideal")))
+                  shinyBS::bsCollapse(
+                    id = "help_functionalanalysis",open = NULL,
+                    shinyBS::bsCollapsePanel(
+                      "Help",
+                      includeMarkdown(system.file("extdata", "help_funcanalysis.md",package = "ideal")))
                   )
                 )
               ),
@@ -741,7 +699,6 @@ ideal<- function(dds_obj = NULL,
                           choices = list("GO Biological Process" = "BP", "GO Molecular Function" = "MF", "GO Cellular Component" = "CC"),
                           selected = "BP",multiple = TRUE
               ),
-
 
               tabBox(
                 width = NULL,
@@ -819,12 +776,6 @@ ideal<- function(dds_obj = NULL,
                 )
               ),
 
-
-
-
-
-
-
               ## will put collapsible list elements? or multi tab panel? or something to select on the left, and operate output-wise on the right e.g. venn diagrams or table for gene set enrichment
               # h3("custom list 3 - handpicked") # use the select input from the left column?
               # ,verbatimTextOutput("debuggls"),
@@ -847,7 +798,6 @@ ideal<- function(dds_obj = NULL,
                 )
               ),
 
-
               fluidRow(
                 column(width = 6,plotOutput("vennlists"),
                        div(align = "right", style = "margin-right:15px; margin-bottom:10px",
@@ -860,7 +810,6 @@ ideal<- function(dds_obj = NULL,
                            downloadButton("download_plot_upsetlists", "Download Plot"),
                            textInput("filename_plot_upsetlists",label = "Save as...",value = "plot_upsetlists.pdf")),
                        offset = 3))
-
 
             ),
             conditionalPanel(
@@ -908,7 +857,6 @@ ideal<- function(dds_obj = NULL,
                 checkboxInput("sig_centermean", label = "Center mean",value = TRUE),
                 checkboxInput("sig_scalerow", label = "Standardize by row")
                 
-                
               )
             ),
             fluidRow(
@@ -918,22 +866,20 @@ ideal<- function(dds_obj = NULL,
               )
             )
             
-            
-            
           ), # end of Signatures Explorer panel
           # ui panel report editor -----------------------------------------------------------
           tabPanel(
             "Report Editor",
             icon = icon("pencil"),
-
             headerPanel("Create, view and export a report of your analysis"),
-
             fluidRow(
               column(
                 width = 8,
-                shinyBS::bsCollapse(id = "help_reporteditor",open = NULL, # alt: "Help"
-                                    # think of a general trigger for this? something like a variable that assumes NULL
-                                    shinyBS::bsCollapsePanel("Help",includeMarkdown(system.file("extdata", "help_report.md",package = "ideal")))
+                shinyBS::bsCollapse(
+                  id = "help_reporteditor",open = NULL, 
+                  shinyBS::bsCollapsePanel(
+                    "Help",
+                    includeMarkdown(system.file("extdata", "help_report.md",package = "ideal")))
                 )
               )
             ),
@@ -1017,22 +963,6 @@ ideal<- function(dds_obj = NULL,
               )
             )
           ) # end of About panel
-          # ,tabPanel(
-          #   "devel", icon = icon("github")
-          #   # ,
-          #   # verbatimTextOutput("debugihw"),
-          #   #
-          #   # plotOutput("ihwp1"),
-          #   # plotOutput("ihwp2"),
-          #   # plotOutput("ihwp3"),
-          #   # plotOutput("ihwp4"),
-          #   # plotOutput("ihwp5"),
-          #   # plotOutput("ihwp6"),
-          #   # plotOutput("ihwp7"),
-          #   # plotOutput("ihwp8")
-          #
-          # )
-
         )
       )
       ,footer()
