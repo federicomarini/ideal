@@ -42,3 +42,31 @@ expression values}
 Plot a heatmap for the selected gene signature on the provided data, with the 
 possibility to compactly display also DE only genes
 }
+\examples{
+# with the well known airway package...
+library(airway)
+data(airway)
+airway
+dds_airway <- DESeq2::DESeqDataSetFromMatrix(assay(airway),
+                                             colData = colData(airway),
+                                             design=~cell+dex)
+\dontrun{
+dds_airway <- DESeq2::DESeq(dds_airway)
+res_airway <- DESeq2::results(dds_airway)
+vst_airway <- DESeq2::vst(dds_airway)
+library(org.Hs.eg.db)
+annovec <- mapIds(org.Hs.eg.db, rownames(dds_airway),"ENTREZID","ENSEMBL")
+mysignatures <- read_gmt(
+  "http://data.wikipathways.org/current/gmt/wikipathways-20180910-gmt-Homo_sapiens.gmt")
+mysignature_name <- "Lung fibrosis\%WikiPathways_20180910\%WP3624\%Homo sapiens"
+library(pheatmap)
+sig_heatmap(vst_airway,
+            mysignatures[[mysignature_name]],
+            res_data = res_airway,
+            de_only = TRUE,
+            annovec = annovec,
+            title = mysignature_name,
+            cluster_cols = TRUE
+            )
+}
+}
