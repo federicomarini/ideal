@@ -1,6 +1,5 @@
 </br></br></br>
 
-
 # Instructions
 
 *This information is also contained in the `ideal` package vignette.*

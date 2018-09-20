@@ -224,8 +224,9 @@ ideal<- function(dds_obj = NULL,
             fluidRow(
               column(
                 width = 8,
-                introBox(includeMarkdown(system.file("extdata", "welcome.md",package = "ideal"))
-                         ,data.step = 1,data.intro = "Welcome to ideal - the Interactive Differential Expression Analysis tool that also enables reproducible analyses! Click on the 'next' button to proceed with the first interactive tour."),
+                includeMarkdown(system.file("extdata", "welcome.md",package = "ideal")),
+              #            ,data.step = 1,data.intro = "Welcome to ideal - the Interactive Differential Expression Analysis tool that also enables reproducible analyses! Click on the 'next' button to proceed with the first interactive tour.")
+              # ,
                 br(),br(),
                 p("If you see a grey box like this one open below..."),
 
@@ -241,7 +242,11 @@ ideal<- function(dds_obj = NULL,
                              style="color: #ffffff; background-color: #0092AC; border-color: #2e6da4"),
                 p("... you can click on that to start a tour based on introJS"),
                 br(),br(),
-                introBox(includeMarkdown(system.file("extdata", "instructions.md",package = "ideal")),data.step = 2,data.intro = "Here you can read the Instructions to learn the basics of ideal. If you click out of the intro-highlighted area, you are about to interrupt the tour. Don't worry, you can resume it anytime by re-clicking on the tour button. Once you are done with the first reading, you can move on to the next tab, where you will learn how to load your data.")
+                # introBox(
+                uiOutput("ui_instructions")
+                
+              # ,
+              # data.step = 2,data.intro = "Here you can read the Instructions to learn the basics of ideal. If you click out of the intro-highlighted area, you are about to interrupt the tour. Don't worry, you can resume it anytime by re-clicking on the tour button. Once you are done with the first reading, you can move on to the next tab, where you will learn how to load your data.")
               )
             )
           ), # end of Welcome panel
@@ -1031,9 +1036,9 @@ ideal<- function(dds_obj = NULL,
         )
       )
       ,footer()
-    ),
+    ), # end of dashboardBody
     skin="black"
-  ) # end of dashboardBody
+  ) # end of dashboardPage
 
 
   # server definition -----------------------------------------------------------
@@ -1139,6 +1144,14 @@ ideal<- function(dds_obj = NULL,
       values$countmatrix <- counts(dds_obj, normalized = FALSE)
       values$expdesign <- as.data.frame(colData(dds_obj))
     }
+    
+    # server welcome home ---------------------------------------------------------
+    output$ui_instructions <- renderUI({
+      box(width = 12, title = "", status = "info", solidHeader = TRUE,
+          includeMarkdown(system.file("extdata", "instructions.md",package = "ideal"))
+      )
+    })
+
 
     # server info boxes -----------------------------------------------------------
     output$box_ddsobj <- renderUI({
