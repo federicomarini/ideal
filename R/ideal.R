@@ -2713,90 +2713,6 @@ ideal<- function(dds_obj = NULL,
               
     })
 
-
-
-    ## some dev section on usage of ihw
-    # ihwres <- reactive({
-    #   de_res <- as.data.frame(res_obj)
-    #   ihw_res <- ihw(pvalue ~ baseMean,  data = de_res, alpha = 0.1)
-    #   ihw_res
-    # })
-    #
-    # output$debugihw <- renderPrint({
-    #   ihw_res # replace then here with ihwres()
-    # })
-    #
-    # output$ihwp1 <- renderPlot({
-    #   plot(ihw_res)
-    # })
-    #
-    # output$ihwp2 <- renderPlot({
-    #   plot(ihw_res, what = "decisionboundary")
-    # })
-    #
-    # output$ihwp3 <- renderPlot({
-    #   gg <- ggplot(as.data.frame(ihw_res), aes(x = pvalue, y = adj_pvalue, col = group)) +
-    #     geom_point(size = 0.25) +
-    #     scale_colour_hue(l = 70, c = 150, drop = FALSE)
-    #
-    #   gg
-    # })
-    #
-    # output$ihwp4 <- renderPlot({
-    #   de_res <- res_airway ## CHANGE!!
-    #   de_res <- na.omit(de_res)
-    #   de_res$geneid <- as.numeric(gsub("ENSG[+]*", "", rownames(de_res)))
-    #
-    #   # set up data frame for plotting
-    #   df <- rbind(data.frame(pvalue = de_res$pvalue, covariate = rank(de_res$baseMean)/nrow(de_res),
-    #                          covariate_type="base mean"),
-    #               data.frame(pvalue = de_res$pvalue, covariate = rank(de_res$geneid)/nrow(de_res),
-    #                          covariate_type="gene id"))
-    #
-    #   ggplot(df, aes(x=covariate, y = -log10(pvalue))) +
-    #     geom_hex(bins = 100) +
-    #     facet_grid( . ~ covariate_type)
-    #
-    # })
-    #
-    #
-    #
-    # output$ihwp5 <- renderPlot({
-    #   de_res <- as.data.frame(res_airway) ## CHANGE!!
-    #   de_res <- na.omit(de_res)
-    #   ggplot(de_res, aes(x = pvalue)) + geom_histogram(binwidth = 0.025, boundary = 0)
-    # })
-    #
-    # output$ihwp6 <- renderPlot({
-    #   de_res <- as.data.frame(res_airway) ## CHANGE!!
-    #   de_res <- na.omit(de_res)
-    #   de_res$baseMean_group <- groups_by_filter(de_res$baseMean, 8)
-    #
-    #   ggplot(de_res, aes(x=pvalue)) +
-    #     geom_histogram(binwidth = 0.025, boundary = 0) +
-    #     facet_wrap( ~ baseMean_group, nrow = 2)
-    # })
-    #
-    # output$ihwp7 <- renderPlot({
-    #   de_res <- as.data.frame(res_airway) ## CHANGE!!
-    #   de_res <- na.omit(de_res)
-    #   de_res$baseMean_group <- groups_by_filter(de_res$baseMean, 8)
-    #   ggplot(de_res, aes(x = pvalue, col = baseMean_group)) + stat_ecdf(geom = "step")
-    # })
-    #
-    # output$ihwp8 <- renderPlot({
-    #   de_res <- as.data.frame(res_airway) ## CHANGE!!
-    #   de_res <- na.omit(de_res)
-    #
-    #   de_res$lfc_group <- groups_by_filter(abs(de_res$log2FoldChange),8)
-    #
-    #   ggplot(de_res, aes(x = pvalue)) +
-    #     geom_histogram(binwidth = 0.025, boundary = 0) +
-    #     facet_wrap( ~ lfc_group, nrow=2)
-    # })
-
-
-
     # server ui update/observers --------------------------------------------------------
     output$color_by <- renderUI({
       if(is.null(values$dds_obj))
@@ -2805,8 +2721,6 @@ ideal<- function(dds_obj = NULL,
       selectInput('color_by', label = 'Group/color by: ',
                   choices = c(NULL, poss_covars), selected = NULL,multiple = TRUE)
     })
-
-
 
     # this trick speeds up the populating of the select(ize) input widgets,
     # see http://stackoverflow.com/questions/38438920/shiny-selectinput-very-slow-on-larger-data-15-000-entries-in-browser
@@ -2818,8 +2732,6 @@ ideal<- function(dds_obj = NULL,
       updateSelectizeInput(session = session, inputId = 'avail_symbols', choices = c(Choose = '', unname(values$res_obj$symbol)), server = TRUE) # using unname to prevent issues if res is modified with mapIds
     })
 
-
-
     output$available_genes <- renderUI({
       if("symbol" %in% names(values$res_obj)) {
         selectizeInput("avail_symbols", label = "Select the gene(s) of interest",
@@ -2830,8 +2742,6 @@ ideal<- function(dds_obj = NULL,
       }
     })
 
-
-
     design_factors <- reactive({
       rev(attributes(terms.formula(design(values$dds_obj)))$term.labels)
     })
@@ -2841,11 +2751,9 @@ ideal<- function(dds_obj = NULL,
                   choices = c("",design_factors()), selected = "")
     })
 
-
     observe({
       updateSelectizeInput(session = session, inputId = 'color_by', selected = input$choose_expfac)
     })
-
 
 
     # server DE results --------------------------------------------------------
@@ -3011,8 +2919,6 @@ ideal<- function(dds_obj = NULL,
       # selectInput("fac1_c2","c2",choices = fac1_levels)
     })
 
-
-
     output$runresults <- renderUI({
       shiny::validate(
         need(input$choose_expfac!="",
@@ -3042,7 +2948,6 @@ ideal<- function(dds_obj = NULL,
              "I couldn't find results. you should first run DESeq() with the button up here"
         )
       )
-
 
       # if(input$choose_expfac=="" | input$fac1_c1 == "" | input$fac1_c2 == "" | input$fac1_c1 == input$fac1_c2)
       #   return(NULL)
@@ -3104,9 +3009,6 @@ ideal<- function(dds_obj = NULL,
                    })
     })
 
-
-
-
     output$diyres_summary <- renderPrint({
       shiny::validate(
         need(input$choose_expfac!="" & input$fac1_c1 != "" & input$fac1_c2 != "" & input$fac1_c1 != input$fac1_c2 ,
@@ -3120,10 +3022,7 @@ ideal<- function(dds_obj = NULL,
       summary(values$res_obj,alpha = input$FDR)
     })
 
-
-
     output$printdds <- renderPrint({
-
       shiny::validate(
         need(!is.null(values$dds_obj),
              "Please provide a count matrix/dds object"
@@ -3132,20 +3031,16 @@ ideal<- function(dds_obj = NULL,
 
       values$dds_obj
       design(values$dds_obj)
-
     })
 
     output$printres <- renderPrint({
-
       shiny::validate(
         need(!is.null(values$res_obj),
              "Please provide a DESeqResults object"
         )
       )
-
       print(sub(".*p-value: (.*)","\\1",mcols(values$res_obj, use.names=TRUE)["pvalue","description"]))
       summary(values$res_obj,alpha = input$FDR) # use fdr shiny widget
-
     })
 
 
@@ -3160,10 +3055,6 @@ ideal<- function(dds_obj = NULL,
                    values$stored_res <- values$res_obj
                    # this is in such a way to store & compare later if some parameters are edited
                  })
-
-
-
-
 
     output$table_res <- DT::renderDataTable({
       if(is.null(values$res_obj))
@@ -3228,9 +3119,7 @@ ideal<- function(dds_obj = NULL,
       
       exportPlots$plot_pvals_hist_strat <- p
       p
-      
     })
-    
     
     output$pvals_ss <- renderPlot({
       shiny::validate(
@@ -3255,7 +3144,6 @@ ideal<- function(dds_obj = NULL,
         subtitle = paste0(
           "Intersection point at rank ", with(arrange(res_df,rank), last(which(pvalue <= phi * rank / m))))
         )
-      
       exportPlots$plot_pvals_ss <- p
       p
     })
@@ -3266,7 +3154,6 @@ ideal<- function(dds_obj = NULL,
       shiny::validate(
         need(!is.null(values$res_obj),message = "")
       )
-
       res_df <- as.data.frame(values$res_obj)
       res_df <- dplyr::filter(res_df, !is.na(pvalue))
       
@@ -3278,9 +3165,7 @@ ideal<- function(dds_obj = NULL,
       )
 
       exportPlots$plot_logfc_hist <- p
-
       p
-
     })
 
 
@@ -3292,15 +3177,10 @@ ideal<- function(dds_obj = NULL,
       resultsNames(values$dds_obj)
     })
 
-
-
     output$explore_res <- renderPrint({
       expfac <- attributes(terms.formula(design(values$dds_obj)))$term.labels
       expfac # plus, support up to four factors that are either there or not according to the length
     })
-
-
-
 
     output$plotma <- renderPlot({
       p <- plot_ma(values$res_obj,annotation_obj = values$annotation_obj,FDR = input$FDR)
@@ -3320,14 +3200,11 @@ ideal<- function(dds_obj = NULL,
         p <-  plot_ma(values$res_obj,annotation_obj = values$annotation_obj,FDR = input$FDR) +
         coord_cartesian(xlim = c(input$ma_brush$xmin,input$ma_brush$xmax),
                         ylim = c(input$ma_brush$ymin,input$ma_brush$ymax))
-
       exportPlots$plot_mazoom <- p
       p
     })
 
-
     output$ma_highlight <- renderPlot({
-
       shiny::validate(
         need(!is.null(values$res_obj),message = "Please generate the results object to display the plot and show the combined tables")
       )
@@ -3355,7 +3232,6 @@ ideal<- function(dds_obj = NULL,
         # intgenes = values$genelist_ma,annotation_obj = values$annotation_obj)
         return(NULL)
       }
-
       exportPlots$plot_mahllist <- p
       p
     })
@@ -3367,8 +3243,6 @@ ideal<- function(dds_obj = NULL,
       # mama$yesorno <- ifelse(mama$isDE,"yes","no")
       mama$yesorno <- ifelse(mama$isDE,"red","black")
       mama$logmean <- log10(mama$mean) # TO ALLOW FOR BRUSHING!!
-
-
       res <- brushedPoints(mama, input$ma_brush,xvar="logmean",yvar="lfc")
       res
     })
@@ -3380,8 +3254,6 @@ ideal<- function(dds_obj = NULL,
       # mama$yesorno <- ifelse(mama$isDE,"yes","no")
       mama$yesorno <- ifelse(mama$isDE,"red","black")
       mama$logmean <- log10(mama$mean) # TO ALLOW FOR BRUSHING!!
-
-
       res <- nearPoints(mama, input$mazoom_click,threshold = 20, maxpoints = 1,
                         addDist = TRUE)
       res
@@ -3396,56 +3268,42 @@ ideal<- function(dds_obj = NULL,
       datatable(curData(),options=list(pageLength=100))
     })
 
-
     output$heatbrush <- renderPlot({
       if((is.null(input$ma_brush))|is.null(values$dds_obj)) return(NULL)
 
       brushedObject <- curData()
-
       selectedGenes <- as.character(brushedObject$ID)
       toplot <- assay(values$dds_obj)[selectedGenes,]
       rownames(toplot) <- values$annotation_obj$gene_name[match(rownames(toplot),rownames(values$annotation_obj))]
 
       if(input$pseudocounts) toplot <- log2(1+toplot)
-
       mat_rowscale <- function(x)
       {
         m <- apply(x, 1, mean, na.rm = TRUE)
         s <- apply(x, 1, sd, na.rm = TRUE)
         return((x - m)/s)
       }
-
       if(input$rowscale) toplot <- mat_rowscale(toplot)
-
       pheatmap(toplot,cluster_cols = as.logical(input$heatmap_colv))
-
-
     })
 
 
     output$heatbrushD3 <- renderD3heatmap({
       if((is.null(input$ma_brush))|is.null(values$dds_obj)) return(NULL)
-
       brushedObject <- curData()
-
       selectedGenes <- as.character(brushedObject$ID)
       toplot <- assay(values$dds_obj)[selectedGenes,]
       rownames(toplot) <- values$annotation_obj$gene_name[match(rownames(toplot),rownames(values$annotation_obj))]
       mycolss <- c("#313695","#4575b4","#74add1","#abd9e9","#e0f3f8","#fee090","#fdae61","#f46d43","#d73027","#a50026") # to be consistent with red/blue usual coding
       if(input$pseudocounts) toplot <- log2(1+toplot)
-
       mat_rowscale <- function (x)
       {
         m = apply(x, 1, mean, na.rm = TRUE)
         s = apply(x, 1, sd, na.rm = TRUE)
         return((x - m)/s)
       }
-
       if(input$rowscale) toplot <- mat_rowscale(toplot)
-
       d3heatmap(toplot,Colv = as.logical(input$heatmap_colv),colors = mycolss)
-
-
     })
 
 
@@ -3460,51 +3318,11 @@ ideal<- function(dds_obj = NULL,
       selectedGene
     })
 
-
     output$volcanoplot <- renderPlot({
       p <- plot_volcano(values$res_obj, FDR = input$FDR)
       exportPlots$plot_volcanoplot <- p
       p
     })
-
-
-
-
-    ## TODO: same thing but with the volcano plot?
-
-
-    # output$geneplot <- renderPlot({
-    #
-    #   # if(length(input$color_by_G)==0) return(ggplot() + annotate("text",label="select an experimental factor",0,0) + theme_bw())
-    #   if(is.null(input$ma_brush)) return(NULL)
-    #
-    #   if(is.null(input$mazoom_click)) return(ggplot() + annotate("text",label="click to generate the boxplot\nfor the selected gene",0,0) + theme_bw())
-    #
-    #   selectedGene <- as.character(curDataClick()$ID)
-    #   selectedGeneSymbol <- values$annotation_obj$gene_name[match(selectedGene,rownames(values$annotation_obj))]
-    #   # plotCounts(dds_cleaner,)
-    #   genedata <- plotCounts(values$dds_obj,gene=selectedGene,intgroup = input$color_by,returnData = TRUE)
-    #
-    #   # onlyfactors <- genedata[match(input$color_by_G,colnames(genedata))]
-    #   # onlyfactors <- genedata[,match(input$color_by_G,colnames(genedata))]
-    #   onlyfactors <- genedata[,match(input$color_by,colnames(genedata))]
-    #
-    #   ## intgroup can be a vector of factors. then i need interactions of the two factors
-    #   # plotCounts(ddsmf_global,gene="ENSMUSG00000026080",intgroup = c("tissue","condition"),returnData = T) -> dh
-    #   # dh$f1f2 <- interaction(dh$tissue,dh$condition)
-    #   # dh  %>% ggplot(aes(x=f1f2,y=count,fill=f1f2)) + geom_boxplot()
-    #
-    #
-    #
-    #   # genedata$plotby <- lapply(1:ncol(onlyfactors),function(arg) onlyfactors[,arg]) %>% interaction()
-    #   genedata$plotby <- interaction(onlyfactors)
-    #
-    #
-    #
-    #   ggplot(genedata,aes_string(x="plotby",y="count",fill="plotby")) + geom_boxplot() + scale_y_log10(name="Normalized counts") + labs(title=paste0("Normalized counts for ",selectedGeneSymbol," - ",selectedGene)) +  scale_x_discrete(name="") + geom_jitter(aes_string(x="plotby",y="count"),position = position_jitter(width = 0.1)) + scale_fill_discrete(name="Experimental\nconditions")
-    #   # exportPlots$genesZoom <- res
-    #   # res
-    # })
 
     # server genefinder --------------------------------------------------------
     output$genefinder_plot <- renderPlot({
@@ -3520,7 +3338,6 @@ ideal<- function(dds_obj = NULL,
 
       if(is.null(input$mazoom_click)) return(ggplot() + annotate("text",label="click to generate the boxplot\nfor the selected gene",0,0) + theme_bw())
 
-
       selectedGene <- as.character(curDataClick()$ID)
       selectedGeneSymbol <- values$annotation_obj$gene_name[match(selectedGene,values$annotation_obj$gene_id)]
 
@@ -3529,12 +3346,9 @@ ideal<- function(dds_obj = NULL,
       if(input$ylimZero_genes)
         p <- p + ylim(0.1, NA)
 
-
       exportPlots$plot_genefinder <- p
       p
     })
-
-
 
     output$rentrez_infobox <- renderUI({
       shiny::validate(
@@ -3550,30 +3364,16 @@ ideal<- function(dds_obj = NULL,
         )
       )
 
-
-
-
-
       selectedGene <- as.character(curDataClick()$ID)
-
       selgene_entrez <- mapIds(get(annoSpecies_df[values$cur_species,]$pkg),
                                selectedGene, "ENTREZID", input$idtype)
-
       fullinfo <- geneinfo(selgene_entrez)
-
-
 
       ## TODO: build up link manually to paste under the info!
       #
       link_pubmed <- paste0('<a href="http://www.ncbi.nlm.nih.gov/gene/?term=',
                             selgene_entrez,
                             '" target="_blank" >Click here to see more at NCBI</a>')
-
-
-
-
-
-
 
       if(fullinfo$summary == "")
         return(HTML(paste0("<b>",fullinfo$name, "</b><br/><br/>",
@@ -3586,28 +3386,8 @@ ideal<- function(dds_obj = NULL,
                            fullinfo$summary, "<br/><br/>",
                            link_pubmed
         )))
-
-
-
-
-      # return(fullinfo$summary)
-
-
-
-
     })
 
-
-
-
-
-
-    #
-    #   if(!is.null(values$res_obj) & !is.null(values$dds_obj)) {
-    #
-    #
-    #   }
-    #
 
     cur_combires <- reactive({
 
@@ -3634,19 +3414,13 @@ ideal<- function(dds_obj = NULL,
       } else {
         combi_obj
       }
-
-
     })
-
-
 
     output$table_combi <- DT::renderDataTable({
       datatable(cur_combires(),options = list(scrollX=TRUE))
     })
 
-
     cur_combires_list <- reactive({
-
       if(is.null(values$res_obj))
         return(NULL)
 
@@ -3670,19 +3444,13 @@ ideal<- function(dds_obj = NULL,
       } else {
         combi_obj
       }
-
-
     })
-
-
 
     output$table_combi_list <- DT::renderDataTable({
       if(is.null(values$genelist_ma))
         return(NULL)
       datatable(cur_combires_list(),options = list(scrollX=TRUE))
     })
-
-
 
     output$bp1 <- renderPlot({
       shiny::validate(
@@ -3817,9 +3585,6 @@ ideal<- function(dds_obj = NULL,
     })
 
 
-
-
-
     # server report editor --------------------------------------------------------
     ### yaml generation
     rmd_yaml <- reactive({
@@ -3915,9 +3680,6 @@ ideal<- function(dds_obj = NULL,
       #     # return(isolate(HTML("<iframe src='www/Rmd_preview.html', width='100%', height='800'></iframe>")))
 
 
-
-
-
       return(
         withProgress({
           tmp_content <- paste0(rmd_yaml(),input$acereport_rmd,collapse = "\n")
@@ -3928,10 +3690,6 @@ ideal<- function(dds_obj = NULL,
         detail = "This can take some time"
         )
       )
-
-
-
-
     })
 
     # Generate and Download module
@@ -3944,9 +3702,9 @@ ideal<- function(dds_obj = NULL,
         }
       },
       content = function(file) {
-
+        
         # knit2html(text = input$rmd, fragment.only = TRUE, quiet = TRUE))
-
+        
         tmp_content <-
           paste0(rmd_yaml(),
                  input$acereport_rmd,collapse = "\n")
@@ -3963,8 +3721,8 @@ ideal<- function(dds_obj = NULL,
           if(input$rmd_dl_format == "html") {
             cat(tmp_content,file="ideal_tempreport.Rmd",sep="\n")
             ## TODO: use writeLines maybe instead of this?
-
-
+            
+            
             # attempt?
             ## seems to work - otherwise revert to previous
             ## TODO: see how this can work for the live rendering!?
@@ -3975,12 +3733,11 @@ ideal<- function(dds_obj = NULL,
             owd <- setwd(tempdir())
             # on.exit(setwd(owd))
             file.copy(src, "ideal_tempreport.Rmd",overwrite=TRUE)
-
-
+            
             withProgress(rmarkdown::render(input = "ideal_tempreport.Rmd",
                                            output_file = file,
-
-
+                                           
+                                           
                                            # fragment.only = TRUE,
                                            quiet = TRUE),
                          message = "Generating the html report",
@@ -3988,9 +3745,8 @@ ideal<- function(dds_obj = NULL,
             setwd(cwd)
           }
         }
-      })
-
-
+      }
+    )
 
     # server state saving --------------------------------------------------------
     ### to environment
@@ -4051,36 +3807,6 @@ ideal<- function(dds_obj = NULL,
     output$sessioninfo <- renderPrint({
       sessionInfo()
     })
-
-    #
-    #   # try out the carousel
-    #   nBins = reactive({
-    #     13
-    #   })
-    #
-    #   output$distPlot1 <- renderPlot({
-    #
-    #     # generate bins based on input$bins from ui.R
-    #     x    <- faithful[, 2]
-    #     bins <- seq(min(x), max(x), length.out = nBins() + 1)
-    #
-    #     # draw the histogram with the specified number of bins
-    #     hist(x, breaks = bins, col = 'darkgray', border = 'white')
-    #
-    #   })
-    #
-    #   output$distPlot2 <- renderPlot({
-    #
-    #     #browser()
-    #     # generate bins based on input$bins from ui.R
-    #     x    <- faithful[, 2]
-    #     bins <- seq(min(x), max(x), length.out = nBins() + 1)
-    #
-    #     # draw the histogram with the specified number of bins
-    #     hist(x, breaks = bins, col = 'steelblue', border = 'white')
-    #
-    #   })
-
 
     # server export plots and tables --------------------------------------------------------
     
@@ -4170,7 +3896,6 @@ ideal<- function(dds_obj = NULL,
     })
 
     # tbls
-
     output$downloadTblResu <- downloadHandler(
       filename = function() {
         "table_results.csv"
@@ -4180,7 +3905,6 @@ ideal<- function(dds_obj = NULL,
         write.csv(mydf, file)
       }
     )
-
     output$downloadTblMabrush <- downloadHandler(
       filename = function() {
         "table_mabrush.csv"
@@ -4189,7 +3913,6 @@ ideal<- function(dds_obj = NULL,
         write.csv(curData(), file)
       }
     )
-
     output$downloadTblCombi <- downloadHandler(
       filename = function() {
         "table_combi.csv"
@@ -4198,7 +3921,6 @@ ideal<- function(dds_obj = NULL,
         write.csv(cur_combires(), file)
       }
     )
-
     output$downloadTblCombiList <- downloadHandler(
       filename = function() {
         "table_combilist.csv"
@@ -4209,7 +3931,6 @@ ideal<- function(dds_obj = NULL,
     )
 
     # base graphics plots
-
     output$download_plot_heatbrush <- downloadHandler(filename = function() {
       input$filename_plot_heatbrush
     }, content = function(file) {
@@ -4251,9 +3972,7 @@ ideal<- function(dds_obj = NULL,
       dev.off()
     })
 
-
     ## GO tbls topGO
-
     output$downloadGOTbl_up <- downloadHandler(
       filename = function() {
         "table_GOresults_up.csv"
@@ -4262,7 +3981,6 @@ ideal<- function(dds_obj = NULL,
         write.csv(values$topgo_up, file)
       }
     )
-
     output$downloadGOTbl_down <- downloadHandler(
       filename = function() {
         "table_GOresults_down.csv"
@@ -4271,7 +3989,6 @@ ideal<- function(dds_obj = NULL,
         write.csv(values$topgo_down, file)
       }
     )
-
     output$downloadGOTbl_updown <- downloadHandler(
       filename = function() {
         "table_GOresults_updown.csv"
@@ -4280,7 +3997,6 @@ ideal<- function(dds_obj = NULL,
         write.csv(values$topgo_updown, file)
       }
     )
-
     output$downloadGOTbl_l1 <- downloadHandler(
       filename = function() {
         "table_GOresults_list1.csv"
@@ -4289,7 +4005,6 @@ ideal<- function(dds_obj = NULL,
         write.csv(values$topgo_list1, file)
       }
     )
-
     output$downloadGOTbl_l2 <- downloadHandler(
       filename = function() {
         "table_GOresults_list2.csv"
@@ -4298,38 +4013,8 @@ ideal<- function(dds_obj = NULL,
         write.csv(values$topgo_list2, file)
       }
     )
+  }) # end of server function definition
 
-    # output$download_genesPca_countsplot <- downloadHandler(filename = function() {
-    #   input$filename_genesPca_countsplot
-    # }, content = function(file) {
-    #   ggsave(file, exportPlots$genesBoxplot, width = input$export_width,
-    #          height = input$export_height, units = "cm")
-    # })
-    # output$download_genesHeatmap <- downloadHandler(filename = function() {
-    #   input$filename_genesHeatmap
-    # }, content = function(file) {
-    #   pdf(file)
-    #   brushedObject <- curData_brush()
-    #   selectedGenes <- brushedObject$ids
-    #   toplot <- assay(values$myrlt)[selectedGenes, ]
-    #   rownames(toplot) <- values$myannotation$gene_name[match(rownames(toplot),
-    #                                                           rownames(values$myannotation))]
-    #   aheatmap(toplot, Colv = as.logical(input$heatmap_colv))
-    #   dev.off()
-    # })
-
-
-
-
-  })
-
-  
-  
-  
-  
+  # launch the app!
   shinyApp(ui = ideal_ui, server = ideal_server)
-  
-  
 }
-
-
