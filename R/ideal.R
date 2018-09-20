@@ -802,20 +802,24 @@ ideal<- function(dds_obj = NULL,
               column(
                 width = 6,
                 h4("Setup options"),
-                fileInput("sig_gmtin","gmt input file"),
-                uiOutput("sig_ui_nrsigs"),
-                actionButton("sig_button_computevst",
-                             label = "Compute the variance stabilized transformed data", 
-                             icon = icon("spinner"), class = "btn btn-success")
+                wellPanel(
+                  fileInput("sig_gmtin","gmt input file"),
+                  uiOutput("sig_ui_nrsigs"),
+                  actionButton("sig_button_computevst",
+                               label = "Compute the variance stabilized transformed data", 
+                               icon = icon("spinner"), class = "btn btn-success")
+                )
               ),
               column(
                 width = 6,
                 h4("Conversion options"),
-                uiOutput("sig_ui_id_data"),
-                uiOutput("sig_ui_id_sigs"),
-                uiOutput("sig_ui_orgdbpkg"),
-                actionButton("sig_convert_setup",
-                             label = "Apply id conversion between data and signatures"),
+                wellPanel(
+                  uiOutput("sig_ui_id_data"),
+                  uiOutput("sig_ui_id_sigs"),
+                  uiOutput("sig_ui_orgdbpkg"),
+                  actionButton("sig_convert_setup",
+                               label = "Apply id conversion between data and signatures")
+                ),
                 verbatimTextOutput("sig_convcheck")
                 
               )
@@ -823,20 +827,23 @@ ideal<- function(dds_obj = NULL,
             fluidRow(
               column(
                 width = 6,
-                uiOutput("sig_ui_selectsig"),
-                uiOutput("sig_ui_annocoldata"),
-                checkboxInput("sig_useDEonly",
-                              label = "Use only DE genes in the signature",value = FALSE)
+                wellPanel(
+                  uiOutput("sig_ui_selectsig"),
+                  uiOutput("sig_ui_annocoldata"),
+                  checkboxInput("sig_useDEonly",
+                                label = "Use only DE genes in the signature",value = FALSE)
+                )
                 # ,
                 # verbatimTextOutput("sig_sigmembers")
               ),
               column(
                 width = 6,
-                checkboxInput("sig_clusterrows",label = "Cluster rows", value = TRUE),
-                checkboxInput("sig_clustercols", label = "Cluster columns"),
-                checkboxInput("sig_centermean", label = "Center mean",value = TRUE),
-                checkboxInput("sig_scalerow", label = "Standardize by row")
-                
+                wellPanel(
+                  checkboxInput("sig_clusterrows",label = "Cluster rows", value = TRUE),
+                  checkboxInput("sig_clustercols", label = "Cluster columns"),
+                  checkboxInput("sig_centermean", label = "Center mean",value = TRUE),
+                  checkboxInput("sig_scalerow", label = "Standardize by row")
+                )
               )
             ),
             fluidRow(
