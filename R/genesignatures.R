@@ -1,4 +1,19 @@
-
+#' Read in a GMT file
+#' 
+#' Returns a list of pathways from a GMT file.
+#' 
+#' @param gmtfile A character value, containing the location of the GMT formatted
+#' file. It can also be a file found online
+#'
+#' @return A list of vectors, one for each pathway in the GMT file.
+#' @export
+#'
+#' @examples
+#' # this example reads in the freely available pathways from wikipathways
+#' mysigs <- read_gmt(
+#'   "http://data.wikipathways.org/current/gmt/wikipathways-20180910-gmt-Homo_sapiens.gmt")
+#' head(mysigs)
+#' # see how the gene identifiers are encoded as ENTREZ id
 read_gmt <- function(gmtfile){
   # TODO: some checks on the gmt file format?
   
