@@ -218,22 +218,6 @@ ideal<- function(dds_obj = NULL,
                 p("... you can click on that to start a tour based on introJS"),
                 br(),br(),
                 
-                bsplus::bs_carousel(id="someimgs", use_indicators = TRUE) %>% 
-                  bsplus::bs_append(
-                    content = bsplus::bs_carousel_image(src = knitr::image_uri("inst/extdata/ideal_logo_v2.png")),
-                    caption = bsplus::bs_carousel_caption("logo from inst","haha body")  
-                  ) %>%
-                  bsplus::bs_append(
-                    content = bsplus::bs_carousel_image(src = knitr::image_uri("inst/www/ideal_logo_v2.png")),
-                    caption = bsplus::bs_carousel_caption("logo so from inst www","haha body")  
-                  ) %>% 
-                  bsplus::bs_append(
-                    content = bsplus::bs_carousel_image(src = "https://static.comicvine.com/uploads/scale_small/11/114183/5147870-homer_simpson_2006.png"),
-                    caption = bsplus::bs_carousel_caption("homer","haha body homer")  
-                  )
-                ,
-                
-                # introBox(
                 uiOutput("ui_instructions")
               )
             )
