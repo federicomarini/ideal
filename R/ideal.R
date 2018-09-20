@@ -102,7 +102,7 @@ ideal<- function(dds_obj = NULL,
       shinydashboard::dropdownMenu(
         type = "tasks",icon = icon("cog"),
         badgeStatus = NULL, 
-        headerText = "Tasks menu",
+        headerText = "ideal Tasks menu",
         notificationItem(
           text = actionButton("task_exit_and_save","Exit ideal & save",
                               class = "btn_no_border",
@@ -197,30 +197,7 @@ ideal<- function(dds_obj = NULL,
           # ui panel welcome -----------------------------------------------------------
           tabPanel(
             title = "Welcome!",  icon = icon("home"), value="tab-welcome",
-            # carouselPanel(
-            #   img(src = "www/ideal_logo_v2.png"),
-            #   img(src = "ideal_logo_v2.png"),
-            #   img(src = "ideal_logo_v2.png")
-            # ),
-
-            ### TODO: proof of principle it works with the carousel, to display functionality at once
-            # bs_carousel(id = "the_beatles", use_indicators = TRUE) %>%
-            #   bs_append(
-            #     content = bs_carousel_image(src = image_uri("inst/extdata/ideal_logo_v2.png")),
-            #     caption = bs_carousel_caption("John Lennon", "Rhythm guitar, vocals")
-            #   ) %>%
-            #   bs_append(
-            #     content = bs_carousel_image(src = image_uri("figure/unnamed-chunk-4-1.png")),
-            #     caption = bs_carousel_caption("Paul McCartney", "Bass guitar, vocals")
-            #   ),
-
-            ## TODO: explore possibility to put a carousel of images: https://github.com/dcurrier/carouselPanel/
-            # carouselPanel(
-            #   plotOutput("distPlot1"),
-            #   plotOutput("distPlot2")
-            # ),
-            # img(src = "ideal_logo_v2.png"),
-
+            
             fluidRow(
               column(
                 width = 8,
@@ -240,6 +217,22 @@ ideal<- function(dds_obj = NULL,
                              style="color: #ffffff; background-color: #0092AC; border-color: #2e6da4"),
                 p("... you can click on that to start a tour based on introJS"),
                 br(),br(),
+                
+                bsplus::bs_carousel(id="someimgs", use_indicators = TRUE) %>% 
+                  bsplus::bs_append(
+                    content = bsplus::bs_carousel_image(src = knitr::image_uri("inst/extdata/ideal_logo_v2.png")),
+                    caption = bsplus::bs_carousel_caption("logo from inst","haha body")  
+                  ) %>%
+                  bsplus::bs_append(
+                    content = bsplus::bs_carousel_image(src = knitr::image_uri("inst/www/ideal_logo_v2.png")),
+                    caption = bsplus::bs_carousel_caption("logo so from inst www","haha body")  
+                  ) %>% 
+                  bsplus::bs_append(
+                    content = bsplus::bs_carousel_image(src = "https://static.comicvine.com/uploads/scale_small/11/114183/5147870-homer_simpson_2006.png"),
+                    caption = bsplus::bs_carousel_caption("homer","haha body homer")  
+                  )
+                ,
+                
                 # introBox(
                 uiOutput("ui_instructions")
               )
