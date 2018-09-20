@@ -1150,7 +1150,7 @@ ideal<- function(dds_obj = NULL,
     output$ui_instructions <- renderUI({
       box(width = 12, 
           title = "Instructions", status = "info", solidHeader = TRUE, 
-          collapsible = TRUE, collapsed = FALSE,
+          collapsible = TRUE, collapsed = TRUE,
           includeMarkdown(system.file("extdata", "instructions.md",package = "ideal"))
       )
     })
