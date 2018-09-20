@@ -801,10 +801,12 @@ ideal<- function(dds_obj = NULL,
             fluidRow(
               column(
                 width = 6,
+                h4("Setup options"),
                 fileInput("sig_gmtin","gmt input file"),
                 uiOutput("sig_ui_nrsigs"),
                 actionButton("sig_button_computevst",
-                             label = "Compute the variance stabilized transformed data")
+                             label = "Compute the variance stabilized transformed data", 
+                             icon = icon("spinner"), class = "btn btn-success")
               ),
               column(
                 width = 6,
@@ -824,8 +826,9 @@ ideal<- function(dds_obj = NULL,
                 uiOutput("sig_ui_selectsig"),
                 uiOutput("sig_ui_annocoldata"),
                 checkboxInput("sig_useDEonly",
-                              label = "Use only DE genes in the signature",value = FALSE),
-                verbatimTextOutput("sig_sigmembers")
+                              label = "Use only DE genes in the signature",value = FALSE)
+                # ,
+                # verbatimTextOutput("sig_sigmembers")
               ),
               column(
                 width = 6,
@@ -2640,7 +2643,7 @@ ideal<- function(dds_obj = NULL,
     output$sig_ui_id_data <- renderUI({
       if (is.null(values$dds_obj)) #
         return(NULL)
-      selectInput("sig_id_data", "select the id type in your data", choices=c("ENSEMBL","ENTREZID","REFSEQ","SYMBOL"))
+      selectInput("sig_id_data", "select the id type in your dds data", choices=c("ENSEMBL","ENTREZID","REFSEQ","SYMBOL"))
     })
     
     output$sig_ui_id_sigs <- renderUI({
@@ -2677,18 +2680,33 @@ ideal<- function(dds_obj = NULL,
     })
     
     output$sig_heat <- renderPlot({
+      validate(
+        need(!is.null(values$gene_signatures), message = "Please provide some gene signatures in gmt format"),
+        need(!is.null(values$vst_obj), message = "Compute the vst transformed data first"),
+        need(!is.null(values$anno_vec), message = "Setup the conversion between data ids and signature ids"),
+        need((!is.null(values$res_obj) | !input$sig_useDEonly),
+             message = "Please compute the results first if you want to subset to DE genes only"),
+        need(input$sig_selectsig!="", message = "Select a signature")
+      )
       
-      print(sig_heatmap(values$vst_obj,
-                        annovec = values$anno_vec,
-                        # anno_colData = colData(values$vst_obj)[,input$sig_annocoldata, drop = FALSE],
-                        my_signature = values$gene_signatures[[input$sig_selectsig]],
-                        title = names(values$gene_signatures)[match(input$sig_selectsig,names(values$gene_signatures))],
-                        cluster_rows = input$sig_clusterrows,
-                        cluster_cols = input$sig_clustercols,
-                        center_mean = input$sig_centermean,
-                        scale_row = input$sig_scalerow))
+      print(
+        sig_heatmap(
+          values$vst_obj,
+          my_signature = values$gene_signatures[[input$sig_selectsig]],
+          res_data = values$res_obj,
+          FDR = input$FDR,
+          de_only = input$sig_useDEonly,
+          annovec = values$anno_vec,
+          # anno_colData = colData(values$vst_obj)[,input$sig_annocoldata, drop = FALSE],
+          title = names(values$gene_signatures)[match(input$sig_selectsig,names(values$gene_signatures))],
+          cluster_rows = input$sig_clusterrows,
+          cluster_cols = input$sig_clustercols,
+          center_mean = input$sig_centermean,
+          scale_row = input$sig_scalerow
+        ))
               
     })
+
 
     # server ui update/observers --------------------------------------------------------
     output$color_by <- renderUI({
