@@ -1126,18 +1126,11 @@ ideal<- function(dds_obj = NULL,
                         "yet to create",
                         icon = icon("list-alt"),
                         color = "red",width = NULL))
-
-
     })
-
-
-
-
 
 
     # if i want to focus a little more on the ihw object
     values$ihwres <- NULL
-
 
     # server uploading data -----------------------------------------------------------
     ## count matrix
@@ -1196,7 +1189,6 @@ ideal<- function(dds_obj = NULL,
       return(expdesign)
     })
 
-
     # load the demo data
     observeEvent(input$btn_loaddemo,withProgress(
                  {
@@ -1215,9 +1207,6 @@ ideal<- function(dds_obj = NULL,
                    values$res_obj <- NULL
                  }, message = "Loading demo data"))
 
-
-
-
     output$ddsdesign <- renderUI({
       if(is.null(values$expdesign))
         return(NULL)
@@ -1225,7 +1214,6 @@ ideal<- function(dds_obj = NULL,
       selectInput('dds_design', label = 'Select the design for your experiment: ',
                   choices = c(NULL, poss_covars), selected = NULL,multiple = TRUE)
     })
-
 
     # server ui steps -----------------------------------------------------------
     output$ui_step2 <- renderUI({
@@ -1272,31 +1260,26 @@ ideal<- function(dds_obj = NULL,
       )
     })
 
-
     output$ui_stepoutlier <- renderUI({
       if (is.null(values$dds_obj)) ### and not provided already with sep annotation?
         return(NULL)
 
-      box(width = 12, title = "Optional Step", status = "info", solidHeader = TRUE,
-          tagList(
-            h2("Remove sample(s) from the current dataset - suspected outliers!"),
-
-            fluidRow(
-              column(
-                width = 8,
-                uiOutput("ui_selectoutliers"),
-                uiOutput("outliersout"),
-                verbatimTextOutput("printremoved")
-              )
+      box(
+        width = 12, title = "Optional Step", status = "info", solidHeader = TRUE,
+        tagList(
+          h2("Remove sample(s) from the current dataset - suspected outliers!"),
+          
+          fluidRow(
+            column(
+              width = 8,
+              uiOutput("ui_selectoutliers"),
+              uiOutput("outliersout"),
+              verbatimTextOutput("printremoved")
             )
-
           )
+        )
       )
     })
-
-
-
-
 
     output$ui_diydds <- renderUI({
       if (is.null(values$expdesign) | is.null(values$countmatrix) | is.null(input$dds_design))
@@ -1313,7 +1296,6 @@ ideal<- function(dds_obj = NULL,
       )
       actionButton("button_getanno","Retrieve the gene symbol annotation for the uploaded data", class = "btn btn-primary")
     })
-
 
     output$ui_nrcores <- renderUI({
       mincores <- 1
@@ -1337,9 +1319,7 @@ ideal<- function(dds_obj = NULL,
             ),
 
             uiOutput("rundeseq"),
-
             verbatimTextOutput("printDIYresults"),
-
             uiOutput("ui_stepend")
           )
       )
@@ -1357,7 +1337,6 @@ ideal<- function(dds_obj = NULL,
             plotOutput("diagno_dispests"))
       )
     })
-
 
     output$diagno_dispests <- renderPlot({
       plotDispEsts(values$dds_obj)
@@ -1395,8 +1374,6 @@ ideal<- function(dds_obj = NULL,
       tags$div(HTML('<i class="fa fa-check fa-3x icon-done"></i>'))
     })
 
-
-
     output$checkdds <- reactive({
       is.null(values$dds_obj)
     })
@@ -1420,52 +1397,19 @@ ideal<- function(dds_obj = NULL,
     })
 
 
-
-
     # http://stackoverflow.com/questions/17024685/how-to-use-a-character-string-in-formula
     # http://stats.stackexchange.com/questions/29477/how-to-write-a-linear-model-formula-with-100-variables-in-r
     # http://stackoverflow.com/questions/7666807/anova-test-fails-on-lme-fits-created-with-pasted-formula/7668846#7668846
-    # > fff <- c("cell","dex")
-    # > fff
-    # [1] "cell" "dex"
-    # > DESeqDataSetFromMatrix(countData = ccmm,
-    #                          +                        colData = eedd,
-    #                          +                        design=~1) -> mydds
-    # > DESeqDataSetFromMatrix(countData = ccmm,
-    #                          +                        colData = eedd,
-    #                          +                        design=~1) -> mydds ; design(mydds)
-    # ~1
-    # > DESeqDataSetFromMatrix(countData = ccmm,
-    #                          +                        colData = eedd,
-    #                          +                        design= paste0("~",paste(fff, collapse=" + ")) ) -> mydds ; design(mydds)
-    # Error: $ operator is invalid for atomic vectors
-    # > paste0("~",paste(fff, collapse=" + "))
-    # [1] "~cell + dex"
-    # > as.formula(paste0("~",paste(fff, collapse=" + ")))
-    # ~cell + dex
-    # > DESeqDataSetFromMatrix(countData = ccmm,
-    #                          +                        colData = eedd,
-    #                          +                        design= as.formula(paste0("~",paste(fff, collapse=" + "))) ) -> mydds ; design(mydds)
-    # ~cell + dex
-    # >
-
-
-
     diyDDS <- reactive({
       if(is.null(values$countmatrix) | is.null(values$expdesign) | is.null(input$dds_design))
         return(NULL)
-
 
       dds <- DESeqDataSetFromMatrix(countData = values$countmatrix,
                                     colData = values$expdesign,
                                     design=as.formula(paste0("~",paste(input$dds_design, collapse=" + "))))
       dds <- estimateSizeFactors(dds)
-
       return(dds)
-
-
     })
-
 
     observeEvent(input$button_diydds,
                  {
@@ -1473,16 +1417,12 @@ ideal<- function(dds_obj = NULL,
                      values$dds_obj <- diyDDS()
                  })
 
-
     output$debugdiy <- renderPrint({
       if(!is.null(values$dds_obj)){
         print(values$dds_obj)
         print(design(values$dds_obj))
       }
     })
-
-
-
 
     # as in http://stackoverflow.com/questions/29716868/r-shiny-how-to-get-an-reactive-data-frame-updated-each-time-pressing-an-actionb
     observeEvent(input$uploadcmfile,
@@ -1494,7 +1434,6 @@ ideal<- function(dds_obj = NULL,
                  {
                    values$expdesign <- readMetadata()
                  })
-
 
 
     # server retrieving anno --------------------------------------------------
@@ -1524,12 +1463,7 @@ ideal<- function(dds_obj = NULL,
     # to match to the goseq genome setting
     annoSpecies_df$goseq_shortcut <- c("","anoGam1","Arabidopsis","bosTau8","canFam3","galGal4","panTro4","E. coli K12","E. coli Sakai",
                                        "dm6","hg38","Malaria","mm10","susScr3","rn6","rheMac","","","ce11","xenTro","sacCer3","danRer10")
-
-
     rownames(annoSpecies_df) <- annoSpecies_df$species # easier to access afterwards
-
-
-
     # annoSpecies_df <- annoSpecies_df[annoSpecies_df$species %in% c("","Human", "Mouse", "Rat", "Fly", "Chimp"),]
 
     output$ui_selectspecies <- renderUI({
@@ -1538,7 +1472,6 @@ ideal<- function(dds_obj = NULL,
       selectInput("speciesSelect",label = "Select the species of your samples - it will also be used for enhancing result tables",
                   choices = annoSpecies_df$species,selected="")
     })
-
 
     output$ui_idtype <- renderUI({
       if (is.null(values$dds_obj)) #
@@ -1554,21 +1487,17 @@ ideal<- function(dds_obj = NULL,
              "Select a species - requires the corresponding annotation package"
         )
       )
-
       annopkg <- annoSpecies_df$pkg[annoSpecies_df$species==input$speciesSelect]
-
       shiny::validate(
         need(require(annopkg,character.only=TRUE),
              paste0("The package ",annopkg, " is not installed/available. Try installing it with BiocManager::install('",annopkg,"')"))
       )
-
       retmsg <- paste0(annopkg," - package available and loaded")
       # if (!require(annopkg,character.only=TRUE)) {
       # stop("The package",annopkg, "is not installed/available. Try installing it with BiocManager::install() ?")
       # }
       retmsg <- paste0(retmsg," - ",gsub(".eg.db","",gsub("org.","",annopkg)))
       retmsg
-
     })
 
     # server outliers --------------------------------------------------------
@@ -1617,8 +1546,6 @@ ideal<- function(dds_obj = NULL,
       print(values$removedsamples)
     })
 
-
-
     # server run deseq --------------------------------------------------------
     output$rundeseq <- renderUI({
       if(is.null(values$dds_obj))
@@ -1626,7 +1553,6 @@ ideal<- function(dds_obj = NULL,
       else
         actionButton("button_rundeseq","Run DESeq!", icon = icon("spinner"), class = "btn btn-success")
     })
-
 
     observeEvent(input$button_rundeseq,
                  {
@@ -1662,8 +1588,6 @@ ideal<- function(dds_obj = NULL,
       summary(results(values$dds_obj), alpha = input$FDR)
     })
 
-
-
     # server counts overview --------------------------------------------------------
     current_countmat <- reactive({
       if(input$countstable_unit=="raw_counts")
@@ -1692,7 +1616,6 @@ ideal<- function(dds_obj = NULL,
       }
     )
 
-
     output$corrplot <- renderPlot({
       if(input$compute_pairwisecorr)
         withProgress(
@@ -1707,7 +1630,6 @@ ideal<- function(dds_obj = NULL,
         pheatmap(cor(current_countmat()))
     })
 
-
     output$pairwise_plotUI <- renderUI({
       if(!input$compute_pairwisecorr) return()
 
@@ -1715,13 +1637,11 @@ ideal<- function(dds_obj = NULL,
       # )
     })
 
-
     output$heatcorr_plotUI <- renderUI({
       if(!input$compute_pairwisecorr) return()
 
       plotOutput("heatcorr")
     })
-
 
     # overview on number of detected genes on different threshold types
     output$detected_genes <- renderPrint({
@@ -1767,9 +1687,6 @@ ideal<- function(dds_obj = NULL,
                    updateSelectInput(session, inputId = "speciesSelect", selected = curr_species)
 
                  })
-
-
-
 
     # server managing gene lists --------------------------------------------------------
     ## gene lists upload
@@ -1826,13 +1743,10 @@ ideal<- function(dds_obj = NULL,
       }
     })
 
-
-
     output$debuggls <- renderPrint({
       values$genelist1
       # values$genelist2
     })
-
 
     values$genelistUP <- reactive({
 
@@ -1892,11 +1806,7 @@ ideal<- function(dds_obj = NULL,
                                             input$toggle_list2,
                                             input$toggle_list3))]
       gll_final <- gll_nonempty[match(lists_tokeep,names(gll_nonempty))]
-
-
-
     })
-
 
     output$debuglists <- renderPrint({
       # length(gll_nonempty)
@@ -1904,7 +1814,6 @@ ideal<- function(dds_obj = NULL,
       # lapply(gll(),length)
       print(gll())
     })
-
 
     output$vennlists <- renderPlot({
       shiny::validate(
@@ -1916,18 +1825,13 @@ ideal<- function(dds_obj = NULL,
       gplots::venn(gll())
     })
 
-
     output$upsetLists <- renderPlot({
       shiny::validate(
         need(sum(sapply(gll(),function(arg) length(arg)>0)) > 1,
              message = "Make sure you provide at least two sets")
-
       )
-
       UpSetR::upset(fromList(gll()))
     })
-
-
 
     observeEvent(input$button_getanno,
                  {
@@ -1944,8 +1848,6 @@ ideal<- function(dds_obj = NULL,
                  })
 
     output$printDIYanno <- renderPrint({
-
-
       print(head(values$annotation_obj))
     })
 
@@ -1973,8 +1875,6 @@ ideal<- function(dds_obj = NULL,
       # values$gse_up <- limma::topGO(limma::goana(listGenesEntrez, listBackgroundEntrez, species = organism),
       # ontology="BP", # could be ideally replaced by input$
       # number=200)
-
-
     })
 
 
@@ -2420,7 +2320,6 @@ ideal<- function(dds_obj = NULL,
 
 
     # server gse datatables --------------------------------------------------------
-    
     output$DT_gse_up <- DT::renderDataTable({
       # if not null...
       if(is.null(values$gse_up))
@@ -2559,10 +2458,6 @@ ideal<- function(dds_obj = NULL,
       if(length(s) == 0)
         return(NULL)
 
-      # print(s)
-      # print(values$topgo_up[s,])
-      # values$topgo_up[input$DT_gse_up_topgo_rows_selected,]$genes
-
       # allow only one selected line
       mygenes <- values$topgo_up[input$DT_gse_up_topgo_rows_selected,]$genes[1]
       myterm <- paste0(
@@ -2570,17 +2465,12 @@ ideal<- function(dds_obj = NULL,
         values$topgo_up[input$DT_gse_up_topgo_rows_selected,]$Term)
 
       genevec <- unlist(strsplit(mygenes,split=","))
-      # genevec
       annopkg <- annoSpecies_df$pkg[annoSpecies_df$species==input$speciesSelect]
-      # genevec_ids <- mapIds(org.Hs.eg.db,genevec,"ENSEMBL","SYMBOL",multiVals="first")
       genevec_ids <- mapIds(eval(parse(text=annopkg)),genevec,"ENSEMBL","SYMBOL",multiVals="first")
-      # genevec_ids
       log2things <- assay(normTransform(values$dds_obj))
-      #log2things
       selectedLogvalues <- log2things[genevec_ids,]
 
       # check that I do not have nas or similar...
-
       if(length(genevec_ids)==length(genevec)){
         rowlabs <- genevec
       } else {
@@ -2597,10 +2487,6 @@ ideal<- function(dds_obj = NULL,
       if(length(s) == 0)
         return(NULL)
 
-      # print(s)
-      # print(values$topgo_up[s,])
-      # values$topgo_up[input$DT_gse_down_topgo_rows_selected,]$genes
-
       # allow only one selected line
       mygenes <- values$topgo_down[input$DT_gse_down_topgo_rows_selected,]$genes[1]
       myterm <- paste0(
@@ -2608,17 +2494,12 @@ ideal<- function(dds_obj = NULL,
         values$topgo_down[input$DT_gse_down_topgo_rows_selected,]$Term)
 
       genevec <- unlist(strsplit(mygenes,split=","))
-      # genevec
       annopkg <- annoSpecies_df$pkg[annoSpecies_df$species==input$speciesSelect]
-      # genevec_ids <- mapIds(org.Hs.eg.db,genevec,"ENSEMBL","SYMBOL",multiVals="first")
       genevec_ids <- mapIds(eval(parse(text=annopkg)),genevec,"ENSEMBL","SYMBOL",multiVals="first")
-      # genevec_ids
       log2things <- assay(normTransform(values$dds_obj))
-      #log2things
       selectedLogvalues <- log2things[genevec_ids,]
 
       # check that I do not have nas or similar...
-
       if(length(genevec_ids)==length(genevec)){
         rowlabs <- genevec
       } else {
@@ -2635,9 +2516,6 @@ ideal<- function(dds_obj = NULL,
       if(length(s) == 0)
         return(NULL)
 
-      # print(s)
-      # print(values$topgo_up[s,])
-
       values$topgo_updown[input$DT_gse_updown_topgo_rows_selected,]$genes
 
       # allow only one selected line
@@ -2647,17 +2525,12 @@ ideal<- function(dds_obj = NULL,
         values$topgo_updown[input$DT_gse_updown_topgo_rows_selected,]$Term)
 
       genevec <- unlist(strsplit(mygenes,split=","))
-      # genevec
       annopkg <- annoSpecies_df$pkg[annoSpecies_df$species==input$speciesSelect]
-      # genevec_ids <- mapIds(org.Hs.eg.db,genevec,"ENSEMBL","SYMBOL",multiVals="first")
       genevec_ids <- mapIds(eval(parse(text=annopkg)),genevec,"ENSEMBL","SYMBOL",multiVals="first")
-      # genevec_ids
       log2things <- assay(normTransform(values$dds_obj))
-      #log2things
       selectedLogvalues <- log2things[genevec_ids,]
 
       # check that I do not have nas or similar...
-
       if(length(genevec_ids)==length(genevec)){
         rowlabs <- genevec
       } else {
@@ -2674,9 +2547,6 @@ ideal<- function(dds_obj = NULL,
       if(length(s) == 0)
         return(NULL)
 
-      # print(s)
-      # print(values$topgo_up[s,])
-
       # allow only one selected line
       mygenes <- values$topgo_list1[input$DT_gse_list1_topgo_rows_selected,]$genes[1]
       myterm <- paste0(
@@ -2684,17 +2554,12 @@ ideal<- function(dds_obj = NULL,
         values$topgo_list1[input$DT_gse_list1_topgo_rows_selected,]$Term)
 
       genevec <- unlist(strsplit(mygenes,split=","))
-      # genevec
       annopkg <- annoSpecies_df$pkg[annoSpecies_df$species==input$speciesSelect]
-      # genevec_ids <- mapIds(org.Hs.eg.db,genevec,"ENSEMBL","SYMBOL",multiVals="first")
       genevec_ids <- mapIds(eval(parse(text=annopkg)),genevec,"ENSEMBL","SYMBOL",multiVals="first")
-      # genevec_ids
       log2things <- assay(normTransform(values$dds_obj))
-      #log2things
       selectedLogvalues <- log2things[genevec_ids,]
 
       # check that I do not have nas or similar...
-
       if(length(genevec_ids)==length(genevec)){
         rowlabs <- genevec
       } else {
@@ -2711,9 +2576,6 @@ ideal<- function(dds_obj = NULL,
       if(length(s) == 0)
         return(NULL)
 
-      # print(s)
-      # print(values$topgo_up[s,])
-
       # allow only one selected line
       mygenes <- values$topgo_list2[input$DT_gse_list2_topgo_rows_selected,]$genes[1]
       myterm <- paste0(
@@ -2721,17 +2583,12 @@ ideal<- function(dds_obj = NULL,
         values$topgo_list2[input$DT_gse_list2_topgo_rows_selected,]$Term)
 
       genevec <- unlist(strsplit(mygenes,split=","))
-      # genevec
       annopkg <- annoSpecies_df$pkg[annoSpecies_df$species==input$speciesSelect]
-      # genevec_ids <- mapIds(org.Hs.eg.db,genevec,"ENSEMBL","SYMBOL",multiVals="first")
       genevec_ids <- mapIds(eval(parse(text=annopkg)),genevec,"ENSEMBL","SYMBOL",multiVals="first")
-      # genevec_ids
       log2things <- assay(normTransform(values$dds_obj))
-      #log2things
       selectedLogvalues <- log2things[genevec_ids,]
 
       # check that I do not have nas or similar...
-
       if(length(genevec_ids)==length(genevec)){
         rowlabs <- genevec
       } else {
@@ -2741,10 +2598,6 @@ ideal<- function(dds_obj = NULL,
       pheatmap(selectedLogvalues,scale="row",labels_row=rowlabs,main = myterm)
 
     })
-    
-    
-    
-    
 
     # server signature explorer ------------------------------------------------------
     loaded_gmt <- reactive({
@@ -2846,8 +2699,6 @@ ideal<- function(dds_obj = NULL,
       head(values$anno_vec)
     })
     
-    
-    
     output$sig_heat <- renderPlot({
       
       print(sig_heatmap(values$vst_obj,
@@ -2861,7 +2712,6 @@ ideal<- function(dds_obj = NULL,
                         scale_row = input$sig_scalerow))
               
     })
-
 
 
 
