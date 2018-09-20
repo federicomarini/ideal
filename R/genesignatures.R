@@ -26,6 +26,34 @@ read_gmt <- function(gmtfile){
 }
 
 
+#' Plot a heatmap of the gene signature on the data
+#' 
+#' Plot a heatmap for the selected gene signature on the provided data, with the 
+#' possibility to compactly display also DE only genes
+#'
+#' @param vst_data A \code{\link{DESeqTransform}} object - usually the variance
+#' stabilized transformed data, which will be used to extract the expression values 
+#' @param my_signature A character vector, usually named, containing the genes 
+#' which compose the gene signature
+#' @param res_data A \code{\link{DESeqResults}} object. If not provided, it can
+#' be computed during the execution of the application
+#' @param FDR Numeric value between 0 and 1, the False Discovery Rate
+#' @param de_only Logical, whether to display only DE genes belonging to the pathway - 
+#' defaults to FALSE
+#' @param annovec A named character vector, with the corresponding annotation across IDs
+#' @param title Character, title for the heatmap
+#' @param cluster_rows Logical, whether to cluster rows - defaults to TRUE
+#' @param cluster_cols Logical, whether to cluster column - defaults to FALSE. 
+#' Recommended to be set to TRUE if de_only is also set to TRUE
+#' @param center_mean Logical, whether to perform mean centering on the expression 
+#' values. Defaults to TRUE, as it improves the general readability of the heatmap
+#' @param scale_row Logical, whether to perform row-based standardization of the 
+#' expression values
+#'
+#' @return
+#' @export
+#'
+#' @examples
 sig_heatmap <- function(vst_data, my_signature,
                         res_data = NULL, FDR = 0.05,
                         de_only = FALSE, annovec, title = "",
