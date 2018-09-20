@@ -1,7 +1,3 @@
-</br></br></br>
-
-# Instructions
-
 *This information is also contained in the `ideal` package vignette.*
 
 `ideal` is a Bioconductor package containing a Shiny application for

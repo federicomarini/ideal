@@ -1063,8 +1063,9 @@ ideal<- function(dds_obj = NULL,
     })
     
     observeEvent(input$introexample, {
-      intro_example <- data.frame(element=c("#introexample"),
-                                  intro=c("Tour elements can be anchored to elements of the UI that are intended to be highlighted. You can proceed to the next step by using the button, or also pushing the right arrow key. </br></br>Well done. This is how a tour looks like. Click outside of this window to close the tour, or on the corresponding button."))
+      intro_example <- data.frame(element=c("#introexample","#introexample"),
+                                  intro=c("Tour elements can be anchored to elements of the UI that are intended to be highlighted. You can proceed to the next step by using the button, or also pushing the right arrow key.",
+                                          "Well done. This is how a tour can look like. Click outside of this window to close the tour, or on the corresponding button."))
       introjs(session,
               options = list(steps = intro_example)
       )
@@ -1147,7 +1148,9 @@ ideal<- function(dds_obj = NULL,
     
     # server welcome home ---------------------------------------------------------
     output$ui_instructions <- renderUI({
-      box(width = 12, title = "", status = "info", solidHeader = TRUE,
+      box(width = 12, 
+          title = "Instructions", status = "info", solidHeader = TRUE, 
+          collapsible = TRUE, collapsed = FALSE,
           includeMarkdown(system.file("extdata", "instructions.md",package = "ideal"))
       )
     })
