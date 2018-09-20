@@ -81,6 +81,7 @@ ideal<- function(dds_obj = NULL,
 
   # ui definition -----------------------------------------------------------
   ideal_ui <- shinydashboard::dashboardPage(
+    title = "ideal - Interactive Differential Expression AnaLysis",
     # header definition -----------------------------------------------------------
     shinydashboard::dashboardHeader(
       title = tags$span(
@@ -98,16 +99,19 @@ ideal<- function(dds_obj = NULL,
       #                tags$img(src='ideal_logo_v2.png',height='50',width='200')),
 
       # task menu for saving state to environment or binary data
-      shinydashboard::dropdownMenu(type = "tasks",icon = icon("cog"),badgeStatus = NULL, # something to change the top message? maybe file an issue @shinydashboard development
-                                   notificationItem(
-                                     text = actionButton("task_exit_and_save","Exit ideal & save",
-                                                         class = "btn_no_border",
-                                                         onclick = "setTimeout(function(){window.close();}, 100); "),
-                                     icon = icon("sign-out"),status = "primary"),
-                                   menuItem(
-                                     text = downloadButton("task_state_save","Save State as .RData"))
+      shinydashboard::dropdownMenu(
+        type = "tasks",icon = icon("cog"),
+        badgeStatus = NULL, 
+        headerText = "Tasks menu",
+        notificationItem(
+          text = actionButton("task_exit_and_save","Exit ideal & save",
+                              class = "btn_no_border",
+                              onclick = "setTimeout(function(){window.close();}, 100); "),
+          icon = icon("sign-out"),status = "primary"),
+        menuItem(
+          text = downloadButton("task_state_save","Save State as .RData"))
       )
-    ),
+    ), # end of dashboardHeader
 
     # sidebar definition -----------------------------------------------------------
     dashboardSidebar(
@@ -117,17 +121,8 @@ ideal<- function(dds_obj = NULL,
                startExpanded = TRUE,
                uiOutput("color_by"),
                uiOutput("available_genes"),
-
-               #
-               #              selectizeInput(
-               #                inputId = 'available_genes', label = 'Select Something',
-               #                choices = NULL,
-               #                multiple = TRUE,
-               #                selected = 1
-               #              ),
-
                numericInput("FDR","False Discovery Rate",value = 0.05, min = 0, max = 1, step = 0.01)
-
+               
       ),
       menuItem("Plot export settings", 
                icon = icon("paint-brush"),
@@ -158,15 +153,11 @@ ideal<- function(dds_obj = NULL,
                actionButton("btn", "Click me for a quick tour", icon("info"),
                             style="color: #ffffff; background-color: #0092AC; border-color: #2e6da4")
       )
-    ),
-
+    ), # end of dashboardSidebar
 
     # body definition -----------------------------------------------------------
     dashboardBody(
       introjsUI(),
-      # must include in UI
-
-
 
       ## Define output size and style of error messages, and also the style of the icons e.g. check
       ## plus, define the myscrollbox div to prevent y overflow when page fills up
@@ -186,8 +177,7 @@ ideal<- function(dds_obj = NULL,
                         .dataTables_wrapper{
                         overflow-x: scroll;
                         }
-
-  }
+                        }
                         "))
         ),
 
@@ -206,14 +196,12 @@ ideal<- function(dds_obj = NULL,
 
           # ui panel welcome -----------------------------------------------------------
           tabPanel(
-            # "Welcome!",  icon = icon("info-circle"),
             title = "Welcome!",  icon = icon("home"), value="tab-welcome",
             # carouselPanel(
             #   img(src = "www/ideal_logo_v2.png"),
             #   img(src = "ideal_logo_v2.png"),
             #   img(src = "ideal_logo_v2.png")
             # ),
-
 
             ### TODO: proof of principle it works with the carousel, to display functionality at once
             # bs_carousel(id = "the_beatles", use_indicators = TRUE) %>%
@@ -226,8 +214,6 @@ ideal<- function(dds_obj = NULL,
             #     caption = bs_carousel_caption("Paul McCartney", "Bass guitar, vocals")
             #   ),
 
-
-
             ## TODO: explore possibility to put a carousel of images: https://github.com/dcurrier/carouselPanel/
             # carouselPanel(
             #   plotOutput("distPlot1"),
@@ -235,46 +221,45 @@ ideal<- function(dds_obj = NULL,
             # ),
             # img(src = "ideal_logo_v2.png"),
 
-
             fluidRow(
               column(
                 width = 8,
                 introBox(includeMarkdown(system.file("extdata", "welcome.md",package = "ideal"))
                          ,data.step = 1,data.intro = "Welcome to ideal - the Interactive Differential Expression Analysis tool that also enables reproducible analyses! Click on the 'next' button to proceed with the first interactive tour."),
-
                 br(),br(),
-
                 p("If you see a grey box like this one open below..."),
 
-                shinyBS::bsCollapse(id = "help_welcome",open = "Help", # alt: "Help"
-                                    # think of a general trigger for this? something like a variable that assumes NULL
-                                    shinyBS::bsCollapsePanel("Help", includeMarkdown(system.file("extdata", "help_welcome.md",package = "ideal")))
+                shinyBS::bsCollapse(
+                  id = "help_welcome",open = "Help", 
+                  shinyBS::bsCollapsePanel(
+                    "Help", 
+                    includeMarkdown(system.file("extdata", "help_welcome.md",package = "ideal"))
+                  )
                 ),
 
                 actionButton("introexample", "If you see a button like this...", icon("info"),
                              style="color: #ffffff; background-color: #0092AC; border-color: #2e6da4"),
                 p("... you can click on that to start a tour based on introJS"),
                 br(),br(),
-
                 introBox(includeMarkdown(system.file("extdata", "instructions.md",package = "ideal")),data.step = 2,data.intro = "Here you can read the Instructions to learn the basics of ideal. If you click out of the intro-highlighted area, you are about to interrupt the tour. Don't worry, you can resume it anytime by re-clicking on the tour button. Once you are done with the first reading, you can move on to the next tab, where you will learn how to load your data.")
               )
             )
-
-          ),
+          ), # end of Welcome panel
 
           # ui panel data setup -----------------------------------------------------------
           tabPanel(
             "Data Setup",icon = icon("upload"), # value="tab-ds",
             value = "tab-datasetup",
-
             headerPanel("Setup your data for the analysis"),
-
             fluidRow(
               column(
                 width = 8,
-                shinyBS::bsCollapse(id = "help_datasetup",open = NULL, # alt: "Help"
-                                    # think of a general trigger for this? something like a variable that assumes NULL
-                                    shinyBS::bsCollapsePanel("Help",includeMarkdown(system.file("extdata", "help_datasetup.md",package = "ideal")))
+                shinyBS::bsCollapse(
+                  id = "help_datasetup",open = NULL, 
+                  shinyBS::bsCollapsePanel(
+                    "Help",
+                    includeMarkdown(system.file("extdata", "help_datasetup.md",package = "ideal"))
+                  )
                 )
               )
             ),
@@ -346,10 +331,7 @@ ideal<- function(dds_obj = NULL,
             # hr(),
 
             uiOutput("ui_step3")
-          ),
-
-
-
+          ), # end of Data Setup panel
           # ui panel counts overview -----------------------------------------------------------
           tabPanel(
             "Counts Overview",
@@ -425,9 +407,7 @@ ideal<- function(dds_obj = NULL,
               condition="output.checkdds",
               h2("You did not create the dds object yet. Please go the main tab and generate it")
             )
-          ),
-
-
+          ), # end of Counts Overview panel
           # ui panel extract results -----------------------------------------------------------
           tabPanel(
             "Extract Results", icon = icon("table"),
@@ -563,8 +543,7 @@ ideal<- function(dds_obj = NULL,
               h2("You did not create the dds object yet. Please go the main tab and generate it")
             )
 
-          ),
-
+          ), # end of Extract Results panel
           # ui panel summary plots -----------------------------------------------------------
           tabPanel(
             "Summary Plots", icon = icon("photo"),
@@ -658,7 +637,7 @@ ideal<- function(dds_obj = NULL,
               condition="output.checkresu",
               h2("You did not create the result object yet. Please go the dedicated tab and generate it")
             )
-          ),
+          ), # end of Summary Plots panel
           # ui panel gene finder -----------------------------------------------------------
           tabPanel(
             "Gene Finder", icon = icon("crosshairs"),
@@ -732,7 +711,7 @@ ideal<- function(dds_obj = NULL,
               condition="output.checkdds",
               h2("You did not create the dds object yet. Please go the main tab and generate it")
             )
-          ),
+          ), # end of Gene Finder panel
           # ui panel functional analysis ----------------------------------------------------------
           tabPanel(
             "Functional Analysis", icon = icon("list-alt"),
@@ -883,8 +862,7 @@ ideal<- function(dds_obj = NULL,
               condition="output.checkresu",
               h2("You did not create the result object yet. Please go the dedicated tab and generate it")
             )
-          ),
-          
+          ), # end of Functional Analysis panel
           # ui panel signatures explorer ---------------------------------------------------------
           tabPanel(
             "Signatures Explorer",
@@ -937,8 +915,7 @@ ideal<- function(dds_obj = NULL,
             
             
             
-          ),
-
+          ), # end of Signatures Explorer panel
           # ui panel report editor -----------------------------------------------------------
           tabPanel(
             "Report Editor",
@@ -1019,7 +996,7 @@ ideal<- function(dds_obj = NULL,
                                  value=readLines(system.file("extdata", "irt.Rmd",package = "ideal")),
                                  height="800px"))
             )
-          ),
+          ), # end of Report Editor panel
           # ui panel about -----------------------------------------------------------
           tabPanel(
             "About", icon = icon("institution"),
@@ -1034,7 +1011,7 @@ ideal<- function(dds_obj = NULL,
                 verbatimTextOutput("sessioninfo")
               )
             )
-          )
+          ) # end of About panel
           # ,tabPanel(
           #   "devel", icon = icon("github")
           #   # ,
@@ -1053,40 +1030,19 @@ ideal<- function(dds_obj = NULL,
 
         )
       )
-      ,footer() # TODO: decide where to place the footer
+      ,footer()
     ),
-
-
     skin="black"
-  )
+  ) # end of dashboardBody
 
 
   # server definition -----------------------------------------------------------
   ideal_server <- shinyServer(function(input, output, session) {
 
     # server tours setup -----------------------------------------------------------
-    observeEvent(input$btn, {
-      intro <- data.frame(element=c("#btn","#box_ddsobj","#box_annobj","#uploadcmfile"),
-                          intro=c("In Codd we trust","first boxieee","here is info on the annotation","next tab"))
-      introjs(session,
-              events = list(
-                "onchange" = "if (this._currentStep<2) {
-        $('a[data-value=\"tab-datasetup\"]').removeClass('active');
-        $('a[data-value=\"tab-welcome\"]').addClass('active');
-        $('a[data-value=\"tab-welcome\"]').trigger('click');
-  }
-        if (this._currentStep>1) {
-        $('a[data-value=\"tab-welcome\"]').removeClass('active');
-        $('a[data-value=\"tab-datasetup\"]').addClass('active');
-        $('a[data-value=\"tab-datasetup\"]').trigger('click');
-        }"
-              )
-              # , options = list(steps= intro)
-      )
-    })
-
-
+    
     # here will go the coded - i.e. not explicitly wrapped in introBox - steps
+    intro_firsttour <- read.delim(system.file("extdata", "intro_firsttour.txt",package = "ideal"), sep=";", stringsAsFactors = FALSE)
     intro_datasetup <- read.delim(system.file("extdata", "intro_datasetup.txt",package = "ideal"), sep=";", stringsAsFactors = FALSE)
     intro_countsoverview <- read.delim(system.file("extdata", "intro_countsoverview.txt",package = "ideal"), sep=";", stringsAsFactors = FALSE)
     intro_results <- read.delim(system.file("extdata", "intro_results.txt",package = "ideal"), sep=";", stringsAsFactors = FALSE)
@@ -1095,10 +1051,23 @@ ideal<- function(dds_obj = NULL,
     intro_funcanalysis <- read.delim(system.file("extdata", "intro_funcanalysis.txt",package = "ideal"), sep=";", stringsAsFactors = FALSE)
     intro_report <- read.delim(system.file("extdata", "intro_report.txt",package = "ideal"), sep=";", stringsAsFactors = FALSE)
 
-
+    observeEvent(input$btn, {
+      introjs(session,
+              options = list(steps = intro_firsttour)
+      )
+    })
+    
+    observeEvent(input$introexample, {
+      intro_example <- data.frame(element=c("#introexample"),
+                                  intro=c("Tour elements can be anchored to elements of the UI that are intended to be highlighted. You can proceed to the next step by using the button, or also pushing the right arrow key. </br></br>Well done. This is how a tour looks like. Click outside of this window to close the tour, or on the corresponding button."))
+      introjs(session,
+              options = list(steps = intro_example)
+      )
+    })
+    
     observeEvent(input$tour_datasetup, {
       introjs(session,
-              options = list(steps= intro_datasetup)
+              options = list(steps = intro_datasetup)
       )
     })
 
