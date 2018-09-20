@@ -53,7 +53,6 @@ dds_airway <- DESeq2::DESeqDataSetFromMatrix(assay(airway),
                                              design=~cell+dex)
 \dontrun{
 
-
 ideal()
 ideal(dds)
 ideal(dds_airway)
