@@ -2689,7 +2689,7 @@ ideal<- function(dds_obj = NULL,
     output$sig_heat <- renderPlot({
       validate(
         need(!is.null(values$gene_signatures), message = "Please provide some gene signatures in gmt format"),
-        need(!is.null(values$vst_obj), message = "Compute the vst transformed data first"),
+        need(!is.null(values$vst_obj), message = "Compute the vst transformed data"),
         need(!is.null(values$anno_vec), message = "Setup the conversion between data ids and signature ids"),
         need((!is.null(values$res_obj) | !input$sig_useDEonly),
              message = "Please compute the results first if you want to subset to DE genes only"),
