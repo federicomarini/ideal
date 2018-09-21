@@ -21,6 +21,9 @@
 #' @param expdesign A \code{data.frame} containing the info on the covariates
 #' of each sample. If not provided, it is possible to upload the data during the
 #' execution of the Shiny App
+#' @param gene_signatures A list of vectors, one for each pathway/signature. This 
+#' is for example the output of the \code{\link{read_gmt}} function. The provided
+#' object can also be replaced during runtime in the dedicated upload widget.
 #'
 #' @return A Shiny App is launched for interactive data exploration and
 #' differential expression analysis
@@ -56,7 +59,8 @@ ideal<- function(dds_obj = NULL,
                  res_obj = NULL,
                  annotation_obj = NULL,
                  countmatrix = NULL,
-                 expdesign = NULL){
+                 expdesign = NULL,
+                 gene_signatures = NULL){
 
   if ( !requireNamespace('shiny',quietly = TRUE) ) {
     stop("ideal requires 'shiny'. Please install it using
@@ -1055,6 +1059,7 @@ ideal<- function(dds_obj = NULL,
     values$dds_obj <- dds_obj
     values$res_obj <- res_obj
     values$annotation_obj <- annotation_obj
+    values$gene_signatures <- gene_signatures
 
 
     # this part sets the "matching" objects if something is provided that is depending on these
