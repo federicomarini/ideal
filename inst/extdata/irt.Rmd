@@ -425,6 +425,45 @@ if(!is.null(values$gse_updown_goseq)) {
 ```
 
 
+# Signatures explorer
+
+```{r}
+
+if(!is.null(values$gene_signatures) & 
+   !(is.null(values$vst_obj)) & 
+   !(is.null(values$anno_vec)) &
+   input$sig_selectsig!="") {
+  
+  print(input$sig_selectsig)
+  
+  sig_sigmembers <- values$gene_signatures[[input$sig_selectsig]]
+  
+  id_type_data <- input$sig_id_data
+  id_type_sigs <- input$sig_id_sigs
+  
+  head(values$anno_vec)
+  
+  sig_members <- values$gene_signatures[[input$sig_selectsig]]
+  print(sig_members)
+  
+  sig_heatmap(
+          values$vst_obj,
+          my_signature = values$gene_signatures[[input$sig_selectsig]],
+          res_data = values$res_obj,
+          FDR = input$FDR,
+          de_only = input$sig_useDEonly,
+          annovec = values$anno_vec,
+          # anno_colData = colData(values$vst_obj)[,input$sig_annocoldata, drop = FALSE],
+          title = names(values$gene_signatures)[match(input$sig_selectsig,names(values$gene_signatures))],
+          cluster_rows = input$sig_clusterrows,
+          cluster_cols = input$sig_clustercols,
+          center_mean = input$sig_centermean,
+          scale_row = input$sig_scalerow
+        )
+}
+
+
+```
 
 
 
