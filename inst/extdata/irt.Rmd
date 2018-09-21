@@ -10,40 +10,27 @@ opts_chunk$set(
 )
 ```
 
-
 # Data Setup
 
 Following objects were provided to the initial call of the function:
 
 ```{r}
 dds_obj
-
 res_obj
-
 head(annotation_obj)
-
 head(countmatrix)
-
 expdesign
 ```
-
-
 
 The data provided was used to construct the following objects
 
 ```{r}
 head(values$countmatrix)
-
 values$expdesign
-
 values$dds_obj
-
 values$res_obj
-
 head(values$annotation_obj)
-
 ```
-
 
 ```{r}
 design(values$dds_obj)
@@ -67,13 +54,9 @@ if(!is.null(values$annotation_obj))
 DEregu <- sum(values$res_obj$padj < input$FDR & values$res_obj$log2FoldChange != 0, na.rm = TRUE)
 if(!is.null(values$res_obj))
   paste0(DEregu, " DE genes - out of ",nrow(values$res_obj),"")
-
 ```
 
-
-
 # Counts Overview
-
 
 ```{r}
 if(input$countstable_unit=="raw_counts")
@@ -88,7 +71,6 @@ input$countstable_unit
 
 head(cur_mat)
 ```
-
 
 ```{r}
 t1 <- rowSums(counts(values$dds_obj))
@@ -110,7 +92,6 @@ cat(paste0(round(rel_t2,3),"%"), "of the",nrow(values$dds_obj),
     "genes have more than",thresh_rowsums,"counts (normalized) on average\n")
 cat("Counts are ranging from", min(counts(values$dds_obj)),
     "to",max(counts(values$dds_obj)))
-
 ```
 
 # Extract results
@@ -125,9 +106,7 @@ if(!is.null(values$res_obj)) {
   nrl <- length(levels(colData(values$dds_obj)[,fac1]))
 
   print(input$fac1_c1)
-
   print(input$fac1_c2)
-
   print(values$res_obj)
 
   print(sub(".*p-value: (.*)","\\1",mcols(values$res_obj, use.names=TRUE)["pvalue","description"]))
@@ -161,8 +140,6 @@ if(!is.null(values$res_obj)) {
     ))
 
   print(p1)
-  
-  
   
   res_df <- mutate(
     res_df, 
@@ -198,9 +175,6 @@ if(!is.null(values$res_obj)) {
     geom_histogram(binwidth = 0.1) + theme_bw()
   p4 <- p4 + ggtitle("Histogram of the log2 fold changes")
   print(p4)
-    
-    
-
 
   mydf <- as.data.frame(values$res_obj[order(values$res_obj$padj),])#[1:500,]
   rownames(mydf) <- createLinkENS(rownames(mydf),species = annoSpecies_df$ensembl_db[match(input$speciesSelect,annoSpecies_df$species)]) ## TODO: check what are the species from ensembl and
@@ -208,17 +182,13 @@ if(!is.null(values$res_obj)) {
   mydf$symbol <- createLinkGeneSymbol(mydf$symbol)
   datatable(mydf, escape = FALSE)                       
 }
- 
-
 ```
-
 
 # Summary Plots
 
 ```{r}
 if(!is.null(values$res_obj)) {
   print(plot_ma(values$res_obj,annotation_obj = values$annotation_obj))
-  
   
   if(!is.null(input$ma_brush)){
     if(!is.null(values$annotation_obj))
@@ -232,10 +202,7 @@ if(!is.null(values$res_obj)) {
                         ylim = c(input$ma_brush$ymin,input$ma_brush$ymax)))
   }
   
-  
   print(plot_volcano(values$res_obj, FDR = input$FDR))
-  
-  
   
   print(head(curData()))
   
@@ -264,29 +231,16 @@ if(!is.null(values$res_obj)) {
       pheatmap(toplot,cluster_cols = as.logical(input$heatmap_colv))
       
       d3heatmap(toplot,Colv = as.logical(input$heatmap_colv),colors = mycolss)
-  
   }
-  
-  
-    
-
 }
-
-
-
-
-
 ```
-
 
 # Gene Finder
 
 ```{r}
-
 if(length(input$color_by) > 0 &
    (length(input$avail_symbols)>0 | length(input$avail_ids)>0)
   ){
-  
   
   if(length(input$avail_symbols)>0) {
         # got the symbol, look for the id
@@ -309,10 +263,7 @@ if(length(input$color_by) > 0 &
       if(input$ylimZero_genefinder)
         p <- p + ylim(0.1, NA)
       print(p)
-  
   }
-  
-  
   
   if("symbol" %in% names(values$res_obj)) {
     print(plot_ma(values$res_obj,
@@ -322,7 +273,6 @@ if(length(input$color_by) > 0 &
                 intgenes = input$avail_ids,annotation_obj = values$annotation_obj,FDR = input$FDR))
       }
 
-  
   if(!is.null(values$genelist_ma)) {
     print(values$genelist_ma)
     if("symbol" %in% names(values$res_obj)) {
@@ -330,11 +280,8 @@ if(length(input$color_by) > 0 &
                 intgenes = values$genelist_ma$`Gene Symbol`,annotation_obj = values$annotation_obj,FDR = input$FDR))
       }
   }
-  
   datatable(cur_combires())
-
 }
-
 # if selected, maplot with annot plus table
 ```
 
@@ -352,7 +299,6 @@ if(!is.null(values$res_obj)) {
 
   UpSetR::upset(fromList(gll()))
 }
-
 
 # 3x5 tables if available
 
@@ -417,18 +363,13 @@ if(!is.null(values$gse_updown_goseq)) {
   datatable(mytbl,escape=FALSE)
 }
  
-
-
 # for the selected lines, also do heatmaps?
-
-
 ```
 
 
 # Signatures explorer
 
 ```{r}
-
 if(!is.null(values$gene_signatures) & 
    !(is.null(values$vst_obj)) & 
    !(is.null(values$anno_vec)) &
@@ -461,25 +402,16 @@ if(!is.null(values$gene_signatures) &
           scale_row = input$sig_scalerow
         )
 }
-
-
 ```
 
-
-
 # About `ideal`
-
 
 `ideal` is a Bioconductor package containing a Shiny application for
  interactive and reproducible Differential Expression analysis.
 
-
 `ideal` is developed in the Bioinformatics Division (led by Harald Binder) 
 of the Institute of Medical Biostatistics, Epidemiology and Informatics (IMBEI)
 at the University Medical Center of the Johannes Gutenberg University Mainz.
-
-
-
 
 ## Developers
 
@@ -494,8 +426,6 @@ You can contact me by clicking on the button below.
 All code for `ideal`, especially for the development version, is available
 on <a href="https://github.com/federicomarini/ideal" target="_blank">GitHub</a>.
 
-
-
 ## Citation info
 
 If you use `ideal` for your analysis, please cite it as here below:
@@ -504,14 +434,11 @@ If you use `ideal` for your analysis, please cite it as here below:
 citation("ideal")
 ```
 
-
-
 # Session Info
 
 ```{r}
 sessionInfo()
 ```
-
 
 ```{r}
 library(shiny)
@@ -538,5 +465,3 @@ footertemplate <- function(){
 ```{r}
 footertemplate()
 ```
-
-
