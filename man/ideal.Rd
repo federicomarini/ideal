@@ -5,7 +5,7 @@
 \title{ideal: Interactive Differential Expression Analysis}
 \usage{
 ideal(dds_obj = NULL, res_obj = NULL, annotation_obj = NULL,
-  countmatrix = NULL, expdesign = NULL)
+  countmatrix = NULL, expdesign = NULL, gene_signatures = NULL)
 }
 \arguments{
 \item{dds_obj}{A \code{\link{DESeqDataSet}} object. If not provided, then a
@@ -28,6 +28,10 @@ the Shiny App}
 \item{expdesign}{A \code{data.frame} containing the info on the covariates
 of each sample. If not provided, it is possible to upload the data during the
 execution of the Shiny App}
+
+\item{gene_signatures}{A list of vectors, one for each pathway/signature. This 
+is for example the output of the \code{\link{read_gmt}} function. The provided
+object can also be replaced during runtime in the dedicated upload widget.}
 }
 \value{
 A Shiny App is launched for interactive data exploration and

@@ -50,7 +50,7 @@ read_gmt <- function(gmtfile){
 #' @param scale_row Logical, whether to perform row-based standardization of the 
 #' expression values
 #'
-#' @return
+#' @return A plot based on the \code{pheatmap} function
 #' @export
 #'
 #' @examples

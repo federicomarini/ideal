@@ -38,6 +38,9 @@ values. Defaults to TRUE, as it improves the general readability of the heatmap}
 \item{scale_row}{Logical, whether to perform row-based standardization of the 
 expression values}
 }
+\value{
+A plot based on the \code{pheatmap} function
+}
 \description{
 Plot a heatmap for the selected gene signature on the provided data, with the 
 possibility to compactly display also DE only genes
