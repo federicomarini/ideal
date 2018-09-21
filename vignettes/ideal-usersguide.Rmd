@@ -274,6 +274,20 @@ The interaction among these lists can be visually represented in Venn diagrams, 
 Each of the methods for GO enrichment delivers its own interactive `DT`-based table, which can then be explored interactively with the display of a heatmap for all the (DE) genes annotated to a particular term, picking the normalized transformed values for comparing robustly the expression values. This is simply triggered by clicking any of the rows for the results tables. Another useful feature is provided by the clickable link to the AmiGO database on each of the GO term identifiers.
 
 
+## Signatures Explorer
+
+The Signatures Explorer tab allows the user to check the behavior of a number of provided gene signatures in the data at hand, displaying this as a heatmap.
+
+This panel is composed by different well panels:
+
+- in the Setup Options, you can select and upload a gene signature file, in `gmt` format (e.g. like the ones provided in the MSigDB database, or from WikiPathways), and quickly compute the variance stabilized transformed version of your data, which is more amenable for visualization than raw or normalized counts
+
+- in the Conversion options tab, you can create an annotation vector, used to bring the ids from your data and the ids the `gmt` used for encoding the signature elements. This works based on the `org.XX.eg.db` packages.
+
+- the lower well panels control the appearance of the heatmap, also with an option to display all genes annotated in that pathway, or only the ones detected as differentially expressed (for this you need to provide or compute the result object)
+
+
+
 ## Report Editor
 
 The Report Editor tab works in the same way of `r Biocpkg("pcaExplorer")`, with the scope of providing an interface to full computational reproducibility of the analyses.
