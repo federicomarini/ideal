@@ -954,8 +954,8 @@ ideal<- function(dds_obj = NULL,
               )
             )
           ) # end of About panel
-        )
-      )
+        ) # end of box
+      ) # end of myScrollBox
       ,footer()
     ), # end of dashboardBody
     skin="black"
