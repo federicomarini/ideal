@@ -1,0 +1,9 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+^.gitignore$
+^.travis.yml$
+^codecov\.yml$
+^appveyor.yml$
+.circleci
+_pkgdown.yml
+docs/*
