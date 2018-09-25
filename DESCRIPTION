@@ -23,7 +23,8 @@ Imports: DESeq2, SummarizedExperiment, GenomicRanges, IRanges,
         rmarkdown, shinyAce, BiocParallel, grDevices, methods
 Suggests: testthat, BiocStyle, airway, org.Hs.eg.db,
         TxDb.Hsapiens.UCSC.hg38.knownGene, DEFormats, edgeR
-URL: https://github.com/federicomarini/ideal
+URL: https://github.com/federicomarini/ideal,
+        https://federicomarini.github.io/ideal/
 BugReports: https://github.com/federicomarini/ideal/issues
 biocViews: GeneExpression, DifferentialExpression, RNASeq, Sequencing,
         Visualization, QualityControl, GUI, GeneSetEnrichment,
