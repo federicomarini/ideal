@@ -1,0 +1,33 @@
+authors:
+  Federico Marini:
+    href: https://federicomarini.github.io
+
+template:
+  params:
+    bootswatch: cosmo
+    
+navbar:
+  structure:
+    left:
+    - home
+    - intro
+    - reference
+    - articles
+    - tutorials
+    - news
+    right: github
+  components:
+    home:
+      icon: fa-home fa-lg
+      href: index.html
+    reference:
+      text: Reference
+      href: reference/index.html
+    articles:
+      text: Articles
+      menu:
+      - text: ideal User's Guide
+        href: articles/ideal-usersguide.html
+    github:
+      icon: fa-github fa-lg
+      href: https://github.com/federicomarini/ideal
