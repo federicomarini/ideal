@@ -1,0 +1,16 @@
+citHeader("To cite the package 'ideal' in publications use:")
+
+citEntry(
+  entry        = "Manual",
+  title        = "ideal: Interactive Differential Expression AnaLysis",
+  author       = personList(as.person("Federico Marini")),
+	year         = "2018",
+	doi          = "10.18129/B9.bioc.ideal",
+  url          = "http://bioconductor.org/packages/ideal/",
+
+  textVersion  =
+  paste("Federico Marini (2018).",
+        "ideal: Interactive Differential Expression AnaLysis.",
+        "URL http://bioconductor.org/packages/ideal/",
+        "doi: 10.18129/B9.bioc.ideal")
+)
