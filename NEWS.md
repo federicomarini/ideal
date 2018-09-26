@@ -1,8 +1,19 @@
 # ideal 1.6.0
 
+## New features
+
+* Added extra diagnostic to results exploration (stratified pvalues histograms, schweder-spjotvoll plot)
+* Added functionality for the tab Signatures Explorer: read in gmt files, and explore signatures for all/DE genes visually as heatmaps. The signatures can also be provided in the main call of the function as an argument, on top of uploading at runtime
+
 ## Other notes
 
+* Built project website via pkgdown, with customized reference structure
 * Added a `NEWS.md` file to track changes to the package
+* Updated the report template as well for including new functionality, and also updated vignette entry
+* Correctly adding the resources to shinyBS, loaded via `.onLoad`
+* Replaced the first tour structure and call
+* New skin for the app, also with logo in the title header
+* Instructions start collapsed for more compact main page
 
 # ideal 1.4.0
 
