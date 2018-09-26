@@ -31,3 +31,28 @@ navbar:
     github:
       icon: fa-github fa-lg
       href: https://github.com/federicomarini/ideal
+
+reference:
+- title: The ideal package
+  desc: Main functions and info on the `ideal` package
+  contents:
+  - '`ideal`'
+  - '`ideal-pkg`'
+- title: Working with Differentially Expressed genes
+  desc: Functions for extracting and plotting overviews of Differentially Expressed genes
+  contents:
+  - '`deseqresult2DEgenes`'
+  - '`deseqresult2tbl`'
+  - '`plot_ma`'
+  - '`plot_volcano`'
+  - '`ggplotCounts`'
+- title: Functional interpretation
+  desc: Functions for working performing functional interpretation
+  contents:
+  - '`goseqTable`'
+  - '`read_gmt`'
+  - '`sig_heatmap`'
+- title: Miscellaneous functions
+  desc: Miscellaneous functions used in the `ideal` package
+  contents:
+  - '`sepguesser`'
