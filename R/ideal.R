@@ -2732,15 +2732,23 @@ ideal<- function(dds_obj = NULL,
     # this trick speeds up the populating of the select(ize) input widgets,
     # see http://stackoverflow.com/questions/38438920/shiny-selectinput-very-slow-on-larger-data-15-000-entries-in-browser
     observe({
-      updateSelectizeInput(session = session, inputId = 'avail_ids', choices = c(Choose = '', rownames(values$res_obj)), server = TRUE)
+      updateSelectizeInput(
+        session = session,
+        inputId = 'avail_ids',
+        choices = c(Choose = '', rownames(values$dds_obj)),
+        server = TRUE)
     })
 
     observe({
-      updateSelectizeInput(session = session, inputId = 'avail_symbols', choices = c(Choose = '', unname(values$res_obj$symbol)), server = TRUE) # using unname to prevent issues if res is modified with mapIds
+      updateSelectizeInput(
+        session = session,
+        inputId = 'avail_symbols',
+        choices = c(Choose = '', values$annotation_obj$gene_name[match(rownames(values$dds_obj), values$annotation_obj$gene_id)]),
+        server = TRUE)
     })
 
     output$available_genes <- renderUI({
-      if("symbol" %in% names(values$res_obj)) {
+      if(!is.null(values$annotation_obj)) {
         selectizeInput("avail_symbols", label = "Select the gene(s) of interest",
                        choices = NULL, selected = NULL, multiple = TRUE)
       } else { # else use the rownames as identifiers
