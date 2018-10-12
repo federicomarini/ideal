@@ -29,7 +29,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ideal</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.5.3</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.5.4</span>
       </span>
     </div>
 
@@ -76,7 +76,7 @@
 <!--/.navbar -->
 
       
-      </header><script src="ideal-usersguide_files/htmlwidgets-1.2/htmlwidgets.js"></script><script src="ideal-usersguide_files/jquery-1.12.4/jquery.min.js"></script><link href="ideal-usersguide_files/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
+      </header><script src="ideal-usersguide_files/htmlwidgets-1.3/htmlwidgets.js"></script><script src="ideal-usersguide_files/jquery-1.12.4/jquery.min.js"></script><link href="ideal-usersguide_files/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
 <script src="ideal-usersguide_files/datatables-binding-0.4/datatables.js"></script><link href="ideal-usersguide_files/dt-core-1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
 <link href="ideal-usersguide_files/dt-core-1.10.16/css/jquery.dataTables.extra.css" rel="stylesheet">
 <script src="ideal-usersguide_files/dt-core-1.10.16/js/jquery.dataTables.min.js"></script><link href="ideal-usersguide_files/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet">
@@ -90,7 +90,7 @@
       </address>
                               <h4 class="author">Harald Binder</h4>
             <address class="author_afil">
-      Institute of Medical Biostatistics, Epidemiology and Informatics (IMBEI), Mainz<br><h4 class="date">27 September 2018</h4>
+      Institute of Medical Biostatistics, Epidemiology and Informatics (IMBEI), Mainz<br><h4 class="date">12 October 2018</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/federicomarini/ideal/blob/master/vignettes/ideal-usersguide.Rmd"><code>vignettes/ideal-usersguide.Rmd</code></a></small>
       <div class="hidden name"><code>ideal-usersguide.Rmd</code></div>
@@ -106,8 +106,8 @@
     
 <!-- **Package**: *ideal* -->
 <!-- **Authors**: Federico Marini [aut, cre] (<https://orcid.org/0000-0003-3252-7758>) -->
-<!-- **Version**: 1.5.2 -->
-<p><strong>Compiled date</strong>: 2018-09-27</p>
+<!-- **Version**: 1.5.3 -->
+<p><strong>Compiled date</strong>: 2018-10-12</p>
 <p><strong>Last edited</strong>: 2017-04-04</p>
 <p><strong>License</strong>: MIT + file LICENSE</p>
 <div id="getting-started" class="section level1">
@@ -123,6 +123,7 @@ BiocManager<span class="op">::</span><span class="kw"><a href="http://www.rdocum
 <p>Once <em>ideal</em> is installed, it can be loaded by the following command.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">"ideal"</span>)</code></pre></div>
 <pre><code>## Warning: package 'topGO' was built under R version 3.5.1</code></pre>
+<pre><code>## Warning: package 'graph' was built under R version 3.5.1</code></pre>
 <pre><code>## Warning: package 'Biobase' was built under R version 3.5.1</code></pre>
 <pre><code>## Warning: package 'IRanges' was built under R version 3.5.1</code></pre>
 <pre><code>## Warning: package 'S4Vectors' was built under R version 3.5.1</code></pre>
@@ -143,7 +144,7 @@ BiocManager<span class="op">::</span><span class="kw"><a href="http://www.rdocum
 ## To cite the package 'ideal' in publications use:
 ## 
 ##   Federico Marini (2018). ideal: Interactive Differential
-##   Expression AnaLysis URL http://bioconductor.org/packages/ideal/
+##   Expression AnaLysis. URL http://bioconductor.org/packages/ideal/
 ##   doi: 10.18129/B9.bioc.ideal
 ## 
 ## A BibTeX entry for LaTeX users is
@@ -153,7 +154,7 @@ BiocManager<span class="op">::</span><span class="kw"><a href="http://www.rdocum
 ##     author = {Federico Marini},
 ##     year = {2018},
 ##     doi = {10.18129/B9.bioc.ideal},
-##     url = {http://bioconductor.org/packages/ideal/, https://github.com/federicomarini/ideal, https://federicomarini.github.io/ideal/},
+##     url = {http://bioconductor.org/packages/ideal/},
 ##   }</code></pre>
 </div>
 </div>
@@ -371,6 +372,7 @@ BiocManager<span class="op">::</span><span class="kw"><a href="http://www.rdocum
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(airway)</code></pre></div>
 <pre><code>## Warning: package 'SummarizedExperiment' was built under R version 3.5.1</code></pre>
 <pre><code>## Warning: package 'GenomicRanges' was built under R version 3.5.1</code></pre>
+<pre><code>## Warning: package 'GenomeInfoDb' was built under R version 3.5.1</code></pre>
 <pre><code>## Warning: package 'DelayedArray' was built under R version 3.5.1</code></pre>
 <pre><code>## Warning: package 'BiocParallel' was built under R version 3.5.1</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(DESeq2)</code></pre></div>
@@ -1033,17 +1035,17 @@ guessed_sep</code></pre></div>
 ## [8] methods   base     
 ## 
 ## other attached packages:
-##  [1] bindrcpp_0.2.2              edgeR_3.23.4               
+##  [1] bindrcpp_0.2.2              edgeR_3.23.5               
 ##  [3] limma_3.37.7                DEFormats_1.9.1            
-##  [5] org.Hs.eg.db_3.6.0          DESeq2_1.21.21             
-##  [7] airway_0.115.0              SummarizedExperiment_1.11.6
-##  [9] DelayedArray_0.7.42         BiocParallel_1.15.12       
+##  [5] org.Hs.eg.db_3.6.0          DESeq2_1.21.22             
+##  [7] airway_1.1.0                SummarizedExperiment_1.11.6
+##  [9] DelayedArray_0.7.47         BiocParallel_1.15.15       
 ## [11] matrixStats_0.54.0          GenomicRanges_1.33.14      
-## [13] GenomeInfoDb_1.17.1         ideal_1.5.2                
+## [13] GenomeInfoDb_1.17.2         ideal_1.5.3                
 ## [15] topGO_2.33.1                SparseM_1.77               
 ## [17] GO.db_3.6.0                 AnnotationDbi_1.43.1       
-## [19] IRanges_2.15.18             S4Vectors_0.19.19          
-## [21] Biobase_2.41.2              graph_1.59.0               
+## [19] IRanges_2.15.18             S4Vectors_0.19.22          
+## [21] Biobase_2.41.2              graph_1.59.2               
 ## [23] BiocGenerics_0.27.1         BiocStyle_2.9.6            
 ## 
 ## loaded via a namespace (and not attached):
@@ -1054,11 +1056,11 @@ guessed_sep</code></pre></div>
 ##   [9] shinydashboard_0.7.0     splines_3.5.0           
 ##  [11] crosstalk_1.0.0          gridBase_0.4-7          
 ##  [13] ggplot2_3.0.0            lpsymphony_1.9.0        
-##  [15] digest_0.6.17            foreach_1.4.4           
+##  [15] digest_0.6.18            foreach_1.4.4           
 ##  [17] htmltools_0.3.6          magrittr_1.5            
 ##  [19] checkmate_1.8.5          memoise_1.1.0           
 ##  [21] cluster_2.0.7-1          doParallel_1.0.14       
-##  [23] Biostrings_2.49.1        annotate_1.59.1         
+##  [23] Biostrings_2.49.2        annotate_1.59.1         
 ##  [25] pkgdown_1.1.0            prettyunits_1.0.2       
 ##  [27] colorspace_1.3-2         blob_1.1.1              
 ##  [29] ggrepel_0.8.0            BiasedUrn_1.07          
@@ -1069,51 +1071,51 @@ guessed_sep</code></pre></div>
 ##  [39] survival_2.42-6          iterators_1.0.10        
 ##  [41] glue_1.3.0               registry_0.5            
 ##  [43] gtable_0.2.0             zlibbioc_1.27.0         
-##  [45] XVector_0.21.3           UpSetR_1.3.3            
+##  [45] XVector_0.21.4           UpSetR_1.3.3            
 ##  [47] Rgraphviz_2.25.1         rentrez_1.2.1           
 ##  [49] scales_1.0.0             pheatmap_1.0.10         
 ##  [51] IHW_1.9.2                rngtools_1.3.1          
 ##  [53] DBI_1.0.0                bibtex_0.4.2            
-##  [55] Rcpp_0.12.18             xtable_1.8-3            
+##  [55] Rcpp_0.12.19             xtable_1.8-3            
 ##  [57] progress_1.2.0           htmlTable_1.12          
 ##  [59] foreign_0.8-71           bit_1.1-14              
 ##  [61] Formula_1.2-3            DT_0.4                  
-##  [63] AnnotationForge_1.23.3   htmlwidgets_1.2         
+##  [63] AnnotationForge_1.23.3   htmlwidgets_1.3         
 ##  [65] httr_1.3.1               threejs_0.3.1           
-##  [67] RColorBrewer_1.1-2       shinyAce_0.3.1          
+##  [67] RColorBrewer_1.1-2       shinyAce_0.3.2          
 ##  [69] acepack_1.4.1            pkgconfig_2.0.2         
 ##  [71] XML_3.98-1.16            nnet_7.3-12             
 ##  [73] locfit_1.5-9.1           labeling_0.3            
-##  [75] reshape2_1.4.3           tidyselect_0.2.4        
+##  [75] reshape2_1.4.3           tidyselect_0.2.5        
 ##  [77] rlang_0.2.2              later_0.7.5             
 ##  [79] munsell_0.5.0            tools_3.5.0             
 ##  [81] RSQLite_2.1.1            rintrojs_0.2.0          
 ##  [83] fdrtool_1.2.15           shinyBS_0.61            
-##  [85] evaluate_0.11            stringr_1.3.1           
+##  [85] evaluate_0.12            stringr_1.3.1           
 ##  [87] yaml_2.2.0               knitr_1.20              
 ##  [89] bit64_0.9-7              fs_1.2.6                
 ##  [91] geneLenDataBase_1.17.0   purrr_0.2.5             
 ##  [93] RBGL_1.57.0              nlme_3.1-137            
-##  [95] mime_0.5                 slam_0.1-43             
-##  [97] xml2_1.2.0               biomaRt_2.37.6          
-##  [99] compiler_3.5.0           rstudioapi_0.7          
+##  [95] mime_0.6                 slam_0.1-43             
+##  [97] xml2_1.2.0               biomaRt_2.37.8          
+##  [99] compiler_3.5.0           rstudioapi_0.8          
 ## [101] png_0.1-7                tibble_1.4.2            
 ## [103] geneplotter_1.59.0       stringi_1.2.4           
-## [105] GenomicFeatures_1.33.2   desc_1.2.0              
+## [105] GenomicFeatures_1.33.4   desc_1.2.0              
 ## [107] lattice_0.20-35          pcaExplorer_2.7.3       
-## [109] Matrix_1.2-14            commonmark_1.5          
-## [111] pillar_1.3.0             BiocManager_1.30.2      
+## [109] Matrix_1.2-14            commonmark_1.6          
+## [111] pillar_1.3.0             BiocManager_1.30.3      
 ## [113] goseq_1.33.0             d3heatmap_0.6.1.2       
-## [115] data.table_1.11.6        bitops_1.0-6            
+## [115] data.table_1.11.8        bitops_1.0-6            
 ## [117] httpuv_1.4.5             rtracklayer_1.41.5      
-## [119] R6_2.2.2                 latticeExtra_0.6-28     
+## [119] R6_2.3.0                 latticeExtra_0.6-28     
 ## [121] bookdown_0.7             promises_1.0.1          
 ## [123] gridExtra_2.3            codetools_0.2-15        
 ## [125] MASS_7.3-50              assertthat_0.2.0        
 ## [127] Category_2.47.1          pkgmaker_0.27           
 ## [129] rprojroot_1.3-2          withr_2.1.2             
-## [131] GenomicAlignments_1.17.3 Rsamtools_1.33.5        
-## [133] GenomeInfoDbData_1.1.0   mgcv_1.8-24             
+## [131] GenomicAlignments_1.17.3 Rsamtools_1.33.6        
+## [133] GenomeInfoDbData_1.2.0   mgcv_1.8-24             
 ## [135] hms_0.4.2                grid_3.5.0              
 ## [137] rpart_4.1-13             tidyr_0.8.1             
 ## [139] rmarkdown_1.10           shiny_1.1.0             
