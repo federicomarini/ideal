@@ -4,6 +4,7 @@
 
 * Added extra diagnostic to results exploration (stratified pvalues histograms, schweder-spjotvoll plot)
 * Added functionality for the tab Signatures Explorer: read in gmt files, and explore signatures for all/DE genes visually as heatmaps. The signatures can also be provided in the main call of the function as an argument, on top of uploading at runtime
+* Different handling of the selection of ids/gene names, now not requiring anymore that the result is computed, but based on the dds object (and on the presence or not of the annotation object)
 
 ## Other notes
 
