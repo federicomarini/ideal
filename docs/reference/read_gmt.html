@@ -143,7 +143,70 @@ file. It can also be a file found online</p></td>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># this example reads in the freely available pathways from wikipathways</span>
 <span class='no'>mysigs</span> <span class='kw'>&lt;-</span> <span class='fu'>read_gmt</span>(
-  <span class='st'>"http://data.wikipathways.org/current/gmt/wikipathways-20180910-gmt-Homo_sapiens.gmt"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: cannot open URL 'http://data.wikipathways.org/current/gmt/wikipathways-20180910-gmt-Homo_sapiens.gmt': HTTP status was '404 Not Found'</span></div><div class='output co'>#&gt; <span class='error'>Error in file(con, "r"): cannot open the connection to 'http://data.wikipathways.org/current/gmt/wikipathways-20180910-gmt-Homo_sapiens.gmt'</span></div><div class='input'><span class='fu'>head</span>(<span class='no'>mysigs</span>)</div><div class='output co'>#&gt; <span class='error'>Error in head(mysigs): object 'mysigs' not found</span></div><div class='input'># see how the gene identifiers are encoded as ENTREZ id
+  <span class='st'>"http://data.wikipathways.org/20180910/gmt/wikipathways-20180910-gmt-Homo_sapiens.gmt"</span>)
+<span class='fu'>head</span>(<span class='no'>mysigs</span>)</div><div class='output co'>#&gt; $`B Cell Receptor Signaling Pathway%WikiPathways_20180910%WP23%Homo sapiens`
+#&gt;  [1] "4690"      "5781"      "11184"     "6195"      "4609"      "998"      
+#&gt;  [7] "5777"      "10892"     "3635"      "4208"      "2308"      "4209"     
+#&gt; [13] "2549"      "4067"      "6885"      "640"       "118788"    "84433"    
+#&gt; [19] "5788"      "7462"      "6654"      "3662"      "3265"      "8394"     
+#&gt; [25] "8395"      "29760"     "1871"      "930"       "933"       "815"      
+#&gt; [31] "3932"      "2969"      "5294"      "5295"      "5296"      "5970"     
+#&gt; [37] "3551"      "5170"      "5608"      "23396"     "5601"      "5966"     
+#&gt; [43] "5604"      "5605"      "27071"     "5580"      "7006"      "4773"     
+#&gt; [49] "1385"      "1380"      "673"       "25780"     "5335"      "5336"     
+#&gt; [55] "5579"      "100847070" "8462"      "5594"      "7410"      "5596"     
+#&gt; [61] "1147"      "2113"      "1386"      "4775"      "207"       "604"      
+#&gt; [67] "3608"      "7409"      "3725"      "4790"      "6452"      "5880"     
+#&gt; [73] "6850"      "4792"      "2889"      "695"       "2885"      "1432"     
+#&gt; [79] "973"       "1399"      "3059"      "974"       "1398"      "2002"     
+#&gt; [85] "975"       "5599"      "4149"      "5879"      "6464"      "5894"     
+#&gt; [91] "26469"     "2932"      "2931"      "2534"      "8517"      "867"      
+#&gt; [97] "9846"      "8915"     
+#&gt; 
+#&gt; $`Trans-sulfuration pathway%WikiPathways_20180910%WP2333%Homo sapiens`
+#&gt;  [1] "1786"  "2730"  "27430" "875"   "191"   "4357"  "1491"  "2805"  "4548" 
+#&gt; [10] "51380"
+#&gt; 
+#&gt; $`Nanoparticle triggered autophagic cell death%WikiPathways_20180910%WP2509%Homo sapiens`
+#&gt;  [1] "9474"   "8678"   "7248"   "285973" "64422"  "55054"  "22863"  "406991"
+#&gt;  [9] "9140"   "83734"  "596"    "51100"  "84557"  "115201" "3630"   "55626" 
+#&gt; [17] "7249"   "3643"   "81671"  "7405"   "10036"  "8408"   "9706"   "10533" 
+#&gt; 
+#&gt; $`Benzene metabolism%WikiPathways_20180910%WP3891%Homo sapiens`
+#&gt; [1] "2944"  "27294" "4353"  "1571"  "1728"  "2052" 
+#&gt; 
+#&gt; $`Codeine and Morphine Metabolism%WikiPathways_20180910%WP1604%Homo sapiens`
+#&gt;  [1] "7363"  "7364"  "5243"  "1558"  "1576"  "1565"  "54578" "54600" "1244" 
+#&gt; [10] "54576" "54575" "8714"  "54659" "54658" "10599"
+#&gt; 
+#&gt; $`Calcium Regulation in the Cardiac Cell%WikiPathways_20180910%WP536%Homo sapiens`
+#&gt;   [1] "102465524" "3760"      "8490"      "2792"      "2791"      "2702"     
+#&gt;   [7] "111"       "2701"      "2700"      "2788"      "112"       "2787"     
+#&gt;  [13] "113"       "114"       "2786"      "115"       "2785"      "2784"     
+#&gt;  [19] "127534"    "2783"      "51764"     "2709"      "2707"      "2706"     
+#&gt;  [25] "2705"      "2703"      "6001"      "94235"     "6000"      "8787"     
+#&gt;  [31] "406974"    "6004"      "8786"      "480"       "481"       "482"      
+#&gt;  [37] "2280"      "483"       "55970"     "486"       "488"       "489"      
+#&gt;  [43] "3762"      "801"       "9628"      "8536"      "408"       "805"      
+#&gt;  [49] "409"       "808"       "490"       "491"       "492"       "57369"    
+#&gt;  [55] "10636"     "773"       "774"       "775"       "776"       "777"      
+#&gt;  [61] "811"       "779"       "814"       "815"       "816"       "817"      
+#&gt;  [67] "818"       "6263"      "6262"      "5570"      "5331"      "5573"     
+#&gt;  [73] "8601"      "5575"      "5576"      "1132"      "1131"      "6261"     
+#&gt;  [79] "1129"      "782"       "1128"      "146"       "784"       "3708"     
+#&gt;  [85] "10804"     "147"       "148"       "2697"      "3709"      "5566"     
+#&gt;  [91] "5567"      "5569"      "309"       "5580"      "5581"      "5582"     
+#&gt;  [97] "5583"      "11142"     "10052"     "5587"      "2870"      "153"      
+#&gt; [103] "154"       "155"       "1133"      "6546"      "5577"      "5578"     
+#&gt; [109] "5579"      "3710"      "6547"      "10971"     "2869"      "2868"     
+#&gt; [115] "5350"      "7532"      "7531"      "7534"      "7533"      "64407"    
+#&gt; [121] "5590"      "844"       "5588"      "845"       "7529"      "196883"   
+#&gt; [127] "2771"      "2770"      "57165"     "54331"     "2767"      "59345"    
+#&gt; [133] "26575"     "5996"      "5997"      "5998"      "5999"      "2782"     
+#&gt; [139] "2781"      "2778"      "2810"      "2776"      "2775"      "81025"    
+#&gt; [145] "2773"      "107"       "108"       "10681"     "109"       "10287"    
+#&gt; [151] "3745"     
+#&gt; </div><div class='input'># see how the gene identifiers are encoded as ENTREZ id
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
