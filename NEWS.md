@@ -15,6 +15,7 @@
 * Replaced the first tour structure and call
 * New skin for the app, also with logo in the title header
 * Instructions start collapsed for more compact main page
+* Edited link in button to provide feedback, with subject specified
 
 # ideal 1.4.0
 
