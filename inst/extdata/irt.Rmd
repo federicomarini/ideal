@@ -418,7 +418,7 @@ at the University Medical Center of the Johannes Gutenberg University Mainz.
 `ideal` is currently maintained by me, Federico Marini, at the IMBEI (www.imbei.uni-mainz.de).
 You can contact me by clicking on the button below.
 
-<a href="mailto:mailto:marinif@uni-mainz.de" class="btn btn-primary">Federico Marini</a>
+<a href="mailto:mailto:marinif@uni-mainz.de?subject=[ideal_feedback]" class="btn btn-primary">Federico Marini</a>
 
 ## Code availability
 
