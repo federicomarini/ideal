@@ -9,7 +9,7 @@ Thanks to its interactive/reactive design, it is designed to become a practical 
 
 ## Developers
 
-<a href="mailto:marinif@uni-mainz.de?subject=[pcaExplorer question]" class="btn btn-primary">Federico Marini</a>
+<a href="mailto:mailto:marinif@uni-mainz.de?subject=[ideal_feedback]" class="btn btn-primary">Federico Marini</a>
 
 ## Code
 
