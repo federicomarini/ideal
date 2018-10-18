@@ -3697,6 +3697,10 @@ ideal<- function(dds_obj = NULL,
 
       return(
         withProgress({
+          # temporarily switch to the temp dir, in case you do not have write
+          # permission to the current working directory
+          owd <- setwd(tempdir())
+          on.exit(setwd(owd))
           tmp_content <- paste0(rmd_yaml(),input$acereport_rmd,collapse = "\n")
           isolate(HTML(knit2html(text = tmp_content, fragment.only = TRUE, quiet = TRUE)))
         },
@@ -3734,30 +3738,18 @@ ideal<- function(dds_obj = NULL,
           # writeLines(tmp_content, fileConn)
           # close(fileConn)
           if(input$rmd_dl_format == "html") {
-            cat(tmp_content,file="ideal_tempreport.Rmd",sep="\n")
-            ## TODO: use writeLines maybe instead of this?
-            
-            
-            # attempt?
-            ## seems to work - otherwise revert to previous
-            ## TODO: see how this can work for the live rendering!?
-            src <- normalizePath("ideal_tempreport.Rmd")
             # temporarily switch to the temp dir, in case you do not have write
             # permission to the current working directory
-            cwd <- getwd()
             owd <- setwd(tempdir())
-            # on.exit(setwd(owd))
-            file.copy(src, "ideal_tempreport.Rmd",overwrite=TRUE)
+            on.exit(setwd(owd))
+            cat(tmp_content,file="ideal_tempreport.Rmd",sep="\n")
             
             withProgress(rmarkdown::render(input = "ideal_tempreport.Rmd",
                                            output_file = file,
-                                           
-                                           
                                            # fragment.only = TRUE,
                                            quiet = TRUE),
                          message = "Generating the html report",
                          detail = "This can take some time")
-            setwd(cwd)
           }
         }
       }
