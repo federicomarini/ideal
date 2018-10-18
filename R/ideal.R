@@ -3704,7 +3704,6 @@ ideal<- function(dds_obj = NULL,
           tmp_content <- paste0(rmd_yaml(),input$acereport_rmd,collapse = "\n")
           isolate(HTML(knit2html(text = tmp_content, fragment.only = TRUE, quiet = TRUE)))
         },
-        ## TODO: I should just "render on the fly" the Rmd without messing with the folders...
         message = "Updating the report in the app body",
         detail = "This can take some time"
         )
@@ -3727,23 +3726,15 @@ ideal<- function(dds_obj = NULL,
         tmp_content <-
           paste0(rmd_yaml(),
                  input$acereport_rmd,collapse = "\n")
-        # input$acereport_rmd
         if(input$rmd_dl_format == "rmd") {
           cat(tmp_content,file=file,sep="\n")
         } else {
-          # write it somewhere too keeping the source
-          # tmpfile <- tempfile()
-          # file.create(tmpfile)
-          # fileConn<- file(tempfile())
-          # writeLines(tmp_content, fileConn)
-          # close(fileConn)
           if(input$rmd_dl_format == "html") {
             # temporarily switch to the temp dir, in case you do not have write
             # permission to the current working directory
             owd <- setwd(tempdir())
             on.exit(setwd(owd))
             cat(tmp_content,file="ideal_tempreport.Rmd",sep="\n")
-            
             withProgress(rmarkdown::render(input = "ideal_tempreport.Rmd",
                                            output_file = file,
                                            # fragment.only = TRUE,

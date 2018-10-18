@@ -17,6 +17,10 @@
 * Instructions start collapsed for more compact main page
 * Edited link in button to provide feedback, with subject specified
 
+## Bug fixes
+
+* Fixed behavior of rendering inline the content of the report - did not work properly for server deployed instances
+
 # ideal 1.4.0
 
 ## New features
