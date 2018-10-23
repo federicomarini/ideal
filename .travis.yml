@@ -4,6 +4,7 @@ language: r
 r: bioc-devel
 
 sudo: required
+cache: packages
 
 r_binary_packages: 
   - stringr
