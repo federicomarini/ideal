@@ -8,6 +8,10 @@ sudo: required
 r_binary_packages: 
   - stringr
   - dplyr
+  - igraph
+  - RCurl
+  - XML
+  - git2r
   
 warnings_are_errors: false
 
