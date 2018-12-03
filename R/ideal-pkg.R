@@ -40,6 +40,7 @@
 #' @import topGO
 #' @import rintrojs
 #' @importFrom shinyBS bsTooltip
+#' @importFrom ggrepel geom_text_repel
 #' @importFrom grDevices dev.off pdf axisTicks
 #' @import methods
 #'
