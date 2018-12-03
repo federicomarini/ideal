@@ -1,3 +1,9 @@
+# ideal 1.8.0
+
+## New features
+
+* `plot_ma` gains an additional parameter, `labels_repel`, for better placing the labels on the features to mark
+
 # ideal 1.6.0
 
 ## New features
