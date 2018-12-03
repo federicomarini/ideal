@@ -1,8 +1,8 @@
 Package: ideal
 Type: Package
 Title: Interactive Differential Expression AnaLysis
-Version: 1.7.0
-Date: 2018-10-18
+Version: 1.7.1
+Date: 2018-12-03
 Authors@R: c(person("Federico", "Marini", role = c("aut", "cre"), 
         email ="marinif@uni-mainz.de", 
         comment = c(ORCID = '0000-0003-3252-7758')))
@@ -19,7 +19,7 @@ Imports: DESeq2, SummarizedExperiment, GenomicRanges, IRanges,
         S4Vectors, ggplot2 (>= 2.0.0), d3heatmap, pheatmap,
         pcaExplorer, IHW, gplots, UpSetR, goseq, stringr, dplyr,
         limma, GOstats, GO.db, AnnotationDbi, shiny (>= 0.12.0),
-        shinydashboard, shinyBS, DT, rentrez, rintrojs, knitr,
+        shinydashboard, shinyBS, DT, rentrez, rintrojs, ggrepel, knitr,
         rmarkdown, shinyAce, BiocParallel, grDevices, methods
 Suggests: testthat, BiocStyle, airway, org.Hs.eg.db,
         TxDb.Hsapiens.UCSC.hg38.knownGene, DEFormats, edgeR
@@ -30,5 +30,5 @@ biocViews: GeneExpression, DifferentialExpression, RNASeq, Sequencing,
         Visualization, QualityControl, GUI, GeneSetEnrichment,
         ReportWriting
 VignetteBuilder: knitr
-RoxygenNote: 6.1.0
+RoxygenNote: 6.1.1
 Encoding: UTF-8
