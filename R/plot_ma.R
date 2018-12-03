@@ -26,6 +26,8 @@
 #' @param intgenes_color The color to use to mark the genes on the main plot.
 #' @param labels_intgenes Logical, whether to add the gene identifiers/names close
 #' to the marked plots
+#' @param labels_repel Logical, whether to use \code{geom_text_repel} for placing the
+#' labels on the features to mark
 #'
 #' @return An object created by \code{ggplot}
 #' @export
@@ -62,7 +64,8 @@ plot_ma <- function(res_obj,
                     add_rug = TRUE,
                     intgenes = NULL,
                     intgenes_color = "steelblue",
-                    labels_intgenes = TRUE) {
+                    labels_intgenes = TRUE,
+                    labels_repel = TRUE) {
   ma_df <- data.frame(
     mean = res_obj$baseMean,
     lfc = res_obj$log2FoldChange,
@@ -119,22 +122,23 @@ plot_ma <- function(res_obj,
     }
 
     # df_intgenes <- res_df[res_df$symbol %in% intgenes,]
-
     p <- p + geom_point(data = df_intgenes,aes_string("logmean", "log2FoldChange"), color = intgenes_color, size = 4)
 
     if(labels_intgenes) {
-      p <- p + geom_text(data = df_intgenes,aes_string("logmean", "log2FoldChange",label="myids"),
+      if(labels_repel) {
+        p <- p + geom_text_repel(data = df_intgenes,aes_string("logmean", "log2FoldChange",label="myids"),
+                           color = intgenes_color, size=5)
+      } else {
+        p <- p + geom_text(data = df_intgenes,aes_string("logmean", "log2FoldChange",label="myids"),
                          color = intgenes_color, size=5,hjust=0.25, vjust=-0.75)
+      }    
     }
-
   }
 
   if(add_rug)
     p <- p + geom_rug(alpha = 0.3)
 
-
   p <- p + theme_bw()
-
   p
 }
 
