@@ -1,7 +1,7 @@
 Package: ideal
 Type: Package
 Title: Interactive Differential Expression AnaLysis
-Version: 1.7.1
+Version: 1.7.2
 Date: 2018-12-03
 Authors@R: c(person("Federico", "Marini", role = c("aut", "cre"), 
         email ="marinif@uni-mainz.de", 
@@ -26,7 +26,7 @@ Suggests: testthat, BiocStyle, airway, org.Hs.eg.db,
 URL: https://github.com/federicomarini/ideal,
         https://federicomarini.github.io/ideal/
 BugReports: https://github.com/federicomarini/ideal/issues
-biocViews: GeneExpression, DifferentialExpression, RNASeq, Sequencing,
+biocViews: ImmunoOncology, GeneExpression, DifferentialExpression, RNASeq, Sequencing,
         Visualization, QualityControl, GUI, GeneSetEnrichment,
         ReportWriting
 VignetteBuilder: knitr
