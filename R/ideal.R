@@ -1429,19 +1429,20 @@ ideal<- function(dds_obj = NULL,
 
 
     # server retrieving anno --------------------------------------------------
-    annoSpecies_df <- data.frame(species=c("","Anopheles","Arabidopsis","Bovine","Worm",
-                                           "Canine","Fly","Zebrafish","E coli strain K12",
-                                           "E coli strain Sakai","Chicken","Human","Mouse",
-                                           "Rhesus","Malaria","Chimp","Rat",
-                                           "Yeast","Streptomyces coelicolor", "Pig","Toxoplasma gondii",
-                                           "Xenopus"),
-                                 pkg=c("","org.Ag.eg.db", "org.At.tair.db", "org.Bt.eg.db", "org.Ce.eg.db",
-                                       "org.Cf.eg.db", "org.Dm.eg.db", "org.Dr.eg.db", "org.EcK12.eg.db",
-                                       "org.EcSakai.eg.db", "org.Gg.eg.db", "org.Hs.eg.db", "org.Mm.eg.db",
-                                       "org.Mmu.eg.db", "org.Pf.plasmo.db", "org.Pt.eg.db", "org.Rn.eg.db",
-                                       "org.Sc.sgd.db", "org.Sco.eg.db", "org.Ss.eg.db", "org.Tgondii.eg.db",
-                                       "org.Xl.eg.db"),
-                                 stringsAsFactors = FALSE)
+    annoSpecies_df <- 
+      data.frame(species=c("","Anopheles","Arabidopsis","Bovine","Worm",
+                           "Canine","Fly","Zebrafish","E coli strain K12",
+                           "E coli strain Sakai","Chicken","Human","Mouse",
+                           "Rhesus","Malaria","Chimp","Rat",
+                           "Yeast","Streptomyces coelicolor", "Pig","Toxoplasma gondii",
+                           "Xenopus"),
+                 pkg=c("","org.Ag.eg.db", "org.At.tair.db", "org.Bt.eg.db", "org.Ce.eg.db",
+                       "org.Cf.eg.db", "org.Dm.eg.db", "org.Dr.eg.db", "org.EcK12.eg.db",
+                       "org.EcSakai.eg.db", "org.Gg.eg.db", "org.Hs.eg.db", "org.Mm.eg.db",
+                       "org.Mmu.eg.db", "org.Pf.plasmo.db", "org.Pt.eg.db", "org.Rn.eg.db",
+                       "org.Sc.sgd.db", "org.Sco.eg.db", "org.Ss.eg.db", "org.Tgondii.eg.db",
+                       "org.Xl.eg.db"),
+                 stringsAsFactors = FALSE)
 
     annoSpecies_df <- annoSpecies_df[order(annoSpecies_df$species),]
     # this one is relevant for creating links to the genes
