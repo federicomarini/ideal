@@ -23,6 +23,7 @@ deseqresult2tbl <- function(deseqresult) {
 
   deseqresult <- cbind(rownames(deseqresult),deseqresult)
   names(deseqresult)[1] <- "id"
+  deseqresult$id <- as.character(deseqresult$id)
 
   dplyr::arrange_(deseqresult,"padj")
 }
@@ -57,7 +58,8 @@ deseqresult2DEgenes <- function(deseqresult,
 
   deseqresult <- cbind(rownames(deseqresult),deseqresult)
   names(deseqresult)[1] <- "id"
-
+  deseqresult$id <- as.character(deseqresult$id)
+  
   # deseqresult$id <- rownames(deseqresult)
   # rownames(deseqresult) <- NULL
   # deseqresult <- dplyr::tbl_df(deseqresult)
