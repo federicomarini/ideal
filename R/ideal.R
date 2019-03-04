@@ -928,11 +928,6 @@ ideal<- function(dds_obj = NULL,
                   selectInput("mode", "Mode: ", choices=shinyAce::getAceModes(), selected="markdown"),
                   selectInput("theme", "Theme: ", choices=shinyAce::getAceThemes(), selected="solarized_light"))
               )
-              # ,
-              # column( # kept for debugging purposes!
-              #   width = 6,
-              #   verbatimTextOutput("loadedRmd")
-              # )
             ),
             fluidRow(
               column(3,
@@ -1429,7 +1424,6 @@ ideal<- function(dds_obj = NULL,
       datatable(values$expdesign,options = list(scrollX = TRUE))
     })
 
-
     # http://stackoverflow.com/questions/17024685/how-to-use-a-character-string-in-formula
     # http://stats.stackexchange.com/questions/29477/how-to-write-a-linear-model-formula-with-100-variables-in-r
     # http://stackoverflow.com/questions/7666807/anova-test-fails-on-lme-fits-created-with-pasted-formula/7668846#7668846
@@ -1729,7 +1723,6 @@ ideal<- function(dds_obj = NULL,
                    curr_species <- input$speciesSelect
                    values$dds_obj <- filt_dds
                    updateSelectInput(session, inputId = "speciesSelect", selected = curr_species)
-
                  })
 
     # server managing gene lists --------------------------------------------------------
@@ -1768,7 +1761,6 @@ ideal<- function(dds_obj = NULL,
         return(gl2)
       }
     })
-
 
     observeEvent(input$gl_ma,
                  {
@@ -3214,7 +3206,6 @@ ideal<- function(dds_obj = NULL,
       exportPlots$plot_pvals_ss <- p
       p
     })
-    
     
 
     output$logfc_hist <- renderPlot({
