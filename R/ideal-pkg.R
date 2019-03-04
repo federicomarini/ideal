@@ -41,6 +41,7 @@
 #' @import rintrojs
 #' @importFrom shinyBS bsTooltip
 #' @importFrom ggrepel geom_text_repel
+#' @importFrom base64enc dataURI
 #' @importFrom grDevices dev.off pdf axisTicks
 #' @import methods
 #'

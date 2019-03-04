@@ -1,8 +1,8 @@
 Package: ideal
 Type: Package
 Title: Interactive Differential Expression AnaLysis
-Version: 1.7.2
-Date: 2018-12-03
+Version: 1.7.3
+Date: 2018-03-04
 Authors@R: c(person("Federico", "Marini", role = c("aut", "cre"), 
         email ="marinif@uni-mainz.de", 
         comment = c(ORCID = '0000-0003-3252-7758')))
@@ -20,7 +20,8 @@ Imports: DESeq2, SummarizedExperiment, GenomicRanges, IRanges,
         pcaExplorer, IHW, gplots, UpSetR, goseq, stringr, dplyr,
         limma, GOstats, GO.db, AnnotationDbi, shiny (>= 0.12.0),
         shinydashboard, shinyBS, DT, rentrez, rintrojs, ggrepel, knitr,
-        rmarkdown, shinyAce, BiocParallel, grDevices, methods
+        rmarkdown, shinyAce, BiocParallel, grDevices, methods,
+        base64enc
 Suggests: testthat, BiocStyle, airway, org.Hs.eg.db,
         TxDb.Hsapiens.UCSC.hg38.knownGene, DEFormats, edgeR
 URL: https://github.com/federicomarini/ideal,
