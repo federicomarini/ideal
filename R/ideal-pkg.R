@@ -21,7 +21,7 @@
 #' @import shiny
 #' @importFrom DT datatable
 #' @import shinydashboard
-#' @importFrom AnnotationDbi mapIds select
+#' @importFrom AnnotationDbi mapIds select keytypes
 #' @import shinyAce
 #' @import BiocParallel
 #' @import knitr
