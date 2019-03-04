@@ -3,6 +3,12 @@
 ## New features
 
 * `plot_ma` gains an additional parameter, `labels_repel`, for better placing the labels on the features to mark
+* The pairwise correlation plots can now use logarithmic scale in the axes, use smaller subsets of the data for quicker inspection, and resizes the correlation info proportionally to its intensity
+
+## Other notes
+
+* An information box has been added to provide detailed information on the required input formats
+* Added notification to specify how to install the airway package for demonstration purposes if not already available
 
 # ideal 1.6.0
 
