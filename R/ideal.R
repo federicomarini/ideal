@@ -262,6 +262,17 @@ ideal<- function(dds_obj = NULL,
                   "... or you can also ",
                   actionButton("btn_loaddemo", "Load the demo airway data", icon = icon("play-circle"),
                                class = "btn btn-info"),br(), p()
+                ),
+                column(
+                  width = 4,
+                  br(),
+                  actionButton("help_format",label = "",icon = icon("question-circle"),
+                               style="color: #0092AC; background-color: #FFFFFF; border-color: #FFFFFF"),
+                  shinyBS::bsTooltip(
+                    "help_format", 
+                    "How to provide your input data to ideal",
+                    "bottom", options = list(container = "body")
+                  )
                 )
               ),
               
@@ -1209,10 +1220,25 @@ ideal<- function(dds_obj = NULL,
                    showNotification("All components for generating the DESeqDataset object have been loaded, proceed to Step 2!",
                                     type = "message")
                    } else {
-                     showNotification("The 'airway' package is currently not installed. Please do so by executing BiocManager::install('airway') before launching pcaExplorer",type = "warning")
+                     showNotification("The 'airway' package is currently not installed. Please do so by executing BiocManager::install('airway') before launching ideal()",type = "warning")
                    }
                  })
     )
+    
+    observeEvent(input$help_format, {
+      showModal(modalDialog(
+        title = "Format specifications for ideal",
+        includeMarkdown(system.file("extdata", "datainput.md",package = "ideal")),
+        h4("Example:"),
+        tags$img(
+          src = base64enc::dataURI(file = system.file("www", "help_dataformats.png",package = "pcaExplorer"), mime = "image/png"),
+          width = 750
+        ),
+        easyClose = TRUE,
+        footer = NULL,
+        size = "l"
+      ))
+    })
 
     output$ddsdesign <- renderUI({
       if(is.null(values$expdesign))
