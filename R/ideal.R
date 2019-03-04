@@ -1510,7 +1510,14 @@ ideal<- function(dds_obj = NULL,
     output$ui_idtype <- renderUI({
       if (is.null(values$dds_obj)) #
         return(NULL)
-      selectInput("idtype", "select the id type in your data", choices=c("ENSEMBL","ENTREZID","REFSEQ","SYMBOL"))
+      
+      std_choices <- c("ENSEMBL","ENTREZID","REFSEQ","SYMBOL")
+      if (input$speciesSelect!=""){
+        annopkg <- annoSpecies_df$pkg[annoSpecies_df$species==input$speciesSelect]
+        pkg_choices <- keytypes(get(annopkg))
+        std_choices <- union(std_choices, pkg_choices)
+      }
+      selectInput("idtype", "select the id type in your data", choices=std_choices)
     })
 
     output$speciespkg <- renderText({
