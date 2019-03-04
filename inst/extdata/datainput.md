@@ -1,0 +1,8 @@
+- `ideal` accepts only **text files, either comma, semicolon, or tab-separated**. This avoids proprietary formats such as Excel, which can also inadvertently convert your gene identifiers to dates or floating point numbers (SEPT2, see more [here](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-016-1044-7))
+- the delimiter used in the text file should be automatically guessed with a heuristic rule
+- for **count data**: features are in the rows, samples are stored in the columns
+- for the **metadata**: each row stores the relevant experimental variables of each sample
+- for the **gene annotation**: each row relates to a feature (i.e. a gene), with its id in the row names, and at least a column called gene_name, containing a more readable format (e.g. HGNC gene symbols)
+- it is important to have **headers**, as they are used in constructing the `dds` object and checking its validity: for example, the column names of the count matrix have to be identical to the row names of the sample metadata. This small constraint guarantees a higher degree of robustness for all the subsequent steps
+- if your data in stored in Excel sheets, export them to csv format (specify the correct separator accordingly when loading the data - you can always open them in a text editor to check)
+- general reminder: if you launch `ideal` directly from the terminal/RStudio IDE, you can pre-compute the objects, this can speed up
