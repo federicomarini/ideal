@@ -60,7 +60,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ideal</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.7.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.7.3</span>
       </span>
     </div>
 
@@ -124,6 +124,15 @@
 <ul>
 <li>
 <code>plot_ma</code> gains an additional parameter, <code>labels_repel</code>, for better placing the labels on the features to mark</li>
+<li>The pairwise correlation plots can now use logarithmic scale in the axes, use smaller subsets of the data for quicker inspection, and resizes the correlation info proportionally to its intensity</li>
+</ul>
+</div>
+<div id="other-notes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#other-notes" class="anchor"></a>Other notes</h2>
+<ul>
+<li>An information box has been added to provide detailed information on the required input formats</li>
+<li>Added notification to specify how to install the airway package for demonstration purposes if not already available</li>
 </ul>
 </div>
 </div>
@@ -139,9 +148,9 @@
 <li>Different handling of the selection of ids/gene names, now not requiring anymore that the result is computed, but based on the dds object (and on the presence or not of the annotation object)</li>
 </ul>
 </div>
-<div id="other-notes" class="section level2">
+<div id="other-notes-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#other-notes" class="anchor"></a>Other notes</h2>
+<a href="#other-notes-1" class="anchor"></a>Other notes</h2>
 <ul>
 <li>Built project website via pkgdown, with customized reference structure</li>
 <li>Added a <code>NEWS.md</code> file to track changes to the package</li>
@@ -182,9 +191,9 @@
 <li>Fixed the behavior with addMLE</li>
 </ul>
 </div>
-<div id="other-notes-1" class="section level2">
+<div id="other-notes-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#other-notes-1" class="anchor"></a>Other notes</h2>
+<a href="#other-notes-2" class="anchor"></a>Other notes</h2>
 <ul>
 <li>Added further progress indicators to give feedback during lengthy steps</li>
 <li>Improved ggplotCounts for better scale display, using exact arg matching, defaulting to the transformed counts</li>
@@ -332,7 +341,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
 </div>
       </footer>
    </div>

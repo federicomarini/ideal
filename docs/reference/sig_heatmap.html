@@ -64,7 +64,7 @@ possibility to compactly display also DE only genes" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ideal</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.7.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.7.3</span>
       </span>
     </div>
 
@@ -212,8 +212,8 @@ expression values</p></td>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>org.Hs.eg.db</span>)
 <span class='no'>annovec</span> <span class='kw'>&lt;-</span> <span class='fu'>mapIds</span>(<span class='no'>org.Hs.eg.db</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/colnames'>rownames</a></span>(<span class='no'>dds_airway</span>),<span class='st'>"ENTREZID"</span>,<span class='st'>"ENSEMBL"</span>)
 <span class='no'>mysignatures</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_gmt.html'>read_gmt</a></span>(
-  <span class='st'>"http://data.wikipathways.org/current/gmt/wikipathways-20180910-gmt-Homo_sapiens.gmt"</span>)
-<span class='no'>mysignature_name</span> <span class='kw'>&lt;-</span> <span class='st'>"Lung fibrosis%WikiPathways_20180910%WP3624%Homo sapiens"</span>
+  <span class='st'>"http://data.wikipathways.org/20190210/gmt/wikipathways-20190210-gmt-Homo_sapiens.gmt"</span>)
+<span class='no'>mysignature_name</span> <span class='kw'>&lt;-</span> <span class='st'>"Lung fibrosis%WikiPathways_20190210%WP3624%Homo sapiens"</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>pheatmap</span>)
 <span class='fu'>sig_heatmap</span>(<span class='no'>vst_airway</span>,
             <span class='no'>mysignatures</span><span class='kw'>[[</span><span class='no'>mysignature_name</span>]],
@@ -244,7 +244,7 @@ expression values</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
 </div>
       </footer>
    </div>
