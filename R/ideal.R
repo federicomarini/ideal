@@ -1189,9 +1189,12 @@ ideal<- function(dds_obj = NULL,
 
     # load the demo data
     observeEvent(input$btn_loaddemo,withProgress(
+                 message = "Loading demo data",
+                 detail = "Loading airway count and metadata information", value = 0,
                  {
-                   requireNamespace("airway",quietly = TRUE)
-                   data(airway,package="airway",envir = environment())
+                   aw <- requireNamespace("airway",quietly = TRUE)
+                   if(aw) {
+                     data(airway,package="airway",envir = environment())
 
                    cm_airway <- assay(airway)
                    ed_airway <- as.data.frame(colData(airway))
@@ -1203,7 +1206,13 @@ ideal<- function(dds_obj = NULL,
                    values$dds_obj <- NULL
                    values$annotation_obj <- NULL
                    values$res_obj <- NULL
-                 }, message = "Loading demo data"))
+                   showNotification("All components for generating the DESeqDataset object have been loaded, proceed to Step 2!",
+                                    type = "message")
+                   } else {
+                     showNotification("The 'airway' package is currently not installed. Please do so by executing BiocManager::install('airway') before launching pcaExplorer",type = "warning")
+                   }
+                 })
+    )
 
     output$ddsdesign <- renderUI({
       if(is.null(values$expdesign))
