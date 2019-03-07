@@ -2703,13 +2703,27 @@ ideal<- function(dds_obj = NULL,
     output$sig_ui_id_data <- renderUI({
       if (is.null(values$dds_obj)) #
         return(NULL)
-      selectInput("sig_id_data", "select the id type in your dds data", choices=c("ENSEMBL","ENTREZID","REFSEQ","SYMBOL"))
+      
+      std_choices <- c("ENSEMBL","ENTREZID","REFSEQ","SYMBOL")
+      if (input$speciesSelect!=""){
+        annopkg <- annoSpecies_df$pkg[annoSpecies_df$species==input$speciesSelect]
+        pkg_choices <- keytypes(get(annopkg))
+        std_choices <- union(std_choices, pkg_choices)
+      }
+      selectInput("sig_id_data", "select the id type in your dds data", choices=std_choices)
     })
     
     output$sig_ui_id_sigs <- renderUI({
       if (is.null(values$gene_signatures)) #
         return(NULL)
-      selectInput("sig_id_sigs", "select the id type in your signatures", choices=c("ENSEMBL","ENTREZID","REFSEQ","SYMBOL"), selected = "SYMBOL")
+      
+      std_choices <- c("ENSEMBL","ENTREZID","REFSEQ","SYMBOL")
+      if (input$speciesSelect!=""){
+        annopkg <- annoSpecies_df$pkg[annoSpecies_df$species==input$speciesSelect]
+        pkg_choices <- keytypes(get(annopkg))
+        std_choices <- union(std_choices, pkg_choices)
+      }
+      selectInput("sig_id_sigs", "select the id type in your signatures", choices=std_choices)
     })
     
     available_orgdb <- rownames(installed.packages())[
