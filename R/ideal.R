@@ -1898,7 +1898,7 @@ ideal<- function(dds_obj = NULL,
       listGenesEntrez <- as.character(AnnotationDbi::mapIds(eval(parse(text=annopkg)), keys = values$genelistUP(),
                                                             column="ENTREZID", keytype=inputType))
       listBackgroundEntrez <- as.character(AnnotationDbi::mapIds(eval(parse(text=annopkg)), keys = backgroundgenes,
-                                                                 column="ENTREZID", keytype="ENSEMBL"))
+                                                                 column="ENTREZID", keytype=input$idtype))
 
       # print(values$genelistUP())
       print(str(listGenesEntrez))
@@ -1921,14 +1921,15 @@ ideal<- function(dds_obj = NULL,
                      organism <- annoSpecies_df[values$cur_species,]$species_short
                      backgroundgenes <- rownames(values$dds_obj)[rowSums(counts(values$dds_obj))>0]
                      inputType <- "SYMBOL" # will be replaced by input$...
-                     annopkg <- paste0("org.",organism,".eg.db")
+                     # annopkg <- paste0("org.",organism,".eg.db")
+                     annopkg <- annoSpecies_df[values$cur_species,]$pkg
                      if (!require(annopkg,character.only=TRUE)) {
                        stop("The package",annopkg, "is not installed/available. Try installing it with BiocManager::install() ?")
                      }
                      listGenesEntrez <-  as.character(AnnotationDbi::mapIds(eval(parse(text=annopkg)), keys = values$genelistUP(),
                                                                             column="ENTREZID", keytype=inputType))
                      listBackgroundEntrez <-  as.character(AnnotationDbi::mapIds(eval(parse(text=annopkg)), keys = backgroundgenes,
-                                                                                 column="ENTREZID", keytype="ENSEMBL"))
+                                                                                 column="ENTREZID", keytype=input$idtype))
                      incProgress(0.1, detail = "IDs mapped")
                      values$gse_up <- limma::topGO(limma::goana(listGenesEntrez, listBackgroundEntrez, species = organism),
                                                    ontology= input$go_cats[1],
@@ -1954,7 +1955,7 @@ ideal<- function(dds_obj = NULL,
                      assayed.genes <- mapIds(get(annoSpecies_df[values$cur_species,]$pkg),
                                              keys=assayed.genes.ids,
                                              column="SYMBOL",
-                                             keytype="ENSEMBL",
+                                             keytype=input$idtype,
                                              multiVals="first")
                      de.genes.ids <- mapIds(get(annoSpecies_df[values$cur_species,]$pkg),
                                             keys=de.genes,
@@ -1988,7 +1989,7 @@ ideal<- function(dds_obj = NULL,
                      bg_symbols <- mapIds(get(annoSpecies_df[values$cur_species,]$pkg),
                                           keys=bg_ids,
                                           column="SYMBOL",
-                                          keytype="ENSEMBL",
+                                          keytype=input$idtype,
                                           multiVals="first")
                      incProgress(0.1, detail = "IDs mapped")
                      # library(topGO)
@@ -2015,7 +2016,7 @@ ideal<- function(dds_obj = NULL,
                      listGenesEntrez <-  as.character(AnnotationDbi::mapIds(eval(parse(text=annopkg)), keys = values$genelistDOWN(),
                                                                             column="ENTREZID", keytype=inputType))
                      listBackgroundEntrez <-  as.character(AnnotationDbi::mapIds(eval(parse(text=annopkg)), keys = backgroundgenes,
-                                                                                 column="ENTREZID", keytype="ENSEMBL"))
+                                                                                 column="ENTREZID", keytype=input$idtype))
                      incProgress(0.1, detail = "IDs mapped")
                      values$gse_down <- limma::topGO(limma::goana(listGenesEntrez, listBackgroundEntrez, species = organism),
                                                      ontology=input$go_cats[1],
@@ -2042,7 +2043,7 @@ ideal<- function(dds_obj = NULL,
                      assayed.genes <- mapIds(get(annoSpecies_df[values$cur_species,]$pkg),
                                              keys=assayed.genes.ids,
                                              column="SYMBOL",
-                                             keytype="ENSEMBL",
+                                             keytype=input$idtype,
                                              multiVals="first")
                      de.genes.ids <- mapIds(get(annoSpecies_df[values$cur_species,]$pkg),
                                             keys=de.genes,
@@ -2076,7 +2077,7 @@ ideal<- function(dds_obj = NULL,
                      bg_symbols <- mapIds(get(annoSpecies_df[values$cur_species,]$pkg),
                                           keys=bg_ids,
                                           column="SYMBOL",
-                                          keytype="ENSEMBL",
+                                          keytype=input$idtype,
                                           multiVals="first")
                      incProgress(0.1, detail = "IDs mapped")
                      # library(topGO)
@@ -2105,7 +2106,7 @@ ideal<- function(dds_obj = NULL,
                      listGenesEntrez <-  as.character(AnnotationDbi::mapIds(eval(parse(text=annopkg)), keys = values$genelistUPDOWN(),
                                                                             column="ENTREZID", keytype=inputType))
                      listBackgroundEntrez <-  as.character(AnnotationDbi::mapIds(eval(parse(text=annopkg)), keys = backgroundgenes,
-                                                                                 column="ENTREZID", keytype="ENSEMBL"))
+                                                                                 column="ENTREZID", keytype=input$idtype))
                      incProgress(0.1, detail = "IDs mapped")
                      values$gse_updown <- limma::topGO(limma::goana(listGenesEntrez, listBackgroundEntrez, species = organism),
                                                        ontology=input$go_cats[1],
@@ -2133,7 +2134,7 @@ ideal<- function(dds_obj = NULL,
                      assayed.genes <- mapIds(get(annoSpecies_df[values$cur_species,]$pkg),
                                              keys=assayed.genes.ids,
                                              column="SYMBOL",
-                                             keytype="ENSEMBL",
+                                             keytype=input$idtype,
                                              multiVals="first")
                      de.genes.ids <- mapIds(get(annoSpecies_df[values$cur_species,]$pkg),
                                             keys=de.genes,
@@ -2167,7 +2168,7 @@ ideal<- function(dds_obj = NULL,
                      bg_symbols <- mapIds(get(annoSpecies_df[values$cur_species,]$pkg),
                                           keys=bg_ids,
                                           column="SYMBOL",
-                                          keytype="ENSEMBL",
+                                          keytype=input$idtype,
                                           multiVals="first")
                      incProgress(0.1, detail = "IDs mapped")
                      # library(topGO)
@@ -2194,7 +2195,7 @@ ideal<- function(dds_obj = NULL,
                      listGenesEntrez <- AnnotationDbi::mapIds(eval(parse(text=annopkg)), keys = as.character(values$genelist1$`Gene Symbol`),
                                                               column="ENTREZID", keytype=inputType)
                      listBackgroundEntrez <- AnnotationDbi::mapIds(eval(parse(text=annopkg)), keys = backgroundgenes,
-                                                                   column="ENTREZID", keytype="ENSEMBL")
+                                                                   column="ENTREZID", keytype=input$idtype)
                      incProgress(0.1, detail = "IDs mapped")
                      values$gse_list1 <- limma::topGO(limma::goana(listGenesEntrez, listBackgroundEntrez, species = organism),
                                                       ontology=input$go_cats[1],
@@ -2220,7 +2221,7 @@ ideal<- function(dds_obj = NULL,
                      assayed.genes <- mapIds(get(annoSpecies_df[values$cur_species,]$pkg),
                                              keys=assayed.genes.ids,
                                              column="SYMBOL",
-                                             keytype="ENSEMBL",
+                                             keytype=input$idtype,
                                              multiVals="first")
                      de.genes.ids <- mapIds(get(annoSpecies_df[values$cur_species,]$pkg),
                                             keys=de.genes,
@@ -2254,7 +2255,7 @@ ideal<- function(dds_obj = NULL,
                      bg_symbols <- mapIds(get(annoSpecies_df[values$cur_species,]$pkg),
                                           keys=bg_ids,
                                           column="SYMBOL",
-                                          keytype="ENSEMBL",
+                                          keytype=input$idtype,
                                           multiVals="first")
                      incProgress(0.1, detail = "IDs mapped")
                      # library(topGO)
@@ -2280,7 +2281,7 @@ ideal<- function(dds_obj = NULL,
                      listGenesEntrez <- AnnotationDbi::mapIds(eval(parse(text=annopkg)), keys = as.character(values$genelist2$`Gene Symbol`),
                                                               column="ENTREZID", keytype=inputType)
                      listBackgroundEntrez <- AnnotationDbi::mapIds(eval(parse(text=annopkg)), keys = backgroundgenes,
-                                                                   column="ENTREZID", keytype="ENSEMBL")
+                                                                   column="ENTREZID", keytype=input$idtype)
                      incProgress(0.1, detail = "IDs mapped")
                      values$gse_list2 <- limma::topGO(limma::goana(listGenesEntrez, listBackgroundEntrez, species = organism),
                                                       ontology=input$go_cats[1],
@@ -2305,7 +2306,7 @@ ideal<- function(dds_obj = NULL,
                      assayed.genes <- mapIds(get(annoSpecies_df[values$cur_species,]$pkg),
                                              keys=assayed.genes.ids,
                                              column="SYMBOL",
-                                             keytype="ENSEMBL",
+                                             keytype=input$idtype,
                                              multiVals="first")
                      de.genes.ids <- mapIds(get(annoSpecies_df[values$cur_species,]$pkg),
                                             keys=de.genes,
@@ -2339,7 +2340,7 @@ ideal<- function(dds_obj = NULL,
                      bg_symbols <- mapIds(get(annoSpecies_df[values$cur_species,]$pkg),
                                           keys=bg_ids,
                                           column="SYMBOL",
-                                          keytype="ENSEMBL",
+                                          keytype=input$idtype,
                                           multiVals="first")
                      incProgress(0.1, detail = "IDs mapped")
                      # library(topGO)
