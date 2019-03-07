@@ -1894,7 +1894,8 @@ ideal<- function(dds_obj = NULL,
       organism <- annoSpecies_df[values$cur_species,]$species_short
       backgroundgenes <- rownames(values$dds_obj)[rowSums(counts(values$dds_obj))>0]
       inputType <- "SYMBOL" # will be replaced by input$...
-      annopkg <- paste0("org.",organism,".eg.db")
+      # annopkg <- paste0("org.",organism,".eg.db")
+      annopkg <- annoSpecies_df[values$cur_species,]$pkg
       listGenesEntrez <- as.character(AnnotationDbi::mapIds(eval(parse(text=annopkg)), keys = values$genelistUP(),
                                                             column="ENTREZID", keytype=inputType))
       listBackgroundEntrez <- as.character(AnnotationDbi::mapIds(eval(parse(text=annopkg)), keys = backgroundgenes,
@@ -2009,7 +2010,6 @@ ideal<- function(dds_obj = NULL,
                      organism <- annoSpecies_df[values$cur_species,]$species_short
                      backgroundgenes <- rownames(values$dds_obj)[rowSums(counts(values$dds_obj))>0]
                      inputType <- "SYMBOL" # will be replaced by input$...
-                     annopkg <- paste0("org.",organism,".eg.db")
                      if (!require(annopkg,character.only=TRUE)) {
                        stop("The package",annopkg, "is not installed/available. Try installing it with BiocManager::install() ?")
                      }
@@ -2099,7 +2099,8 @@ ideal<- function(dds_obj = NULL,
                      organism <- annoSpecies_df[values$cur_species,]$species_short
                      backgroundgenes <- rownames(values$dds_obj)[rowSums(counts(values$dds_obj))>0]
                      inputType <- "SYMBOL" # will be replaced by input$...
-                     annopkg <- paste0("org.",organism,".eg.db")
+                     # annopkg <- paste0("org.",organism,".eg.db")
+                     annopkg <- annoSpecies_df[values$cur_species,]$pkg
                      if (!require(annopkg,character.only=TRUE)) {
                        stop("The package",annopkg, "is not installed/available. Try installing it with BiocManager::install() ?")
                      }
@@ -2188,7 +2189,8 @@ ideal<- function(dds_obj = NULL,
                      organism <- annoSpecies_df[values$cur_species,]$species_short
                      backgroundgenes <- rownames(values$dds_obj)[rowSums(counts(values$dds_obj))>0]
                      inputType <- "SYMBOL" # will be replaced by input$...
-                     annopkg <- paste0("org.",organism,".eg.db")
+                     # annopkg <- paste0("org.",organism,".eg.db")
+                     annopkg <- annoSpecies_df[values$cur_species,]$pkg
                      if (!require(annopkg,character.only=TRUE)) {
                        stop("The package",annopkg, "is not installed/available. Try installing it with BiocManager::install() ?")
                      }
@@ -2274,7 +2276,8 @@ ideal<- function(dds_obj = NULL,
                      organism <- annoSpecies_df[values$cur_species,]$species_short
                      backgroundgenes <- rownames(values$dds_obj)[rowSums(counts(values$dds_obj))>0]
                      inputType <- "SYMBOL" # will be replaced by input$...
-                     annopkg <- paste0("org.",organism,".eg.db")
+                     # annopkg <- paste0("org.",organism,".eg.db")
+                     annopkg <- annoSpecies_df[values$cur_species,]$pkg
                      if (!require(annopkg,character.only=TRUE)) {
                        stop("The package",annopkg, "is not installed/available. Try installing it with BiocManager::install() ?")
                      }
