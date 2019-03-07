@@ -2506,7 +2506,7 @@ ideal<- function(dds_obj = NULL,
 
       genevec <- unlist(strsplit(mygenes,split=","))
       annopkg <- annoSpecies_df$pkg[annoSpecies_df$species==input$speciesSelect]
-      genevec_ids <- mapIds(eval(parse(text=annopkg)),genevec,"ENSEMBL","SYMBOL",multiVals="first")
+      genevec_ids <- mapIds(eval(parse(text=annopkg)),genevec,input$idtype,"SYMBOL",multiVals="first")
       log2things <- assay(normTransform(values$dds_obj))
       selectedLogvalues <- log2things[genevec_ids,]
 
@@ -2535,7 +2535,7 @@ ideal<- function(dds_obj = NULL,
 
       genevec <- unlist(strsplit(mygenes,split=","))
       annopkg <- annoSpecies_df$pkg[annoSpecies_df$species==input$speciesSelect]
-      genevec_ids <- mapIds(eval(parse(text=annopkg)),genevec,"ENSEMBL","SYMBOL",multiVals="first")
+      genevec_ids <- mapIds(eval(parse(text=annopkg)),genevec,input$idtype,"SYMBOL",multiVals="first")
       log2things <- assay(normTransform(values$dds_obj))
       selectedLogvalues <- log2things[genevec_ids,]
 
@@ -2566,7 +2566,7 @@ ideal<- function(dds_obj = NULL,
 
       genevec <- unlist(strsplit(mygenes,split=","))
       annopkg <- annoSpecies_df$pkg[annoSpecies_df$species==input$speciesSelect]
-      genevec_ids <- mapIds(eval(parse(text=annopkg)),genevec,"ENSEMBL","SYMBOL",multiVals="first")
+      genevec_ids <- mapIds(eval(parse(text=annopkg)),genevec,input$idtype,"SYMBOL",multiVals="first")
       log2things <- assay(normTransform(values$dds_obj))
       selectedLogvalues <- log2things[genevec_ids,]
 
@@ -2595,7 +2595,7 @@ ideal<- function(dds_obj = NULL,
 
       genevec <- unlist(strsplit(mygenes,split=","))
       annopkg <- annoSpecies_df$pkg[annoSpecies_df$species==input$speciesSelect]
-      genevec_ids <- mapIds(eval(parse(text=annopkg)),genevec,"ENSEMBL","SYMBOL",multiVals="first")
+      genevec_ids <- mapIds(eval(parse(text=annopkg)),genevec,input$idtype,"SYMBOL",multiVals="first")
       log2things <- assay(normTransform(values$dds_obj))
       selectedLogvalues <- log2things[genevec_ids,]
 
@@ -2624,7 +2624,7 @@ ideal<- function(dds_obj = NULL,
 
       genevec <- unlist(strsplit(mygenes,split=","))
       annopkg <- annoSpecies_df$pkg[annoSpecies_df$species==input$speciesSelect]
-      genevec_ids <- mapIds(eval(parse(text=annopkg)),genevec,"ENSEMBL","SYMBOL",multiVals="first")
+      genevec_ids <- mapIds(eval(parse(text=annopkg)),genevec,input$idtype,"SYMBOL",multiVals="first")
       log2things <- assay(normTransform(values$dds_obj))
       selectedLogvalues <- log2things[genevec_ids,]
 
