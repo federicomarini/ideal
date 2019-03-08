@@ -1596,7 +1596,6 @@ ideal<- function(dds_obj = NULL,
                                   # trick to keep species info while still changing the dds_obj
                                   curr_species <- input$speciesSelect
 
-
                                   if(input$nrcores == 1)
                                     values$dds_obj <- DESeq(values$dds_obj)
                                   else
@@ -1609,6 +1608,13 @@ ideal<- function(dds_obj = NULL,
                                   updateSelectInput(session, inputId = "speciesSelect", selected = curr_species)
                                 })
                  })
+    
+    observeEvent(input$speciesSelect,
+                 {
+                   curr_idtype <- values$cur_type
+                   updateSelectInput(session, inputId = "idtype", selected = curr_idtype)
+                 }
+                 )
 
     output$printDIYresults <- renderPrint({
       shiny::validate(
@@ -1880,6 +1886,7 @@ ideal<- function(dds_obj = NULL,
                                   values$annotation_obj <- annotation_obj
                                   # and also, set the species in the reactiveValues
                                   values$cur_species <- input$speciesSelect
+                                  values$cur_type <- input$idtype
                                 })
                  })
 
