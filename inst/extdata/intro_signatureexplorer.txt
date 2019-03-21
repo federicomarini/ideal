@@ -1,15 +1,15 @@
 element;intro
 #Welcome;Welcome to the tour for the Signature Explorer tab!
-#sig_ui_gmtin;text
-#sig_ui_nrsigs;text1
-#sig_button_computevst;text2
-#sig_ui_selectsig;t1
-#sig_useDEonly;t2
-#sig_ui_id_data;t3
-#sig_ui_id_sigs;t4
-#sig_ui_orgdbpkg;t5
-#sig_convert_setup;t6
-#sig_ui_annocoldata;t7
-#sig_scalerow;t8
-#sig_heat;plot
-#Done;Done TODO TODO
+#sig_ui_gmtin;First select a gmt signature file from one of your folders.
+#sig_ui_nrsigs;The value box shows you how many signatures are contained in the file you just provided.
+#sig_button_computevst;For better display, it is recommended to use variance stabilized data. Transform your data by clicking on this button.
+#sig_ui_selectsig;Select the signature you would like to plot.
+#sig_useDEonly;You can choose to restrict to the genes detected as differentially expressed (requires that you extracted the results in the dedicated tab).
+#sig_ui_id_data;It can happen that your identifiers are encoded with different id types, and you therefore need to match it. First select a species in the Data Setup panel, this will suggest a set of identifier types to use with the different orgDb packages - select first the id type in your data...
+#sig_ui_id_sigs;... and then the id type in the gmt signature files you provided
+#sig_ui_orgdbpkg;The orgDb package is selected upon changing the species in the Data Setup panel - but you can still edit it here by hand.
+#sig_convert_setup;Click on this button to perform the conversion among identifiers.
+#sig_ui_annocoldata;You might want to decorate the heatmap plot with some metadata (from the colData slot), you can select one or more here.
+#sig_scalerow;Some options to control the aspect of the heatmap can be selected in this well panel. A frequently used option could be to standardize the expression values by row (i.e. displaying the Z scores).
+#sig_heat;The heatmap plot of your signature, including its member features, will be displayed here.
+#Done;This concludes the tour for the Signature Explorer tab
