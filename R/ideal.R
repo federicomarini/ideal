@@ -840,7 +840,7 @@ ideal<- function(dds_obj = NULL,
                   width = 6,
                   h4("Setup options"),
                   wellPanel(
-                    fileInput("sig_gmtin","gmt input file"),
+                    uiOutput("sig_ui_gmtin"),
                     uiOutput("sig_ui_nrsigs"),
                     actionButton("sig_button_computevst",
                                  label = "Compute the variance stabilized transformed data", 
@@ -2675,6 +2675,10 @@ ideal<- function(dds_obj = NULL,
     })
 
     # server signature explorer ------------------------------------------------------
+    output$sig_ui_gmtin <- renderUI({
+      fileInput("sig_gmtin","gmt input file")
+    })
+    
     loaded_gmt <- reactive({
       if (is.null(input$sig_gmtin))
         return(NULL)
@@ -2772,8 +2776,15 @@ ideal<- function(dds_obj = NULL,
     
     output$sig_ui_orgdbpkg <- renderUI({
       selectInput("sig_orgdbpkg", "Select the organism package for matching", 
-                  choices=available_orgdb)
+                  choices=c("",available_orgdb),selected = "")
     })
+    
+    observeEvent(input$speciesSelect,
+                 {
+                   suggested_orgdb <- annoSpecies_df$pkg[annoSpecies_df$species==input$speciesSelect]
+                   if(suggested_orgdb %in% available_orgdb)
+                     updateSelectInput(session, inputId = "sig_orgdbpkg", selected = suggested_orgdb)
+                 })
     
     observeEvent(input$sig_convert_setup,
                  {
