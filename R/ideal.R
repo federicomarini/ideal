@@ -819,62 +819,83 @@ ideal<- function(dds_obj = NULL,
           tabPanel(
             "Signatures Explorer",
             icon = icon("map"),
-            fluidRow(
-              column(
-                width = 6,
-                h4("Setup options"),
-                wellPanel(
-                  fileInput("sig_gmtin","gmt input file"),
-                  uiOutput("sig_ui_nrsigs"),
-                  actionButton("sig_button_computevst",
-                               label = "Compute the variance stabilized transformed data", 
-                               icon = icon("spinner"), class = "btn btn-success")
+            conditionalPanel(
+              condition="!output.checkdds",
+              fluidRow(
+                column(
+                  width = 8,
+                  shinyBS::bsCollapse(
+                    id = "help_signatureexplorer",open = NULL,
+                    shinyBS::bsCollapsePanel(
+                      "Help",
+                      includeMarkdown(system.file("extdata", "help_signatureexplorer.md",package = "ideal")))
+                  )
                 )
               ),
-              column(
-                width = 6,
-                h4("Conversion options"),
-                wellPanel(
-                  uiOutput("sig_ui_id_data"),
-                  uiOutput("sig_ui_id_sigs"),
-                  uiOutput("sig_ui_orgdbpkg"),
-                  actionButton("sig_convert_setup",
-                               label = "Apply id conversion between data and signatures")
+              actionButton("tour_signatureexplorer", "Click me for a quick tour of the section", icon("info"),
+                           style="color: #ffffff; background-color: #0092AC; border-color: #2e6da4"), br(),
+              
+              fluidRow(
+                column(
+                  width = 6,
+                  h4("Setup options"),
+                  wellPanel(
+                    fileInput("sig_gmtin","gmt input file"),
+                    uiOutput("sig_ui_nrsigs"),
+                    actionButton("sig_button_computevst",
+                                 label = "Compute the variance stabilized transformed data", 
+                                 icon = icon("spinner"), class = "btn btn-success")
+                  )
                 ),
-                verbatimTextOutput("sig_convcheck")
-                
-              )
-            ),
-            fluidRow(
-              column(
-                width = 6,
-                wellPanel(
-                  uiOutput("sig_ui_selectsig"),
-                  uiOutput("sig_ui_annocoldata"),
-                  checkboxInput("sig_useDEonly",
-                                label = "Use only DE genes in the signature",value = FALSE)
+                column(
+                  width = 6,
+                  h4("Conversion options"),
+                  wellPanel(
+                    uiOutput("sig_ui_id_data"),
+                    uiOutput("sig_ui_id_sigs"),
+                    uiOutput("sig_ui_orgdbpkg"),
+                    actionButton("sig_convert_setup",
+                                 label = "Apply id conversion between data and signatures")
+                  ),
+                  verbatimTextOutput("sig_convcheck")
+                  
                 )
-                # ,
-                # verbatimTextOutput("sig_sigmembers")
               ),
-              column(
-                width = 6,
-                wellPanel(
-                  checkboxInput("sig_clusterrows",label = "Cluster rows", value = TRUE),
-                  checkboxInput("sig_clustercols", label = "Cluster columns"),
-                  checkboxInput("sig_centermean", label = "Center mean",value = TRUE),
-                  checkboxInput("sig_scalerow", label = "Standardize by row")
+              fluidRow(
+                column(
+                  width = 6,
+                  wellPanel(
+                    uiOutput("sig_ui_selectsig"),
+                    uiOutput("sig_ui_annocoldata"),
+                    checkboxInput("sig_useDEonly",
+                                  label = "Use only DE genes in the signature",value = FALSE)
+                  )
+                  # ,
+                  # verbatimTextOutput("sig_sigmembers")
+                ),
+                column(
+                  width = 6,
+                  wellPanel(
+                    checkboxInput("sig_clusterrows",label = "Cluster rows", value = TRUE),
+                    checkboxInput("sig_clustercols", label = "Cluster columns"),
+                    checkboxInput("sig_centermean", label = "Center mean",value = TRUE),
+                    checkboxInput("sig_scalerow", label = "Standardize by row")
+                  )
+                )
+              ),
+              fluidRow(
+                column(
+                  width = 8, offset = 2,
+                  plotOutput("sig_heat")
                 )
               )
             ),
-            fluidRow(
-              column(
-                width = 8, offset = 2,
-                plotOutput("sig_heat")
-              )
+            conditionalPanel(
+              condition="output.checkdds",
+              h2("You did not create the dds object yet. Please go the main tab and generate it")
             )
-            
           ), # end of Signatures Explorer panel
+          
           # ui panel report editor -----------------------------------------------------------
           tabPanel(
             "Report Editor",
@@ -987,6 +1008,7 @@ ideal<- function(dds_obj = NULL,
     intro_plots <- read.delim(system.file("extdata", "intro_plots.txt",package = "ideal"), sep=";", stringsAsFactors = FALSE)
     intro_genefinder <- read.delim(system.file("extdata", "intro_genefinder.txt",package = "ideal"), sep=";", stringsAsFactors = FALSE)
     intro_funcanalysis <- read.delim(system.file("extdata", "intro_funcanalysis.txt",package = "ideal"), sep=";", stringsAsFactors = FALSE)
+    intro_signatureexplorer <- read.delim(system.file("extdata", "intro_signatureexplorer.txt",package = "ideal"), sep=";", stringsAsFactors = FALSE)
     intro_report <- read.delim(system.file("extdata", "intro_report.txt",package = "ideal"), sep=";", stringsAsFactors = FALSE)
 
     observeEvent(input$btn, {
@@ -1039,7 +1061,13 @@ ideal<- function(dds_obj = NULL,
               options = list(steps = intro_funcanalysis)
       )
     })
-
+    
+    observeEvent(input$tour_signatureexplorer, {
+      introjs(session,
+              options = list(steps = intro_signatureexplorer)
+      )
+    })
+    
     observeEvent(input$tour_report, {
       introjs(session,
               options = list(steps = intro_report)
@@ -2710,6 +2738,9 @@ ideal<- function(dds_obj = NULL,
     output$sig_ui_id_data <- renderUI({
       if (is.null(values$dds_obj)) #
         return(NULL)
+      validate(
+        need(!is.null(input$speciesSelect), message = "Please specify the species in the Data Setup panel")
+      )
       
       std_choices <- c("ENSEMBL","ENTREZID","REFSEQ","SYMBOL")
       if (input$speciesSelect!=""){
@@ -2723,6 +2754,9 @@ ideal<- function(dds_obj = NULL,
     output$sig_ui_id_sigs <- renderUI({
       if (is.null(values$gene_signatures)) #
         return(NULL)
+      validate(
+        need(!is.null(input$speciesSelect), message = "Please specify the species in the Data Setup panel")
+      )
       
       std_choices <- c("ENSEMBL","ENTREZID","REFSEQ","SYMBOL")
       if (input$speciesSelect!=""){
