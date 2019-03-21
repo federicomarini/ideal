@@ -1,0 +1,15 @@
+element;intro
+#Welcome;Welcome to the tour for the Signature Explorer tab!
+#sig_ui_gmtin;text
+#sig_ui_nrsigs;text1
+#sig_button_computevst;text2
+#sig_ui_selectsig;t1
+#sig_useDEonly;t2
+#sig_ui_id_data;t3
+#sig_ui_id_sigs;t4
+#sig_ui_orgdbpkg;t5
+#sig_convert_setup;t6
+#sig_ui_annocoldata;t7
+#sig_scalerow;t8
+#sig_heat;plot
+#Done;Done TODO TODO
