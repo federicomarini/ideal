@@ -1536,6 +1536,7 @@ ideal<- function(dds_obj = NULL,
       std_choices <- c("ENSEMBL","ENTREZID","REFSEQ","SYMBOL")
       if (input$speciesSelect!=""){
         annopkg <- annoSpecies_df$pkg[annoSpecies_df$species==input$speciesSelect]
+        require(annopkg,character.only=TRUE)
         pkg_choices <- keytypes(get(annopkg))
         std_choices <- union(std_choices, pkg_choices)
       }
