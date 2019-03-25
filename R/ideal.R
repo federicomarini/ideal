@@ -3483,7 +3483,7 @@ ideal<- function(dds_obj = NULL,
       shiny::validate(
         need(
           (nrow(curDataClick()) > 0),
-          "Select a gene first to display additional info (ENTREZ db)"
+          "Select a gene first to display additional info (retrieved from the NCBI/ENTREZ db website)"
         )
       )
       shiny::validate(
