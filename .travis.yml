@@ -13,7 +13,6 @@ r_binary_packages:
   - RCurl
   - XML
   - git2r
-  - devtools
   
 warnings_are_errors: false
 
