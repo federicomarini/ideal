@@ -9,4 +9,4 @@ element;intro
 #volcanoplot;If you want another flavour to explore the results, you can also plot them as a volcano with -log10(pvalue) VS logFC
 #heatbrush;For the area you selected by zooming, you can have a static heatmap including the underlying genes...
 #heatbrushD3;... or an interactive version of that.
-#box_brushedtbl .box; The underlying data will be contained in the collapsible box here below in case you want the tabular format. Once you are ready, click on the 'Done' button to end the tour, and eventually move on to the next tabs.
+#box_brushedtbl .box; The underlying data will be contained in the collapsible box here below (`Brushed table`) in case you want the tabular format. Once you are ready, click on the 'Done' button to end the tour, and eventually move on to the next tabs.
