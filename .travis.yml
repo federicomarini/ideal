@@ -7,7 +7,7 @@ sudo: required
 cache: packages
 
 apt_packages:
-  - gfortran-7
+  - fort77
 
 r_binary_packages: 
   - stringr
