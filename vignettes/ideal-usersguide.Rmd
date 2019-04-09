@@ -308,6 +308,11 @@ General `Markdown options` and `Editor options` are available, and the text edit
 
 The code contained in the template report fetches the latest state of the reactive values in the ongoing session, and its output is a comprehensive HTML file that can be expanded, edited, previewed in the tab itself, downloaded, and shared with a few mouse clicks.
 
+As for `r Biocpkg("pcaExplorer")`, the functionality to display the report preview is based on `knit2html`, and some elements such as `DataTable` objects might not render correctly. 
+To render them correctly, please install the PhantomJS executable before launching the app. 
+This can be done by using the `r CRANpkg("webshot")` package and calling `webshot::install_phantomjs()` - HTML widgets will be rendered automatically as screenshots.
+Keep in mind that the fully rendered report (the one you can obtain with the "Generate & Save" button) is not affected by this, since it uses `rmarkdown::render()`.
+
 ## About
 
 The About tab contains the output of `sessionInfo`, plus general information on `r Biocpkg("ideal")`, including the link to the Github development version. 
