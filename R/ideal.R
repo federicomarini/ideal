@@ -534,6 +534,7 @@ ideal<- function(dds_obj = NULL,
 
               actionButton("tour_plots", "Click me for a quick tour of the section", icon("info"),
                            style="color: #ffffff; background-color: #0092AC; border-color: #2e6da4"),
+              
               br(),
               fluidRow(
                 column(6,
@@ -545,6 +546,7 @@ ideal<- function(dds_obj = NULL,
                 column(6,
                        h4("Zoomed section"),
                        plotOutput("mazoom",click= 'mazoom_click'),
+                       numericInput('size_genelabels', label = 'Labels size: ', value = 4,min = 1,max = 8),
                        div(align = "right", style = "margin-right:15px; margin-bottom:10px",
                            downloadButton("download_plot_mazoom", "Download Plot"),
                            textInput("filename_plot_mazoom",label = "Save as...",value = "plot_mazoom.pdf")))
@@ -3331,7 +3333,7 @@ ideal<- function(dds_obj = NULL,
         p <- plot_ma(values$res_obj,annotation_obj = values$annotation_obj,FDR = input$FDR) +
         coord_cartesian(xlim = c(input$ma_brush$xmin,input$ma_brush$xmax),
                         ylim = c(input$ma_brush$ymin,input$ma_brush$ymax)) +
-        geom_text(aes_string(label="genename"),size=3,hjust=0.25, vjust=-0.75)
+        geom_text(aes_string(label="genename"),size=input$size_genelabels,hjust=0.25, vjust=-0.75)
       else
         p <-  plot_ma(values$res_obj,annotation_obj = values$annotation_obj,FDR = input$FDR) +
         coord_cartesian(xlim = c(input$ma_brush$xmin,input$ma_brush$xmax),
