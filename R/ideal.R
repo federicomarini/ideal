@@ -182,6 +182,7 @@ ideal<- function(dds_obj = NULL,
                         overflow-x: scroll;
                         }
                         }
+                        #myAnchorBox{}
                         "))
         ),
 
@@ -699,79 +700,82 @@ ideal<- function(dds_obj = NULL,
                           selected = "BP",multiple = TRUE
               ),
 
-              tabBox(
-                width = NULL,
-                id="gse_tabbox",
-                tabPanel("UPregu", icon = icon("arrow-circle-up"),
-                         fluidRow(column(width = 6,actionButton("button_enrUP", "Perform gene set enrichment analysis on the upregulated genes",class = "btn btn-primary"))),
-                         fluidRow(column(width = 6,actionButton("button_enrUP_goseq", "Perform gene set enrichment analysis on the upregulated genes - goseq",class = "btn btn-primary"))),
-                         fluidRow(column(width = 6,actionButton("button_enrUP_topgo", "Perform gene set enrichment analysis on the upregulated genes - topGO",class = "btn btn-primary"))),
-                         DT::dataTableOutput("DT_gse_up"),
-                         DT::dataTableOutput("DT_gse_up_goseq"),
-                         fluidRow(
-                           column(width = 9, DT::dataTableOutput("DT_gse_up_topgo"),
-                                  downloadButton("downloadGOTbl_up","Download", class = "btn btn-success")),
-                           column(width = 3, plotOutput("goterm_heatmap_up_topgo"))
-                         )
-                ),
-                tabPanel("DOWNregu", icon = icon("arrow-circle-down"),
-                         fluidRow(column(width = 6,actionButton("button_enrDOWN", "Perform gene set enrichment analysis on the downregulated genes",class = "btn btn-primary"))),
-                         fluidRow(column(width = 6,actionButton("button_enrDOWN_goseq", "Perform gene set enrichment analysis on the downregulated genes - goseq",class = "btn btn-primary"))),
-                         fluidRow(column(width = 6,actionButton("button_enrDOWN_topgo", "Perform gene set enrichment analysis on the downregulated genes - topGO",class = "btn btn-primary"))),
-                         DT::dataTableOutput("DT_gse_down"),
-                         DT::dataTableOutput("DT_gse_down_goseq"),
-                         fluidRow(
-                           column(width = 9, DT::dataTableOutput("DT_gse_down_topgo"),
-                                  downloadButton("downloadGOTbl_down","Download", class = "btn btn-success")),
-                           column(width = 3, plotOutput("goterm_heatmap_down_topgo"))
-                         )
-                ),
-                tabPanel("UPDOWN", icon = icon("arrows-v"),
-                         fluidRow(column(width = 6,actionButton("button_enrUPDOWN", "Perform gene set enrichment analysis on the up- and downregulated genes",class = "btn btn-primary"))),
-                         fluidRow(column(width = 6,actionButton("button_enrUPDOWN_goseq", "Perform gene set enrichment analysis on the up- and downregulated genes - goseq",class = "btn btn-primary"))),
-                         fluidRow(column(width = 6,actionButton("button_enrUPDOWN_topgo", "Perform gene set enrichment analysis on the up- and downregulated genes - topGO",class = "btn btn-primary"))),
-                         DT::dataTableOutput("DT_gse_updown"),
-                         DT::dataTableOutput("DT_gse_updown_goseq"),
-                         fluidRow(
-                           column(width = 9, DT::dataTableOutput("DT_gse_updown_topgo"),
-                                  downloadButton("downloadGOTbl_updown","Download", class = "btn btn-success")),
-                           column(width = 3, plotOutput("goterm_heatmap_updown_topgo"))
-                         )
-                ),
-                tabPanel("List1", icon = icon("list"),
-                         fileInput(inputId = "gl1",
-                                   label = "Upload a gene list file",
-                                   accept = c("text/csv", "text/comma-separated-values",
-                                              "text/tab-separated-values", "text/plain",
-                                              ".csv", ".tsv"), multiple = FALSE),
-                         fluidRow(column(width = 6,actionButton("button_enrLIST1", "Perform gene set enrichment analysis on the genes in list1",class = "btn btn-primary"))),
-                         fluidRow(column(width = 6,actionButton("button_enrLIST1_goseq", "Perform gene set enrichment analysis on the list1 genes - goseq",class = "btn btn-primary"))),
-                         fluidRow(column(width = 6,actionButton("button_enrLIST1_topgo", "Perform gene set enrichment analysis on the list1 genes - topGO",class = "btn btn-primary"))),
-                         DT::dataTableOutput("DT_gse_list1"),
-                         DT::dataTableOutput("DT_gse_list1_goseq"),
-                         fluidRow(
-                           column(width = 9, DT::dataTableOutput("DT_gse_list1_topgo"),
-                                  downloadButton("downloadGOTbl_l1","Download", class = "btn btn-success")),
-                           column(width = 3, plotOutput("goterm_heatmap_l1_topgo"))
-                         )
-
-                ),
-                tabPanel("List2", icon = icon("list-alt"),
-                         fileInput(inputId = "gl2",
-                                   label = "Upload a gene list file",
-                                   accept = c("text/csv", "text/comma-separated-values",
-                                              "text/tab-separated-values", "text/plain",
-                                              ".csv", ".tsv"), multiple = FALSE),
-                         fluidRow(column(width = 6,actionButton("button_enrLIST2", "Perform gene set enrichment analysis on the genes in list2",class = "btn btn-primary"))),
-                         fluidRow(column(width = 6,actionButton("button_enrLIST2_goseq", "Perform gene set enrichment analysis on the list2 genes - goseq",class = "btn btn-primary"))),
-                         fluidRow(column(width = 6,actionButton("button_enrLIST2_topgo", "Perform gene set enrichment analysis on the list2 genes - topGO",class = "btn btn-primary"))),
-                         DT::dataTableOutput("DT_gse_list2"),
-                         DT::dataTableOutput("DT_gse_list2_goseq"),
-                         fluidRow(
-                           column(width = 9, DT::dataTableOutput("DT_gse_list2_topgo"),
-                                  downloadButton("downloadGOTbl_l2","Download", class = "btn btn-success")),
-                           column(width = 3, plotOutput("goterm_heatmap_l2_topgo"))
-                         )
+              div(
+                id="myAnchorBox",
+                tabBox(
+                  width = NULL,
+                  id="gse_tabbox",
+                  tabPanel("UPregu", icon = icon("arrow-circle-up"),
+                           fluidRow(column(width = 6,actionButton("button_enrUP", "Perform gene set enrichment analysis on the upregulated genes",class = "btn btn-primary"))),
+                           fluidRow(column(width = 6,actionButton("button_enrUP_goseq", "Perform gene set enrichment analysis on the upregulated genes - goseq",class = "btn btn-primary"))),
+                           fluidRow(column(width = 6,actionButton("button_enrUP_topgo", "Perform gene set enrichment analysis on the upregulated genes - topGO",class = "btn btn-primary"))),
+                           DT::dataTableOutput("DT_gse_up"),
+                           DT::dataTableOutput("DT_gse_up_goseq"),
+                           fluidRow(
+                             column(width = 9, DT::dataTableOutput("DT_gse_up_topgo"),
+                                    downloadButton("downloadGOTbl_up","Download", class = "btn btn-success")),
+                             column(width = 3, plotOutput("goterm_heatmap_up_topgo"))
+                           )
+                  ),
+                  tabPanel("DOWNregu", icon = icon("arrow-circle-down"),
+                           fluidRow(column(width = 6,actionButton("button_enrDOWN", "Perform gene set enrichment analysis on the downregulated genes",class = "btn btn-primary"))),
+                           fluidRow(column(width = 6,actionButton("button_enrDOWN_goseq", "Perform gene set enrichment analysis on the downregulated genes - goseq",class = "btn btn-primary"))),
+                           fluidRow(column(width = 6,actionButton("button_enrDOWN_topgo", "Perform gene set enrichment analysis on the downregulated genes - topGO",class = "btn btn-primary"))),
+                           DT::dataTableOutput("DT_gse_down"),
+                           DT::dataTableOutput("DT_gse_down_goseq"),
+                           fluidRow(
+                             column(width = 9, DT::dataTableOutput("DT_gse_down_topgo"),
+                                    downloadButton("downloadGOTbl_down","Download", class = "btn btn-success")),
+                             column(width = 3, plotOutput("goterm_heatmap_down_topgo"))
+                           )
+                  ),
+                  tabPanel("UPDOWN", icon = icon("arrows-v"),
+                           fluidRow(column(width = 6,actionButton("button_enrUPDOWN", "Perform gene set enrichment analysis on the up- and downregulated genes",class = "btn btn-primary"))),
+                           fluidRow(column(width = 6,actionButton("button_enrUPDOWN_goseq", "Perform gene set enrichment analysis on the up- and downregulated genes - goseq",class = "btn btn-primary"))),
+                           fluidRow(column(width = 6,actionButton("button_enrUPDOWN_topgo", "Perform gene set enrichment analysis on the up- and downregulated genes - topGO",class = "btn btn-primary"))),
+                           DT::dataTableOutput("DT_gse_updown"),
+                           DT::dataTableOutput("DT_gse_updown_goseq"),
+                           fluidRow(
+                             column(width = 9, DT::dataTableOutput("DT_gse_updown_topgo"),
+                                    downloadButton("downloadGOTbl_updown","Download", class = "btn btn-success")),
+                             column(width = 3, plotOutput("goterm_heatmap_updown_topgo"))
+                           )
+                  ),
+                  tabPanel("List1", icon = icon("list"),
+                           fileInput(inputId = "gl1",
+                                     label = "Upload a gene list file",
+                                     accept = c("text/csv", "text/comma-separated-values",
+                                                "text/tab-separated-values", "text/plain",
+                                                ".csv", ".tsv"), multiple = FALSE),
+                           fluidRow(column(width = 6,actionButton("button_enrLIST1", "Perform gene set enrichment analysis on the genes in list1",class = "btn btn-primary"))),
+                           fluidRow(column(width = 6,actionButton("button_enrLIST1_goseq", "Perform gene set enrichment analysis on the list1 genes - goseq",class = "btn btn-primary"))),
+                           fluidRow(column(width = 6,actionButton("button_enrLIST1_topgo", "Perform gene set enrichment analysis on the list1 genes - topGO",class = "btn btn-primary"))),
+                           DT::dataTableOutput("DT_gse_list1"),
+                           DT::dataTableOutput("DT_gse_list1_goseq"),
+                           fluidRow(
+                             column(width = 9, DT::dataTableOutput("DT_gse_list1_topgo"),
+                                    downloadButton("downloadGOTbl_l1","Download", class = "btn btn-success")),
+                             column(width = 3, plotOutput("goterm_heatmap_l1_topgo"))
+                           )
+                           
+                  ),
+                  tabPanel("List2", icon = icon("list-alt"),
+                           fileInput(inputId = "gl2",
+                                     label = "Upload a gene list file",
+                                     accept = c("text/csv", "text/comma-separated-values",
+                                                "text/tab-separated-values", "text/plain",
+                                                ".csv", ".tsv"), multiple = FALSE),
+                           fluidRow(column(width = 6,actionButton("button_enrLIST2", "Perform gene set enrichment analysis on the genes in list2",class = "btn btn-primary"))),
+                           fluidRow(column(width = 6,actionButton("button_enrLIST2_goseq", "Perform gene set enrichment analysis on the list2 genes - goseq",class = "btn btn-primary"))),
+                           fluidRow(column(width = 6,actionButton("button_enrLIST2_topgo", "Perform gene set enrichment analysis on the list2 genes - topGO",class = "btn btn-primary"))),
+                           DT::dataTableOutput("DT_gse_list2"),
+                           DT::dataTableOutput("DT_gse_list2_goseq"),
+                           fluidRow(
+                             column(width = 9, DT::dataTableOutput("DT_gse_list2_topgo"),
+                                    downloadButton("downloadGOTbl_l2","Download", class = "btn btn-success")),
+                             column(width = 3, plotOutput("goterm_heatmap_l2_topgo"))
+                           )
+                  )
                 )
               ),
 
@@ -1627,6 +1631,7 @@ ideal<- function(dds_obj = NULL,
                                 detail = "This step might take a while", value = 0,{
                                   # trick to keep species info while still changing the dds_obj
                                   curr_species <- input$speciesSelect
+                                  incProgress(0.1)
 
                                   if(input$nrcores == 1)
                                     values$dds_obj <- DESeq(values$dds_obj)
@@ -1635,8 +1640,7 @@ ideal<- function(dds_obj = NULL,
                                     values$dds_obj <- DESeq(values$dds_obj,
                                                             parallel = TRUE,
                                                             BPPARAM = MulticoreParam(workers = input$nrcores))
-
-
+                                  incProgress(0.89)
                                   updateSelectInput(session, inputId = "speciesSelect", selected = curr_species)
                                 })
                  })
