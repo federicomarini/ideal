@@ -118,9 +118,11 @@ if(!is.null(values$res_obj)) {
     cur_res$symbol <- values$annotation_obj$gene_name[match(rownames(cur_res),
                                                           rownames(values$annotation_obj))]
   }
+}
 ```
 
 ```{r}
+if(!is.null(values$res_obj)) {
   res_df <- as.data.frame(values$res_obj)
   res_df <- dplyr::filter(res_df, !is.na(pvalue))
 
@@ -373,7 +375,7 @@ if(!is.null(values$gse_updown_goseq)) {
 if(!is.null(values$gene_signatures) & 
    !(is.null(values$vst_obj)) & 
    !(is.null(values$anno_vec)) &
-   input$sig_selectsig!="") {
+   !is.null(input$sig_selectsig)) {
   
   print(input$sig_selectsig)
   
