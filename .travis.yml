@@ -6,6 +6,9 @@ r: bioc-devel
 sudo: required
 cache: packages
 
+apt_packages:
+  - gfortran-7
+
 r_binary_packages: 
   - stringr
   - dplyr
