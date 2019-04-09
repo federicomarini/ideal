@@ -61,6 +61,19 @@ sepguesser <- function(file, sep_list = c(",", "\t", ";"," ")) {
   sep
 }
 
+sepguesser2 <- function(file, sep_list = c(",", "\t", ";"," ")) {
+  separators_list = sep_list
+  rl = readLines(file, warn = FALSE)
+  rl = rl[rl != ""] # allow last line to be empty
+  sephits_min = sapply(separators_list, function(x) min(stringr::str_count(rl, x))) #minimal number of separators on all lines
+  
+  counts <- sapply(separators_list, function(x) min(count.fields(textConnection(rl), sep=x)))
+  
+  sep = separators_list[which.max(counts)]
+  # sep = separators_list[which.max(sephits_min)]
+  sep
+}
+
 
 
 

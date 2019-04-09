@@ -10,6 +10,9 @@ opts_chunk$set(
 )
 ```
 
+If you are viewing this report in the Preview, you might require the installation of the PhantomJS to render correctly some HTML widgets (`datatable` objects created with the `r BiocStyle::CRANpkg("DT")` package). 
+This can be done by using the `r BiocStyle::CRANpkg("webshot")` package and calling `webshot::install_phantomjs()`.
+
 # Data Setup
 
 Following objects were provided to the initial call of the function:
@@ -442,7 +445,7 @@ citation("ideal")
 sessionInfo()
 ```
 
-```{r}
+```{r, echo = FALSE}
 library(shiny)
 footertemplate <- function(){
   tags$div(
@@ -464,6 +467,6 @@ footertemplate <- function(){
 }
 ```
 
-```{r}
+```{r, echo = FALSE}
 footertemplate()
 ```
