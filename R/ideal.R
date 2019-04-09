@@ -591,6 +591,7 @@ ideal<- function(dds_obj = NULL,
 
               box(
                 title = "Brushed table", status = "primary", solidHeader = TRUE,
+                id = "box_brushedtbl",
                 collapsible = TRUE, collapsed = TRUE, width = 12,
                 fluidRow(DT::dataTableOutput("ma_brush_out"),
                          downloadButton("downloadTblMabrush","Download", class = "btn btn-success")))
@@ -1227,15 +1228,17 @@ ideal<- function(dds_obj = NULL,
                  detail = "Loading airway count and metadata information", value = 0,
                  {
                    aw <- requireNamespace("airway",quietly = TRUE)
+                   incProgress(0.2,detail = "`airway` package loaded")
                    if(aw) {
                      data(airway,package="airway",envir = environment())
 
                    cm_airway <- assay(airway)
+                   incProgress(0.7, detail = "Count matrix loaded")
                    ed_airway <- as.data.frame(colData(airway))
 
                    values$countmatrix <- cm_airway
                    values$expdesign <- ed_airway
-
+                   incProgress(0.3, detail = "Experimental metadata loaded")
                    # just to be sure, erase the annotation and the rest
                    values$dds_obj <- NULL
                    values$annotation_obj <- NULL
