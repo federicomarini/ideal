@@ -6,9 +6,6 @@ r: bioc-devel
 sudo: required
 cache: packages
 
-apt_packages:
-  - fort77
-
 r_binary_packages: 
   - stringr
   - dplyr
@@ -29,7 +26,14 @@ after_success:
   - Rscript -e 'library(covr); codecov()'
   
 env:
-  - R_REMOTES_UPGRADE="always"  
+  - R_REMOTES_UPGRADE="always"
+  
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - gcc-7
   
 before_install:
   - mkdir -p ~/.R
