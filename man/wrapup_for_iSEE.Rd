@@ -17,10 +17,12 @@ variance-stabilizing transformed counts in the assay slots; and with colData
 and rowData extracted from the corresponding input parameters
 }
 \description{
-Combines the DESeqDataSet input and DESeqResults into a SummarizedExperiment
-object, which can be readily explored with iSEE.
+Combine data from a typical DESeq2 run
 }
 \details{
+Combines the DESeqDataSet input and DESeqResults into a SummarizedExperiment
+object, which can be readily explored with iSEE.
+
 A typical usage would be after running the DESeq2 pipeline as specified in 
 one of the workflows which include this package, e.g. in the context of the 
 ideal package.

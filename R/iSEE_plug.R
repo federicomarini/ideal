@@ -1,5 +1,7 @@
 #' wrapup_for_iSEE
 #' 
+#' Combine data from a typical DESeq2 run
+#' 
 #' Combines the DESeqDataSet input and DESeqResults into a SummarizedExperiment
 #' object, which can be readily explored with iSEE.
 #' 
