@@ -16,7 +16,7 @@
 #' @import SummarizedExperiment
 #' @import GenomicRanges
 #' @importFrom IRanges IRanges
-#' @importFrom S4Vectors DataFrame
+#' @importFrom S4Vectors DataFrame List
 #' @import ggplot2
 #' @import shiny
 #' @importFrom DT datatable
