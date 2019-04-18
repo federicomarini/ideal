@@ -7,6 +7,8 @@
 * The id types can now be chosen among the `keytypes` of the corresponding annotation packages (which still need to be installed when `ideal` is launched). Other input fields that specify id types also behave in a similar manner (e.g. in the Signature Explorer tab). This caused a problem for scenarios where common id types such as `ENSEMBL` are not available, like in Arabidopsis (where ids are provided often as `TAIR`) - thanks to Marc Galland for picking this up in https://github.com/federicomarini/ideal/issues/1
 * The Signatures Explorer tab also has a fully fledged tour for first-time users, together with a collapsible help panel to describe its functionality in brief
 * The zoomed MA-plot gains a new widget to control the labels size for the names of the genes
+* It is possible to export the input data together with the results in a combined `SummarizedExperiment` object, which can be seamlessly fed into `iSEE` (http://bioconductor.org/packages/release/bioc/html/iSEE.html). 
+  This leverages a new function, `wrapup_for_iSEE`, which is available and exported from `ideal`.
 
 ## Other notes
 
