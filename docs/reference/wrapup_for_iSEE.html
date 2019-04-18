@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>ideal: Interactive Differential Expression Analysis — ideal • ideal</title>
+<title>wrapup_for_iSEE — wrapup_for_iSEE • ideal</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,10 +30,9 @@
 
 
 
-<meta property="og:title" content="ideal: Interactive Differential Expression Analysis — ideal" />
+<meta property="og:title" content="wrapup_for_iSEE — wrapup_for_iSEE" />
 
-<meta property="og:description" content="ideal makes differential expression analysis interactive, easy and reproducible.
-This function launches the main application included in the package." />
+<meta property="og:description" content="Combine data from a typical DESeq2 run" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -115,98 +114,67 @@ This function launches the main application included in the package." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>ideal: Interactive Differential Expression Analysis</h1>
-    <small class="dont-index">Source: <a href='https://github.com/federicomarini/ideal/blob/master/R/ideal.R'><code>R/ideal.R</code></a></small>
-    <div class="hidden name"><code>ideal.Rd</code></div>
+    <h1>wrapup_for_iSEE</h1>
+    <small class="dont-index">Source: <a href='https://github.com/federicomarini/ideal/blob/master/R/iSEE_plug.R'><code>R/iSEE_plug.R</code></a></small>
+    <div class="hidden name"><code>wrapup_for_iSEE.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>ideal makes differential expression analysis interactive, easy and reproducible.
-This function launches the main application included in the package.</p>
+    <p>Combine data from a typical DESeq2 run</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>ideal</span>(<span class='kw'>dds_obj</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>res_obj</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>annotation_obj</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>countmatrix</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>expdesign</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>gene_signatures</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>wrapup_for_iSEE</span>(<span class='no'>dds</span>, <span class='no'>res</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>dds_obj</th>
-      <td><p>A <code>DESeqDataSet</code> object. If not provided, then a
-<code>countmatrix</code> and a <code>expdesign</code> need to be provided. If none of
-the above is provided, it is possible to upload the data during the
-execution of the Shiny App</p></td>
+      <th>dds</th>
+      <td><p>A <code>DESeqDataSet</code> object.</p></td>
     </tr>
     <tr>
-      <th>res_obj</th>
-      <td><p>A <code>DESeqResults</code> object. If not provided, it can
-be computed during the execution of the application</p></td>
-    </tr>
-    <tr>
-      <th>annotation_obj</th>
-      <td><p>A <code>data.frame</code> object, with row.names as gene
-identifiers (e.g. ENSEMBL ids) and a column, <code>gene_name</code>, containing
-e.g. HGNC-based gene symbols. If not provided, it can be constructed during
-the execution via the org.eg.XX.db packages - these need to be installed</p></td>
-    </tr>
-    <tr>
-      <th>countmatrix</th>
-      <td><p>A count matrix, with genes as rows and samples as columns.
-If not provided, it is possible to upload the data during the execution of
-the Shiny App</p></td>
-    </tr>
-    <tr>
-      <th>expdesign</th>
-      <td><p>A <code>data.frame</code> containing the info on the covariates
-of each sample. If not provided, it is possible to upload the data during the
-execution of the Shiny App</p></td>
-    </tr>
-    <tr>
-      <th>gene_signatures</th>
-      <td><p>A list of vectors, one for each pathway/signature. This 
-is for example the output of the <code><a href='read_gmt.html'>read_gmt</a></code> function. The provided
-object can also be replaced during runtime in the dedicated upload widget.</p></td>
+      <th>res</th>
+      <td><p>A <code>DESeqResults</code> object.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A Shiny App is launched for interactive data exploration and
-differential expression analysis</p>
+    <p>A SummarizedExperiment object, with raw counts, normalized counts, and 
+variance-stabilizing transformed counts in the assay slots; and with colData 
+and rowData extracted from the corresponding input parameters</p>
+    
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>Combines the DESeqDataSet input and DESeqResults into a SummarizedExperiment
+object, which can be readily explored with iSEE.</p>
+<p>A typical usage would be after running the DESeq2 pipeline as specified in 
+one of the workflows which include this package, e.g. in the context of the 
+ideal package.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># with simulated data...</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>DESeq2</span>)
-<span class='no'>dds</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>DESeq2</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/DESeq2/topics/makeExampleDESeqDataSet'>makeExampleDESeqDataSet</a></span>(<span class='kw'>n</span><span class='kw'>=</span><span class='fl'>100</span>, <span class='kw'>m</span><span class='kw'>=</span><span class='fl'>8</span>)
-<span class='no'>cm</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/DESeq2/topics/counts'>counts</a></span>(<span class='no'>dds</span>)
-<span class='no'>cd</span> <span class='kw'>&lt;-</span> <span class='fu'>colData</span>(<span class='no'>dds</span>)
-
-<span class='co'># with the well known airway package...</span>
+<span class='no'>dds</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>DESeq2</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/DESeq2/topics/makeExampleDESeqDataSet'>makeExampleDESeqDataSet</a></span>(<span class='kw'>n</span><span class='kw'>=</span><span class='fl'>10000</span>, <span class='kw'>m</span><span class='kw'>=</span><span class='fl'>8</span>)
+<span class='no'>dds</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/DESeq2/topics/DESeq'>DESeq</a></span>(<span class='no'>dds</span>)</div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='input'><span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/DESeq2/topics/results'>results</a></span>(<span class='no'>dds</span>)
+<span class='no'>se</span> <span class='kw'>&lt;-</span> <span class='fu'>wrapup_for_iSEE</span>(<span class='no'>dds</span>, <span class='no'>res</span>)
+<span class='co'># library(iSEE)</span>
+<span class='co'># iSEE(se)</span></div><span class='co'># NOT RUN {</span>
+<span class='co'># or with the well known airway package...</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>airway</span>)
 <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>airway</span>)
-<span class='no'>airway</span></div><div class='output co'>#&gt; class: RangedSummarizedExperiment 
-#&gt; dim: 64102 8 
-#&gt; metadata(1): ''
-#&gt; assays(1): counts
-#&gt; rownames(64102): ENSG00000000003 ENSG00000000005 ... LRG_98 LRG_99
-#&gt; rowData names(0):
-#&gt; colnames(8): SRR1039508 SRR1039509 ... SRR1039520 SRR1039521
-#&gt; colData names(9): SampleName cell ... Sample BioSample</div><div class='input'><span class='no'>dds_airway</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>DESeq2</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/DESeq2/topics/DESeqDataSet'>DESeqDataSetFromMatrix</a></span>(<span class='fu'>assay</span>(<span class='no'>airway</span>),
+<span class='no'>airway</span>
+<span class='no'>dds_airway</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>DESeq2</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/DESeq2/topics/DESeqDataSet'>DESeqDataSetFromMatrix</a></span>(<span class='fu'>assay</span>(<span class='no'>airway</span>),
                                              <span class='kw'>colData</span> <span class='kw'>=</span> <span class='fu'>colData</span>(<span class='no'>airway</span>),
-                                             <span class='kw'>design</span><span class='kw'>=</span>~<span class='no'>cell</span>+<span class='no'>dex</span>)</div><span class='co'># NOT RUN {</span>
-<span class='fu'>ideal</span>()
-<span class='fu'>ideal</span>(<span class='no'>dds</span>)
-<span class='fu'>ideal</span>(<span class='no'>dds_airway</span>)
-
+                                             <span class='kw'>design</span><span class='kw'>=</span>~<span class='no'>cell</span>+<span class='no'>dex</span>)
 <span class='no'>dds_airway</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>DESeq2</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/DESeq2/topics/DESeq'>DESeq</a></span>(<span class='no'>dds_airway</span>)
 <span class='no'>res_airway</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>DESeq2</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/DESeq2/topics/results'>results</a></span>(<span class='no'>dds_airway</span>)
-<span class='fu'>ideal</span>(<span class='no'>dds_airway</span>, <span class='no'>res_airway</span>)
-<span class='co'># }</span><div class='input'>
-</div></pre>
+<span class='no'>se_airway</span> <span class='kw'>&lt;-</span> <span class='fu'>wrapup_for_iSEE</span>(<span class='no'>dds_airway</span>, <span class='no'>res_airway</span>)
+<span class='co'># iSEE(se_airway)</span>
+<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -214,6 +182,8 @@ differential expression analysis</p>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
+
+      <li><a href="#details">Details</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>
