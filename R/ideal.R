@@ -961,7 +961,8 @@ ideal<- function(dds_obj = NULL,
               column(3,
                      actionButton("updatepreview_button", "Update report",class = "btn btn-primary"),p()
               ),
-              column(3, downloadButton("saveRmd", "Generate & Save",class = "btn btn-success"))
+              column(3, downloadButton("saveRmd", "Generate & Save",class = "btn btn-success")),
+              column(3, uiOutput("ui_iSEEexport"))
             ),
 
             tabBox(
@@ -3866,6 +3867,35 @@ ideal<- function(dds_obj = NULL,
                          detail = "This can take some time")
           }
         }
+      }
+    )
+    
+    output$ui_iSEEexport <- renderUI({
+      validate(
+        need(((!is.null(values$dds_obj)) & (!is.null(values$res_obj))),
+             message = "Please build and compute the dds and res object to export as 
+             SummarizedExperiment for use in iSEE")
+      )
+      return(
+        tagList(
+          textInput(
+            "se_export_name",label = "Choose a filename for the serialized .rds object",
+            value = "se_ideal_toiSEE.rds"),
+          downloadButton(
+            "button_iSEEexport",
+            label = "Export as serialized SummarizedExperiment"
+          )
+        )
+      )
+    })
+
+    output$button_iSEEexport <- downloadHandler(
+      filename = function() {
+        # paste0("se_ideal_toiSEE_",gsub(" ","_",gsub("-","",gsub(":","-",as.character(Sys.time())))),".rds")
+        input$se_export_name
+      }, content = function(file) {
+        se <- wrapup_for_iSEE(values$dds_obj, values$res_obj)
+        saveRDS(se, file = file)
       }
     )
 
