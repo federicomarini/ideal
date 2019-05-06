@@ -124,8 +124,20 @@ ideal<- function(dds_obj = NULL,
                icon = icon("cogs"),
                startExpanded = TRUE,
                uiOutput("color_by"),
+               shinyBS::bsTooltip(
+                 "color_by", 
+                 paste0("Select the group(s) of samples to stratify the analysis, and ideally match the contrast of interest. Can also assume multiple values, in this case the interaction of the factors is used."),
+                 "right", options = list(container = "body")),
                uiOutput("available_genes"),
-               numericInput("FDR","False Discovery Rate",value = 0.05, min = 0, max = 1, step = 0.01)
+               shinyBS::bsTooltip(
+                 "available_genes", 
+                 paste0("Select one or more features (genes) from the list to inspect. Autocompletion is provided, so you can easily find your genes of interest by started typing their names. Defaults to the row names if no annotation object is provided."),
+                 "right", options = list(container = "body")),
+               numericInput("FDR","False Discovery Rate",value = 0.05, min = 0, max = 1, step = 0.01),
+               shinyBS::bsTooltip(
+                 "FDR", 
+                 paste0("Select the alpha level at which you would like to control the FDR (False Discovery Rate) for the set of multiple tests in your dataset. The sensible choice of 0.05 is provided as default, 0.1 is more liberal, while 0.01 is more stringent - keep in mind this does not tell anything on the effect size for the expression change."),
+                 "right", options = list(container = "body"))
                
       ),
       menuItem("Plot export settings", 
