@@ -28,13 +28,6 @@ after_success:
 env:
   - R_REMOTES_UPGRADE="always"
   
-addons:
-  apt:
-    sources:
-      - ubuntu-toolchain-r-test
-    packages:
-      - gcc-7
-  
 before_install:
   - mkdir -p ~/.R
   - echo -e 'MAKEFLAGS = -j2' > ~/.R/Makevars
