@@ -6,7 +6,6 @@ Date: 2019-04-18
 Authors@R: c(person("Federico", "Marini", role = c("aut", "cre"), 
     email ="marinif@uni-mainz.de", 
     comment = c(ORCID = '0000-0003-3252-7758')))
-Maintainer: Federico Marini <marinif@uni-mainz.de>
 Description: This package provides functions for an Interactive
     Differential Expression AnaLysis of RNA-sequencing datasets, to
     extract quickly and effectively information downstream the step
