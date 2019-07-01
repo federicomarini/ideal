@@ -3035,7 +3035,7 @@ ideal<- function(dds_obj = NULL,
       fac1_vals <- colData(values$dds_obj)[,fac1]
 
       fac1_levels <- levels(fac1_vals)
-      if(class(colData(values$dds_obj)[,fac1]) == "factor")
+      if(is.factor(colData(values$dds_obj)[,fac1]))
         selectInput("fac1_c1","Select the name of the numerator level for the fold change",choices = c("",fac1_levels), selected = "")
       # selectInput("fac1_c2","c2",choices = fac1_levels)
     })
@@ -3049,7 +3049,7 @@ ideal<- function(dds_obj = NULL,
       fac1 <- input$choose_expfac
       fac1_vals <- colData(values$dds_obj)[,fac1]
       fac1_levels <- levels(fac1_vals)
-      if(class(colData(values$dds_obj)[,fac1]) == "factor")
+      if(is.factor(colData(values$dds_obj)[,fac1]))
         # selectInput("fac1_c1","c1",choices = fac1_levels)
         selectInput("fac1_c2","Select the name of the denominator level for the fold change (must be different from the numerator)",choices = c("",fac1_levels), selected = "")
     })
@@ -3112,7 +3112,7 @@ ideal<- function(dds_obj = NULL,
                    detail = "DE table on its way!",
                    value = 0,{
                      # handling the experimental covariate correctly to extract the results...
-                     if(class(colData(values$dds_obj)[,input$choose_expfac]) == "factor") {
+                     if(is.factor(colData(values$dds_obj)[,input$choose_expfac])) {
                        if(input$resu_ihw) {
                          values$res_obj <- results(values$dds_obj,
                                                    contrast = c(input$choose_expfac, input$fac1_c1, input$fac1_c2),

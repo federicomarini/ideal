@@ -18,7 +18,7 @@
 #'
 deseqresult2tbl <- function(deseqresult) {
   # library("dplyr")
-  if (class(deseqresult) != "DESeqResults") stop("Not a DESeqResults object.")
+  if (!is(deseqresult, "DESeqResults")) stop("Not a DESeqResults object.")
   deseqresult <- as.data.frame(deseqresult)
 
   deseqresult <- cbind(rownames(deseqresult),deseqresult)
@@ -53,7 +53,7 @@ deseqresult2tbl <- function(deseqresult) {
 deseqresult2DEgenes <- function(deseqresult,
                                 FDR=0.05) {
   # library("dplyr")
-  if (class(deseqresult) != "DESeqResults") stop("Not a DESeqResults object.")
+  if (!is(deseqresult, "DESeqResults")) stop("Not a DESeqResults object.")
   deseqresult <- as.data.frame(deseqresult)
 
   deseqresult <- cbind(rownames(deseqresult),deseqresult)
