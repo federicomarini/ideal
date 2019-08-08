@@ -22,7 +22,8 @@
 #' @importFrom DT datatable
 #' @import shinydashboard
 #' @importFrom AnnotationDbi mapIds select keytypes
-#' @import shinyAce
+#' @importFrom shinyAce aceAutocomplete aceEditor getAceModes getAceThemes 
+#' updateAceEditor
 #' @import BiocParallel
 #' @import knitr
 #' @import rmarkdown
@@ -30,16 +31,18 @@
 #' @importMethodsFrom GOstats hyperGTest summary
 #' @import GO.db
 #' @importFrom UpSetR upset fromList
-#' @import goseq
+#' @importFrom goseq getgo goseq nullp
 #' @import pcaExplorer
+#' @importFrom gplots venn
 #' @importFrom IHW ihw
-#' @import rentrez
+#' @importFrom rentrez entrez_summary
 #' @importFrom pheatmap pheatmap
 #' @import d3heatmap
 #' @importFrom limma goana topGO
 #' @import topGO
-#' @import rintrojs
-#' @importFrom shinyBS bsTooltip
+#' @importFrom stringr str_count
+#' @importFrom rintrojs introjs introjsUI
+#' @importFrom shinyBS bsTooltip bsCollapse bsCollapsePanel
 #' @importFrom ggrepel geom_text_repel
 #' @importFrom base64enc dataURI
 #' @importFrom grDevices dev.off pdf axisTicks
