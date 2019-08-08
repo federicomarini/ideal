@@ -988,7 +988,8 @@ ideal<- function(dds_obj = NULL,
               tabPanel("Edit report",
                        icon = icon("pencil-square-o"),
                        aceEditor("acereport_rmd", mode="markdown",theme = "solarized_light",autoComplete = "live",
-                                 value=readLines(system.file("extdata", "irt.Rmd",package = "ideal")),
+                                 value="_Initialization of the_ `ideal` _report generation..._",
+                                 placeholder = "You can enter some code and text in R Markdown format",
                                  height="800px"))
             )
           ), # end of Report Editor panel
