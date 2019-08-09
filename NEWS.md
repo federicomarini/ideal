@@ -1,3 +1,13 @@
+# ideal 1.10.0
+
+## Bug fixes
+
+* Fixed an error in the initialization of the app due to a new behavior introduced by `shinyAce` in version >= 0.4.0 - occurred in the same way as for `pcaExplorer`
+
+## Other notes
+
+* Better class checks via `is(...)` as per `BiocCheck` suggestion
+
 # ideal 1.8.0
 
 ## New features
