@@ -5,7 +5,7 @@
 # `ideal` - Interactive Differential Expression AnaLysis in RNA-seq data
 
 `ideal` is a Bioconductor package containing a Shiny application for analyzing RNA-Seq data in the context of differential expression. 
-This enables an interactive and at the same time reproducible analysis, keeping the functionality accessible, and yet providing a comprehensive selection of graphs and tables to mine the datasetat hand.
+This enables an interactive and at the same time reproducible analysis, keeping the functionality accessible, and yet providing a comprehensive selection of graphs and tables to mine the dataset at hand.
 
 `ideal` is an R package which fully leverages the infrastructure of the Bioconductor project in order to deliver an interactive yet reproducible analysis for the detection of differentially expressed genes in RNA-Seq datasets. 
 Graphs, tables, and interactive HTML reports can be readily exported and shared across collaborators. 
