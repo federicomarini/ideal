@@ -665,24 +665,28 @@ ideal<- function(dds_obj = NULL,
                            textInput("filename_plotbp4",label = "Save as...",value = "plotbp4.pdf")))
               ),
 
-              plotOutput("ma_highlight"),
-              div(align = "right", style = "margin-right:15px; margin-bottom:10px",
-                  downloadButton("download_plot_mahighlight", "Download Plot"),
-                  textInput("filename_plot_mahighlight",label = "Save as...",value = "plot_mahighlight.pdf")),
-              DT::dataTableOutput("table_combi"),
-              downloadButton("downloadTblCombi","Download", class = "btn btn-success"),
-
-              fileInput(inputId = "gl_ma",
-                        label = "Upload a gene list file",
-                        accept = c("text/csv", "text/comma-separated-values",
-                                   "text/tab-separated-values", "text/plain",
-                                   ".csv", ".tsv"), multiple = FALSE),
-              plotOutput("ma_hl_list"),
-              div(align = "right", style = "margin-right:15px; margin-bottom:10px",
-                  downloadButton("download_plot_mahllist", "Download Plot"),
-                  textInput("filename_plot_mahllist",label = "Save as...",value = "plot_mahllist.pdf")),
-              DT::dataTableOutput("table_combi_list"),
-              downloadButton("downloadTblCombiList","Download", class = "btn btn-success")
+              fluidRow(
+                column(width = 10,offset = 1,
+                       plotOutput("ma_highlight"),
+                       div(align = "right", style = "margin-right:15px; margin-bottom:10px",
+                           downloadButton("download_plot_mahighlight", "Download Plot"),
+                           textInput("filename_plot_mahighlight",label = "Save as...",value = "plot_mahighlight.pdf")),
+                       DT::dataTableOutput("table_combi"),
+                       downloadButton("downloadTblCombi","Download", class = "btn btn-success"),
+                       
+                       fileInput(inputId = "gl_ma",
+                                 label = "Upload a gene list file",
+                                 accept = c("text/csv", "text/comma-separated-values",
+                                            "text/tab-separated-values", "text/plain",
+                                            ".csv", ".tsv"), multiple = FALSE),
+                       plotOutput("ma_hl_list"),
+                       div(align = "right", style = "margin-right:15px; margin-bottom:10px",
+                           downloadButton("download_plot_mahllist", "Download Plot"),
+                           textInput("filename_plot_mahllist",label = "Save as...",value = "plot_mahllist.pdf")),
+                       DT::dataTableOutput("table_combi_list"),
+                       downloadButton("downloadTblCombiList","Download", class = "btn btn-success")
+                )
+              )
             ),
             conditionalPanel(
               condition="output.checkdds",
