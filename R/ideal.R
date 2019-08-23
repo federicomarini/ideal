@@ -1021,6 +1021,7 @@ ideal<- function(dds_obj = NULL,
 
 
   # server definition -----------------------------------------------------------
+  #nocov start
   ideal_server <- shinyServer(function(input, output, session) {
 
     # server tours setup -----------------------------------------------------------
@@ -4182,7 +4183,8 @@ ideal<- function(dds_obj = NULL,
       }
     )
   }) # end of server function definition
-
+  #nocov end
+  
   # launch the app!
   shinyApp(ui = ideal_ui, server = ideal_server)
 }
