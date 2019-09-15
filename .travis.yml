@@ -34,3 +34,11 @@ before_install:
   - echo 'options(Ncpus = 2)' > ~/.Rprofile
   - sudo apt-get -qq update
   - sudo apt-get install -y libpng-dev  
+
+before_cache: Rscript -e 'remotes::install_cran("pkgdown")'
+deploy:
+  provider: script
+  script: Rscript -e 'pkgdown::deploy_site_github()'
+  skip_cleanup: true
+  on:
+    branch: master
