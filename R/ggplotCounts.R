@@ -15,6 +15,8 @@
 #' e.g. HGNC-based gene symbols. Optional.
 #' @param transform Logical value, corresponding whether to have log scale y-axis
 #' or not. Defaults to TRUE.
+#' @param labels_repel Logical value. Whether to use \code{ggrepel}'s functions to 
+#' place labels; defaults to TRUE.
 #'
 #' @return An object created by \code{ggplot}
 #' @export
@@ -34,7 +36,7 @@
 #'
 #'
 ggplotCounts <- function(dds,gene,intgroup="condition",annotation_obj=NULL,
-                         transform = TRUE){
+                         transform = TRUE, labels_repel = TRUE){
   df <- plotCounts(dds,gene,intgroup,returnData = TRUE)
   df$sampleID <- rownames(df)
 
@@ -60,11 +62,16 @@ ggplotCounts <- function(dds,gene,intgroup="condition",annotation_obj=NULL,
     ggplot(df, aes_string(x="plotby",y="count",col="plotby")) +
     geom_boxplot(outlier.shape = NA) +
     # geom_text(data = jittered_df,aes(x=conditionj,y=countj,label=sampleID)) +
-    geom_text(aes_string(label="sampleID"),hjust=-.1,vjust=0) +
     scale_x_discrete(name="") +
     geom_jitter(aes_string(x="plotby",y="count"),
                 position = position_jitter(width = 0.1)) +
     scale_color_discrete(name="Experimental\nconditions")
+  
+  if(labels_repel){
+    p <- p + ggrepel::geom_text_repel(aes_string(label="sampleID"))
+  } else {
+    p <- p + geom_text(aes_string(label="sampleID"),hjust=-.1,vjust=0)
+  }
   
   if(transform)
     p <- p + scale_y_log10(name="Normalized counts (log10 scale)")

@@ -18,6 +18,7 @@
 #' @importFrom IRanges IRanges
 #' @importFrom S4Vectors DataFrame List
 #' @import ggplot2
+#' @importFrom ggrepel geom_text_repel
 #' @import shiny
 #' @importFrom DT datatable
 #' @import shinydashboard

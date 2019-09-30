@@ -5,7 +5,7 @@
 \title{Plot normalized counts for a gene}
 \usage{
 ggplotCounts(dds, gene, intgroup = "condition", annotation_obj = NULL,
-  transform = TRUE)
+  transform = TRUE, labels_repel = TRUE)
 }
 \arguments{
 \item{dds}{A \code{\link{DESeqDataSet}} object.}
@@ -21,6 +21,9 @@ e.g. HGNC-based gene symbols. Optional.}
 
 \item{transform}{Logical value, corresponding whether to have log scale y-axis
 or not. Defaults to TRUE.}
+
+\item{labels_repel}{Logical value. Whether to use \code{ggrepel}'s functions to 
+place labels; defaults to TRUE.}
 }
 \value{
 An object created by \code{ggplot}
