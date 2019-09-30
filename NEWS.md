@@ -1,5 +1,9 @@
 # ideal 1.10.0
 
+## New features
+
+* `ggplotCounts` gains a new parameter, `labels_repel`, to control the placement of the different labels in the plot - this can be useful when a large number of samples is available
+
 ## Bug fixes
 
 * Fixed an error in the initialization of the app due to a new behavior introduced by `shinyAce` in version >= 0.4.0 - occurred in the same way as for `pcaExplorer`
