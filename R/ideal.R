@@ -1847,6 +1847,8 @@ ideal<- function(dds_obj = NULL,
       # values$genelist2
     })
 
+
+    # DE genes lists ----------------------------------------------------------
     values$genelistUP <- reactive({
       res_tbl <- deseqresult2DEgenes(values$res_obj, FDR = input$FDR)
       res_tbl_UP <- res_tbl[res_tbl$log2FoldChange > 0 & !is.na(res_tbl$padj),]
@@ -2069,22 +2071,32 @@ ideal<- function(dds_obj = NULL,
     observeEvent(input$button_enrUP_topgo,
                  {
                    withProgress(message="TOPGO - Performing Gene Set Enrichment on upregulated genes...",value = 0,{
-
-                     de_symbols <- values$genelistUP() # assumed to be in symbols
-                     bg_ids <- rownames(values$dds_obj)[rowSums(counts(values$dds_obj)) > 0]
-                     bg_symbols <- mapIds(get(annoSpecies_df[values$cur_species,]$pkg),
-                                          keys=bg_ids,
-                                          column="SYMBOL",
-                                          keytype=input$idtype,
-                                          multiVals="first")
-                     incProgress(0.1, detail = "IDs mapped")
-                     # library(topGO)
-                     # requireNamespace("topGO")
-                     values$topgo_up <- pcaExplorer::topGOtable(de_symbols, bg_symbols,
-                                                                ontology = input$go_cats[1],
-                                                                mapping = annoSpecies_df[values$cur_species,]$pkg,
-                                                                geneID = "symbol",addGeneToTerms = TRUE)
-                     incProgress(0.89)
+                     if (is.null(input$speciesSelect)) {
+                       showNotification("Please specify the species in the Data Setup panel and retrieve the annotation object",type = "warning")
+                       return(NULL)
+                     } else if (is.null(values$genelistUP())) {
+                       showNotification("You are using ids different than symbols, please convert them by creating/using an annotation object",type = "warning")
+                       return(NULL)
+                     } else if (is.null(values$cur_species) | values$cur_species =="") {
+                       showNotification("Please specify the species in the Data Setup panel and retrieve the annotation object",type = "warning")
+                       return(NULL)
+                     } else {
+                       de_symbols <- values$genelistUP() # assumed to be in symbols
+                       bg_ids <- rownames(values$dds_obj)[rowSums(counts(values$dds_obj)) > 0]
+                       bg_symbols <- mapIds(get(annoSpecies_df[values$cur_species,]$pkg),
+                                            keys=bg_ids,
+                                            column="SYMBOL",
+                                            keytype=input$idtype,
+                                            multiVals="first")
+                       incProgress(0.1, detail = "IDs mapped")
+                       # library(topGO)
+                       # requireNamespace("topGO")
+                       values$topgo_up <- pcaExplorer::topGOtable(de_symbols, bg_symbols,
+                                                                  ontology = input$go_cats[1],
+                                                                  mapping = annoSpecies_df[values$cur_species,]$pkg,
+                                                                  geneID = "symbol",addGeneToTerms = TRUE)
+                       incProgress(0.89)
+                     }
                    })
                  })
 
@@ -2156,24 +2168,33 @@ ideal<- function(dds_obj = NULL,
     observeEvent(input$button_enrDOWN_topgo,
                  {
                    withProgress(message="TOPGO - Performing Gene Set Enrichment on downregulated genes...",value = 0,{
-
-                     de_symbols <- values$genelistDOWN() # assumed to be in symbols
-                     bg_ids <- rownames(values$dds_obj)[rowSums(counts(values$dds_obj)) > 0]
-                     bg_symbols <- mapIds(get(annoSpecies_df[values$cur_species,]$pkg),
-                                          keys=bg_ids,
-                                          column="SYMBOL",
-                                          keytype=input$idtype,
-                                          multiVals="first")
-                     incProgress(0.1, detail = "IDs mapped")
-                     # library(topGO)
-                     # requireNamespace("topGO")
-                     values$topgo_down <- pcaExplorer::topGOtable(de_symbols, bg_symbols,
-                                                                  ontology = input$go_cats[1], # will take the first ontology
-                                                                  mapping = annoSpecies_df[values$cur_species,]$pkg,
-                                                                  geneID = "symbol",addGeneToTerms = TRUE)
-                     incProgress(0.89)
-
-
+                     if (is.null(input$speciesSelect)) {
+                       showNotification("Please specify the species in the Data Setup panel and retrieve the annotation object",type = "warning")
+                       return(NULL)
+                     } else if (is.null(values$genelistDOWN())) {
+                       showNotification("You are using ids different than symbols, please convert them by creating/using an annotation object",type = "warning")
+                       return(NULL)
+                     } else if (is.null(values$cur_species) | values$cur_species =="") {
+                       showNotification("Please specify the species in the Data Setup panel and retrieve the annotation object",type = "warning")
+                       return(NULL)
+                     } else {
+                       de_symbols <- values$genelistDOWN() # assumed to be in symbols
+                       bg_ids <- rownames(values$dds_obj)[rowSums(counts(values$dds_obj)) > 0]
+                       bg_symbols <- mapIds(get(annoSpecies_df[values$cur_species,]$pkg),
+                                            keys=bg_ids,
+                                            column="SYMBOL",
+                                            keytype=input$idtype,
+                                            multiVals="first")
+                       incProgress(0.1, detail = "IDs mapped")
+                       # library(topGO)
+                       # requireNamespace("topGO")
+                       values$topgo_down <- pcaExplorer::topGOtable(de_symbols, bg_symbols,
+                                                                    ontology = input$go_cats[1], # will take the first ontology
+                                                                    mapping = annoSpecies_df[values$cur_species,]$pkg,
+                                                                    geneID = "symbol",addGeneToTerms = TRUE)
+                       incProgress(0.89)
+  
+                     }
                    })
                  })
 
@@ -2248,24 +2269,37 @@ ideal<- function(dds_obj = NULL,
     observeEvent(input$button_enrUPDOWN_topgo,
                  {
                    withProgress(message="TOPGO - Performing Gene Set Enrichment on up and downregulated genes...",value = 0,{
-
-                     de_symbols <- values$genelistUPDOWN() # assumed to be in symbols
-                     bg_ids <- rownames(values$dds_obj)[rowSums(counts(values$dds_obj)) > 0]
-                     bg_symbols <- mapIds(get(annoSpecies_df[values$cur_species,]$pkg),
-                                          keys=bg_ids,
-                                          column="SYMBOL",
-                                          keytype=input$idtype,
-                                          multiVals="first")
-                     incProgress(0.1, detail = "IDs mapped")
-                     # library(topGO)
-                     # requireNamespace("topGO")
-                     values$topgo_updown <- pcaExplorer::topGOtable(de_symbols, bg_symbols,
-                                                                    ontology = input$go_cats[1],
-                                                                    mapping = annoSpecies_df[values$cur_species,]$pkg,
-                                                                    geneID = "symbol",addGeneToTerms = TRUE)
-                     incProgress(0.89)
+                     
+                     if (is.null(input$speciesSelect)) {
+                       showNotification("Please specify the species in the Data Setup panel and retrieve the annotation object",type = "warning")
+                       return(NULL)
+                     } else if (is.null(values$genelistUPDOWN())) {
+                       showNotification("You are using ids different than symbols, please convert them by creating/using an annotation object",type = "warning")
+                       return(NULL)
+                     } else if (is.null(values$cur_species) | values$cur_species =="") {
+                       showNotification("Please specify the species in the Data Setup panel and retrieve the annotation object",type = "warning")
+                       return(NULL)
+                     } else {
+                       
+                       de_symbols <- values$genelistUPDOWN() # assumed to be in symbols
+                       bg_ids <- rownames(values$dds_obj)[rowSums(counts(values$dds_obj)) > 0]
+                       bg_symbols <- mapIds(get(annoSpecies_df[values$cur_species,]$pkg),
+                                            keys=bg_ids,
+                                            column="SYMBOL",
+                                            keytype=input$idtype,
+                                            multiVals="first")
+                       incProgress(0.1, detail = "IDs mapped")
+                       # library(topGO)
+                       # requireNamespace("topGO")
+                       values$topgo_updown <- pcaExplorer::topGOtable(de_symbols, bg_symbols,
+                                                                      ontology = input$go_cats[1],
+                                                                      mapping = annoSpecies_df[values$cur_species,]$pkg,
+                                                                      geneID = "symbol",addGeneToTerms = TRUE)
+                       incProgress(0.89)
+                     }
                    })
                  })
+    
 
     ### LIST1
     observeEvent(input$button_enrLIST1,
@@ -2336,22 +2370,29 @@ ideal<- function(dds_obj = NULL,
     observeEvent(input$button_enrLIST1_topgo,
                  {
                    withProgress(message="TOPGO - Performing Gene Set Enrichment on list1 genes...",value = 0,{
-
-                     de_symbols <- values$genelist1$`Gene Symbol` # assumed to be in symbols
-                     bg_ids <- rownames(values$dds_obj)[rowSums(counts(values$dds_obj)) > 0]
-                     bg_symbols <- mapIds(get(annoSpecies_df[values$cur_species,]$pkg),
-                                          keys=bg_ids,
-                                          column="SYMBOL",
-                                          keytype=input$idtype,
-                                          multiVals="first")
-                     incProgress(0.1, detail = "IDs mapped")
-                     # library(topGO)
-                     # requireNamespace("topGO")
-                     values$topgo_list1 <- pcaExplorer::topGOtable(de_symbols, bg_symbols,
-                                                                   ontology = input$go_cats[1],
-                                                                   mapping = annoSpecies_df[values$cur_species,]$pkg,
-                                                                   geneID = "symbol",addGeneToTerms = TRUE)
-                     incProgress(0.89)
+                     if (is.null(input$speciesSelect)) {
+                       showNotification("Please specify the species in the Data Setup panel and retrieve the annotation object",type = "warning")
+                       return(NULL)
+                     } else if (is.null(values$cur_species) | values$cur_species =="") {
+                       showNotification("Please specify the species in the Data Setup panel and retrieve the annotation object",type = "warning")
+                       return(NULL)
+                     } else {
+                       de_symbols <- values$genelist1$`Gene Symbol` # assumed to be in symbols
+                       bg_ids <- rownames(values$dds_obj)[rowSums(counts(values$dds_obj)) > 0]
+                       bg_symbols <- mapIds(get(annoSpecies_df[values$cur_species,]$pkg),
+                                            keys=bg_ids,
+                                            column="SYMBOL",
+                                            keytype=input$idtype,
+                                            multiVals="first")
+                       incProgress(0.1, detail = "IDs mapped")
+                       # library(topGO)
+                       # requireNamespace("topGO")
+                       values$topgo_list1 <- pcaExplorer::topGOtable(de_symbols, bg_symbols,
+                                                                     ontology = input$go_cats[1],
+                                                                     mapping = annoSpecies_df[values$cur_species,]$pkg,
+                                                                     geneID = "symbol",addGeneToTerms = TRUE)
+                       incProgress(0.89)
+                     }
                    })
                  })
     ### LIST2
@@ -2422,22 +2463,29 @@ ideal<- function(dds_obj = NULL,
     observeEvent(input$button_enrLIST2_topgo,
                  {
                    withProgress(message="TOPGO - Performing Gene Set Enrichment on list2 genes...",value = 0,{
-
-                     de_symbols <- values$genelist2$`Gene Symbol` # assumed to be in symbols
-                     bg_ids <- rownames(values$dds_obj)[rowSums(counts(values$dds_obj)) > 0]
-                     bg_symbols <- mapIds(get(annoSpecies_df[values$cur_species,]$pkg),
-                                          keys=bg_ids,
-                                          column="SYMBOL",
-                                          keytype=input$idtype,
-                                          multiVals="first")
-                     incProgress(0.1, detail = "IDs mapped")
-                     # library(topGO)
-                     # requireNamespace("topGO")
-                     values$topgo_list2 <- pcaExplorer::topGOtable(de_symbols, bg_symbols,
-                                                                   ontology = input$go_cats[1],
-                                                                   mapping = annoSpecies_df[values$cur_species,]$pkg,
-                                                                   geneID = "symbol",addGeneToTerms = TRUE)
-                     incProgress(0.89)
+                     if (is.null(input$speciesSelect)) {
+                       showNotification("Please specify the species in the Data Setup panel and retrieve the annotation object",type = "warning")
+                       return(NULL)
+                     } else if (is.null(values$cur_species) | values$cur_species =="") {
+                       showNotification("Please specify the species in the Data Setup panel and retrieve the annotation object",type = "warning")
+                       return(NULL)
+                     } else {
+                       de_symbols <- values$genelist2$`Gene Symbol` # assumed to be in symbols
+                       bg_ids <- rownames(values$dds_obj)[rowSums(counts(values$dds_obj)) > 0]
+                       bg_symbols <- mapIds(get(annoSpecies_df[values$cur_species,]$pkg),
+                                            keys=bg_ids,
+                                            column="SYMBOL",
+                                            keytype=input$idtype,
+                                            multiVals="first")
+                       incProgress(0.1, detail = "IDs mapped")
+                       # library(topGO)
+                       # requireNamespace("topGO")
+                       values$topgo_list2 <- pcaExplorer::topGOtable(de_symbols, bg_symbols,
+                                                                     ontology = input$go_cats[1],
+                                                                     mapping = annoSpecies_df[values$cur_species,]$pkg,
+                                                                     geneID = "symbol",addGeneToTerms = TRUE)
+                       incProgress(0.89)
+                     }
                    })
                  })
 
