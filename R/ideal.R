@@ -2676,7 +2676,7 @@ ideal<- function(dds_obj = NULL,
         return(NULL)
       mytbl <- values$gse_up_goseq
       mytbl$category <- createLinkGO(mytbl$category)
-      datatable(mytbl,escape=FALSE)
+      datatable(mytbl,escape=FALSE, rownames = FALSE)
     })
     output$DT_gse_down_goseq <- DT::renderDataTable({
       # if not null...
@@ -2684,7 +2684,7 @@ ideal<- function(dds_obj = NULL,
         return(NULL)
       mytbl <- values$gse_down_goseq
       mytbl$category <- createLinkGO(mytbl$category)
-      datatable(mytbl,escape=FALSE)
+      datatable(mytbl,escape=FALSE, rownames = FALSE)
     })
     output$DT_gse_updown_goseq <- DT::renderDataTable({
       # if not null...
@@ -2692,7 +2692,7 @@ ideal<- function(dds_obj = NULL,
         return(NULL)
       mytbl <- values$gse_updown_goseq
       mytbl$category <- createLinkGO(mytbl$category)
-      datatable(mytbl,escape=FALSE)
+      datatable(mytbl,escape=FALSE, rownames = FALSE)
     })
     output$DT_gse_list1_goseq <- DT::renderDataTable({
       # if not null...
@@ -2701,7 +2701,7 @@ ideal<- function(dds_obj = NULL,
       mytbl <- values$gse_list1_goseq
       # mytbl$GOid <- rownames(mytbl)
       mytbl$category <- createLinkGO(mytbl$category)
-      datatable(mytbl,escape=FALSE)
+      datatable(mytbl,escape=FALSE, rownames = FALSE)
     })
     output$DT_gse_list2_goseq <- DT::renderDataTable({
       # if not null...
@@ -2710,7 +2710,7 @@ ideal<- function(dds_obj = NULL,
       mytbl <- values$gse_list2_goseq
       # mytbl$GOid <- rownames(mytbl)
       mytbl$category <- createLinkGO(mytbl$category)
-      datatable(mytbl,escape=FALSE)
+      datatable(mytbl,escape=FALSE, rownames = FALSE)
     })
 
 
