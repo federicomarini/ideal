@@ -489,9 +489,9 @@ ideal<- function(dds_obj = NULL,
               DT::dataTableOutput("table_res"),
               downloadButton("downloadTblResu","Download", class = "btn btn-success"),
               fluidRow(
-                h3("Diagnostic plots"),
                 column(
                   width = 6,
+                  h3("Diagnostic plots"),
                   plotOutput("pvals_hist"),
                   div(align = "right", style = "margin-right:15px; margin-bottom:10px",
                       downloadButton("download_plot_pvals_hist", "Download Plot"),
