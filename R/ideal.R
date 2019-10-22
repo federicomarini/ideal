@@ -1848,39 +1848,60 @@ ideal<- function(dds_obj = NULL,
     })
 
     values$genelistUP <- reactive({
-
       res_tbl <- deseqresult2DEgenes(values$res_obj, FDR = input$FDR)
       res_tbl_UP <- res_tbl[res_tbl$log2FoldChange > 0 & !is.na(res_tbl$padj),]
       # res_tbl_DOWN <- res_tbl[res_tbl$log2FoldChange < 0 & !is.na(res_tbl$padj),]
 
-      # this will have to be modified!
-      # res_tbl_UP$symbol <- anno_df$gene_name[match(res_tbl_UP$id,anno_df$gene_id)]
-
-      listUP <- res_tbl_UP$symbol
+      if("symbol" %in% colnames(values$res_obj)) { 
+        if(!is.null(values$annotation_obj)) {
+          res_tbl_UP$symbol <- values$annotation_obj$gene_name[
+            match(res_tbl_UP$id,
+                  rownames(values$annotation_obj))]
+          listUP <- res_tbl_UP$symbol
+        } else {
+          listUP <- NULL
+        }
+      } else {
+        listUP <- res_tbl_UP$symbol
+      }
       return(listUP)
     })
 
     values$genelistDOWN <- reactive({
-
       res_tbl <- deseqresult2DEgenes(values$res_obj, FDR = input$FDR)
       # res_tbl_UP <- res_tbl[res_tbl$log2FoldChange > 0 & !is.na(res_tbl$padj),]
       res_tbl_DOWN <- res_tbl[res_tbl$log2FoldChange < 0 & !is.na(res_tbl$padj),]
-
-      # this will have to be modified!
-      # res_tbl_DOWN$symbol <- anno_df$gene_name[match(res_tbl_DOWN$id,anno_df$gene_id)]
-
-      listDOWN <- res_tbl_DOWN$symbol
+      
+      if("symbol" %in% colnames(values$res_obj)) { 
+        if(!is.null(values$annotation_obj)) {
+          res_tbl_DOWN$symbol <- values$annotation_obj$gene_name[
+            match(res_tbl_DOWN$id,
+                  rownames(values$annotation_obj))]
+          listDOWN <- res_tbl_DOWN$symbol
+        } else {
+          listDOWN <- NULL
+        }
+      } else {
+        listDOWN <- res_tbl_DOWN$symbol
+      }
       return(listDOWN)
     })
 
     values$genelistUPDOWN <- reactive({
-
       res_tbl <- deseqresult2DEgenes(values$res_obj, FDR = input$FDR)
 
-      # this will have to be modified!
-      # res_tbl$symbol <- anno_df$gene_name[match(res_tbl$id,anno_df$gene_id)]
-
-      listUPDOWN <- res_tbl$symbol
+      if("symbol" %in% colnames(values$res_obj)) { 
+        if(!is.null(values$annotation_obj)) {
+          res_tbl$symbol <- values$annotation_obj$gene_name[
+            match(res_tbl$id,
+                  rownames(values$annotation_obj))]
+          listUPDOWN <- res_tbl$symbol
+        } else {
+          listUPDOWN <- NULL
+        }
+      } else {
+        listUPDOWN <- res_tbl$symbol
+      }
       return(listUPDOWN)
     })
 
