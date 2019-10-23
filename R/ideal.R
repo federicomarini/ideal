@@ -1981,11 +1981,19 @@ ideal<- function(dds_obj = NULL,
 
                                   annopkg <- annoSpecies_df$pkg[annoSpecies_df$species==input$speciesSelect]
                                   incProgress(0.1,detail = "Matching identifiers")
-                                  annotation_obj <- get_annotation_orgdb(values$dds_obj,orgdb_species = annopkg, idtype = input$idtype)
-                                  values$annotation_obj <- annotation_obj
-                                  # and also, set the species in the reactiveValues
-                                  values$cur_species <- input$speciesSelect
-                                  values$cur_type <- input$idtype
+                                  tryCatch({
+                                    annotation_obj <- get_annotation_orgdb(values$dds_obj,orgdb_species = annopkg, idtype = input$idtype)
+                                    values$annotation_obj <- annotation_obj
+                                    # and also, set the species in the reactiveValues
+                                    values$cur_species <- input$speciesSelect
+                                    values$cur_type <- input$idtype
+                                  },
+                                  error=function(e) {
+                                    showNotification(
+                                      paste("Warning! The annotation object was not generated,",
+                                            "because of an error in the underlying `mapIds` function:",
+                                            "-----", e), type = "warning")
+                                  })
                                 })
                  })
 
