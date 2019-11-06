@@ -489,9 +489,9 @@ ideal<- function(dds_obj = NULL,
               DT::dataTableOutput("table_res"),
               downloadButton("downloadTblResu","Download", class = "btn btn-success"),
               fluidRow(
-                h3("Diagnostic plots"),
                 column(
                   width = 6,
+                  h3("Diagnostic plots"),
                   plotOutput("pvals_hist"),
                   div(align = "right", style = "margin-right:15px; margin-bottom:10px",
                       downloadButton("download_plot_pvals_hist", "Download Plot"),
@@ -727,10 +727,14 @@ ideal<- function(dds_obj = NULL,
                            fluidRow(column(width = 6,actionButton("button_enrUP", "Perform gene set enrichment analysis on the upregulated genes",class = "btn btn-primary"))),
                            fluidRow(column(width = 6,actionButton("button_enrUP_goseq", "Perform gene set enrichment analysis on the upregulated genes - goseq",class = "btn btn-primary"))),
                            fluidRow(column(width = 6,actionButton("button_enrUP_topgo", "Perform gene set enrichment analysis on the upregulated genes - topGO",class = "btn btn-primary"))),
-                           DT::dataTableOutput("DT_gse_up"),
-                           DT::dataTableOutput("DT_gse_up_goseq"),
+                           uiOutput("ui_DT_gse_up"),
+                           uiOutput("ui_DT_gse_up_goseq"),
+                           # DT::dataTableOutput("DT_gse_up"),
+                           # DT::dataTableOutput("DT_gse_up_goseq"),
                            fluidRow(
-                             column(width = 9, DT::dataTableOutput("DT_gse_up_topgo"),
+                             column(width = 9, 
+                                    uiOutput("ui_DT_gse_up_topgo"),
+                                    # DT::dataTableOutput("DT_gse_up_topgo"),
                                     downloadButton("downloadGOTbl_up","Download", class = "btn btn-success")),
                              column(width = 3, plotOutput("goterm_heatmap_up_topgo"))
                            )
@@ -739,10 +743,14 @@ ideal<- function(dds_obj = NULL,
                            fluidRow(column(width = 6,actionButton("button_enrDOWN", "Perform gene set enrichment analysis on the downregulated genes",class = "btn btn-primary"))),
                            fluidRow(column(width = 6,actionButton("button_enrDOWN_goseq", "Perform gene set enrichment analysis on the downregulated genes - goseq",class = "btn btn-primary"))),
                            fluidRow(column(width = 6,actionButton("button_enrDOWN_topgo", "Perform gene set enrichment analysis on the downregulated genes - topGO",class = "btn btn-primary"))),
-                           DT::dataTableOutput("DT_gse_down"),
-                           DT::dataTableOutput("DT_gse_down_goseq"),
+                           # DT::dataTableOutput("DT_gse_down"),
+                           # DT::dataTableOutput("DT_gse_down_goseq"),
+                           uiOutput("ui_DT_gse_down"),
+                           uiOutput("ui_DT_gse_down_goseq"),
                            fluidRow(
-                             column(width = 9, DT::dataTableOutput("DT_gse_down_topgo"),
+                             column(width = 9, 
+                                    # DT::dataTableOutput("DT_gse_down_topgo"),
+                                    uiOutput("ui_DT_gse_down_topgo"),
                                     downloadButton("downloadGOTbl_down","Download", class = "btn btn-success")),
                              column(width = 3, plotOutput("goterm_heatmap_down_topgo"))
                            )
@@ -751,10 +759,13 @@ ideal<- function(dds_obj = NULL,
                            fluidRow(column(width = 6,actionButton("button_enrUPDOWN", "Perform gene set enrichment analysis on the up- and downregulated genes",class = "btn btn-primary"))),
                            fluidRow(column(width = 6,actionButton("button_enrUPDOWN_goseq", "Perform gene set enrichment analysis on the up- and downregulated genes - goseq",class = "btn btn-primary"))),
                            fluidRow(column(width = 6,actionButton("button_enrUPDOWN_topgo", "Perform gene set enrichment analysis on the up- and downregulated genes - topGO",class = "btn btn-primary"))),
-                           DT::dataTableOutput("DT_gse_updown"),
-                           DT::dataTableOutput("DT_gse_updown_goseq"),
+                           # DT::dataTableOutput("DT_gse_updown"),
+                           # DT::dataTableOutput("DT_gse_updown_goseq"),
+                           uiOutput("ui_DT_gse_updown"),
+                           uiOutput("ui_DT_gse_updown_goseq"),
                            fluidRow(
-                             column(width = 9, DT::dataTableOutput("DT_gse_updown_topgo"),
+                             column(width = 9, 
+                                    uiOutput("ui_DT_gse_updown_topgo"),
                                     downloadButton("downloadGOTbl_updown","Download", class = "btn btn-success")),
                              column(width = 3, plotOutput("goterm_heatmap_updown_topgo"))
                            )
@@ -768,10 +779,14 @@ ideal<- function(dds_obj = NULL,
                            fluidRow(column(width = 6,actionButton("button_enrLIST1", "Perform gene set enrichment analysis on the genes in list1",class = "btn btn-primary"))),
                            fluidRow(column(width = 6,actionButton("button_enrLIST1_goseq", "Perform gene set enrichment analysis on the list1 genes - goseq",class = "btn btn-primary"))),
                            fluidRow(column(width = 6,actionButton("button_enrLIST1_topgo", "Perform gene set enrichment analysis on the list1 genes - topGO",class = "btn btn-primary"))),
-                           DT::dataTableOutput("DT_gse_list1"),
-                           DT::dataTableOutput("DT_gse_list1_goseq"),
+                           # DT::dataTableOutput("DT_gse_list1"),
+                           # DT::dataTableOutput("DT_gse_list1_goseq"),
+                           uiOutput("ui_DT_gse_list1"),
+                           uiOutput("ui_DT_gse_list1_goseq"),
                            fluidRow(
-                             column(width = 9, DT::dataTableOutput("DT_gse_list1_topgo"),
+                             column(width = 9, 
+                                    # DT::dataTableOutput("DT_gse_list1_topgo"),
+                                    uiOutput("ui_DT_gse_list1_topgo"),
                                     downloadButton("downloadGOTbl_l1","Download", class = "btn btn-success")),
                              column(width = 3, plotOutput("goterm_heatmap_l1_topgo"))
                            )
@@ -786,10 +801,14 @@ ideal<- function(dds_obj = NULL,
                            fluidRow(column(width = 6,actionButton("button_enrLIST2", "Perform gene set enrichment analysis on the genes in list2",class = "btn btn-primary"))),
                            fluidRow(column(width = 6,actionButton("button_enrLIST2_goseq", "Perform gene set enrichment analysis on the list2 genes - goseq",class = "btn btn-primary"))),
                            fluidRow(column(width = 6,actionButton("button_enrLIST2_topgo", "Perform gene set enrichment analysis on the list2 genes - topGO",class = "btn btn-primary"))),
-                           DT::dataTableOutput("DT_gse_list2"),
-                           DT::dataTableOutput("DT_gse_list2_goseq"),
+                           # DT::dataTableOutput("DT_gse_list2"),
+                           # DT::dataTableOutput("DT_gse_list2_goseq"),
+                           uiOutput("ui_DT_gse_list2"),
+                           uiOutput("ui_DT_gse_list2_goseq"),
                            fluidRow(
-                             column(width = 9, DT::dataTableOutput("DT_gse_list2_topgo"),
+                             column(width = 9, 
+                                    # DT::dataTableOutput("DT_gse_list2_topgo"),
+                                    uiOutput("ui_DT_gse_list2_topgo"),
                                     downloadButton("downloadGOTbl_l2","Download", class = "btn btn-success")),
                              column(width = 3, plotOutput("goterm_heatmap_l2_topgo"))
                            )
@@ -1847,40 +1866,63 @@ ideal<- function(dds_obj = NULL,
       # values$genelist2
     })
 
-    values$genelistUP <- reactive({
 
+    # DE genes lists ----------------------------------------------------------
+    values$genelistUP <- reactive({
       res_tbl <- deseqresult2DEgenes(values$res_obj, FDR = input$FDR)
       res_tbl_UP <- res_tbl[res_tbl$log2FoldChange > 0 & !is.na(res_tbl$padj),]
       # res_tbl_DOWN <- res_tbl[res_tbl$log2FoldChange < 0 & !is.na(res_tbl$padj),]
 
-      # this will have to be modified!
-      # res_tbl_UP$symbol <- anno_df$gene_name[match(res_tbl_UP$id,anno_df$gene_id)]
-
-      listUP <- res_tbl_UP$symbol
+      if("symbol" %in% colnames(values$res_obj)) { 
+        if(!is.null(values$annotation_obj)) {
+          res_tbl_UP$symbol <- values$annotation_obj$gene_name[
+            match(res_tbl_UP$id,
+                  rownames(values$annotation_obj))]
+          listUP <- res_tbl_UP$symbol
+        } else {
+          listUP <- NULL
+        }
+      } else {
+        listUP <- res_tbl_UP$symbol
+      }
       return(listUP)
     })
 
     values$genelistDOWN <- reactive({
-
       res_tbl <- deseqresult2DEgenes(values$res_obj, FDR = input$FDR)
       # res_tbl_UP <- res_tbl[res_tbl$log2FoldChange > 0 & !is.na(res_tbl$padj),]
       res_tbl_DOWN <- res_tbl[res_tbl$log2FoldChange < 0 & !is.na(res_tbl$padj),]
-
-      # this will have to be modified!
-      # res_tbl_DOWN$symbol <- anno_df$gene_name[match(res_tbl_DOWN$id,anno_df$gene_id)]
-
-      listDOWN <- res_tbl_DOWN$symbol
+      
+      if("symbol" %in% colnames(values$res_obj)) { 
+        if(!is.null(values$annotation_obj)) {
+          res_tbl_DOWN$symbol <- values$annotation_obj$gene_name[
+            match(res_tbl_DOWN$id,
+                  rownames(values$annotation_obj))]
+          listDOWN <- res_tbl_DOWN$symbol
+        } else {
+          listDOWN <- NULL
+        }
+      } else {
+        listDOWN <- res_tbl_DOWN$symbol
+      }
       return(listDOWN)
     })
 
     values$genelistUPDOWN <- reactive({
-
       res_tbl <- deseqresult2DEgenes(values$res_obj, FDR = input$FDR)
 
-      # this will have to be modified!
-      # res_tbl$symbol <- anno_df$gene_name[match(res_tbl$id,anno_df$gene_id)]
-
-      listUPDOWN <- res_tbl$symbol
+      if("symbol" %in% colnames(values$res_obj)) { 
+        if(!is.null(values$annotation_obj)) {
+          res_tbl$symbol <- values$annotation_obj$gene_name[
+            match(res_tbl$id,
+                  rownames(values$annotation_obj))]
+          listUPDOWN <- res_tbl$symbol
+        } else {
+          listUPDOWN <- NULL
+        }
+      } else {
+        listUPDOWN <- res_tbl$symbol
+      }
       return(listUPDOWN)
     })
 
@@ -1939,11 +1981,19 @@ ideal<- function(dds_obj = NULL,
 
                                   annopkg <- annoSpecies_df$pkg[annoSpecies_df$species==input$speciesSelect]
                                   incProgress(0.1,detail = "Matching identifiers")
-                                  annotation_obj <- get_annotation_orgdb(values$dds_obj,orgdb_species = annopkg, idtype = input$idtype)
-                                  values$annotation_obj <- annotation_obj
-                                  # and also, set the species in the reactiveValues
-                                  values$cur_species <- input$speciesSelect
-                                  values$cur_type <- input$idtype
+                                  tryCatch({
+                                    annotation_obj <- get_annotation_orgdb(values$dds_obj,orgdb_species = annopkg, idtype = input$idtype)
+                                    values$annotation_obj <- annotation_obj
+                                    # and also, set the species in the reactiveValues
+                                    values$cur_species <- input$speciesSelect
+                                    values$cur_type <- input$idtype
+                                  },
+                                  error=function(e) {
+                                    showNotification(
+                                      paste("Warning! The annotation object was not generated,",
+                                            "because of an error in the underlying `mapIds` function:",
+                                            "-----", e), type = "warning")
+                                  })
                                 })
                  })
 
@@ -1983,140 +2033,73 @@ ideal<- function(dds_obj = NULL,
     observeEvent(input$button_enrUP,
                  {
                    withProgress(message="Performing Gene Set Enrichment on upregulated genes...",value = 0,{
-                     organism <- annoSpecies_df[values$cur_species,]$species_short
-                     backgroundgenes <- rownames(values$dds_obj)[rowSums(counts(values$dds_obj))>0]
-                     inputType <- "SYMBOL" # will be replaced by input$...
-                     # annopkg <- paste0("org.",organism,".eg.db")
-                     annopkg <- annoSpecies_df[values$cur_species,]$pkg
-                     if (!require(annopkg,character.only=TRUE)) {
-                       stop("The package",annopkg, "is not installed/available. Try installing it with BiocManager::install() ?")
+                     if (is.null(input$speciesSelect)) {
+                       showNotification("Please specify the species in the Data Setup panel and retrieve the annotation object",type = "warning")
+                       return(NULL)
+                     } else if (is.null(values$genelistUP())) {
+                       showNotification("You are using ids different than symbols, please convert them by creating/using an annotation object",type = "warning")
+                       return(NULL)
+                     } else if (is.null(values$cur_species) | values$cur_species =="") {
+                       showNotification("Please specify the species in the Data Setup panel and retrieve the annotation object",type = "warning")
+                       return(NULL)
+                     } else {
+                       organism <- annoSpecies_df[values$cur_species,]$species_short
+                       backgroundgenes <- rownames(values$dds_obj)[rowSums(counts(values$dds_obj))>0]
+                       inputType <- "SYMBOL" # will be replaced by input$...
+                       # annopkg <- paste0("org.",organism,".eg.db")
+                       annopkg <- annoSpecies_df[values$cur_species,]$pkg
+                       if (!require(annopkg,character.only=TRUE)) {
+                         stop("The package",annopkg, "is not installed/available. Try installing it with BiocManager::install() ?")
+                       }
+                       listGenesEntrez <-  as.character(AnnotationDbi::mapIds(eval(parse(text=annopkg)), keys = values$genelistUP(),
+                                                                              column="ENTREZID", keytype=inputType))
+                       listBackgroundEntrez <-  as.character(AnnotationDbi::mapIds(eval(parse(text=annopkg)), keys = backgroundgenes,
+                                                                                   column="ENTREZID", keytype=input$idtype))
+                       incProgress(0.1, detail = "IDs mapped")
+                       values$gse_up <- limma::topGO(limma::goana(listGenesEntrez, listBackgroundEntrez, species = organism),
+                                                     ontology= input$go_cats[1],
+                                                     number=200)
+  
+                       incProgress(0.7, detail = "adding gene names to GO terms") # good indicator for showing it has progressed
+                       go_ids <- rownames(values$gse_up)
+                       allegs_list <- lapply(go_ids, function(arg) AnnotationDbi::get(arg, get(paste0("org.",organism,".egGO2ALLEGS"))))
+                       genes_list <- lapply(allegs_list, function(arg) unlist(AnnotationDbi::mget(arg,get(paste0("org.",organism,".egSYMBOL")))))
+                       degenes <- values$genelistUP()
+                       DEgenes_list <- lapply(genes_list, function(arg) intersect(arg,degenes))
+  
+                       values$gse_up$genes <- unlist(lapply(DEgenes_list,function(arg) paste(arg,collapse=",")))
                      }
-                     listGenesEntrez <-  as.character(AnnotationDbi::mapIds(eval(parse(text=annopkg)), keys = values$genelistUP(),
-                                                                            column="ENTREZID", keytype=inputType))
-                     listBackgroundEntrez <-  as.character(AnnotationDbi::mapIds(eval(parse(text=annopkg)), keys = backgroundgenes,
-                                                                                 column="ENTREZID", keytype=input$idtype))
-                     incProgress(0.1, detail = "IDs mapped")
-                     values$gse_up <- limma::topGO(limma::goana(listGenesEntrez, listBackgroundEntrez, species = organism),
-                                                   ontology= input$go_cats[1],
-                                                   number=200)
-
-                     incProgress(0.7, detail = "adding gene names to GO terms") # good indicator for showing it has progressed
-                     go_ids <- rownames(values$gse_up)
-                     allegs_list <- lapply(go_ids, function(arg) AnnotationDbi::get(arg, get(paste0("org.",organism,".egGO2ALLEGS"))))
-                     genes_list <- lapply(allegs_list, function(arg) unlist(AnnotationDbi::mget(arg,get(paste0("org.",organism,".egSYMBOL")))))
-                     degenes <- values$genelistUP()
-                     DEgenes_list <- lapply(genes_list, function(arg) intersect(arg,degenes))
-
-                     values$gse_up$genes <- unlist(lapply(DEgenes_list,function(arg) paste(arg,collapse=",")))
                    })
                  })
 
     observeEvent(input$button_enrUP_goseq,
                  {
                    withProgress(message="GOSEQ - Performing Gene Set Enrichment on upregulated genes...",value = 0,{
-
-                     de.genes <- values$genelistUP() # assumed to be in symbols
-                     assayed.genes.ids <- rownames(values$dds_obj) # as IDs, but then to be converted back
-                     assayed.genes <- mapIds(get(annoSpecies_df[values$cur_species,]$pkg),
-                                             keys=assayed.genes.ids,
-                                             column="SYMBOL",
-                                             keytype=input$idtype,
-                                             multiVals="first")
-                     de.genes.ids <- mapIds(get(annoSpecies_df[values$cur_species,]$pkg),
-                                            keys=de.genes,
-                                            column="ENSEMBL",
-                                            keytype="SYMBOL",
-                                            multiVals="first")
-                     incProgress(0.1, detail = "IDs mapped")
-
-                     values$gse_up_goseq <- goseqTable(de.genes.ids,
-                                                       assayed.genes.ids,
-                                                       genome = annoSpecies_df[values$cur_species,]$goseq_short,
-                                                       id= "ensGene",
-                                                       testCats=paste0("GO:",input$go_cats),
-                                                       FDR_GO_cutoff = 1,
-                                                       nTop = 200,
-                                                       addGeneToTerms=TRUE,
-                                                       orgDbPkg = annoSpecies_df[values$cur_species,]$pkg # ,
-                     )
-
-                     incProgress(0.89)
-
-                   })
-                 })
-
-    observeEvent(input$button_enrUP_topgo,
-                 {
-                   withProgress(message="TOPGO - Performing Gene Set Enrichment on upregulated genes...",value = 0,{
-
-                     de_symbols <- values$genelistUP() # assumed to be in symbols
-                     bg_ids <- rownames(values$dds_obj)[rowSums(counts(values$dds_obj)) > 0]
-                     bg_symbols <- mapIds(get(annoSpecies_df[values$cur_species,]$pkg),
-                                          keys=bg_ids,
-                                          column="SYMBOL",
-                                          keytype=input$idtype,
-                                          multiVals="first")
-                     incProgress(0.1, detail = "IDs mapped")
-                     # library(topGO)
-                     # requireNamespace("topGO")
-                     values$topgo_up <- pcaExplorer::topGOtable(de_symbols, bg_symbols,
-                                                                ontology = input$go_cats[1],
-                                                                mapping = annoSpecies_df[values$cur_species,]$pkg,
-                                                                geneID = "symbol",addGeneToTerms = TRUE)
-                     incProgress(0.89)
-                   })
-                 })
-
-    ### DOWN
-    observeEvent(input$button_enrDOWN,
-                 {
-                   withProgress(message="Performing Gene Set Enrichment on downregulated genes...",value = 0,{
-                     organism <- annoSpecies_df[values$cur_species,]$species_short
-                     backgroundgenes <- rownames(values$dds_obj)[rowSums(counts(values$dds_obj))>0]
-                     inputType <- "SYMBOL" # will be replaced by input$...
-                     if (!require(annopkg,character.only=TRUE)) {
-                       stop("The package",annopkg, "is not installed/available. Try installing it with BiocManager::install() ?")
-                     }
-                     listGenesEntrez <-  as.character(AnnotationDbi::mapIds(eval(parse(text=annopkg)), keys = values$genelistDOWN(),
-                                                                            column="ENTREZID", keytype=inputType))
-                     listBackgroundEntrez <-  as.character(AnnotationDbi::mapIds(eval(parse(text=annopkg)), keys = backgroundgenes,
-                                                                                 column="ENTREZID", keytype=input$idtype))
-                     incProgress(0.1, detail = "IDs mapped")
-                     values$gse_down <- limma::topGO(limma::goana(listGenesEntrez, listBackgroundEntrez, species = organism),
-                                                     ontology=input$go_cats[1],
-                                                     number=200)
-
-
-                     incProgress(0.7, detail = "adding gene names to GO terms") # good indicator for showing it has progressed
-                     go_ids <- rownames(values$gse_down)
-                     allegs_list <- lapply(go_ids, function(arg) AnnotationDbi::get(arg, get(paste0("org.",organism,".egGO2ALLEGS"))))
-                     genes_list <- lapply(allegs_list, function(arg) unlist(AnnotationDbi::mget(arg,get(paste0("org.",organism,".egSYMBOL")))))
-                     degenes <- values$genelistDOWN()
-                     DEgenes_list <- lapply(genes_list, function(arg) intersect(arg,degenes))
-
-                     values$gse_down$genes <- unlist(lapply(DEgenes_list,function(arg) paste(arg,collapse=",")))
-                   })
-                 })
-
-    observeEvent(input$button_enrDOWN_goseq,
-                 {
-                   withProgress(message="GOSEQ - Performing Gene Set Enrichment on downregulated genes...",value = 0,{
-
-                     de.genes <- values$genelistDOWN() # assumed to be in symbols
-                     assayed.genes.ids <- rownames(values$dds_obj) # as IDs, but then to be converted back
-                     assayed.genes <- mapIds(get(annoSpecies_df[values$cur_species,]$pkg),
-                                             keys=assayed.genes.ids,
-                                             column="SYMBOL",
-                                             keytype=input$idtype,
-                                             multiVals="first")
-                     de.genes.ids <- mapIds(get(annoSpecies_df[values$cur_species,]$pkg),
-                                            keys=de.genes,
-                                            column="ENSEMBL",
-                                            keytype="SYMBOL",
-                                            multiVals="first")
-                     incProgress(0.1, detail = "IDs mapped")
-
-                     values$gse_down_goseq <- goseqTable(de.genes.ids,
+                     if (is.null(input$speciesSelect)) {
+                       showNotification("Please specify the species in the Data Setup panel and retrieve the annotation object",type = "warning")
+                       return(NULL)
+                     } else if (is.null(values$genelistUP())) {
+                       showNotification("You are using ids different than symbols, please convert them by creating/using an annotation object",type = "warning")
+                       return(NULL)
+                     } else if (is.null(values$cur_species) | values$cur_species =="") {
+                       showNotification("Please specify the species in the Data Setup panel and retrieve the annotation object",type = "warning")
+                       return(NULL)
+                     } else {
+                       de.genes <- values$genelistUP() # assumed to be in symbols
+                       assayed.genes.ids <- rownames(values$dds_obj) # as IDs, but then to be converted back
+                       assayed.genes <- mapIds(get(annoSpecies_df[values$cur_species,]$pkg),
+                                               keys=assayed.genes.ids,
+                                               column="SYMBOL",
+                                               keytype=input$idtype,
+                                               multiVals="first")
+                       de.genes.ids <- mapIds(get(annoSpecies_df[values$cur_species,]$pkg),
+                                              keys=de.genes,
+                                              column="ENSEMBL",
+                                              keytype="SYMBOL",
+                                              multiVals="first")
+                       incProgress(0.1, detail = "IDs mapped")
+  
+                       values$gse_up_goseq <- goseqTable(de.genes.ids,
                                                          assayed.genes.ids,
                                                          genome = annoSpecies_df[values$cur_species,]$goseq_short,
                                                          id= "ensGene",
@@ -2125,90 +2108,116 @@ ideal<- function(dds_obj = NULL,
                                                          nTop = 200,
                                                          addGeneToTerms=TRUE,
                                                          orgDbPkg = annoSpecies_df[values$cur_species,]$pkg # ,
-                     )
-
-                     incProgress(0.89)
-
+                       )
+  
+                       incProgress(0.89)
+                     }
                    })
                  })
 
-    observeEvent(input$button_enrDOWN_topgo,
+    observeEvent(input$button_enrUP_topgo,
                  {
-                   withProgress(message="TOPGO - Performing Gene Set Enrichment on downregulated genes...",value = 0,{
-
-                     de_symbols <- values$genelistDOWN() # assumed to be in symbols
-                     bg_ids <- rownames(values$dds_obj)[rowSums(counts(values$dds_obj)) > 0]
-                     bg_symbols <- mapIds(get(annoSpecies_df[values$cur_species,]$pkg),
-                                          keys=bg_ids,
-                                          column="SYMBOL",
-                                          keytype=input$idtype,
-                                          multiVals="first")
-                     incProgress(0.1, detail = "IDs mapped")
-                     # library(topGO)
-                     # requireNamespace("topGO")
-                     values$topgo_down <- pcaExplorer::topGOtable(de_symbols, bg_symbols,
-                                                                  ontology = input$go_cats[1], # will take the first ontology
+                   withProgress(message="TOPGO - Performing Gene Set Enrichment on upregulated genes...",value = 0,{
+                     if (is.null(input$speciesSelect)) {
+                       showNotification("Please specify the species in the Data Setup panel and retrieve the annotation object",type = "warning")
+                       return(NULL)
+                     } else if (is.null(values$genelistUP())) {
+                       showNotification("You are using ids different than symbols, please convert them by creating/using an annotation object",type = "warning")
+                       return(NULL)
+                     } else if (is.null(values$cur_species) | values$cur_species =="") {
+                       showNotification("Please specify the species in the Data Setup panel and retrieve the annotation object",type = "warning")
+                       return(NULL)
+                     } else {
+                       de_symbols <- values$genelistUP() # assumed to be in symbols
+                       bg_ids <- rownames(values$dds_obj)[rowSums(counts(values$dds_obj)) > 0]
+                       bg_symbols <- mapIds(get(annoSpecies_df[values$cur_species,]$pkg),
+                                            keys=bg_ids,
+                                            column="SYMBOL",
+                                            keytype=input$idtype,
+                                            multiVals="first")
+                       incProgress(0.1, detail = "IDs mapped")
+                       # library(topGO)
+                       # requireNamespace("topGO")
+                       values$topgo_up <- pcaExplorer::topGOtable(de_symbols, bg_symbols,
+                                                                  ontology = input$go_cats[1],
                                                                   mapping = annoSpecies_df[values$cur_species,]$pkg,
                                                                   geneID = "symbol",addGeneToTerms = TRUE)
-                     incProgress(0.89)
-
-
+                       incProgress(0.89)
+                     }
                    })
                  })
 
-    ### UPDOWN
-    observeEvent(input$button_enrUPDOWN,
+    ### DOWN
+    observeEvent(input$button_enrDOWN,
                  {
-                   withProgress(message="Performing Gene Set Enrichment on up- and downregulated genes...",value = 0,{
-                     organism <- annoSpecies_df[values$cur_species,]$species_short
-                     backgroundgenes <- rownames(values$dds_obj)[rowSums(counts(values$dds_obj))>0]
-                     inputType <- "SYMBOL" # will be replaced by input$...
-                     # annopkg <- paste0("org.",organism,".eg.db")
-                     annopkg <- annoSpecies_df[values$cur_species,]$pkg
-                     if (!require(annopkg,character.only=TRUE)) {
-                       stop("The package",annopkg, "is not installed/available. Try installing it with BiocManager::install() ?")
-                     }
-                     listGenesEntrez <-  as.character(AnnotationDbi::mapIds(eval(parse(text=annopkg)), keys = values$genelistUPDOWN(),
-                                                                            column="ENTREZID", keytype=inputType))
-                     listBackgroundEntrez <-  as.character(AnnotationDbi::mapIds(eval(parse(text=annopkg)), keys = backgroundgenes,
-                                                                                 column="ENTREZID", keytype=input$idtype))
-                     incProgress(0.1, detail = "IDs mapped")
-                     values$gse_updown <- limma::topGO(limma::goana(listGenesEntrez, listBackgroundEntrez, species = organism),
+                   withProgress(message="Performing Gene Set Enrichment on downregulated genes...",value = 0,{
+                     if (is.null(input$speciesSelect)) {
+                       showNotification("Please specify the species in the Data Setup panel and retrieve the annotation object",type = "warning")
+                       return(NULL)
+                     } else if (is.null(values$genelistDOWN())) {
+                       showNotification("You are using ids different than symbols, please convert them by creating/using an annotation object",type = "warning")
+                       return(NULL)
+                     } else if (is.null(values$cur_species) | values$cur_species =="") {
+                       showNotification("Please specify the species in the Data Setup panel and retrieve the annotation object",type = "warning")
+                       return(NULL)
+                     } else {
+                       organism <- annoSpecies_df[values$cur_species,]$species_short
+                       backgroundgenes <- rownames(values$dds_obj)[rowSums(counts(values$dds_obj))>0]
+                       inputType <- "SYMBOL" # will be replaced by input$...
+                       annopkg <- annoSpecies_df[values$cur_species,]$pkg
+                       if (!require(annopkg,character.only=TRUE)) {
+                         stop("The package",annopkg, "is not installed/available. Try installing it with BiocManager::install() ?")
+                       }
+                       listGenesEntrez <-  as.character(AnnotationDbi::mapIds(eval(parse(text=annopkg)), keys = values$genelistDOWN(),
+                                                                              column="ENTREZID", keytype=inputType))
+                       listBackgroundEntrez <-  as.character(AnnotationDbi::mapIds(eval(parse(text=annopkg)), keys = backgroundgenes,
+                                                                                   column="ENTREZID", keytype=input$idtype))
+                       incProgress(0.1, detail = "IDs mapped")
+                       values$gse_down <- limma::topGO(limma::goana(listGenesEntrez, listBackgroundEntrez, species = organism),
                                                        ontology=input$go_cats[1],
                                                        number=200)
-
-                     incProgress(0.7, detail = "adding gene names to GO terms") # good indicator for showing it has progressed
-                     go_ids <- rownames(values$gse_updown)
-                     allegs_list <- lapply(go_ids, function(arg) AnnotationDbi::get(arg, get(paste0("org.",organism,".egGO2ALLEGS"))))
-                     genes_list <- lapply(allegs_list, function(arg) unlist(AnnotationDbi::mget(arg,get(paste0("org.",organism,".egSYMBOL")))))
-                     degenes <- values$genelistDOWN()
-                     DEgenes_list <- lapply(genes_list, function(arg) intersect(arg,degenes))
-
-                     # values$gse_down$genes[1:20] <- DEgenes_list
-                     # lapply(values$gse_down,class)
-                     values$gse_updown$genes <- unlist(lapply(DEgenes_list,function(arg) paste(arg,collapse=",")))
+  
+  
+                       incProgress(0.7, detail = "adding gene names to GO terms") # good indicator for showing it has progressed
+                       go_ids <- rownames(values$gse_down)
+                       allegs_list <- lapply(go_ids, function(arg) AnnotationDbi::get(arg, get(paste0("org.",organism,".egGO2ALLEGS"))))
+                       genes_list <- lapply(allegs_list, function(arg) unlist(AnnotationDbi::mget(arg,get(paste0("org.",organism,".egSYMBOL")))))
+                       degenes <- values$genelistDOWN()
+                       DEgenes_list <- lapply(genes_list, function(arg) intersect(arg,degenes))
+  
+                       values$gse_down$genes <- unlist(lapply(DEgenes_list,function(arg) paste(arg,collapse=",")))
+                     }
                    })
                  })
 
-    observeEvent(input$button_enrUPDOWN_goseq,
+    observeEvent(input$button_enrDOWN_goseq,
                  {
-                   withProgress(message="GOSEQ - Performing Gene Set Enrichment on up and downregulated genes...",value = 0,{
-
-                     de.genes <- values$genelistUPDOWN() # assumed to be in symbols
-                     assayed.genes.ids <- rownames(values$dds_obj) # as IDs, but then to be converted back
-                     assayed.genes <- mapIds(get(annoSpecies_df[values$cur_species,]$pkg),
-                                             keys=assayed.genes.ids,
-                                             column="SYMBOL",
-                                             keytype=input$idtype,
-                                             multiVals="first")
-                     de.genes.ids <- mapIds(get(annoSpecies_df[values$cur_species,]$pkg),
-                                            keys=de.genes,
-                                            column="ENSEMBL",
-                                            keytype="SYMBOL",
-                                            multiVals="first")
-                     incProgress(0.1, detail = "IDs mapped")
-
-                     values$gse_updown_goseq <- goseqTable(de.genes.ids,
+                   withProgress(message="GOSEQ - Performing Gene Set Enrichment on downregulated genes...",value = 0,{
+                     if (is.null(input$speciesSelect)) {
+                       showNotification("Please specify the species in the Data Setup panel and retrieve the annotation object",type = "warning")
+                       return(NULL)
+                     } else if (is.null(values$genelistDOWN())) {
+                       showNotification("You are using ids different than symbols, please convert them by creating/using an annotation object",type = "warning")
+                       return(NULL)
+                     } else if (is.null(values$cur_species) | values$cur_species =="") {
+                       showNotification("Please specify the species in the Data Setup panel and retrieve the annotation object",type = "warning")
+                       return(NULL)
+                     } else {
+                       de.genes <- values$genelistDOWN() # assumed to be in symbols
+                       assayed.genes.ids <- rownames(values$dds_obj) # as IDs, but then to be converted back
+                       assayed.genes <- mapIds(get(annoSpecies_df[values$cur_species,]$pkg),
+                                               keys=assayed.genes.ids,
+                                               column="SYMBOL",
+                                               keytype=input$idtype,
+                                               multiVals="first")
+                       de.genes.ids <- mapIds(get(annoSpecies_df[values$cur_species,]$pkg),
+                                              keys=de.genes,
+                                              column="ENSEMBL",
+                                              keytype="SYMBOL",
+                                              multiVals="first")
+                       incProgress(0.1, detail = "IDs mapped")
+  
+                       values$gse_down_goseq <- goseqTable(de.genes.ids,
                                                            assayed.genes.ids,
                                                            genome = annoSpecies_df[values$cur_species,]$goseq_short,
                                                            id= "ensGene",
@@ -2217,9 +2226,131 @@ ideal<- function(dds_obj = NULL,
                                                            nTop = 200,
                                                            addGeneToTerms=TRUE,
                                                            orgDbPkg = annoSpecies_df[values$cur_species,]$pkg # ,
-                     )
+                       )
+  
+                       incProgress(0.89)
+                     }
+                   })
+                 })
 
-                     incProgress(0.89)
+    observeEvent(input$button_enrDOWN_topgo,
+                 {
+                   withProgress(message="TOPGO - Performing Gene Set Enrichment on downregulated genes...",value = 0,{
+                     if (is.null(input$speciesSelect)) {
+                       showNotification("Please specify the species in the Data Setup panel and retrieve the annotation object",type = "warning")
+                       return(NULL)
+                     } else if (is.null(values$genelistDOWN())) {
+                       showNotification("You are using ids different than symbols, please convert them by creating/using an annotation object",type = "warning")
+                       return(NULL)
+                     } else if (is.null(values$cur_species) | values$cur_species =="") {
+                       showNotification("Please specify the species in the Data Setup panel and retrieve the annotation object",type = "warning")
+                       return(NULL)
+                     } else {
+                       de_symbols <- values$genelistDOWN() # assumed to be in symbols
+                       bg_ids <- rownames(values$dds_obj)[rowSums(counts(values$dds_obj)) > 0]
+                       bg_symbols <- mapIds(get(annoSpecies_df[values$cur_species,]$pkg),
+                                            keys=bg_ids,
+                                            column="SYMBOL",
+                                            keytype=input$idtype,
+                                            multiVals="first")
+                       incProgress(0.1, detail = "IDs mapped")
+                       # library(topGO)
+                       # requireNamespace("topGO")
+                       values$topgo_down <- pcaExplorer::topGOtable(de_symbols, bg_symbols,
+                                                                    ontology = input$go_cats[1], # will take the first ontology
+                                                                    mapping = annoSpecies_df[values$cur_species,]$pkg,
+                                                                    geneID = "symbol",addGeneToTerms = TRUE)
+                       incProgress(0.89)
+  
+                     }
+                   })
+                 })
+
+    ### UPDOWN
+    observeEvent(input$button_enrUPDOWN,
+                 {
+                   withProgress(message="Performing Gene Set Enrichment on up- and downregulated genes...",value = 0,{
+                     if (is.null(input$speciesSelect)) {
+                       showNotification("Please specify the species in the Data Setup panel and retrieve the annotation object",type = "warning")
+                       return(NULL)
+                     } else if (is.null(values$genelistUPDOWN())) {
+                       showNotification("You are using ids different than symbols, please convert them by creating/using an annotation object",type = "warning")
+                       return(NULL)
+                     } else if (is.null(values$cur_species) | values$cur_species =="") {
+                       showNotification("Please specify the species in the Data Setup panel and retrieve the annotation object",type = "warning")
+                       return(NULL)
+                     } else {
+                       organism <- annoSpecies_df[values$cur_species,]$species_short
+                       backgroundgenes <- rownames(values$dds_obj)[rowSums(counts(values$dds_obj))>0]
+                       inputType <- "SYMBOL" # will be replaced by input$...
+                       # annopkg <- paste0("org.",organism,".eg.db")
+                       annopkg <- annoSpecies_df[values$cur_species,]$pkg
+                       if (!require(annopkg,character.only=TRUE)) {
+                         stop("The package",annopkg, "is not installed/available. Try installing it with BiocManager::install() ?")
+                       }
+                       listGenesEntrez <-  as.character(AnnotationDbi::mapIds(eval(parse(text=annopkg)), keys = values$genelistUPDOWN(),
+                                                                              column="ENTREZID", keytype=inputType))
+                       listBackgroundEntrez <-  as.character(AnnotationDbi::mapIds(eval(parse(text=annopkg)), keys = backgroundgenes,
+                                                                                   column="ENTREZID", keytype=input$idtype))
+                       incProgress(0.1, detail = "IDs mapped")
+                       values$gse_updown <- limma::topGO(limma::goana(listGenesEntrez, listBackgroundEntrez, species = organism),
+                                                         ontology=input$go_cats[1],
+                                                         number=200)
+  
+                       incProgress(0.7, detail = "adding gene names to GO terms") # good indicator for showing it has progressed
+                       go_ids <- rownames(values$gse_updown)
+                       allegs_list <- lapply(go_ids, function(arg) AnnotationDbi::get(arg, get(paste0("org.",organism,".egGO2ALLEGS"))))
+                       genes_list <- lapply(allegs_list, function(arg) unlist(AnnotationDbi::mget(arg,get(paste0("org.",organism,".egSYMBOL")))))
+                       degenes <- values$genelistDOWN()
+                       DEgenes_list <- lapply(genes_list, function(arg) intersect(arg,degenes))
+  
+                       # values$gse_down$genes[1:20] <- DEgenes_list
+                       # lapply(values$gse_down,class)
+                       values$gse_updown$genes <- unlist(lapply(DEgenes_list,function(arg) paste(arg,collapse=",")))
+                     }
+                   })
+                 })
+
+    observeEvent(input$button_enrUPDOWN_goseq,
+                 {
+                   withProgress(message="GOSEQ - Performing Gene Set Enrichment on up and downregulated genes...",value = 0,{
+                     if (is.null(input$speciesSelect)) {
+                       showNotification("Please specify the species in the Data Setup panel and retrieve the annotation object",type = "warning")
+                       return(NULL)
+                     } else if (is.null(values$genelistUPDOWN())) {
+                       showNotification("You are using ids different than symbols, please convert them by creating/using an annotation object",type = "warning")
+                       return(NULL)
+                     } else if (is.null(values$cur_species) | values$cur_species =="") {
+                       showNotification("Please specify the species in the Data Setup panel and retrieve the annotation object",type = "warning")
+                       return(NULL)
+                     } else {
+                       de.genes <- values$genelistUPDOWN() # assumed to be in symbols
+                       assayed.genes.ids <- rownames(values$dds_obj) # as IDs, but then to be converted back
+                       assayed.genes <- mapIds(get(annoSpecies_df[values$cur_species,]$pkg),
+                                               keys=assayed.genes.ids,
+                                               column="SYMBOL",
+                                               keytype=input$idtype,
+                                               multiVals="first")
+                       de.genes.ids <- mapIds(get(annoSpecies_df[values$cur_species,]$pkg),
+                                              keys=de.genes,
+                                              column="ENSEMBL",
+                                              keytype="SYMBOL",
+                                              multiVals="first")
+                       incProgress(0.1, detail = "IDs mapped")
+  
+                       values$gse_updown_goseq <- goseqTable(de.genes.ids,
+                                                             assayed.genes.ids,
+                                                             genome = annoSpecies_df[values$cur_species,]$goseq_short,
+                                                             id= "ensGene",
+                                                             testCats=paste0("GO:",input$go_cats),
+                                                             FDR_GO_cutoff = 1,
+                                                             nTop = 200,
+                                                             addGeneToTerms=TRUE,
+                                                             orgDbPkg = annoSpecies_df[values$cur_species,]$pkg # ,
+                       )
+  
+                       incProgress(0.89)
+                     }
 
                    })
                  })
@@ -2227,196 +2358,251 @@ ideal<- function(dds_obj = NULL,
     observeEvent(input$button_enrUPDOWN_topgo,
                  {
                    withProgress(message="TOPGO - Performing Gene Set Enrichment on up and downregulated genes...",value = 0,{
-
-                     de_symbols <- values$genelistUPDOWN() # assumed to be in symbols
-                     bg_ids <- rownames(values$dds_obj)[rowSums(counts(values$dds_obj)) > 0]
-                     bg_symbols <- mapIds(get(annoSpecies_df[values$cur_species,]$pkg),
-                                          keys=bg_ids,
-                                          column="SYMBOL",
-                                          keytype=input$idtype,
-                                          multiVals="first")
-                     incProgress(0.1, detail = "IDs mapped")
-                     # library(topGO)
-                     # requireNamespace("topGO")
-                     values$topgo_updown <- pcaExplorer::topGOtable(de_symbols, bg_symbols,
-                                                                    ontology = input$go_cats[1],
-                                                                    mapping = annoSpecies_df[values$cur_species,]$pkg,
-                                                                    geneID = "symbol",addGeneToTerms = TRUE)
-                     incProgress(0.89)
+                     
+                     if (is.null(input$speciesSelect)) {
+                       showNotification("Please specify the species in the Data Setup panel and retrieve the annotation object",type = "warning")
+                       return(NULL)
+                     } else if (is.null(values$genelistUPDOWN())) {
+                       showNotification("You are using ids different than symbols, please convert them by creating/using an annotation object",type = "warning")
+                       return(NULL)
+                     } else if (is.null(values$cur_species) | values$cur_species =="") {
+                       showNotification("Please specify the species in the Data Setup panel and retrieve the annotation object",type = "warning")
+                       return(NULL)
+                     } else {
+                       
+                       de_symbols <- values$genelistUPDOWN() # assumed to be in symbols
+                       bg_ids <- rownames(values$dds_obj)[rowSums(counts(values$dds_obj)) > 0]
+                       bg_symbols <- mapIds(get(annoSpecies_df[values$cur_species,]$pkg),
+                                            keys=bg_ids,
+                                            column="SYMBOL",
+                                            keytype=input$idtype,
+                                            multiVals="first")
+                       incProgress(0.1, detail = "IDs mapped")
+                       # library(topGO)
+                       # requireNamespace("topGO")
+                       values$topgo_updown <- pcaExplorer::topGOtable(de_symbols, bg_symbols,
+                                                                      ontology = input$go_cats[1],
+                                                                      mapping = annoSpecies_df[values$cur_species,]$pkg,
+                                                                      geneID = "symbol",addGeneToTerms = TRUE)
+                       incProgress(0.89)
+                     }
                    })
                  })
+    
 
     ### LIST1
     observeEvent(input$button_enrLIST1,
                  {
                    withProgress(message="Performing Gene Set Enrichment on upregulated genes...",value = 0,{
-                     organism <- annoSpecies_df[values$cur_species,]$species_short
-                     backgroundgenes <- rownames(values$dds_obj)[rowSums(counts(values$dds_obj))>0]
-                     inputType <- "SYMBOL" # will be replaced by input$...
-                     # annopkg <- paste0("org.",organism,".eg.db")
-                     annopkg <- annoSpecies_df[values$cur_species,]$pkg
-                     if (!require(annopkg,character.only=TRUE)) {
-                       stop("The package",annopkg, "is not installed/available. Try installing it with BiocManager::install() ?")
-                     }
-                     listGenesEntrez <- AnnotationDbi::mapIds(eval(parse(text=annopkg)), keys = as.character(values$genelist1$`Gene Symbol`),
-                                                              column="ENTREZID", keytype=inputType)
-                     listBackgroundEntrez <- AnnotationDbi::mapIds(eval(parse(text=annopkg)), keys = backgroundgenes,
-                                                                   column="ENTREZID", keytype=input$idtype)
-                     incProgress(0.1, detail = "IDs mapped")
-                     values$gse_list1 <- limma::topGO(limma::goana(listGenesEntrez, listBackgroundEntrez, species = organism),
-                                                      ontology=input$go_cats[1],
-                                                      number=200)
-
-                     incProgress(0.7, detail = "adding gene names to GO terms") # good indicator for showing it has progressed
-                     go_ids <- rownames(values$gse_list1)
-                     allegs_list <- lapply(go_ids, function(arg) AnnotationDbi::get(arg, get(paste0("org.",organism,".egGO2ALLEGS"))))
-                     genes_list <- lapply(allegs_list, function(arg) unlist(AnnotationDbi::mget(arg,get(paste0("org.",organism,".egSYMBOL")))))
-                     degenes <- values$genelistDOWN()
-                     DEgenes_list <- lapply(genes_list, function(arg) intersect(arg,degenes))
-
-                     values$gse_list1$genes <- unlist(lapply(DEgenes_list,function(arg) paste(arg,collapse=",")))
+                     if (is.null(input$speciesSelect)) {
+                       showNotification("Please specify the species in the Data Setup panel and retrieve the annotation object",type = "warning")
+                       return(NULL)
+                     } else if (is.null(values$cur_species) | values$cur_species =="") {
+                       showNotification("Please specify the species in the Data Setup panel and retrieve the annotation object",type = "warning")
+                       return(NULL)
+                     } else {
+                       organism <- annoSpecies_df[values$cur_species,]$species_short
+                       backgroundgenes <- rownames(values$dds_obj)[rowSums(counts(values$dds_obj))>0]
+                       inputType <- "SYMBOL" # will be replaced by input$...
+                       # annopkg <- paste0("org.",organism,".eg.db")
+                       annopkg <- annoSpecies_df[values$cur_species,]$pkg
+                       if (!require(annopkg,character.only=TRUE)) {
+                         stop("The package",annopkg, "is not installed/available. Try installing it with BiocManager::install() ?")
+                       }
+                       listGenesEntrez <- AnnotationDbi::mapIds(eval(parse(text=annopkg)), keys = as.character(values$genelist1$`Gene Symbol`),
+                                                                column="ENTREZID", keytype=inputType)
+                       listBackgroundEntrez <- AnnotationDbi::mapIds(eval(parse(text=annopkg)), keys = backgroundgenes,
+                                                                     column="ENTREZID", keytype=input$idtype)
+                       incProgress(0.1, detail = "IDs mapped")
+                       values$gse_list1 <- limma::topGO(limma::goana(listGenesEntrez, listBackgroundEntrez, species = organism),
+                                                        ontology=input$go_cats[1],
+                                                        number=200)
+  
+                       incProgress(0.7, detail = "adding gene names to GO terms") # good indicator for showing it has progressed
+                       go_ids <- rownames(values$gse_list1)
+                       allegs_list <- lapply(go_ids, function(arg) AnnotationDbi::get(arg, get(paste0("org.",organism,".egGO2ALLEGS"))))
+                       genes_list <- lapply(allegs_list, function(arg) unlist(AnnotationDbi::mget(arg,get(paste0("org.",organism,".egSYMBOL")))))
+                       degenes <- values$genelistDOWN()
+                       DEgenes_list <- lapply(genes_list, function(arg) intersect(arg,degenes))
+  
+                       values$gse_list1$genes <- unlist(lapply(DEgenes_list,function(arg) paste(arg,collapse=",")))
+                     } 
                    })
                  })
 
     observeEvent(input$button_enrLIST1_goseq,
                  {
                    withProgress(message="GOSEQ - Performing Gene Set Enrichment on list 1 genes...",value = 0,{
-
-                     de.genes <- values$genelist1$`Gene Symbol` # assumed to be in symbols
-                     assayed.genes.ids <- rownames(values$dds_obj) # as IDs, but then to be converted back
-                     assayed.genes <- mapIds(get(annoSpecies_df[values$cur_species,]$pkg),
-                                             keys=assayed.genes.ids,
-                                             column="SYMBOL",
-                                             keytype=input$idtype,
-                                             multiVals="first")
-                     de.genes.ids <- mapIds(get(annoSpecies_df[values$cur_species,]$pkg),
-                                            keys=de.genes,
-                                            column="ENSEMBL",
-                                            keytype="SYMBOL",
-                                            multiVals="first")
-                     incProgress(0.1, detail = "IDs mapped")
-
-                     values$gse_list1_goseq <- goseqTable(de.genes.ids,
-                                                          assayed.genes.ids,
-                                                          genome = annoSpecies_df[values$cur_species,]$goseq_short,
-                                                          id= "ensGene",
-                                                          testCats=paste0("GO:",input$go_cats),
-                                                          FDR_GO_cutoff = 1,
-                                                          nTop = 200,
-                                                          addGeneToTerms=TRUE,
-                                                          orgDbPkg = annoSpecies_df[values$cur_species,]$pkg # ,
-                     )
-
-                     incProgress(0.89)
-
+                     if (is.null(input$speciesSelect)) {
+                       showNotification("Please specify the species in the Data Setup panel and retrieve the annotation object",type = "warning")
+                       return(NULL)
+                     } else if (is.null(values$cur_species) | values$cur_species =="") {
+                       showNotification("Please specify the species in the Data Setup panel and retrieve the annotation object",type = "warning")
+                       return(NULL)
+                     } else {
+                       de.genes <- values$genelist1$`Gene Symbol` # assumed to be in symbols
+                       assayed.genes.ids <- rownames(values$dds_obj) # as IDs, but then to be converted back
+                       assayed.genes <- mapIds(get(annoSpecies_df[values$cur_species,]$pkg),
+                                               keys=assayed.genes.ids,
+                                               column="SYMBOL",
+                                               keytype=input$idtype,
+                                               multiVals="first")
+                       de.genes.ids <- mapIds(get(annoSpecies_df[values$cur_species,]$pkg),
+                                              keys=de.genes,
+                                              column="ENSEMBL",
+                                              keytype="SYMBOL",
+                                              multiVals="first")
+                       incProgress(0.1, detail = "IDs mapped")
+  
+                       values$gse_list1_goseq <- goseqTable(de.genes.ids,
+                                                            assayed.genes.ids,
+                                                            genome = annoSpecies_df[values$cur_species,]$goseq_short,
+                                                            id= "ensGene",
+                                                            testCats=paste0("GO:",input$go_cats),
+                                                            FDR_GO_cutoff = 1,
+                                                            nTop = 200,
+                                                            addGeneToTerms=TRUE,
+                                                            orgDbPkg = annoSpecies_df[values$cur_species,]$pkg # ,
+                       )
+  
+                       incProgress(0.89)
+                     }
                    })
                  })
 
     observeEvent(input$button_enrLIST1_topgo,
                  {
                    withProgress(message="TOPGO - Performing Gene Set Enrichment on list1 genes...",value = 0,{
-
-                     de_symbols <- values$genelist1$`Gene Symbol` # assumed to be in symbols
-                     bg_ids <- rownames(values$dds_obj)[rowSums(counts(values$dds_obj)) > 0]
-                     bg_symbols <- mapIds(get(annoSpecies_df[values$cur_species,]$pkg),
-                                          keys=bg_ids,
-                                          column="SYMBOL",
-                                          keytype=input$idtype,
-                                          multiVals="first")
-                     incProgress(0.1, detail = "IDs mapped")
-                     # library(topGO)
-                     # requireNamespace("topGO")
-                     values$topgo_list1 <- pcaExplorer::topGOtable(de_symbols, bg_symbols,
-                                                                   ontology = input$go_cats[1],
-                                                                   mapping = annoSpecies_df[values$cur_species,]$pkg,
-                                                                   geneID = "symbol",addGeneToTerms = TRUE)
-                     incProgress(0.89)
+                     if (is.null(input$speciesSelect)) {
+                       showNotification("Please specify the species in the Data Setup panel and retrieve the annotation object",type = "warning")
+                       return(NULL)
+                     } else if (is.null(values$cur_species) | values$cur_species =="") {
+                       showNotification("Please specify the species in the Data Setup panel and retrieve the annotation object",type = "warning")
+                       return(NULL)
+                     } else {
+                       de_symbols <- values$genelist1$`Gene Symbol` # assumed to be in symbols
+                       bg_ids <- rownames(values$dds_obj)[rowSums(counts(values$dds_obj)) > 0]
+                       bg_symbols <- mapIds(get(annoSpecies_df[values$cur_species,]$pkg),
+                                            keys=bg_ids,
+                                            column="SYMBOL",
+                                            keytype=input$idtype,
+                                            multiVals="first")
+                       incProgress(0.1, detail = "IDs mapped")
+                       # library(topGO)
+                       # requireNamespace("topGO")
+                       values$topgo_list1 <- pcaExplorer::topGOtable(de_symbols, bg_symbols,
+                                                                     ontology = input$go_cats[1],
+                                                                     mapping = annoSpecies_df[values$cur_species,]$pkg,
+                                                                     geneID = "symbol",addGeneToTerms = TRUE)
+                       incProgress(0.89)
+                     }
                    })
                  })
     ### LIST2
     observeEvent(input$button_enrLIST2,
                  {
                    withProgress(message="Performing Gene Set Enrichment on upregulated genes...",value = 0,{
-                     organism <- annoSpecies_df[values$cur_species,]$species_short
-                     backgroundgenes <- rownames(values$dds_obj)[rowSums(counts(values$dds_obj))>0]
-                     inputType <- "SYMBOL" # will be replaced by input$...
-                     # annopkg <- paste0("org.",organism,".eg.db")
-                     annopkg <- annoSpecies_df[values$cur_species,]$pkg
-                     if (!require(annopkg,character.only=TRUE)) {
-                       stop("The package",annopkg, "is not installed/available. Try installing it with BiocManager::install() ?")
+                     if (is.null(input$speciesSelect)) {
+                       showNotification("Please specify the species in the Data Setup panel and retrieve the annotation object",type = "warning")
+                       return(NULL)
+                     } else if (is.null(values$cur_species) | values$cur_species =="") {
+                       showNotification("Please specify the species in the Data Setup panel and retrieve the annotation object",type = "warning")
+                       return(NULL)
+                     } else {
+                       organism <- annoSpecies_df[values$cur_species,]$species_short
+                       backgroundgenes <- rownames(values$dds_obj)[rowSums(counts(values$dds_obj))>0]
+                       inputType <- "SYMBOL" # will be replaced by input$...
+                       # annopkg <- paste0("org.",organism,".eg.db")
+                       annopkg <- annoSpecies_df[values$cur_species,]$pkg
+                       if (!require(annopkg,character.only=TRUE)) {
+                         stop("The package",annopkg, "is not installed/available. Try installing it with BiocManager::install() ?")
+                       }
+                       listGenesEntrez <- AnnotationDbi::mapIds(eval(parse(text=annopkg)), keys = as.character(values$genelist2$`Gene Symbol`),
+                                                                column="ENTREZID", keytype=inputType)
+                       listBackgroundEntrez <- AnnotationDbi::mapIds(eval(parse(text=annopkg)), keys = backgroundgenes,
+                                                                     column="ENTREZID", keytype=input$idtype)
+                       incProgress(0.1, detail = "IDs mapped")
+                       values$gse_list2 <- limma::topGO(limma::goana(listGenesEntrez, listBackgroundEntrez, species = organism),
+                                                        ontology=input$go_cats[1],
+                                                        number=200)
+                       incProgress(0.7, detail = "adding gene names to GO terms") # good indicator for showing it has progressed
+                       go_ids <- rownames(values$gse_list2)
+                       allegs_list <- lapply(go_ids, function(arg) AnnotationDbi::get(arg, get(paste0("org.",organism,".egGO2ALLEGS"))))
+                       genes_list <- lapply(allegs_list, function(arg) unlist(AnnotationDbi::mget(arg,get(paste0("org.",organism,".egSYMBOL")))))
+                       degenes <- values$genelistDOWN()
+                       DEgenes_list <- lapply(genes_list, function(arg) intersect(arg,degenes))
+  
+                       values$gse_list2$genes <- unlist(lapply(DEgenes_list,function(arg) paste(arg,collapse=",")))
                      }
-                     listGenesEntrez <- AnnotationDbi::mapIds(eval(parse(text=annopkg)), keys = as.character(values$genelist2$`Gene Symbol`),
-                                                              column="ENTREZID", keytype=inputType)
-                     listBackgroundEntrez <- AnnotationDbi::mapIds(eval(parse(text=annopkg)), keys = backgroundgenes,
-                                                                   column="ENTREZID", keytype=input$idtype)
-                     incProgress(0.1, detail = "IDs mapped")
-                     values$gse_list2 <- limma::topGO(limma::goana(listGenesEntrez, listBackgroundEntrez, species = organism),
-                                                      ontology=input$go_cats[1],
-                                                      number=200)
-                     incProgress(0.7, detail = "adding gene names to GO terms") # good indicator for showing it has progressed
-                     go_ids <- rownames(values$gse_list2)
-                     allegs_list <- lapply(go_ids, function(arg) AnnotationDbi::get(arg, get(paste0("org.",organism,".egGO2ALLEGS"))))
-                     genes_list <- lapply(allegs_list, function(arg) unlist(AnnotationDbi::mget(arg,get(paste0("org.",organism,".egSYMBOL")))))
-                     degenes <- values$genelistDOWN()
-                     DEgenes_list <- lapply(genes_list, function(arg) intersect(arg,degenes))
-
-                     values$gse_list2$genes <- unlist(lapply(DEgenes_list,function(arg) paste(arg,collapse=",")))
                    })
                  })
 
     observeEvent(input$button_enrLIST2_goseq,
                  {
                    withProgress(message="GOSEQ - Performing Gene Set Enrichment on list 2 genes...",value = 0,{
-
-                     de.genes <- values$genelist2$`Gene Symbol` # assumed to be in symbols
-                     assayed.genes.ids <- rownames(values$dds_obj) # as IDs, but then to be converted back
-                     assayed.genes <- mapIds(get(annoSpecies_df[values$cur_species,]$pkg),
-                                             keys=assayed.genes.ids,
-                                             column="SYMBOL",
-                                             keytype=input$idtype,
-                                             multiVals="first")
-                     de.genes.ids <- mapIds(get(annoSpecies_df[values$cur_species,]$pkg),
-                                            keys=de.genes,
-                                            column="ENSEMBL",
-                                            keytype="SYMBOL",
-                                            multiVals="first")
-                     incProgress(0.1, detail = "IDs mapped")
-
-                     values$gse_list2_goseq <- goseqTable(de.genes.ids,
-                                                          assayed.genes.ids,
-                                                          genome = annoSpecies_df[values$cur_species,]$goseq_short,
-                                                          id= "ensGene",
-                                                          testCats=paste0("GO:",input$go_cats),
-                                                          FDR_GO_cutoff = 1,
-                                                          nTop = 200,
-                                                          addGeneToTerms=TRUE,
-                                                          orgDbPkg = annoSpecies_df[values$cur_species,]$pkg # ,
-                     )
-
-                     incProgress(0.89)
-
+                     if (is.null(input$speciesSelect)) {
+                       showNotification("Please specify the species in the Data Setup panel and retrieve the annotation object",type = "warning")
+                       return(NULL)
+                     } else if (is.null(values$cur_species) | values$cur_species =="") {
+                       showNotification("Please specify the species in the Data Setup panel and retrieve the annotation object",type = "warning")
+                       return(NULL)
+                     } else {
+                       de.genes <- values$genelist2$`Gene Symbol` # assumed to be in symbols
+                       assayed.genes.ids <- rownames(values$dds_obj) # as IDs, but then to be converted back
+                       assayed.genes <- mapIds(get(annoSpecies_df[values$cur_species,]$pkg),
+                                               keys=assayed.genes.ids,
+                                               column="SYMBOL",
+                                               keytype=input$idtype,
+                                               multiVals="first")
+                       de.genes.ids <- mapIds(get(annoSpecies_df[values$cur_species,]$pkg),
+                                              keys=de.genes,
+                                              column="ENSEMBL",
+                                              keytype="SYMBOL",
+                                              multiVals="first")
+                       incProgress(0.1, detail = "IDs mapped")
+  
+                       values$gse_list2_goseq <- goseqTable(de.genes.ids,
+                                                            assayed.genes.ids,
+                                                            genome = annoSpecies_df[values$cur_species,]$goseq_short,
+                                                            id= "ensGene",
+                                                            testCats=paste0("GO:",input$go_cats),
+                                                            FDR_GO_cutoff = 1,
+                                                            nTop = 200,
+                                                            addGeneToTerms=TRUE,
+                                                            orgDbPkg = annoSpecies_df[values$cur_species,]$pkg # ,
+                       )
+  
+                       incProgress(0.89)
+                     }
                    })
                  })
 
     observeEvent(input$button_enrLIST2_topgo,
                  {
                    withProgress(message="TOPGO - Performing Gene Set Enrichment on list2 genes...",value = 0,{
-
-                     de_symbols <- values$genelist2$`Gene Symbol` # assumed to be in symbols
-                     bg_ids <- rownames(values$dds_obj)[rowSums(counts(values$dds_obj)) > 0]
-                     bg_symbols <- mapIds(get(annoSpecies_df[values$cur_species,]$pkg),
-                                          keys=bg_ids,
-                                          column="SYMBOL",
-                                          keytype=input$idtype,
-                                          multiVals="first")
-                     incProgress(0.1, detail = "IDs mapped")
-                     # library(topGO)
-                     # requireNamespace("topGO")
-                     values$topgo_list2 <- pcaExplorer::topGOtable(de_symbols, bg_symbols,
-                                                                   ontology = input$go_cats[1],
-                                                                   mapping = annoSpecies_df[values$cur_species,]$pkg,
-                                                                   geneID = "symbol",addGeneToTerms = TRUE)
-                     incProgress(0.89)
+                     if (is.null(input$speciesSelect)) {
+                       showNotification("Please specify the species in the Data Setup panel and retrieve the annotation object",type = "warning")
+                       return(NULL)
+                     } else if (is.null(values$cur_species) | values$cur_species =="") {
+                       showNotification("Please specify the species in the Data Setup panel and retrieve the annotation object",type = "warning")
+                       return(NULL)
+                     } else {
+                       de_symbols <- values$genelist2$`Gene Symbol` # assumed to be in symbols
+                       bg_ids <- rownames(values$dds_obj)[rowSums(counts(values$dds_obj)) > 0]
+                       bg_symbols <- mapIds(get(annoSpecies_df[values$cur_species,]$pkg),
+                                            keys=bg_ids,
+                                            column="SYMBOL",
+                                            keytype=input$idtype,
+                                            multiVals="first")
+                       incProgress(0.1, detail = "IDs mapped")
+                       # library(topGO)
+                       # requireNamespace("topGO")
+                       values$topgo_list2 <- pcaExplorer::topGOtable(de_symbols, bg_symbols,
+                                                                     ontology = input$go_cats[1],
+                                                                     mapping = annoSpecies_df[values$cur_species,]$pkg,
+                                                                     geneID = "symbol",addGeneToTerms = TRUE)
+                       incProgress(0.89)
+                     }
                    })
                  })
 
@@ -2424,6 +2610,161 @@ ideal<- function(dds_obj = NULL,
 
 
     # server gse datatables --------------------------------------------------------
+    ## ui outputs here
+    output$ui_DT_gse_up <- renderUI({
+      if(is.null(values$gse_up))
+        return(NULL)
+      return(
+        tagList(
+          h4("goana table - up"),
+          DT::dataTableOutput("DT_gse_up")
+        )
+      )
+    })
+    output$ui_DT_gse_down <- renderUI({
+      if(is.null(values$gse_down))
+        return(NULL)
+      return(
+        tagList(
+          h4("goana table - down"),
+          DT::dataTableOutput("DT_gse_down")
+        )
+      )
+    })
+    output$ui_DT_gse_updown <- renderUI({
+      if(is.null(values$gse_updown))
+        return(NULL)
+      return(
+        tagList(
+          h4("goana table - up&down"),
+          DT::dataTableOutput("DT_gse_updown")
+        )
+      )
+    })
+    output$ui_DT_gse_list1 <- renderUI({
+      if(is.null(values$gse_list1))
+        return(NULL)
+      return(
+        tagList(
+          h4("goana table - list1"),
+          DT::dataTableOutput("DT_gse_list1")
+        )
+      )
+    })
+    output$ui_DT_gse_list2 <- renderUI({
+      if(is.null(values$gse_up))
+        return(NULL)
+      return(
+        tagList(
+          h4("goana table - list2"),
+          DT::dataTableOutput("DT_gse_list2")
+        )
+      )
+    })
+    
+    output$ui_DT_gse_up_topgo <- renderUI({
+      if(is.null(values$topgo_up))
+        return(NULL)
+      return(
+        tagList(
+          h4("topGO table - up"),
+          DT::dataTableOutput("DT_gse_up_topgo")
+        )
+      )
+    })
+    output$ui_DT_gse_down_topgo <- renderUI({
+      if(is.null(values$topgo_down))
+        return(NULL)
+      return(
+        tagList(
+          h4("topGO table - down"),
+          DT::dataTableOutput("DT_gse_down_topgo")
+        )
+      )
+    })
+    output$ui_DT_gse_updown_topgo <- renderUI({
+      if(is.null(values$topgo_updown))
+        return(NULL)
+      return(
+        tagList(
+          h4("topGO table - up&down"),
+          DT::dataTableOutput("DT_gse_updown_topgo")
+        )
+      )
+    })
+    output$ui_DT_gse_list1_topgo <- renderUI({
+      if(is.null(values$topgo_list1))
+        return(NULL)
+      return(
+        tagList(
+          h4("topGO table - list1"),
+          DT::dataTableOutput("DT_gse_list1_topgo")
+        )
+      )
+    })
+    output$ui_DT_gse_list2_topgo <- renderUI({
+      if(is.null(values$topgo_list2))
+        return(NULL)
+      return(
+        tagList(
+          h4("topGO table - list2"),
+          DT::dataTableOutput("DT_gse_list2_topgo")
+        )
+      )
+    })
+  
+    output$ui_DT_gse_up_goseq <- renderUI({
+      if(is.null(values$gse_up_goseq))
+        return(NULL)
+      return(
+        tagList(
+          h4("goseq table - up"),
+          DT::dataTableOutput("DT_gse_up_goseq")
+        )
+      )
+    })
+    output$ui_DT_gse_down_goseq <- renderUI({
+      if(is.null(values$gse_down_goseq))
+        return(NULL)
+      return(
+        tagList(
+          h4("goseq table - down"),
+          DT::dataTableOutput("DT_gse_down_goseq")
+        )
+      )
+    })
+    output$ui_DT_gse_updown_goseq <- renderUI({
+      if(is.null(values$gse_updown_goseq))
+        return(NULL)
+      return(
+        tagList(
+          h4("goseq table - up&down"),
+          DT::dataTableOutput("DT_gse_updown_goseq")
+        )
+      )
+    })
+    output$ui_DT_gse_list1_goseq <- renderUI({
+      if(is.null(values$gse_list1_goseq))
+        return(NULL)
+      return(
+        tagList(
+          h4("goseq table - list1"),
+          DT::dataTableOutput("DT_gse_list1_goseq")
+        )
+      )
+    })
+    output$ui_DT_gse_list2_goseq <- renderUI({
+      if(is.null(values$gse_up_goseq))
+        return(NULL)
+      return(
+        tagList(
+          h4("goseq table - list2"),
+          DT::dataTableOutput("DT_gse_list2_goseq")
+        )
+      )
+    })
+    
+    ## actual DTs here
     output$DT_gse_up <- DT::renderDataTable({
       # if not null...
       if(is.null(values$gse_up))
@@ -2517,7 +2858,7 @@ ideal<- function(dds_obj = NULL,
         return(NULL)
       mytbl <- values$gse_up_goseq
       mytbl$category <- createLinkGO(mytbl$category)
-      datatable(mytbl,escape=FALSE)
+      datatable(mytbl,escape=FALSE, rownames = FALSE)
     })
     output$DT_gse_down_goseq <- DT::renderDataTable({
       # if not null...
@@ -2525,7 +2866,7 @@ ideal<- function(dds_obj = NULL,
         return(NULL)
       mytbl <- values$gse_down_goseq
       mytbl$category <- createLinkGO(mytbl$category)
-      datatable(mytbl,escape=FALSE)
+      datatable(mytbl,escape=FALSE, rownames = FALSE)
     })
     output$DT_gse_updown_goseq <- DT::renderDataTable({
       # if not null...
@@ -2533,7 +2874,7 @@ ideal<- function(dds_obj = NULL,
         return(NULL)
       mytbl <- values$gse_updown_goseq
       mytbl$category <- createLinkGO(mytbl$category)
-      datatable(mytbl,escape=FALSE)
+      datatable(mytbl,escape=FALSE, rownames = FALSE)
     })
     output$DT_gse_list1_goseq <- DT::renderDataTable({
       # if not null...
@@ -2542,7 +2883,7 @@ ideal<- function(dds_obj = NULL,
       mytbl <- values$gse_list1_goseq
       # mytbl$GOid <- rownames(mytbl)
       mytbl$category <- createLinkGO(mytbl$category)
-      datatable(mytbl,escape=FALSE)
+      datatable(mytbl,escape=FALSE, rownames = FALSE)
     })
     output$DT_gse_list2_goseq <- DT::renderDataTable({
       # if not null...
@@ -2551,7 +2892,7 @@ ideal<- function(dds_obj = NULL,
       mytbl <- values$gse_list2_goseq
       # mytbl$GOid <- rownames(mytbl)
       mytbl$category <- createLinkGO(mytbl$category)
-      datatable(mytbl,escape=FALSE)
+      datatable(mytbl,escape=FALSE, rownames = FALSE)
     })
 
 
