@@ -4,8 +4,14 @@
 \alias{ideal}
 \title{ideal: Interactive Differential Expression Analysis}
 \usage{
-ideal(dds_obj = NULL, res_obj = NULL, annotation_obj = NULL,
-  countmatrix = NULL, expdesign = NULL, gene_signatures = NULL)
+ideal(
+  dds_obj = NULL,
+  res_obj = NULL,
+  annotation_obj = NULL,
+  countmatrix = NULL,
+  expdesign = NULL,
+  gene_signatures = NULL
+)
 }
 \arguments{
 \item{dds_obj}{A \code{\link{DESeqDataSet}} object. If not provided, then a

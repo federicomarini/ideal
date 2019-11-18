@@ -4,8 +4,14 @@
 \alias{ggplotCounts}
 \title{Plot normalized counts for a gene}
 \usage{
-ggplotCounts(dds, gene, intgroup = "condition", annotation_obj = NULL,
-  transform = TRUE, labels_repel = TRUE)
+ggplotCounts(
+  dds,
+  gene,
+  intgroup = "condition",
+  annotation_obj = NULL,
+  transform = TRUE,
+  labels_repel = TRUE
+)
 }
 \arguments{
 \item{dds}{A \code{\link{DESeqDataSet}} object.}

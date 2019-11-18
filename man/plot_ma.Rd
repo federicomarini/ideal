@@ -4,11 +4,22 @@
 \alias{plot_ma}
 \title{MA-plot from base means and log fold changes}
 \usage{
-plot_ma(res_obj, FDR = 0.05, point_alpha = 0.2, sig_color = "red",
-  annotation_obj = NULL, hlines = NULL, title = NULL,
-  xlab = "mean of normalized counts - log10 scale", ylim = NULL,
-  add_rug = TRUE, intgenes = NULL, intgenes_color = "steelblue",
-  labels_intgenes = TRUE, labels_repel = TRUE)
+plot_ma(
+  res_obj,
+  FDR = 0.05,
+  point_alpha = 0.2,
+  sig_color = "red",
+  annotation_obj = NULL,
+  hlines = NULL,
+  title = NULL,
+  xlab = "mean of normalized counts - log10 scale",
+  ylim = NULL,
+  add_rug = TRUE,
+  intgenes = NULL,
+  intgenes_color = "steelblue",
+  labels_intgenes = TRUE,
+  labels_repel = TRUE
+)
 }
 \arguments{
 \item{res_obj}{A \code{\link{DESeqResults}} object}

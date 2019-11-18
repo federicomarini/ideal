@@ -3,7 +3,6 @@
 \docType{package}
 \name{ideal-pkg}
 \alias{ideal-pkg}
-\alias{ideal-pkg-package}
 \title{ideal: Interactive Differential Expression Analysis}
 \description{
 ideal makes differential expression analysis interactive, easy and reproducible.

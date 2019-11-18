@@ -4,9 +4,16 @@
 \alias{plot_volcano}
 \title{Volcano plot for log fold changes and log p-values}
 \usage{
-plot_volcano(res_obj, FDR = 0.05, ylim_up = NULL, vlines = NULL,
-  title = NULL, intgenes = NULL, intgenes_color = "steelblue",
-  labels_intgenes = TRUE)
+plot_volcano(
+  res_obj,
+  FDR = 0.05,
+  ylim_up = NULL,
+  vlines = NULL,
+  title = NULL,
+  intgenes = NULL,
+  intgenes_color = "steelblue",
+  labels_intgenes = TRUE
+)
 }
 \arguments{
 \item{res_obj}{A \code{\link{DESeqResults}} object}

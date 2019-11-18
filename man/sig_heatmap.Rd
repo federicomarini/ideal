@@ -4,9 +4,19 @@
 \alias{sig_heatmap}
 \title{Plot a heatmap of the gene signature on the data}
 \usage{
-sig_heatmap(vst_data, my_signature, res_data = NULL, FDR = 0.05,
-  de_only = FALSE, annovec, title = "", cluster_rows = TRUE,
-  cluster_cols = FALSE, center_mean = TRUE, scale_row = FALSE)
+sig_heatmap(
+  vst_data,
+  my_signature,
+  res_data = NULL,
+  FDR = 0.05,
+  de_only = FALSE,
+  annovec,
+  title = "",
+  cluster_rows = TRUE,
+  cluster_cols = FALSE,
+  center_mean = TRUE,
+  scale_row = FALSE
+)
 }
 \arguments{
 \item{vst_data}{A \code{\link{DESeqTransform}} object - usually the variance
@@ -61,7 +71,7 @@ library(org.Hs.eg.db)
 annovec <- mapIds(org.Hs.eg.db, rownames(dds_airway),"ENTREZID","ENSEMBL")
 mysignatures <- read_gmt(
   "http://data.wikipathways.org/20190210/gmt/wikipathways-20190210-gmt-Homo_sapiens.gmt")
-mysignature_name <- "Lung fibrosis\%WikiPathways_20190210\%WP3624\%Homo sapiens"
+mysignature_name <- "Lung fibrosis%WikiPathways_20190210%WP3624%Homo sapiens"
 library(pheatmap)
 sig_heatmap(vst_airway,
             mysignatures[[mysignature_name]],
