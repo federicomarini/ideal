@@ -70,7 +70,7 @@ possibility to compactly display also DE only genes" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ideal</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.9.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.11.0</span>
       </span>
     </div>
 
@@ -131,9 +131,19 @@ possibility to compactly display also DE only genes" />
 possibility to compactly display also DE only genes</p>
     </div>
 
-    <pre class="usage"><span class='fu'>sig_heatmap</span>(<span class='no'>vst_data</span>, <span class='no'>my_signature</span>, <span class='kw'>res_data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>FDR</span> <span class='kw'>=</span> <span class='fl'>0.05</span>,
-  <span class='kw'>de_only</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>annovec</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>cluster_rows</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>cluster_cols</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>center_mean</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>scale_row</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>sig_heatmap</span>(
+  <span class='no'>vst_data</span>,
+  <span class='no'>my_signature</span>,
+  <span class='kw'>res_data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>FDR</span> <span class='kw'>=</span> <span class='fl'>0.05</span>,
+  <span class='kw'>de_only</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='no'>annovec</span>,
+  <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>""</span>,
+  <span class='kw'>cluster_rows</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>cluster_cols</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>center_mean</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>scale_row</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -196,38 +206,7 @@ expression values</p></td>
     <p>A plot based on the <code>pheatmap</code> function</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># with the well known airway package...</span>
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>airway</span>)
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>airway</span>)
-<span class='no'>airway</span></div><div class='output co'>#&gt; class: RangedSummarizedExperiment 
-#&gt; dim: 64102 8 
-#&gt; metadata(1): ''
-#&gt; assays(1): counts
-#&gt; rownames(64102): ENSG00000000003 ENSG00000000005 ... LRG_98 LRG_99
-#&gt; rowData names(0):
-#&gt; colnames(8): SRR1039508 SRR1039509 ... SRR1039520 SRR1039521
-#&gt; colData names(9): SampleName cell ... Sample BioSample</div><div class='input'><span class='no'>dds_airway</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>DESeq2</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/DESeq2/man/DESeqDataSet.html'>DESeqDataSetFromMatrix</a></span>(<span class='fu'>assay</span>(<span class='no'>airway</span>),
-                                             <span class='kw'>colData</span> <span class='kw'>=</span> <span class='fu'>colData</span>(<span class='no'>airway</span>),
-                                             <span class='kw'>design</span><span class='kw'>=</span>~<span class='no'>cell</span>+<span class='no'>dex</span>)
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='no'>dds_airway</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>DESeq2</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/DESeq2/man/DESeq.html'>DESeq</a></span>(<span class='no'>dds_airway</span>)
-<span class='no'>res_airway</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>DESeq2</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/DESeq2/man/results.html'>results</a></span>(<span class='no'>dds_airway</span>)
-<span class='no'>vst_airway</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>DESeq2</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/DESeq2/man/vst.html'>vst</a></span>(<span class='no'>dds_airway</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>org.Hs.eg.db</span>)
-<span class='no'>annovec</span> <span class='kw'>&lt;-</span> <span class='fu'>mapIds</span>(<span class='no'>org.Hs.eg.db</span>, <span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span>(<span class='no'>dds_airway</span>),<span class='st'>"ENTREZID"</span>,<span class='st'>"ENSEMBL"</span>)
-<span class='no'>mysignatures</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_gmt.html'>read_gmt</a></span>(
-  <span class='st'>"http://data.wikipathways.org/20190210/gmt/wikipathways-20190210-gmt-Homo_sapiens.gmt"</span>)
-<span class='no'>mysignature_name</span> <span class='kw'>&lt;-</span> <span class='st'>"Lung fibrosis%WikiPathways_20190210%WP3624%Homo sapiens"</span>
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>pheatmap</span>)
-<span class='fu'>sig_heatmap</span>(<span class='no'>vst_airway</span>,
-            <span class='no'>mysignatures</span><span class='kw'>[[</span><span class='no'>mysignature_name</span>]],
-            <span class='kw'>res_data</span> <span class='kw'>=</span> <span class='no'>res_airway</span>,
-            <span class='kw'>de_only</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-            <span class='kw'>annovec</span> <span class='kw'>=</span> <span class='no'>annovec</span>,
-            <span class='kw'>title</span> <span class='kw'>=</span> <span class='no'>mysignature_name</span>,
-            <span class='kw'>cluster_cols</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
-            )
-}</div></pre>
+    <pre class="examples"></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

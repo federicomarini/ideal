@@ -70,7 +70,7 @@ based on the algorithm and the implementation in the goseq package" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ideal</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.9.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.11.0</span>
       </span>
     </div>
 
@@ -131,9 +131,17 @@ based on the algorithm and the implementation in the goseq package" />
 based on the algorithm and the implementation in the goseq package</p>
     </div>
 
-    <pre class="usage"><span class='fu'>goseqTable</span>(<span class='no'>de.genes</span>, <span class='no'>assayed.genes</span>, <span class='kw'>genome</span> <span class='kw'>=</span> <span class='st'>"hg38"</span>, <span class='kw'>id</span> <span class='kw'>=</span> <span class='st'>"ensGene"</span>,
-  <span class='kw'>testCats</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"GO:BP"</span>, <span class='st'>"GO:MF"</span>, <span class='st'>"GO:CC"</span>), <span class='kw'>FDR_GO_cutoff</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>nTop</span> <span class='kw'>=</span> <span class='fl'>200</span>, <span class='kw'>orgDbPkg</span> <span class='kw'>=</span> <span class='st'>"org.Hs.eg.db"</span>, <span class='kw'>addGeneToTerms</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>goseqTable</span>(
+  <span class='no'>de.genes</span>,
+  <span class='no'>assayed.genes</span>,
+  <span class='kw'>genome</span> <span class='kw'>=</span> <span class='st'>"hg38"</span>,
+  <span class='kw'>id</span> <span class='kw'>=</span> <span class='st'>"ensGene"</span>,
+  <span class='kw'>testCats</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"GO:BP"</span>, <span class='st'>"GO:MF"</span>, <span class='st'>"GO:CC"</span>),
+  <span class='kw'>FDR_GO_cutoff</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>nTop</span> <span class='kw'>=</span> <span class='fl'>200</span>,
+  <span class='kw'>orgDbPkg</span> <span class='kw'>=</span> <span class='st'>"org.Hs.eg.db"</span>,
+  <span class='kw'>addGeneToTerms</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
