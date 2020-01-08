@@ -71,7 +71,7 @@ library(org.Hs.eg.db)
 annovec <- mapIds(org.Hs.eg.db, rownames(dds_airway),"ENTREZID","ENSEMBL")
 mysignatures <- read_gmt(
   "http://data.wikipathways.org/20190210/gmt/wikipathways-20190210-gmt-Homo_sapiens.gmt")
-mysignature_name <- "Lung fibrosis%WikiPathways_20190210%WP3624%Homo sapiens"
+mysignature_name <- "Lung fibrosis\%WikiPathways_20190210\%WP3624\%Homo sapiens"
 library(pheatmap)
 sig_heatmap(vst_airway,
             mysignatures[[mysignature_name]],
