@@ -1,3 +1,13 @@
+# ideal 1.12.0
+
+## New features
+
+* Implemented a series of gentle fail mechanisms to avoid abrupt crashing of the app if the expected objects or formats are not provided
+
+## Other notes
+
+* Alignments of UI elements have been adjusted
+
 # ideal 1.10.0
 
 ## New features
