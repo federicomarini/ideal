@@ -70,7 +70,7 @@ possibility to compactly display also DE only genes" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ideal</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.9.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.11.1</span>
       </span>
     </div>
 
@@ -131,9 +131,19 @@ possibility to compactly display also DE only genes" />
 possibility to compactly display also DE only genes</p>
     </div>
 
-    <pre class="usage"><span class='fu'>sig_heatmap</span>(<span class='no'>vst_data</span>, <span class='no'>my_signature</span>, <span class='kw'>res_data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>FDR</span> <span class='kw'>=</span> <span class='fl'>0.05</span>,
-  <span class='kw'>de_only</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>annovec</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>cluster_rows</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>cluster_cols</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>center_mean</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>scale_row</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>sig_heatmap</span>(
+  <span class='no'>vst_data</span>,
+  <span class='no'>my_signature</span>,
+  <span class='kw'>res_data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>FDR</span> <span class='kw'>=</span> <span class='fl'>0.05</span>,
+  <span class='kw'>de_only</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='no'>annovec</span>,
+  <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>""</span>,
+  <span class='kw'>cluster_rows</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>cluster_cols</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>center_mean</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>scale_row</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
