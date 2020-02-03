@@ -7,6 +7,7 @@
 ## Other notes
 
 * Alignments of UI elements have been adjusted
+* Updated citation info - the preprint for `ideal`, "ideal: an R/Bioconductor package for Interactive Differential Expression Analysis", is now published at bioRxiv, https://doi.org/10.1101/2020.01.10.901652
 
 # ideal 1.10.0
 
