@@ -356,9 +356,9 @@ ideal<- function(dds_obj = NULL,
               selectInput("countstable_unit", label = "Data scale in the table",
                           choices = list("Counts (raw)" = "raw_counts",
                                          "Counts (normalized)" = "normalized_counts",
-                                         "Regularized logarithm transformed" = "rlog_counts",
-                                         "Log10 (pseudocount of 1 added)" = "log10_counts",
-                                         "TPM (Transcripts Per Million)" = "tpm_counts")),
+                                         "Variance stabilizing transformed values" = "vst_counts",
+                                         "Log10 (pseudocount of 1 added)" = "log10_counts")
+                          ),
 
               DT::dataTableOutput("showcountmat"),
               downloadButton("downloadData","Download", class = "btn btn-success"),
@@ -1711,13 +1711,18 @@ ideal<- function(dds_obj = NULL,
         return(counts(values$dds_obj,normalized=FALSE))
       if(input$countstable_unit=="normalized_counts")
         return(counts(values$dds_obj,normalized=TRUE))
-      if(input$countstable_unit=="rlog_counts")
-        return(NULL) ## see if it is worth to keep in here or explore possibility with fast vst
+      if(input$countstable_unit=="vst_counts") {
+        if (is.null(values$vst_obj)) {
+          withProgress(message="Computing the variance stabilized transformed data...",
+                       detail = "This step can take a little while",
+                       value = 0,{
+                         values$vst_obj <- vst(values$dds_obj)
+                       })
+        }
+        return(assay(values$vst_obj)) ## see if it is worth to keep in here or explore possibility with fast vst
+      }
       if(input$countstable_unit=="log10_counts")
         return(log10(1 + counts(values$dds_obj,normalized=TRUE)))
-      if(input$countstable_unit=="tpm_counts")
-        return(NULL) ## TODO!: assumes length of genes/exons as known, and is currently not required in the dds
-
     })
 
     output$showcountmat <- DT::renderDataTable({
