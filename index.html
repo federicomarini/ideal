@@ -123,6 +123,13 @@ Error: Failed to install 'ideal' from GitHub:
 # and then again
 devtools::install_github("federicomarini/ideal", dependencies = TRUE)</a></code></pre>
 </div>
+<div id="which-version-should-i-use" class="section level3">
+<h3 class="hasAnchor">
+<a href="#which-version-should-i-use" class="anchor"></a>Which version should I use?</h3>
+<p>If you are a <strong>regular user</strong>, you should <strong>install the latest stable release version</strong>. This can be done at best by using <code><a href="https://rdrr.io/pkg/BiocManager/man/install.html">BiocManager::install("ideal")</a></code>, as recommended in <a href="https://www.bioconductor.org/install/#troubleshoot-bioconductor-packages" class="uri">https://www.bioconductor.org/install/#troubleshoot-bioconductor-packages</a>. Please follow the general instructions in <a href="https://www.bioconductor.org/install" class="uri">https://www.bioconductor.org/install</a> to make sure you are using the correct version, matched to the version of the R software in use.</p>
+<p>If you are a <strong>software developer</strong> and want to have access to the latest features that are currently in the <strong>devel branch of Bioconductor</strong> (i.e. experimental functionality, and more), you can do so by calling first <code><a href="https://rdrr.io/pkg/BiocManager/man/install.html">BiocManager::install(version = "devel")</a></code> as specified in <a href="https://bioconductor.org/developers/how-to/useDevel/" class="uri">https://bioconductor.org/developers/how-to/useDevel/</a>, then followed by <code><a href="https://rdrr.io/pkg/BiocManager/man/install.html">BiocManager::install("ideal")</a></code>. Keep in mind that according to the release cycle you might need to install the devel version of R itself.</p>
+<p>If you just want to use the <strong>bleeding edge version</strong>, which is the one you can find on GitHub, you can install that by calling <code><a href="https://rdrr.io/pkg/BiocManager/man/install.html">BiocManager::install("federicomarini/ideal")</a></code> (which is basically a wrapper around <code>remotes::install("federicomarini/ideal")</code>). This approach might be recommended for <strong>experienced users</strong> - based on which Bioconductor version you might be using, you might encounter mismatches in the dependencies if you mix up versions from release and devel branches.</p>
+</div>
 </div>
 <div id="quick-start" class="section level2">
 <h2 class="hasAnchor">
