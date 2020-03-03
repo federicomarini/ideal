@@ -101,10 +101,28 @@
 <pre><code>if (!requireNamespace("BiocManager", quietly=TRUE))
     install.packages("BiocManager")
 BiocManager::install("ideal")</code></pre>
-<p>or, optionally,</p>
-<pre><code><a href="https://rdrr.io/pkg/BiocManager/man/install.html">BiocManager::install("federicomarini/ideal")
+<p>Note that this should be the preferred way to install the latest stable release version.</p>
+<p>Optionally, if you want to install the development version from GitHub, you can use:</p>
+<pre><code><a href="https://rdrr.io/pkg/BiocManager/man/install.html">BiocManager::install("federicomarini/ideal", dependencies = TRUE)
 # or alternatively...
-devtools::install_github("federicomarini/ideal")</a></code></pre>
+devtools::install_github("federicomarini/ideal", dependencies = TRUE)</a></code></pre>
+<p>Setting <code>dependencies = TRUE</code> should ensure that all packages, including the ones in the <code>Suggests:</code> field of the <code>DESCRIPTION</code>, are installed - this can be essential if you want to reproduce the code in the vignette, for example.</p>
+<div id="installation-troubleshooting" class="section level3">
+<h3 class="hasAnchor">
+<a href="#installation-troubleshooting" class="anchor"></a>Installation troubleshooting</h3>
+<p>If using <code>devtools</code> or <code>remotes</code> to install packages, you could run into the warning</p>
+<pre><code># ... after launching the install_github command
+Error: (converted from warning) package ´IRanges´ was built under R version 3.6.2
+Execution halted
+ERROR: lazy loading failed for package ´ideal´
+*removing ´Library/Frameworks/R.framework/Versions/3.6/Resources/library/ideal´
+Error: Failed to install 'ideal' from GitHub:
+  (converted from warning) installation of package ´....../ideal_1.11.2.tar.gz´ had non zero exit status</code></pre>
+<p>In this case, you can follow the instructions found at <a href="https://remotes.r-lib.org/index.html#environment-variables" class="uri">https://remotes.r-lib.org/index.html#environment-variables</a>, which specifically suggest to set <code>R_REMOTES_NO_ERRORS_FROM_WARNINGS</code> to <code>true</code>. You can do so directly in R before installing the package by entering</p>
+<pre><code><a href="https://rdrr.io/r/base/Sys.setenv.html">Sys.setenv(R_REMOTES_NO_ERRORS_FROM_WARNINGS="true")
+# and then again
+devtools::install_github("federicomarini/ideal", dependencies = TRUE)</a></code></pre>
+</div>
 </div>
 <div id="quick-start" class="section level2">
 <h2 class="hasAnchor">

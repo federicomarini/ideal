@@ -80,9 +80,9 @@
       
 
       </header><script src="ideal-usersguide_files/htmlwidgets-1.5.1/htmlwidgets.js"></script><script src="ideal-usersguide_files/jquery-1.12.4/jquery.min.js"></script><link href="ideal-usersguide_files/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
-<script src="ideal-usersguide_files/datatables-binding-0.11/datatables.js"></script><link href="ideal-usersguide_files/dt-core-1.10.19/css/jquery.dataTables.min.css" rel="stylesheet">
-<link href="ideal-usersguide_files/dt-core-1.10.19/css/jquery.dataTables.extra.css" rel="stylesheet">
-<script src="ideal-usersguide_files/dt-core-1.10.19/js/jquery.dataTables.min.js"></script><link href="ideal-usersguide_files/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet">
+<script src="ideal-usersguide_files/datatables-binding-0.12/datatables.js"></script><link href="ideal-usersguide_files/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="ideal-usersguide_files/dt-core-1.10.20/css/jquery.dataTables.extra.css" rel="stylesheet">
+<script src="ideal-usersguide_files/dt-core-1.10.20/js/jquery.dataTables.min.js"></script><link href="ideal-usersguide_files/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet">
 <script src="ideal-usersguide_files/crosstalk-1.0.0/js/crosstalk.min.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
@@ -93,7 +93,7 @@
       </address>
                               <h4 class="author">Harald Binder</h4>
             <address class="author_afil">
-      Institute of Medical Biostatistics, Epidemiology and Informatics (IMBEI), Mainz<br><h4 class="date">3 February 2020</h4>
+      Institute of Medical Biostatistics, Epidemiology and Informatics (IMBEI), Mainz<br><h4 class="date">3 March 2020</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/federicomarini/ideal/blob/master/vignettes/ideal-usersguide.Rmd"><code>vignettes/ideal-usersguide.Rmd</code></a></small>
       <div class="hidden name"><code>ideal-usersguide.Rmd</code></div>
@@ -110,7 +110,7 @@
 <!-- **Package**: *ideal* -->
 <!-- **Authors**: Federico Marini [aut, cre] (<https://orcid.org/0000-0003-3252-7758>) -->
 <!-- **Version**: 1.11.2 -->
-<p><strong>Compiled date</strong>: 2020-02-03</p>
+<p><strong>Compiled date</strong>: 2020-03-03</p>
 <p><strong>Last edited</strong>: 2019-02-06</p>
 <p><strong>License</strong>: MIT + file LICENSE</p>
 <div id="getting-started" class="section level1">
@@ -794,12 +794,28 @@
 <div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" data-line-number="1"><span class="kw"><a href="../reference/ggplotCounts.html">ggplotCounts</a></span>(<span class="dt">dds =</span> dds_airway,</a>
 <a class="sourceLine" id="cb42-2" data-line-number="2">             <span class="dt">gene =</span> <span class="st">"ENSG00000103196"</span>, <span class="co"># CRISPLD2 in the original publication</span></a>
 <a class="sourceLine" id="cb42-3" data-line-number="3">             <span class="dt">intgroup =</span> <span class="st">"dex"</span>)</a></code></pre></div>
+<pre><code>## Warning in if (class(x) == "unit") {: the condition has length &gt; 1 and only the
+## first element will be used
+
+## Warning in if (class(x) == "unit") {: the condition has length &gt; 1 and only the
+## first element will be used
+
+## Warning in if (class(x) == "unit") {: the condition has length &gt; 1 and only the
+## first element will be used</code></pre>
 <p><img src="ideal-usersguide_files/figure-html/ggpc1-1.png" width="700"></p>
 <p>If an <code>annotation_obj</code> is provided, their gene name can also be included in the title.</p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" data-line-number="1"><span class="kw"><a href="../reference/ggplotCounts.html">ggplotCounts</a></span>(<span class="dt">dds =</span> dds_airway,</a>
-<a class="sourceLine" id="cb43-2" data-line-number="2">             <span class="dt">gene =</span> <span class="st">"ENSG00000103196"</span>, <span class="co"># CRISPLD2 in the original publication</span></a>
-<a class="sourceLine" id="cb43-3" data-line-number="3">             <span class="dt">intgroup =</span> <span class="st">"dex"</span>,</a>
-<a class="sourceLine" id="cb43-4" data-line-number="4">             <span class="dt">annotation_obj =</span> annotation_airway)</a></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" data-line-number="1"><span class="kw"><a href="../reference/ggplotCounts.html">ggplotCounts</a></span>(<span class="dt">dds =</span> dds_airway,</a>
+<a class="sourceLine" id="cb44-2" data-line-number="2">             <span class="dt">gene =</span> <span class="st">"ENSG00000103196"</span>, <span class="co"># CRISPLD2 in the original publication</span></a>
+<a class="sourceLine" id="cb44-3" data-line-number="3">             <span class="dt">intgroup =</span> <span class="st">"dex"</span>,</a>
+<a class="sourceLine" id="cb44-4" data-line-number="4">             <span class="dt">annotation_obj =</span> annotation_airway)</a></code></pre></div>
+<pre><code>## Warning in if (class(x) == "unit") {: the condition has length &gt; 1 and only the
+## first element will be used
+
+## Warning in if (class(x) == "unit") {: the condition has length &gt; 1 and only the
+## first element will be used
+
+## Warning in if (class(x) == "unit") {: the condition has length &gt; 1 and only the
+## first element will be used</code></pre>
 <p><img src="ideal-usersguide_files/figure-html/ggpc2-1.png" width="700"></p>
 <p>When used in the context of the app, it is possible to seamless search for genes also by their gene name, making exploration even more immediate.</p>
 </div>
@@ -811,22 +827,22 @@
 <p>Its counterpart, based on the <em><a href="https://bioconductor.org/packages/3.11/topGO">topGO</a></em> package, can be found in the <em><a href="https://bioconductor.org/packages/3.11/pcaExplorer">pcaExplorer</a></em> package.</p>
 <p><em>Please note that the following code chunks are not run only for reducing compilation time. The reader is invited to try out the functionality by simply executing these commands.</em></p>
 <!-- maybe eval=FALSE here? -->
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" data-line-number="1">res_subset &lt;-<span class="st"> </span><span class="kw"><a href="../reference/deseqresult2DEgenes.html">deseqresult2DEgenes</a></span>(res_airway)[<span class="dv">1</span><span class="op">:</span><span class="dv">100</span>,] <span class="co"># taking only a subset of the DE genes</span></a>
-<a class="sourceLine" id="cb44-2" data-line-number="2">myde &lt;-<span class="st"> </span>res_subset<span class="op">$</span>id</a>
-<a class="sourceLine" id="cb44-3" data-line-number="3">myassayed &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span>(res_airway)</a>
-<a class="sourceLine" id="cb44-4" data-line-number="4">mygo &lt;-<span class="st"> </span><span class="kw"><a href="../reference/goseqTable.html">goseqTable</a></span>(<span class="dt">de.genes =</span> myde,</a>
-<a class="sourceLine" id="cb44-5" data-line-number="5">                   <span class="dt">assayed.genes =</span> myassayed,</a>
-<a class="sourceLine" id="cb44-6" data-line-number="6">                   <span class="dt">genome =</span> <span class="st">"hg38"</span>,</a>
-<a class="sourceLine" id="cb44-7" data-line-number="7">                   <span class="dt">id =</span> <span class="st">"ensGene"</span>,</a>
-<a class="sourceLine" id="cb44-8" data-line-number="8">                   <span class="dt">testCats =</span> <span class="st">"GO:BP"</span>,</a>
-<a class="sourceLine" id="cb44-9" data-line-number="9">                   <span class="dt">addGeneToTerms =</span> <span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb44-10" data-line-number="10"><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(mygo)</a></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb46-1" data-line-number="1">res_subset &lt;-<span class="st"> </span><span class="kw"><a href="../reference/deseqresult2DEgenes.html">deseqresult2DEgenes</a></span>(res_airway)[<span class="dv">1</span><span class="op">:</span><span class="dv">100</span>,] <span class="co"># taking only a subset of the DE genes</span></a>
+<a class="sourceLine" id="cb46-2" data-line-number="2">myde &lt;-<span class="st"> </span>res_subset<span class="op">$</span>id</a>
+<a class="sourceLine" id="cb46-3" data-line-number="3">myassayed &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span>(res_airway)</a>
+<a class="sourceLine" id="cb46-4" data-line-number="4">mygo &lt;-<span class="st"> </span><span class="kw"><a href="../reference/goseqTable.html">goseqTable</a></span>(<span class="dt">de.genes =</span> myde,</a>
+<a class="sourceLine" id="cb46-5" data-line-number="5">                   <span class="dt">assayed.genes =</span> myassayed,</a>
+<a class="sourceLine" id="cb46-6" data-line-number="6">                   <span class="dt">genome =</span> <span class="st">"hg38"</span>,</a>
+<a class="sourceLine" id="cb46-7" data-line-number="7">                   <span class="dt">id =</span> <span class="st">"ensGene"</span>,</a>
+<a class="sourceLine" id="cb46-8" data-line-number="8">                   <span class="dt">testCats =</span> <span class="st">"GO:BP"</span>,</a>
+<a class="sourceLine" id="cb46-9" data-line-number="9">                   <span class="dt">addGeneToTerms =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb46-10" data-line-number="10"><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(mygo)</a></code></pre></div>
 <p>As for the results, this table can be enhanced by adding the links for each category to the AmiGO database.</p>
 <!-- maybe eval=FALSE here? -->
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" data-line-number="1">mygo_enhanced &lt;-<span class="st"> </span>mygo</a>
-<a class="sourceLine" id="cb45-2" data-line-number="2"><span class="co"># using the unexported function to link the GO term to the entry in the AmiGO db</span></a>
-<a class="sourceLine" id="cb45-3" data-line-number="3">mygo_enhanced<span class="op">$</span>category &lt;-<span class="st"> </span>ideal<span class="op">:::</span><span class="kw">createLinkGO</span>(mygo_enhanced<span class="op">$</span>category)</a>
-<a class="sourceLine" id="cb45-4" data-line-number="4">DT<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/DT/man/datatable.html">datatable</a></span>(mygo_enhanced,<span class="dt">escape=</span><span class="ot">FALSE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" data-line-number="1">mygo_enhanced &lt;-<span class="st"> </span>mygo</a>
+<a class="sourceLine" id="cb47-2" data-line-number="2"><span class="co"># using the unexported function to link the GO term to the entry in the AmiGO db</span></a>
+<a class="sourceLine" id="cb47-3" data-line-number="3">mygo_enhanced<span class="op">$</span>category &lt;-<span class="st"> </span>ideal<span class="op">:::</span><span class="kw">createLinkGO</span>(mygo_enhanced<span class="op">$</span>category)</a>
+<a class="sourceLine" id="cb47-4" data-line-number="4">DT<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/DT/man/datatable.html">datatable</a></span>(mygo_enhanced,<span class="dt">escape=</span><span class="ot">FALSE</span>)</a></code></pre></div>
 </div>
 <div id="plot_ma" class="section level2">
 <h2 class="hasAnchor">
@@ -834,29 +850,37 @@
 </h2>
 <p>The MA plot provided by <em><a href="https://bioconductor.org/packages/3.11/ideal">ideal</a></em> displays the gene-wise log2-fold changes (logFCs) versus the average expression value. As a main input parameter, a <code>DESeqResults</code> object is required. Control on the appearance of the plot can be applied by selecting the False Discovery Rate (<code>FDR</code>), the point transparency (<code>point_alpha</code>), adding horizontal lines at particular logFC values (<code>hlines</code>). The user can also decide to add rug plots in the margins (setting <code>add_rug</code> to <code>TRUE</code>).</p>
 <p>To facilitate the inspection of a particular gene or gene set, <code>intgenes</code> can assume the value of a vector of genes (either the IDs or the gene symbols if <code>symbol</code> column is provided in <code>res_obj</code>. Labels can be added via <code>labels_intgenes</code>, while classical labels/title can be also edited as preferred (see <code>plot_ma</code> for all details).</p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb46-1" data-line-number="1"><span class="kw"><a href="../reference/plot_ma.html">plot_ma</a></span>(res_airway, <span class="dt">FDR =</span> <span class="fl">0.05</span>, <span class="dt">hlines =</span> <span class="dv">1</span>,</a>
-<a class="sourceLine" id="cb46-2" data-line-number="2">        <span class="dt">title =</span><span class="st">"Adding horizontal lines"</span>, <span class="dt">add_rug =</span> <span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb46-3" data-line-number="3"><span class="kw"><a href="../reference/plot_ma.html">plot_ma</a></span>(res_airway, <span class="dt">FDR =</span> <span class="fl">0.1</span>,</a>
-<a class="sourceLine" id="cb46-4" data-line-number="4">        <span class="dt">intgenes =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"ENSG00000103196"</span>,  <span class="co"># CRISPLD2</span></a>
-<a class="sourceLine" id="cb46-5" data-line-number="5">                     <span class="st">"ENSG00000120129"</span>,  <span class="co"># DUSP1</span></a>
-<a class="sourceLine" id="cb46-6" data-line-number="6">                     <span class="st">"ENSG00000163884"</span>,  <span class="co"># KLF15</span></a>
-<a class="sourceLine" id="cb46-7" data-line-number="7">                     <span class="st">"ENSG00000179094"</span>), <span class="co"># PER1</span></a>
-<a class="sourceLine" id="cb46-8" data-line-number="8">        <span class="dt">title =</span> <span class="st">"Providing a shortlist of genes"</span>,</a>
-<a class="sourceLine" id="cb46-9" data-line-number="9">        <span class="dt">add_rug =</span> <span class="ot">FALSE</span></a>
-<a class="sourceLine" id="cb46-10" data-line-number="10">       )</a></code></pre></div>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" data-line-number="1">res_airway2 &lt;-<span class="st"> </span>res_airway</a>
-<a class="sourceLine" id="cb47-2" data-line-number="2">res_airway2<span class="op">$</span>symbol &lt;-<span class="st"> </span><span class="kw">mapIds</span>(org.Hs.eg.db,<span class="dt">keys =</span> <span class="kw"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span>(res_airway2),<span class="dt">column =</span> <span class="st">"SYMBOL"</span>,<span class="dt">keytype=</span><span class="st">"ENSEMBL"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb48-1" data-line-number="1"><span class="kw"><a href="../reference/plot_ma.html">plot_ma</a></span>(res_airway, <span class="dt">FDR =</span> <span class="fl">0.05</span>, <span class="dt">hlines =</span> <span class="dv">1</span>,</a>
+<a class="sourceLine" id="cb48-2" data-line-number="2">        <span class="dt">title =</span><span class="st">"Adding horizontal lines"</span>, <span class="dt">add_rug =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb48-3" data-line-number="3"><span class="kw"><a href="../reference/plot_ma.html">plot_ma</a></span>(res_airway, <span class="dt">FDR =</span> <span class="fl">0.1</span>,</a>
+<a class="sourceLine" id="cb48-4" data-line-number="4">        <span class="dt">intgenes =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"ENSG00000103196"</span>,  <span class="co"># CRISPLD2</span></a>
+<a class="sourceLine" id="cb48-5" data-line-number="5">                     <span class="st">"ENSG00000120129"</span>,  <span class="co"># DUSP1</span></a>
+<a class="sourceLine" id="cb48-6" data-line-number="6">                     <span class="st">"ENSG00000163884"</span>,  <span class="co"># KLF15</span></a>
+<a class="sourceLine" id="cb48-7" data-line-number="7">                     <span class="st">"ENSG00000179094"</span>), <span class="co"># PER1</span></a>
+<a class="sourceLine" id="cb48-8" data-line-number="8">        <span class="dt">title =</span> <span class="st">"Providing a shortlist of genes"</span>,</a>
+<a class="sourceLine" id="cb48-9" data-line-number="9">        <span class="dt">add_rug =</span> <span class="ot">FALSE</span></a>
+<a class="sourceLine" id="cb48-10" data-line-number="10">       )</a></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" data-line-number="1">res_airway2 &lt;-<span class="st"> </span>res_airway</a>
+<a class="sourceLine" id="cb49-2" data-line-number="2">res_airway2<span class="op">$</span>symbol &lt;-<span class="st"> </span><span class="kw">mapIds</span>(org.Hs.eg.db,<span class="dt">keys =</span> <span class="kw"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span>(res_airway2),<span class="dt">column =</span> <span class="st">"SYMBOL"</span>,<span class="dt">keytype=</span><span class="st">"ENSEMBL"</span>)</a></code></pre></div>
 <pre><code>## 'select()' returned 1:many mapping between keys and columns</code></pre>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" data-line-number="1"><span class="kw"><a href="../reference/plot_ma.html">plot_ma</a></span>(res_airway2, <span class="dt">FDR =</span> <span class="fl">0.05</span>,</a>
-<a class="sourceLine" id="cb49-2" data-line-number="2">        <span class="dt">intgenes =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"CRISPLD2"</span>,  <span class="co"># CRISPLD2</span></a>
-<a class="sourceLine" id="cb49-3" data-line-number="3">                     <span class="st">"DUSP1"</span>,  <span class="co"># DUSP1</span></a>
-<a class="sourceLine" id="cb49-4" data-line-number="4">                     <span class="st">"KLF15"</span>,  <span class="co"># KLF15</span></a>
-<a class="sourceLine" id="cb49-5" data-line-number="5">                     <span class="st">"PER1"</span>), <span class="co"># PER1</span></a>
-<a class="sourceLine" id="cb49-6" data-line-number="6">        <span class="dt">annotation_obj =</span> annotation_airway,</a>
-<a class="sourceLine" id="cb49-7" data-line-number="7">        <span class="dt">hlines =</span> <span class="dv">2</span>,</a>
-<a class="sourceLine" id="cb49-8" data-line-number="8">        <span class="dt">add_rug =</span> <span class="ot">FALSE</span>,</a>
-<a class="sourceLine" id="cb49-9" data-line-number="9">        <span class="dt">title =</span> <span class="st">"Putting gene names..."</span></a>
-<a class="sourceLine" id="cb49-10" data-line-number="10">       )</a></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" data-line-number="1"><span class="kw"><a href="../reference/plot_ma.html">plot_ma</a></span>(res_airway2, <span class="dt">FDR =</span> <span class="fl">0.05</span>,</a>
+<a class="sourceLine" id="cb51-2" data-line-number="2">        <span class="dt">intgenes =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"CRISPLD2"</span>,  <span class="co"># CRISPLD2</span></a>
+<a class="sourceLine" id="cb51-3" data-line-number="3">                     <span class="st">"DUSP1"</span>,  <span class="co"># DUSP1</span></a>
+<a class="sourceLine" id="cb51-4" data-line-number="4">                     <span class="st">"KLF15"</span>,  <span class="co"># KLF15</span></a>
+<a class="sourceLine" id="cb51-5" data-line-number="5">                     <span class="st">"PER1"</span>), <span class="co"># PER1</span></a>
+<a class="sourceLine" id="cb51-6" data-line-number="6">        <span class="dt">annotation_obj =</span> annotation_airway,</a>
+<a class="sourceLine" id="cb51-7" data-line-number="7">        <span class="dt">hlines =</span> <span class="dv">2</span>,</a>
+<a class="sourceLine" id="cb51-8" data-line-number="8">        <span class="dt">add_rug =</span> <span class="ot">FALSE</span>,</a>
+<a class="sourceLine" id="cb51-9" data-line-number="9">        <span class="dt">title =</span> <span class="st">"Putting gene names..."</span></a>
+<a class="sourceLine" id="cb51-10" data-line-number="10">       )</a></code></pre></div>
+<pre><code>## Warning in if (class(x) == "unit") {: the condition has length &gt; 1 and only the
+## first element will be used
+
+## Warning in if (class(x) == "unit") {: the condition has length &gt; 1 and only the
+## first element will be used
+
+## Warning in if (class(x) == "unit") {: the condition has length &gt; 1 and only the
+## first element will be used</code></pre>
 <p><img src="ideal-usersguide_files/figure-html/plotma2-1.png" width="700"></p>
 </div>
 <div id="plot_volcano" class="section level2">
@@ -865,14 +889,14 @@
 </h2>
 <p>The volcano plot gives a different flavor for the gene overview, displaying log2-fold changes and log p-values.</p>
 <p>In a way similar to <code>plot_ma</code>, genes can be annotated with <code>intgenes</code>, and vertical lines can be added via <code>vlines</code>. <code>ylim_up</code> controls the y axis upper limit to visualize better the bulk of genes - keep in mind that very small p-values due to robust differences/large effect sizes can be “cut out”.</p>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb50-1" data-line-number="1"><span class="kw"><a href="../reference/plot_volcano.html">plot_volcano</a></span>(res_airway)</a></code></pre></div>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" data-line-number="1"><span class="kw"><a href="../reference/plot_volcano.html">plot_volcano</a></span>(res_airway2, <span class="dt">FDR =</span> <span class="fl">0.05</span>,</a>
-<a class="sourceLine" id="cb51-2" data-line-number="2">        <span class="dt">intgenes =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"CRISPLD2"</span>,  <span class="co"># CRISPLD2</span></a>
-<a class="sourceLine" id="cb51-3" data-line-number="3">                     <span class="st">"DUSP1"</span>,  <span class="co"># DUSP1</span></a>
-<a class="sourceLine" id="cb51-4" data-line-number="4">                     <span class="st">"KLF15"</span>,  <span class="co"># KLF15</span></a>
-<a class="sourceLine" id="cb51-5" data-line-number="5">                     <span class="st">"PER1"</span>), <span class="co"># PER1</span></a>
-<a class="sourceLine" id="cb51-6" data-line-number="6">        <span class="dt">title =</span> <span class="st">"Selecting the handful of genes - and displaying the full range for the -log10(pvalue)"</span>,</a>
-<a class="sourceLine" id="cb51-7" data-line-number="7">        <span class="dt">ylim_up =</span> <span class="op">-</span><span class="kw"><a href="https://rdrr.io/r/base/Log.html">log10</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span>(res_airway2<span class="op">$</span>pvalue, <span class="dt">na.rm =</span><span class="ot">TRUE</span>)))</a></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" data-line-number="1"><span class="kw"><a href="../reference/plot_volcano.html">plot_volcano</a></span>(res_airway)</a></code></pre></div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb54-1" data-line-number="1"><span class="kw"><a href="../reference/plot_volcano.html">plot_volcano</a></span>(res_airway2, <span class="dt">FDR =</span> <span class="fl">0.05</span>,</a>
+<a class="sourceLine" id="cb54-2" data-line-number="2">        <span class="dt">intgenes =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"CRISPLD2"</span>,  <span class="co"># CRISPLD2</span></a>
+<a class="sourceLine" id="cb54-3" data-line-number="3">                     <span class="st">"DUSP1"</span>,  <span class="co"># DUSP1</span></a>
+<a class="sourceLine" id="cb54-4" data-line-number="4">                     <span class="st">"KLF15"</span>,  <span class="co"># KLF15</span></a>
+<a class="sourceLine" id="cb54-5" data-line-number="5">                     <span class="st">"PER1"</span>), <span class="co"># PER1</span></a>
+<a class="sourceLine" id="cb54-6" data-line-number="6">        <span class="dt">title =</span> <span class="st">"Selecting the handful of genes - and displaying the full range for the -log10(pvalue)"</span>,</a>
+<a class="sourceLine" id="cb54-7" data-line-number="7">        <span class="dt">ylim_up =</span> <span class="op">-</span><span class="kw"><a href="https://rdrr.io/r/base/Log.html">log10</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span>(res_airway2<span class="op">$</span>pvalue, <span class="dt">na.rm =</span><span class="ot">TRUE</span>)))</a></code></pre></div>
 <p><img src="ideal-usersguide_files/figure-html/plotvolcano2-1.png" width="700"></p>
 </div>
 <div id="sepguesser" class="section level2">
@@ -880,20 +904,20 @@
 <a href="#sepguesser" class="anchor"></a><code>sepguesser</code>
 </h2>
 <p><code>sepguesser</code> makes an educated guess on the separator character for the input text file (<code>file</code>). The separator list can be provided as a vector in <code>sep_list</code> (defaults to comma, tab, semicolon, and whitespace - which ideally could cover most of the cases). The heuristics is based on the number of occurrencies of each separator in each line.</p>
-<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb52-1" data-line-number="1"><span class="kw"><a href="../reference/sepguesser.html">sepguesser</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"extdata/design_commas.txt"</span>,<span class="dt">package =</span> <span class="st">"ideal"</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" data-line-number="1"><span class="kw"><a href="../reference/sepguesser.html">sepguesser</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"extdata/design_commas.txt"</span>,<span class="dt">package =</span> <span class="st">"ideal"</span>))</a></code></pre></div>
 <pre><code>## [1] ","</code></pre>
-<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb54-1" data-line-number="1"><span class="kw"><a href="../reference/sepguesser.html">sepguesser</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"extdata/design_semicolons.txt"</span>,<span class="dt">package =</span> <span class="st">"ideal"</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb57-1" data-line-number="1"><span class="kw"><a href="../reference/sepguesser.html">sepguesser</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"extdata/design_semicolons.txt"</span>,<span class="dt">package =</span> <span class="st">"ideal"</span>))</a></code></pre></div>
 <pre><code>## [1] ";"</code></pre>
-<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb56-1" data-line-number="1"><span class="kw"><a href="../reference/sepguesser.html">sepguesser</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"extdata/design_spaces.txt"</span>,<span class="dt">package =</span> <span class="st">"ideal"</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb59-1" data-line-number="1"><span class="kw"><a href="../reference/sepguesser.html">sepguesser</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"extdata/design_spaces.txt"</span>,<span class="dt">package =</span> <span class="st">"ideal"</span>))</a></code></pre></div>
 <pre><code>## [1] " "</code></pre>
-<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb58-1" data-line-number="1">anyfile &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"extdata/design_tabs.txt"</span>,<span class="dt">package =</span> <span class="st">"ideal"</span>) <span class="co"># we know it is going to be TAB</span></a>
-<a class="sourceLine" id="cb58-2" data-line-number="2">guessed_sep &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sepguesser.html">sepguesser</a></span>(anyfile)</a>
-<a class="sourceLine" id="cb58-3" data-line-number="3">guessed_sep</a></code></pre></div>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb61-1" data-line-number="1">anyfile &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"extdata/design_tabs.txt"</span>,<span class="dt">package =</span> <span class="st">"ideal"</span>) <span class="co"># we know it is going to be TAB</span></a>
+<a class="sourceLine" id="cb61-2" data-line-number="2">guessed_sep &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sepguesser.html">sepguesser</a></span>(anyfile)</a>
+<a class="sourceLine" id="cb61-3" data-line-number="3">guessed_sep</a></code></pre></div>
 <pre><code>## [1] "\t"</code></pre>
-<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb60-1" data-line-number="1"><span class="co"># to be used for reading in the same file, without having to specify the sep</span></a>
-<a class="sourceLine" id="cb60-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/utils/read.table.html">read.delim</a></span>(anyfile, <span class="dt">header =</span> <span class="ot">TRUE</span>, <span class="dt">as.is =</span> <span class="ot">TRUE</span>, </a>
-<a class="sourceLine" id="cb60-3" data-line-number="3">           <span class="dt">sep =</span> guessed_sep, </a>
-<a class="sourceLine" id="cb60-4" data-line-number="4">           <span class="dt">quote =</span> <span class="st">""</span>, <span class="dt">row.names =</span> <span class="dv">1</span>, <span class="dt">check.names =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb63-1" data-line-number="1"><span class="co"># to be used for reading in the same file, without having to specify the sep</span></a>
+<a class="sourceLine" id="cb63-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/utils/read.table.html">read.delim</a></span>(anyfile, <span class="dt">header =</span> <span class="ot">TRUE</span>, <span class="dt">as.is =</span> <span class="ot">TRUE</span>, </a>
+<a class="sourceLine" id="cb63-3" data-line-number="3">           <span class="dt">sep =</span> guessed_sep, </a>
+<a class="sourceLine" id="cb63-4" data-line-number="4">           <span class="dt">quote =</span> <span class="st">""</span>, <span class="dt">row.names =</span> <span class="dv">1</span>, <span class="dt">check.names =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
 <pre><code>##            SampleName    cell   dex albut        Run avgLength Experiment
 ## SRR1039508 GSM1275862  N61311 untrt untrt SRR1039508       126  SRX384345
 ## SRR1039509 GSM1275863  N61311   trt untrt SRR1039509       126  SRX384346
@@ -997,8 +1021,8 @@
 <div id="session-info" class="section level1 unnumbered">
 <h1 class="hasAnchor">
 <a href="#session-info" class="anchor"></a>Session Info</h1>
-<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb62-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/utils/sessionInfo.html">sessionInfo</a></span>()</a></code></pre></div>
-<pre><code>## R Under development (unstable) (2020-02-02 r77756)
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb65-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/utils/sessionInfo.html">sessionInfo</a></span>()</a></code></pre></div>
+<pre><code>## R Under development (unstable) (2020-03-03 r77896)
 ## Platform: x86_64-pc-linux-gnu (64-bit)
 ## Running under: Ubuntu 16.04.6 LTS
 ## 
@@ -1019,12 +1043,12 @@
 ## [8] methods   base     
 ## 
 ## other attached packages:
-##  [1] edgeR_3.29.0                limma_3.43.0               
+##  [1] edgeR_3.29.1                limma_3.43.4               
 ##  [3] DEFormats_1.15.0            org.Hs.eg.db_3.10.0        
-##  [5] DESeq2_1.27.22              airway_1.7.0               
-##  [7] SummarizedExperiment_1.17.1 DelayedArray_0.13.3        
+##  [5] DESeq2_1.27.27              airway_1.7.0               
+##  [7] SummarizedExperiment_1.17.3 DelayedArray_0.13.4        
 ##  [9] BiocParallel_1.21.2         matrixStats_0.55.0         
-## [11] GenomicRanges_1.39.1        GenomeInfoDb_1.23.10       
+## [11] GenomicRanges_1.39.2        GenomeInfoDb_1.23.13       
 ## [13] ideal_1.11.2                topGO_2.39.1               
 ## [15] SparseM_1.78                GO.db_3.10.0               
 ## [17] AnnotationDbi_1.49.1        IRanges_2.21.3             
@@ -1034,12 +1058,12 @@
 ## 
 ## loaded via a namespace (and not attached):
 ##   [1] backports_1.1.5          GOstats_2.53.0           BiocFileCache_1.11.4    
-##   [4] NMF_0.21.0               plyr_1.8.5               igraph_1.2.4.2          
+##   [4] NMF_0.22.0               plyr_1.8.6               igraph_1.2.4.2          
 ##   [7] lazyeval_0.2.2           GSEABase_1.49.0          shinydashboard_0.7.1    
 ##  [10] splines_4.0.0            crosstalk_1.0.0          ggplot2_3.2.1           
-##  [13] gridBase_0.4-7           lpsymphony_1.15.1        digest_0.6.23           
-##  [16] foreach_1.4.7            htmltools_0.4.0          gdata_2.18.0            
-##  [19] checkmate_1.9.4          magrittr_1.5             memoise_1.1.0           
+##  [13] gridBase_0.4-7           lpsymphony_1.15.1        digest_0.6.25           
+##  [16] foreach_1.4.8            htmltools_0.4.0          gdata_2.18.0            
+##  [19] checkmate_2.0.0          magrittr_1.5             memoise_1.1.0           
 ##  [22] cluster_2.1.0            doParallel_1.0.15        Biostrings_2.55.4       
 ##  [25] annotate_1.65.1          askpass_1.1              pkgdown_1.4.1           
 ##  [28] prettyunits_1.1.1        colorspace_1.4-1         blob_1.2.1              
@@ -1052,24 +1076,24 @@
 ##  [49] rentrez_1.2.2            scales_1.1.0             pheatmap_1.0.12         
 ##  [52] DBI_1.1.0                IHW_1.15.0               rngtools_1.5            
 ##  [55] bibtex_0.4.2.2           Rcpp_1.0.3               xtable_1.8-4            
-##  [58] progress_1.2.2           bit_1.1-15.1             DT_0.11                 
+##  [58] progress_1.2.2           bit_1.1-15.2             DT_0.12                 
 ##  [61] AnnotationForge_1.29.2   htmlwidgets_1.5.1        httr_1.4.1              
-##  [64] threejs_0.3.3            gplots_3.0.1.2           RColorBrewer_1.1-2      
+##  [64] threejs_0.3.3            gplots_3.0.3             RColorBrewer_1.1-2      
 ##  [67] shinyAce_0.4.1           farver_2.0.3             pkgconfig_2.0.3         
 ##  [70] XML_3.99-0.3             dbplyr_1.4.2             locfit_1.5-9.1          
-##  [73] labeling_0.3             tidyselect_1.0.0         rlang_0.4.4             
+##  [73] labeling_0.3             tidyselect_1.0.0         rlang_0.4.5             
 ##  [76] reshape2_1.4.3           later_1.0.0              munsell_0.5.0           
 ##  [79] tools_4.0.0              RSQLite_2.2.0            rintrojs_0.2.2          
 ##  [82] fdrtool_1.2.15           evaluate_0.14            shinyBS_0.61            
 ##  [85] stringr_1.4.0            fastmap_1.0.1            yaml_2.2.1              
-##  [88] knitr_1.27               bit64_0.9-7              fs_1.3.1                
+##  [88] knitr_1.28               bit64_0.9-7              fs_1.3.1                
 ##  [91] geneLenDataBase_1.23.0   caTools_1.18.0           purrr_0.3.3             
-##  [94] nlme_3.1-143             RBGL_1.63.1              mime_0.8                
-##  [97] slam_0.1-47              biomaRt_2.43.1           compiler_4.0.0          
+##  [94] nlme_3.1-144             RBGL_1.63.1              mime_0.9                
+##  [97] slam_0.1-47              biomaRt_2.43.3           compiler_4.0.0          
 ## [100] curl_4.3                 png_0.1-7                tibble_2.1.3            
-## [103] geneplotter_1.65.0       stringi_1.4.5            GenomicFeatures_1.39.3  
-## [106] desc_1.2.0               lattice_0.20-38          pcaExplorer_2.13.0      
-## [109] Matrix_1.2-18            vctrs_0.2.2              pillar_1.4.3            
+## [103] geneplotter_1.65.0       stringi_1.4.6            GenomicFeatures_1.39.5  
+## [106] desc_1.2.0               lattice_0.20-40          pcaExplorer_2.13.0      
+## [109] Matrix_1.2-18            vctrs_0.2.3              pillar_1.4.3            
 ## [112] lifecycle_0.1.0          BiocManager_1.30.10      goseq_1.39.0            
 ## [115] d3heatmap_0.6.1.2        data.table_1.12.8        bitops_1.0-6            
 ## [118] rtracklayer_1.47.0       httpuv_1.5.2             R6_2.4.1                
@@ -1077,7 +1101,7 @@
 ## [124] gridExtra_2.3            codetools_0.2-16         gtools_3.8.1            
 ## [127] MASS_7.3-51.5            assertthat_0.2.1         openssl_1.4.1           
 ## [130] pkgmaker_0.31            Category_2.53.1          rprojroot_1.3-2         
-## [133] withr_2.1.2              GenomicAlignments_1.23.1 Rsamtools_2.3.3         
+## [133] withr_2.1.2              GenomicAlignments_1.23.1 Rsamtools_2.3.5         
 ## [136] GenomeInfoDbData_1.2.2   mgcv_1.8-31              hms_0.5.3               
 ## [139] grid_4.0.0               tidyr_1.0.2              rmarkdown_2.1           
 ## [142] shiny_1.4.0              base64enc_0.1-3</code></pre>
