@@ -62,6 +62,18 @@ Sys.setenv(R_REMOTES_NO_ERRORS_FROM_WARNINGS="true")
 devtools::install_github("federicomarini/ideal", dependencies = TRUE)
 ```
 
+### Which version should I use?
+
+If you are a **regular user**, you should **install the latest stable release version**. 
+This can be done at best by using `BiocManager::install("ideal")`, as recommended in https://www.bioconductor.org/install/#troubleshoot-bioconductor-packages.
+Please follow the general instructions in https://www.bioconductor.org/install to make sure you are using the correct version, matched to the version of the R software in use.
+
+If you are a **software developer** and want to have access to the latest features that are currently in the **devel branch of Bioconductor** (i.e. experimental functionality, and more), you can do so by calling first `BiocManager::install(version = "devel")` as specified in https://bioconductor.org/developers/how-to/useDevel/, then followed by `BiocManager::install("ideal")`.
+Keep in mind that according to the release cycle you might need to install the devel version of R itself.
+
+If you just want to use the **bleeding edge version**, which is the one you can find on GitHub, you can install that by calling `BiocManager::install("federicomarini/ideal")` (which is basically a wrapper around `remotes::install("federicomarini/ideal")`).
+This approach might be recommended for **experienced users** - based on which Bioconductor version you might be using, you might encounter mismatches in the dependencies if you mix up versions from release and devel branches.
+
 ## Quick start
 
 This command loads the `ideal` package
