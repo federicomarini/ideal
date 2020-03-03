@@ -40,6 +40,28 @@ devtools::install_github("federicomarini/ideal", dependencies = TRUE)
 
 Setting `dependencies = TRUE` should ensure that all packages, including the ones in the `Suggests:` field of the `DESCRIPTION`, are installed - this can be essential if you want to reproduce the code in the vignette, for example.
 
+### Installation troubleshooting
+
+If using `devtools` or `remotes` to install packages, you could run into the warning
+
+```
+# ... after launching the install_github command
+Error: (converted from warning) package ´IRanges´ was built under R version 3.6.2
+Execution halted
+ERROR: lazy loading failed for package ´ideal´
+*removing ´Library/Frameworks/R.framework/Versions/3.6/Resources/library/ideal´
+Error: Failed to install 'ideal' from GitHub:
+  (converted from warning) installation of package ´....../ideal_1.11.2.tar.gz´ had non zero exit status
+```
+
+In this case, you can follow the instructions found at https://remotes.r-lib.org/index.html#environment-variables, which specifically suggest to set `R_REMOTES_NO_ERRORS_FROM_WARNINGS` to `true`. You can do so directly in R before installing the package by entering
+
+```
+Sys.setenv(R_REMOTES_NO_ERRORS_FROM_WARNINGS="true")
+# and then again
+devtools::install_github("federicomarini/ideal", dependencies = TRUE)
+```
+
 ## Quick start
 
 This command loads the `ideal` package
