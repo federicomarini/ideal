@@ -28,13 +28,17 @@ if (!requireNamespace("BiocManager", quietly=TRUE))
 BiocManager::install("ideal")
 ```
 
-or, optionally, 
+Note that this should be the preferred way to install the latest stable release version.
+
+Optionally, if you want to install the development version from GitHub, you can use:
 
 ```
-BiocManager::install("federicomarini/ideal")
+BiocManager::install("federicomarini/ideal", dependencies = TRUE)
 # or alternatively...
-devtools::install_github("federicomarini/ideal")
+devtools::install_github("federicomarini/ideal", dependencies = TRUE)
 ```
+
+Setting `dependencies = TRUE` should ensure that all packages, including the ones in the `Suggests:` field of the `DESCRIPTION`, are installed - this can be essential if you want to reproduce the code in the vignette, for example.
 
 ## Quick start
 
