@@ -30,6 +30,14 @@ BiocManager::install("ideal")
 
 Note that this should be the preferred way to install the latest stable release version.
 
+To also install the packages listed in the `Suggests:` field, you can run
+
+```
+BiocManager::install("ideal", dependencies = TRUE)
+```
+
+to make sure to have for example the required demo dataset (`airway`) when running the app - or if you want to follow through the vignette entirely.
+
 Optionally, if you want to install the development version from GitHub, you can use:
 
 ```
