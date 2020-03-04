@@ -1413,6 +1413,19 @@ ideal<- function(dds_obj = NULL,
       box(width = 12, title = "Step 3", status = "success", solidHeader = TRUE,
           tagList(
             h2("Run DESeq!"),
+            fluidRow(
+              column(
+                width = 8,
+                shinyBS::bsCollapse(
+                  id = "eda_check",
+                  shinyBS::bsCollapsePanel(
+                    title = "Make sure you properly performed Exploratory Data Analysis (EDA) before testing for Differential Expression (DE)", 
+                    style = "info",
+                    includeMarkdown(system.file("extdata", "help_eda.md",package = "ideal"))
+                  )
+                )
+              )
+            ),
 
             fluidRow(
               column(
