@@ -228,7 +228,7 @@ A diagnostic mean-dispersion plot is also provided in a collapsible element at t
 <img src="ss_05_overview.png" style="width:800px;"/>
 </p>
 
-As in `r Biocpkg("pcaExplorer")`, interactive tables for the raw, normalized or (r)log-transformed counts are shown in this tab. 
+As in `r Biocpkg("pcaExplorer")`, interactive tables for the raw, normalized, or variance stabilized transformed (preferred over regularized logarithm transformation, because of its speed during the dispersion estimation - especially with larger number of samples) counts are shown in this tab. 
 The user can also generate a sample-to-sample correlation scatter plot with the selected data.
 
 Additionally, `r Biocpkg("ideal")` has an option to include a filter step at the gene level by removing genes with low absolute or averages low values. 
