@@ -22,7 +22,7 @@ Reproducibility is supported via state saving and automated report generation.
 
 `ideal` can be easily installed using `BiocManager::install()`:
 
-```
+``` r
 if (!requireNamespace("BiocManager", quietly=TRUE))
     install.packages("BiocManager")
 BiocManager::install("ideal")
@@ -32,7 +32,7 @@ Note that this should be the preferred way to install the latest stable release 
 
 To also install the packages listed in the `Suggests:` field, you can run
 
-```
+``` r
 BiocManager::install("ideal", dependencies = TRUE)
 ```
 
@@ -40,7 +40,7 @@ to make sure to have for example the required demo dataset (`airway`) when runni
 
 Optionally, if you want to install the development version from GitHub, you can use:
 
-```
+``` r
 BiocManager::install("federicomarini/ideal", dependencies = TRUE)
 # or alternatively...
 devtools::install_github("federicomarini/ideal", dependencies = TRUE)
@@ -52,7 +52,7 @@ Setting `dependencies = TRUE` should ensure that all packages, including the one
 
 If using `devtools` or `remotes` to install packages, you could run into the warning
 
-```
+``` r
 # ... after launching the install_github command
 Error: (converted from warning) package ´IRanges´ was built under R version 3.6.2
 Execution halted
@@ -64,7 +64,7 @@ Error: Failed to install 'ideal' from GitHub:
 
 In this case, you can follow the instructions found at https://remotes.r-lib.org/index.html#environment-variables, which specifically suggest to set `R_REMOTES_NO_ERRORS_FROM_WARNINGS` to `true`. You can do so directly in R before installing the package by entering
 
-```
+``` r
 Sys.setenv(R_REMOTES_NO_ERRORS_FROM_WARNINGS="true")
 # and then again
 devtools::install_github("federicomarini/ideal", dependencies = TRUE)
@@ -86,7 +86,7 @@ This approach might be recommended for **experienced users** - based on which Bi
 
 This command loads the `ideal` package
 
-```
+``` r
 library("ideal")
 ```
 
