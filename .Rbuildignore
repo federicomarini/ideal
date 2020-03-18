@@ -7,3 +7,5 @@
 .circleci
 _pkgdown.yml
 docs/*
+^\.github/workflows/R-CMD-check\.yaml$
+^\.github/workflows/pr-commands\.yaml$
