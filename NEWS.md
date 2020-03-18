@@ -8,6 +8,9 @@
 
 * Alignments of UI elements have been adjusted
 * Updated citation info - the preprint for `ideal`, "ideal: an R/Bioconductor package for Interactive Differential Expression Analysis", is now published at bioRxiv, https://doi.org/10.1101/2020.01.10.901652
+* Data transformation (for table viewing and visualizations, where homoscedastic data is expected) is now taken care of with the variance stabilizing transformation (`vst`), instead of the `rlog`
+* The installation information in the `README.md` includes a troubleshooting section to solve some common issues one might encounter
+* Added a collapsible element in the Data Setup panel, to remind users to perform proper Exploratory Data Analysis (e.g. with `pcaExplorer`) before testing for Differential Expression
 
 # ideal 1.10.0
 
