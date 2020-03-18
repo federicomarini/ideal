@@ -67,7 +67,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ideal</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.11.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.11.3</span>
       </span>
     </div>
 
@@ -139,6 +139,10 @@
 <li>Alignments of UI elements have been adjusted</li>
 <li>Updated citation info - the preprint for <code>ideal</code>, “ideal: an R/Bioconductor package for Interactive Differential Expression Analysis”, is now published at bioRxiv, <a href="https://doi.org/10.1101/2020.01.10.901652" class="uri">https://doi.org/10.1101/2020.01.10.901652</a>
 </li>
+<li>Data transformation (for table viewing and visualizations, where homoscedastic data is expected) is now taken care of with the variance stabilizing transformation (<code>vst</code>), instead of the <code>rlog</code>
+</li>
+<li>The installation information in the <code>README.md</code> includes a troubleshooting section to solve some common issues one might encounter</li>
+<li>Added a collapsible element in the Data Setup panel, to remind users to perform proper Exploratory Data Analysis (e.g. with <code>pcaExplorer</code>) before testing for Differential Expression</li>
 </ul>
 </div>
 </div>
