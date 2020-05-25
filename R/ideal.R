@@ -3489,7 +3489,8 @@ ideal<- function(dds_obj = NULL,
                            incProgress(amount = 0.15,detail = "Results extracted. Shrinking the logFC now...")
                            values$res_obj <- lfcShrink(values$dds_obj,
                                                        contrast = c(input$choose_expfac, input$fac1_c1, input$fac1_c2),
-                                                       res = values$res_obj)
+                                                       res = values$res_obj,
+                                                       type = "normal")
                            incProgress(amount = 0.8,detail = "logFC shrunken, adding annotation info...")
                          } else {
                            incProgress(amount = 0.9,detail = "logFC left unshrunken, adding annotation info...")
@@ -3503,7 +3504,8 @@ ideal<- function(dds_obj = NULL,
                            incProgress(amount = 0.15,detail = "Results extracted. Shrinking the logFC now...")
                            values$res_obj <- lfcShrink(values$dds_obj,
                                                        contrast = c(input$choose_expfac, input$fac1_c1, input$fac1_c2),
-                                                       res = values$res_obj)
+                                                       res = values$res_obj,
+                                                       type = "normal")
                            incProgress(amount = 0.8,detail = "logFC shrunken, adding annotation info...")
                          } else {
                            incProgress(amount = 0.9,detail = "logFC left unshrunken, adding annotation info...")
