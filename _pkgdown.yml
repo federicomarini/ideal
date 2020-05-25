@@ -56,3 +56,4 @@ reference:
   desc: Miscellaneous functions used in the `ideal` package
   contents:
   - '`sepguesser`'
+  - '`wrapup_for_iSEE`'
