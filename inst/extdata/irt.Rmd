@@ -235,7 +235,7 @@ if(!is.null(values$res_obj)) {
 
       pheatmap(toplot,cluster_cols = as.logical(input$heatmap_colv))
       
-      d3heatmap(toplot,Colv = as.logical(input$heatmap_colv),colors = mycolss)
+      heatmaply(toplot,Colv = as.logical(input$heatmap_colv),colors = mycolss)
   }
 }
 ```
