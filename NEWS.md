@@ -1,3 +1,9 @@
+# ideal 1.14.0
+
+## Other notes
+
+* Replaced dependency from `d3heatmap` with the functionality of `heatmaply`
+
 # ideal 1.12.0
 
 ## New features
