@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ideal</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.13.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.13.1</span>
       </span>
     </div>
 
@@ -93,7 +93,7 @@
       </address>
                               <h4 class="author">Harald Binder</h4>
             <address class="author_afil">
-      Institute of Medical Biostatistics, Epidemiology and Informatics (IMBEI), Mainz<br><h4 class="date">10 May 2020</h4>
+      Institute of Medical Biostatistics, Epidemiology and Informatics (IMBEI), Mainz<br><h4 class="date">28 May 2020</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/federicomarini/ideal/blob/master/vignettes/ideal-usersguide.Rmd"><code>vignettes/ideal-usersguide.Rmd</code></a></small>
       <div class="hidden name"><code>ideal-usersguide.Rmd</code></div>
@@ -109,8 +109,8 @@
     
 <!-- **Package**: *ideal* -->
 <!-- **Authors**: Federico Marini [aut, cre] (<https://orcid.org/0000-0003-3252-7758>) -->
-<!-- **Version**: 1.13.0 -->
-<p><strong>Compiled date</strong>: 2020-05-10</p>
+<!-- **Version**: 1.13.1 -->
+<p><strong>Compiled date</strong>: 2020-05-28</p>
 <p><strong>Last edited</strong>: 2019-02-06</p>
 <p><strong>License</strong>: MIT + file LICENSE</p>
 <div id="getting-started" class="section level1">
@@ -351,7 +351,7 @@
 <p>The Report Editor tab works in the same way of <em><a href="https://bioconductor.org/packages/3.12/pcaExplorer">pcaExplorer</a></em>, with the scope of providing an interface to full computational reproducibility of the analyses.</p>
 <p>General <code>Markdown options</code> and <code>Editor options</code> are available, and the text editor, based on the <code>shinyAce</code> package, contains a comprehensive template report, that can be edited to the best convenience of the user.</p>
 <p>The code contained in the template report fetches the latest state of the reactive values in the ongoing session, and its output is a comprehensive HTML file that can be expanded, edited, previewed in the tab itself, downloaded, and shared with a few mouse clicks.</p>
-<p>As for <em><a href="https://bioconductor.org/packages/3.12/pcaExplorer">pcaExplorer</a></em>, the functionality to display the report preview is based on <code>knit2html</code>, and some elements such as <code>DataTable</code> objects might not render correctly. To render them correctly, please install the PhantomJS executable before launching the app. This can be done by using the <em><a href="https://CRAN.R-project.org/package=webshot">webshot</a></em> package and calling <code>webshot::install_phantomjs()</code> - HTML widgets will be rendered automatically as screenshots. Keep in mind that the fully rendered report (the one you can obtain with the “Generate &amp; Save” button) is not affected by this, since it uses <code><a href="https://rdrr.io/pkg/rmarkdown/man/render.html">rmarkdown::render()</a></code>.</p>
+<p>As for <em><a href="https://bioconductor.org/packages/3.12/pcaExplorer">pcaExplorer</a></em>, the functionality to display the report preview is based on <code>knit2html</code>, and some elements such as <code>DataTable</code> objects might not render correctly. To render them correctly, please install the PhantomJS executable before launching the app. This can be done by using the <em><a href="https://CRAN.R-project.org/package=webshot">webshot</a></em> package and calling <code><a href="https://rdrr.io/pkg/webshot/man/install_phantomjs.html">webshot::install_phantomjs()</a></code> - HTML widgets will be rendered automatically as screenshots. Keep in mind that the fully rendered report (the one you can obtain with the “Generate &amp; Save” button) is not affected by this, since it uses <code><a href="https://rdrr.io/pkg/rmarkdown/man/render.html">rmarkdown::render()</a></code>.</p>
 </div>
 <div id="about" class="section level2">
 <h2 class="hasAnchor">
@@ -1015,66 +1015,69 @@
 ## 
 ## other attached packages:
 ##  [1] edgeR_3.31.0                limma_3.45.0               
-##  [3] DEFormats_1.17.0            org.Hs.eg.db_3.11.1        
-##  [5] DESeq2_1.29.0               airway_1.9.0               
-##  [7] SummarizedExperiment_1.19.2 DelayedArray_0.15.1        
+##  [3] DEFormats_1.17.0            org.Hs.eg.db_3.11.4        
+##  [5] DESeq2_1.29.4               airway_1.9.0               
+##  [7] SummarizedExperiment_1.19.4 DelayedArray_0.15.1        
 ##  [9] matrixStats_0.56.0          GenomicRanges_1.41.1       
-## [11] GenomeInfoDb_1.25.0         ideal_1.13.0               
+## [11] GenomeInfoDb_1.25.0         ideal_1.13.1               
 ## [13] topGO_2.41.0                SparseM_1.78               
-## [15] GO.db_3.11.1                AnnotationDbi_1.51.0       
-## [17] IRanges_2.23.4              S4Vectors_0.27.5           
+## [15] GO.db_3.11.4                AnnotationDbi_1.51.0       
+## [17] IRanges_2.23.5              S4Vectors_0.27.8           
 ## [19] Biobase_2.49.0              graph_1.67.0               
 ## [21] BiocGenerics_0.35.2         BiocStyle_2.17.0           
 ## 
 ## loaded via a namespace (and not attached):
-##   [1] backports_1.1.6          GOstats_2.55.0           BiocFileCache_1.13.0    
-##   [4] NMF_0.22.0               plyr_1.8.6               igraph_1.2.5            
-##   [7] GSEABase_1.51.0          shinydashboard_0.7.1     splines_4.0.0           
-##  [10] BiocParallel_1.23.0      crosstalk_1.1.0.1        ggplot2_3.3.0           
-##  [13] gridBase_0.4-7           lpsymphony_1.17.0        digest_0.6.25           
-##  [16] foreach_1.5.0            htmltools_0.4.0          gdata_2.18.0            
-##  [19] checkmate_2.0.0          magrittr_1.5             memoise_1.1.0           
-##  [22] cluster_2.1.0            doParallel_1.0.15        Biostrings_2.57.0       
-##  [25] annotate_1.67.0          askpass_1.1              pkgdown_1.5.1.9000      
-##  [28] prettyunits_1.1.1        colorspace_1.4-1         blob_1.2.1              
-##  [31] rappdirs_0.3.1           ggrepel_0.8.2            BiasedUrn_1.07          
-##  [34] xfun_0.13                dplyr_0.8.5              crayon_1.3.4            
-##  [37] RCurl_1.98-1.2           jsonlite_1.6.1           genefilter_1.71.0       
-##  [40] survival_3.1-12          iterators_1.0.12         glue_1.4.0              
-##  [43] registry_0.5-1           gtable_0.3.0             zlibbioc_1.35.0         
-##  [46] XVector_0.29.0           UpSetR_1.4.0             Rgraphviz_2.33.0        
-##  [49] rentrez_1.2.2            scales_1.1.0             pheatmap_1.0.12         
-##  [52] IHW_1.17.0               DBI_1.1.0                rngtools_1.5            
-##  [55] bibtex_0.4.2.2           Rcpp_1.0.4.6             xtable_1.8-4            
-##  [58] progress_1.2.2           bit_1.1-15.2             DT_0.13                 
-##  [61] AnnotationForge_1.31.1   htmlwidgets_1.5.1        httr_1.4.1              
-##  [64] threejs_0.3.3            gplots_3.0.3             RColorBrewer_1.1-2      
-##  [67] shinyAce_0.4.1           ellipsis_0.3.0           farver_2.0.3            
-##  [70] pkgconfig_2.0.3          XML_3.99-0.3             dbplyr_1.4.3            
-##  [73] locfit_1.5-9.4           labeling_0.3             tidyselect_1.0.0        
-##  [76] rlang_0.4.6              reshape2_1.4.4           later_1.0.0             
-##  [79] munsell_0.5.0            tools_4.0.0              RSQLite_2.2.0           
-##  [82] rintrojs_0.2.2           fdrtool_1.2.15           evaluate_0.14           
-##  [85] shinyBS_0.61             stringr_1.4.0            fastmap_1.0.1           
-##  [88] yaml_2.2.1               knitr_1.28               bit64_0.9-7             
-##  [91] fs_1.4.1                 geneLenDataBase_1.25.0   caTools_1.18.0          
-##  [94] purrr_0.3.4              nlme_3.1-147             RBGL_1.65.0             
-##  [97] mime_0.9                 slam_0.1-47              biomaRt_2.45.0          
-## [100] compiler_4.0.0           curl_4.3                 png_0.1-7               
-## [103] tibble_3.0.1             geneplotter_1.67.0       stringi_1.4.6           
-## [106] GenomicFeatures_1.41.0   desc_1.2.0               lattice_0.20-41         
-## [109] pcaExplorer_2.15.0       Matrix_1.2-18            vctrs_0.2.4             
-## [112] pillar_1.4.4             lifecycle_0.2.0          BiocManager_1.30.10     
-## [115] goseq_1.41.0             d3heatmap_0.6.1.2        data.table_1.12.8       
-## [118] bitops_1.0-6             rtracklayer_1.49.1       httpuv_1.5.2            
-## [121] R6_2.4.1                 bookdown_0.18            promises_1.1.0          
-## [124] KernSmooth_2.23-16       gridExtra_2.3            codetools_0.2-16        
-## [127] gtools_3.8.2             MASS_7.3-51.5            assertthat_0.2.1        
-## [130] openssl_1.4.1            pkgmaker_0.31.1          Category_2.55.0         
-## [133] rprojroot_1.3-2          withr_2.2.0              GenomicAlignments_1.25.0
-## [136] Rsamtools_2.5.0          GenomeInfoDbData_1.2.3   mgcv_1.8-31             
-## [139] hms_0.5.3                grid_4.0.0               tidyr_1.0.3             
-## [142] rmarkdown_2.1            shiny_1.4.0.2            base64enc_0.1-3</code></pre>
+##   [1] shinydashboard_0.7.1     tidyselect_1.1.0         heatmaply_1.1.0         
+##   [4] RSQLite_2.2.0            htmlwidgets_1.5.1        grid_4.0.0              
+##   [7] TSP_1.1-10               BiocParallel_1.23.0      IHW_1.17.0              
+##  [10] munsell_0.5.0            codetools_0.2-16         DT_0.13                 
+##  [13] rentrez_1.2.2            withr_2.2.0              colorspace_1.4-1        
+##  [16] Category_2.55.0          pcaExplorer_2.15.1       knitr_1.28              
+##  [19] NMF_0.22.0               labeling_0.3             slam_0.1-47             
+##  [22] GenomeInfoDbData_1.2.3   lpsymphony_1.17.0        farver_2.0.3            
+##  [25] bit64_0.9-7              pheatmap_1.0.12          rprojroot_1.3-2         
+##  [28] vctrs_0.3.0              xfun_0.14                BiocFileCache_1.13.0    
+##  [31] gclus_1.3.2              R6_2.4.1                 doParallel_1.0.15       
+##  [34] seriation_1.2-8          locfit_1.5-9.4           bitops_1.0-6            
+##  [37] shinyAce_0.4.1           assertthat_0.2.1         promises_1.1.0          
+##  [40] scales_1.1.1             gtable_0.3.0             rlang_0.4.6             
+##  [43] genefilter_1.71.0        splines_4.0.0            rtracklayer_1.49.2      
+##  [46] lazyeval_0.2.2           checkmate_2.0.0          shinyBS_0.61            
+##  [49] BiocManager_1.30.10      yaml_2.2.1               reshape2_1.4.4          
+##  [52] GenomicFeatures_1.41.0   threejs_0.3.3            crosstalk_1.1.0.1       
+##  [55] backports_1.1.7          httpuv_1.5.3.1           RBGL_1.65.0             
+##  [58] tools_4.0.0              bookdown_0.19            gridBase_0.4-7          
+##  [61] ggplot2_3.3.0            ellipsis_0.3.1           gplots_3.0.3            
+##  [64] RColorBrewer_1.1-2       Rcpp_1.0.4.6             plyr_1.8.6              
+##  [67] base64enc_0.1-3          progress_1.2.2           zlibbioc_1.35.0         
+##  [70] purrr_0.3.4              RCurl_1.98-1.2           BiasedUrn_1.07          
+##  [73] prettyunits_1.1.1        openssl_1.4.1            viridis_0.5.1           
+##  [76] ggrepel_0.8.2            cluster_2.1.0            fs_1.4.1                
+##  [79] magrittr_1.5             data.table_1.12.8        goseq_1.41.0            
+##  [82] hms_0.5.3                mime_0.9                 evaluate_0.14           
+##  [85] xtable_1.8-4             XML_3.99-0.3             gridExtra_2.3           
+##  [88] compiler_4.0.0           biomaRt_2.45.0           tibble_3.0.1            
+##  [91] KernSmooth_2.23-16       crayon_1.3.4             htmltools_0.4.0         
+##  [94] GOstats_2.55.0           mgcv_1.8-31              later_1.0.0             
+##  [97] tidyr_1.1.0              geneplotter_1.67.0       DBI_1.1.0               
+## [100] geneLenDataBase_1.25.0   dbplyr_1.4.4             MASS_7.3-51.5           
+## [103] rappdirs_0.3.1           Matrix_1.2-18            gdata_2.18.0            
+## [106] igraph_1.2.5             pkgconfig_2.0.3          pkgdown_1.5.1.9000      
+## [109] GenomicAlignments_1.25.1 registry_0.5-1           plotly_4.9.2.1          
+## [112] foreach_1.5.0            annotate_1.67.0          rngtools_1.5            
+## [115] pkgmaker_0.31.1          webshot_0.5.2            XVector_0.29.1          
+## [118] AnnotationForge_1.31.1   bibtex_0.4.2.2           stringr_1.4.0           
+## [121] digest_0.6.25            Biostrings_2.57.1        rmarkdown_2.1           
+## [124] rintrojs_0.2.2           dendextend_1.13.4        GSEABase_1.51.0         
+## [127] curl_4.3                 shiny_1.4.0.2            Rsamtools_2.5.1         
+## [130] gtools_3.8.2             lifecycle_0.2.0          nlme_3.1-147            
+## [133] jsonlite_1.6.1           desc_1.2.0               viridisLite_0.3.0       
+## [136] askpass_1.1              pillar_1.4.4             lattice_0.20-41         
+## [139] fastmap_1.0.1            httr_1.4.1               survival_3.1-12         
+## [142] glue_1.4.1               fdrtool_1.2.15           UpSetR_1.4.0            
+## [145] iterators_1.0.12         bit_1.1-15.2             Rgraphviz_2.33.0        
+## [148] stringi_1.4.6            blob_1.2.1               caTools_1.18.0          
+## [151] memoise_1.1.0            dplyr_0.8.5</code></pre>
 </div>
   </div>
 
