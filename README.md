@@ -3,7 +3,6 @@
 [![Linux Build Status](https://travis-ci.org/federicomarini/ideal.svg?branch=master)](https://travis-ci.org/federicomarini/ideal)
 [![codecov.io](https://codecov.io/github/federicomarini/ideal/coverage.svg?branch=master)](https://codecov.io/github/federicomarini/ideal?branch=master)
 [![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://www.tidyverse.org/lifecycle/#stable)
-[![Windows Build status](https://ci.appveyor.com/api/projects/status/github/federicomarini/ideal?svg=true)](https://ci.appveyor.com/project/federicomarini/ideal)
 
 # `ideal` - Interactive Differential Expression AnaLysis in RNA-seq data
 
