@@ -93,7 +93,7 @@
       </address>
                               <h4 class="author">Harald Binder</h4>
             <address class="author_afil">
-      Institute of Medical Biostatistics, Epidemiology and Informatics (IMBEI), Mainz<br><h4 class="date">26 May 2020</h4>
+      Institute of Medical Biostatistics, Epidemiology and Informatics (IMBEI), Mainz<br><h4 class="date">2 June 2020</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/federicomarini/ideal/blob/master/vignettes/ideal-usersguide.Rmd"><code>vignettes/ideal-usersguide.Rmd</code></a></small>
       <div class="hidden name"><code>ideal-usersguide.Rmd</code></div>
@@ -104,13 +104,13 @@
     
         <div class="abstract">
       <p class="abstract">Abstract</p>
-      In the scope of differential expression analysis, we provide the R/Bioconductor package <em><a href="https://bioconductor.org/packages/3.12/ideal">ideal</a></em>, which serves as a web application to allow simultaneously for interactive and reproducible analysis. <em><a href="https://bioconductor.org/packages/3.12/ideal">ideal</a></em> guides the user throughout the steps of Differential Expression analysis and produces a wealth of effective visualizations to facilitate data interpretation, in a comprehensive and accessible way for a wide range of scientists.
+      <p>In the scope of differential expression analysis, we provide the R/Bioconductor package <em><a href="https://bioconductor.org/packages/3.12/ideal">ideal</a></em>, which serves as a web application to allow simultaneously for interactive and reproducible analysis. <em><a href="https://bioconductor.org/packages/3.12/ideal">ideal</a></em> guides the user throughout the steps of Differential Expression analysis and produces a wealth of effective visualizations to facilitate data interpretation, in a comprehensive and accessible way for a wide range of scientists.</p>
     </div>
     
 <!-- **Package**: *ideal* -->
 <!-- **Authors**: Federico Marini [aut, cre] (<https://orcid.org/0000-0003-3252-7758>) -->
 <!-- **Version**: 1.13.1 -->
-<p><strong>Compiled date</strong>: 2020-05-26</p>
+<p><strong>Compiled date</strong>: 2020-06-02</p>
 <p><strong>Last edited</strong>: 2019-02-06</p>
 <p><strong>License</strong>: MIT + file LICENSE</p>
 <div id="getting-started" class="section level1">
@@ -677,7 +677,7 @@
 <div class="sourceCode" id="cb26"><html><body><pre class="r"><span class="fu"><a href="../reference/ideal.html">ideal</a></span>(<span class="no">redo_dds_airway</span>,<span class="no">edger_resu</span>)
 <span class="co"># or ...</span>
 <span class="fu"><a href="../reference/ideal.html">ideal</a></span>(<span class="no">redo_dds_airway</span>,<span class="no">limma_resu</span>)</pre></body></html></div>
-<p>Basically, you need a <code>data.frame</code> (e.g. <code>myresults_df</code>) with 3 columns to create the <code>DESeqResults</code> object to be passed to the app, with this names:</p>
+<p>Basically, you need a <code>data.frame</code> (e.g. <code>myresults_df</code>) with 3 columns to create the <code>DESeqResults</code> object to be passed to the app, with this names:</p>
 <ul>
 <li>
 <code>baseMean</code> as an average expression value</li>
@@ -1016,19 +1016,19 @@
 ## other attached packages:
 ##  [1] edgeR_3.31.0                limma_3.45.0               
 ##  [3] DEFormats_1.17.0            org.Hs.eg.db_3.11.1        
-##  [5] DESeq2_1.29.0               airway_1.9.0               
-##  [7] SummarizedExperiment_1.19.2 DelayedArray_0.15.1        
+##  [5] DESeq2_1.29.4               airway_1.9.0               
+##  [7] SummarizedExperiment_1.19.4 DelayedArray_0.15.1        
 ##  [9] matrixStats_0.56.0          GenomicRanges_1.41.1       
 ## [11] GenomeInfoDb_1.25.0         ideal_1.13.1               
 ## [13] bigmemory_4.5.36            topGO_2.41.0               
 ## [15] SparseM_1.78                GO.db_3.11.1               
-## [17] AnnotationDbi_1.51.0        IRanges_2.23.4             
-## [19] S4Vectors_0.27.5            Biobase_2.49.0             
+## [17] AnnotationDbi_1.51.0        IRanges_2.23.5             
+## [19] S4Vectors_0.27.8            Biobase_2.49.0             
 ## [21] graph_1.67.0                BiocGenerics_0.35.2        
 ## [23] BiocStyle_2.17.0           
 ## 
 ## loaded via a namespace (and not attached):
-##   [1] shinydashboard_0.7.1     tidyselect_1.0.0         heatmaply_1.1.0         
+##   [1] shinydashboard_0.7.1     tidyselect_1.1.0         heatmaply_1.1.0         
 ##   [4] RSQLite_2.2.0            htmlwidgets_1.5.1        grid_4.0.0              
 ##   [7] TSP_1.1-10               BiocParallel_1.23.0      IHW_1.17.0              
 ##  [10] munsell_0.5.0            codetools_0.2-16         rentrez_1.2.2           
@@ -1043,12 +1043,12 @@
 ##  [37] bitops_1.0-6             shinyAce_0.4.1           assertthat_0.2.1        
 ##  [40] d3heatmap_0.6.1.2        promises_1.1.0           scales_1.1.1            
 ##  [43] gtable_0.3.0             rlang_0.4.6              genefilter_1.71.0       
-##  [46] splines_4.0.0            rtracklayer_1.49.1       lazyeval_0.2.2          
+##  [46] splines_4.0.0            rtracklayer_1.49.2       lazyeval_0.2.2          
 ##  [49] checkmate_2.0.0          shinyBS_0.61             BiocManager_1.30.10     
 ##  [52] yaml_2.2.1               reshape2_1.4.4           GenomicFeatures_1.41.0  
-##  [55] threejs_0.3.3            crosstalk_1.1.0.1        backports_1.1.6         
+##  [55] threejs_0.3.3            crosstalk_1.1.0.1        backports_1.1.7         
 ##  [58] httpuv_1.5.2             RBGL_1.65.0              tools_4.0.0             
-##  [61] bookdown_0.18            gridBase_0.4-7           ggplot2_3.3.0           
+##  [61] bookdown_0.19            gridBase_0.4-7           ggplot2_3.3.0           
 ##  [64] ellipsis_0.3.1           gplots_3.0.3             RColorBrewer_1.1-2      
 ##  [67] Rcpp_1.0.4.6             plyr_1.8.6               base64enc_0.1-3         
 ##  [70] progress_1.2.2           zlibbioc_1.35.0          purrr_0.3.4             
@@ -1060,19 +1060,19 @@
 ##  [88] XML_3.99-0.3             gridExtra_2.3            compiler_4.0.0          
 ##  [91] biomaRt_2.45.0           tibble_3.0.1             KernSmooth_2.23-17      
 ##  [94] crayon_1.3.4             htmltools_0.4.0          GOstats_2.55.0          
-##  [97] mgcv_1.8-31              later_1.0.0              tidyr_1.0.3             
+##  [97] mgcv_1.8-31              later_1.0.0              tidyr_1.1.0             
 ## [100] geneplotter_1.67.0       DBI_1.1.0                geneLenDataBase_1.25.0  
 ## [103] dbplyr_1.4.3             MASS_7.3-51.6            rappdirs_0.3.1          
 ## [106] Matrix_1.2-18            gdata_2.18.0             igraph_1.2.5            
 ## [109] pkgconfig_2.0.3          bigmemory.sri_0.1.3      pkgdown_1.5.1           
-## [112] GenomicAlignments_1.25.0 registry_0.5-1           plotly_4.9.2.1          
+## [112] GenomicAlignments_1.25.1 registry_0.5-1           plotly_4.9.2.1          
 ## [115] foreach_1.5.0            annotate_1.67.0          rngtools_1.5            
-## [118] pkgmaker_0.31.1          webshot_0.5.2            XVector_0.29.0          
+## [118] pkgmaker_0.31.1          webshot_0.5.2            XVector_0.29.1          
 ## [121] AnnotationForge_1.31.1   bibtex_0.4.2.2           stringr_1.4.0           
-## [124] digest_0.6.25            Biostrings_2.57.0        rmarkdown_2.1           
+## [124] digest_0.6.25            Biostrings_2.57.1        rmarkdown_2.1           
 ## [127] rintrojs_0.2.2           dendextend_1.13.4        GSEABase_1.51.0         
-## [130] curl_4.3                 shiny_1.4.0.2            Rsamtools_2.5.0         
-## [133] gtools_3.8.2             lifecycle_0.2.0          nlme_3.1-147            
+## [130] curl_4.3                 shiny_1.4.0.2            Rsamtools_2.5.1         
+## [133] gtools_3.8.2             lifecycle_0.2.0          nlme_3.1-148            
 ## [136] jsonlite_1.6.1           desc_1.2.0               viridisLite_0.3.0       
 ## [139] askpass_1.1              pillar_1.4.4             lattice_0.20-41         
 ## [142] fastmap_1.0.1            httr_1.4.1               survival_3.1-12         
