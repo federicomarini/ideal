@@ -132,7 +132,7 @@
     <p>Returns a list of pathways from a GMT file.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>read_gmt</span>(<span class='no'>gmtfile</span>)</pre>
+    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/ideal/man/read_gmt.html'>read_gmt</a></span>(<span class='kw'>gmtfile</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -150,9 +150,9 @@ file. It can also be a file found online</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># this example reads in the freely available pathways from wikipathways</span>
-<span class='no'>mysigs</span> <span class='kw'>&lt;-</span> <span class='fu'>read_gmt</span>(
+<span class='kw'>mysigs</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/ideal/man/read_gmt.html'>read_gmt</a></span>(
   <span class='st'>"http://data.wikipathways.org/20180910/gmt/wikipathways-20180910-gmt-Homo_sapiens.gmt"</span>)
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>mysigs</span>)</div><div class='output co'>#&gt; $`B Cell Receptor Signaling Pathway%WikiPathways_20180910%WP23%Homo sapiens`
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='kw'>mysigs</span>)</div><div class='output co'>#&gt; $`B Cell Receptor Signaling Pathway%WikiPathways_20180910%WP23%Homo sapiens`
 #&gt;  [1] "4690"      "5781"      "11184"     "6195"      "4609"      "998"      
 #&gt;  [7] "5777"      "10892"     "3635"      "4208"      "2308"      "4209"     
 #&gt; [13] "2549"      "4067"      "6885"      "640"       "118788"    "84433"    

@@ -134,13 +134,13 @@ This function launches the main application included in the package." />
 This function launches the main application included in the package.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>ideal</span>(
-  <span class='kw'>dds_obj</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>res_obj</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>annotation_obj</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>countmatrix</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>expdesign</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>gene_signatures</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/ideal/man/ideal.html'>ideal</a></span>(
+  dds_obj = <span class='kw'>NULL</span>,
+  res_obj = <span class='kw'>NULL</span>,
+  annotation_obj = <span class='kw'>NULL</span>,
+  countmatrix = <span class='kw'>NULL</span>,
+  expdesign = <span class='kw'>NULL</span>,
+  gene_signatures = <span class='kw'>NULL</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -148,14 +148,14 @@ This function launches the main application included in the package.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>dds_obj</th>
-      <td><p>A <code>DESeqDataSet</code> object. If not provided, then a
+      <td><p>A <code><a href='https://rdrr.io/pkg/DESeq2/man/DESeqDataSet.html'>DESeqDataSet</a></code> object. If not provided, then a
 <code>countmatrix</code> and a <code>expdesign</code> need to be provided. If none of
 the above is provided, it is possible to upload the data during the
 execution of the Shiny App</p></td>
     </tr>
     <tr>
       <th>res_obj</th>
-      <td><p>A <code>DESeqResults</code> object. If not provided, it can
+      <td><p>A <code><a href='https://rdrr.io/pkg/DESeq2/man/DESeqResults.html'>DESeqResults</a></code> object. If not provided, it can
 be computed during the execution of the application</p></td>
     </tr>
     <tr>
@@ -180,7 +180,7 @@ execution of the Shiny App</p></td>
     <tr>
       <th>gene_signatures</th>
       <td><p>A list of vectors, one for each pathway/signature. This 
-is for example the output of the <code><a href='read_gmt.html'>read_gmt</a></code> function. The provided
+is for example the output of the <code><a href='https://rdrr.io/pkg/ideal/man/read_gmt.html'>read_gmt</a></code> function. The provided
 object can also be replaced during runtime in the dedicated upload widget.</p></td>
     </tr>
     </table>
@@ -192,34 +192,35 @@ differential expression analysis</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># with simulated data...</span>
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>DESeq2</span>)
-<span class='no'>dds</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>DESeq2</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/DESeq2/man/makeExampleDESeqDataSet.html'>makeExampleDESeqDataSet</a></span>(<span class='kw'>n</span><span class='kw'>=</span><span class='fl'>100</span>, <span class='kw'>m</span><span class='kw'>=</span><span class='fl'>8</span>)
-<span class='no'>cm</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/DESeq2/man/counts.html'>counts</a></span>(<span class='no'>dds</span>)
-<span class='no'>cd</span> <span class='kw'>&lt;-</span> <span class='fu'>colData</span>(<span class='no'>dds</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://github.com/mikelove/DESeq2'>DESeq2</a></span>)
+<span class='kw'>dds</span> <span class='op'>&lt;-</span> <span class='kw'>DESeq2</span>::<span class='fu'><a href='https://rdrr.io/pkg/DESeq2/man/makeExampleDESeqDataSet.html'>makeExampleDESeqDataSet</a></span>(n=<span class='fl'>100</span>, m=<span class='fl'>8</span>)
+<span class='kw'>cm</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/DESeq2/man/counts.html'>counts</a></span>(<span class='kw'>dds</span>)
+<span class='kw'>cd</span> <span class='op'>&lt;-</span> <span class='fu'>colData</span>(<span class='kw'>dds</span>)
 
 <span class='co'># with the well known airway package...</span>
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>airway</span>)
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>airway</span>)
-<span class='no'>airway</span></div><div class='output co'>#&gt; class: RangedSummarizedExperiment 
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'>airway</span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='kw'>airway</span>)
+<span class='kw'>airway</span></div><div class='output co'>#&gt; class: RangedSummarizedExperiment 
 #&gt; dim: 64102 8 
 #&gt; metadata(1): ''
 #&gt; assays(1): counts
 #&gt; rownames(64102): ENSG00000000003 ENSG00000000005 ... LRG_98 LRG_99
 #&gt; rowData names(0):
 #&gt; colnames(8): SRR1039508 SRR1039509 ... SRR1039520 SRR1039521
-#&gt; colData names(9): SampleName cell ... Sample BioSample</div><div class='input'><span class='no'>dds_airway</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>DESeq2</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/DESeq2/man/DESeqDataSet.html'>DESeqDataSetFromMatrix</a></span>(<span class='fu'>assay</span>(<span class='no'>airway</span>),
-                                             <span class='kw'>colData</span> <span class='kw'>=</span> <span class='fu'>colData</span>(<span class='no'>airway</span>),
-                                             <span class='kw'>design</span><span class='kw'>=</span>~<span class='no'>cell</span>+<span class='no'>dex</span>)
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+#&gt; colData names(9): SampleName cell ... Sample BioSample</div><div class='input'><span class='kw'>dds_airway</span> <span class='op'>&lt;-</span> <span class='kw'>DESeq2</span>::<span class='fu'><a href='https://rdrr.io/pkg/DESeq2/man/DESeqDataSet.html'>DESeqDataSetFromMatrix</a></span>(<span class='fu'>assay</span>(<span class='kw'>airway</span>),
+                                             colData = <span class='fu'>colData</span>(<span class='kw'>airway</span>),
+                                             design=<span class='op'>~</span><span class='kw'>cell</span><span class='op'>+</span><span class='kw'>dex</span>)
+<span class='co'>if</span> (<span class='fl'>FALSE</span>) {
 
-<span class='fu'>ideal</span>()
-<span class='fu'>ideal</span>(<span class='no'>dds</span>)
-<span class='fu'>ideal</span>(<span class='no'>dds_airway</span>)
+<span class='fu'><a href='https://rdrr.io/pkg/ideal/man/ideal.html'>ideal</a></span>()
+<span class='fu'><a href='https://rdrr.io/pkg/ideal/man/ideal.html'>ideal</a></span>(<span class='kw'>dds</span>)
+<span class='fu'><a href='https://rdrr.io/pkg/ideal/man/ideal.html'>ideal</a></span>(<span class='kw'>dds_airway</span>)
 
-<span class='no'>dds_airway</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>DESeq2</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/DESeq2/man/DESeq.html'>DESeq</a></span>(<span class='no'>dds_airway</span>)
-<span class='no'>res_airway</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>DESeq2</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/DESeq2/man/results.html'>results</a></span>(<span class='no'>dds_airway</span>)
-<span class='fu'>ideal</span>(<span class='no'>dds_airway</span>, <span class='no'>res_airway</span>)
-}</div></pre>
+<span class='kw'>dds_airway</span> <span class='op'>&lt;-</span> <span class='kw'>DESeq2</span>::<span class='fu'><a href='https://rdrr.io/pkg/DESeq2/man/DESeq.html'>DESeq</a></span>(<span class='kw'>dds_airway</span>)
+<span class='kw'>res_airway</span> <span class='op'>&lt;-</span> <span class='kw'>DESeq2</span>::<span class='fu'><a href='https://rdrr.io/pkg/DESeq2/man/results.html'>results</a></span>(<span class='kw'>dds_airway</span>)
+<span class='fu'><a href='https://rdrr.io/pkg/ideal/man/ideal.html'>ideal</a></span>(<span class='kw'>dds_airway</span>, <span class='kw'>res_airway</span>)
+}
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

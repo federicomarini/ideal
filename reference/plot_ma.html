@@ -134,21 +134,21 @@ additional support to annotate genes if provided." />
 additional support to annotate genes if provided.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>plot_ma</span>(
-  <span class='no'>res_obj</span>,
-  <span class='kw'>FDR</span> <span class='kw'>=</span> <span class='fl'>0.05</span>,
-  <span class='kw'>point_alpha</span> <span class='kw'>=</span> <span class='fl'>0.2</span>,
-  <span class='kw'>sig_color</span> <span class='kw'>=</span> <span class='st'>"red"</span>,
-  <span class='kw'>annotation_obj</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>hlines</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"mean of normalized counts - log10 scale"</span>,
-  <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>add_rug</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>intgenes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>intgenes_color</span> <span class='kw'>=</span> <span class='st'>"steelblue"</span>,
-  <span class='kw'>labels_intgenes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>labels_repel</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/ideal/man/plot_ma.html'>plot_ma</a></span>(
+  <span class='kw'>res_obj</span>,
+  FDR = <span class='fl'>0.05</span>,
+  point_alpha = <span class='fl'>0.2</span>,
+  sig_color = <span class='st'>"red"</span>,
+  annotation_obj = <span class='kw'>NULL</span>,
+  hlines = <span class='kw'>NULL</span>,
+  title = <span class='kw'>NULL</span>,
+  xlab = <span class='st'>"mean of normalized counts - log10 scale"</span>,
+  ylim = <span class='kw'>NULL</span>,
+  add_rug = <span class='fl'>TRUE</span>,
+  intgenes = <span class='kw'>NULL</span>,
+  intgenes_color = <span class='st'>"steelblue"</span>,
+  labels_intgenes = <span class='fl'>TRUE</span>,
+  labels_repel = <span class='fl'>TRUE</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -156,7 +156,7 @@ additional support to annotate genes if provided.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>res_obj</th>
-      <td><p>A <code>DESeqResults</code> object</p></td>
+      <td><p>A <code><a href='https://rdrr.io/pkg/DESeq2/man/DESeqResults.html'>DESeqResults</a></code> object</p></td>
     </tr>
     <tr>
       <th>FDR</th>
@@ -229,37 +229,36 @@ column is provided in <code>res_obj</code>, or else b&lt; using  the identifiers
 in the row names</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>airway</span>)
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>airway</span>)
-<span class='no'>airway</span></div><div class='output co'>#&gt; class: RangedSummarizedExperiment 
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'>airway</span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='kw'>airway</span>)
+<span class='kw'>airway</span></div><div class='output co'>#&gt; class: RangedSummarizedExperiment 
 #&gt; dim: 64102 8 
 #&gt; metadata(1): ''
 #&gt; assays(1): counts
 #&gt; rownames(64102): ENSG00000000003 ENSG00000000005 ... LRG_98 LRG_99
 #&gt; rowData names(0):
 #&gt; colnames(8): SRR1039508 SRR1039509 ... SRR1039520 SRR1039521
-#&gt; colData names(9): SampleName cell ... Sample BioSample</div><div class='input'><span class='no'>dds_airway</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>DESeq2</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/DESeq2/man/DESeqDataSet.html'>DESeqDataSetFromMatrix</a></span>(<span class='fu'>assay</span>(<span class='no'>airway</span>),
-                                             <span class='kw'>colData</span> <span class='kw'>=</span> <span class='fu'>colData</span>(<span class='no'>airway</span>),
-                                             <span class='kw'>design</span><span class='kw'>=</span>~<span class='no'>cell</span>+<span class='no'>dex</span>)
+#&gt; colData names(9): SampleName cell ... Sample BioSample</div><div class='input'><span class='kw'>dds_airway</span> <span class='op'>&lt;-</span> <span class='kw'>DESeq2</span>::<span class='fu'><a href='https://rdrr.io/pkg/DESeq2/man/DESeqDataSet.html'>DESeqDataSetFromMatrix</a></span>(<span class='fu'>assay</span>(<span class='kw'>airway</span>),
+                                             colData = <span class='fu'>colData</span>(<span class='kw'>airway</span>),
+                                             design=<span class='op'>~</span><span class='kw'>cell</span><span class='op'>+</span><span class='kw'>dex</span>)
 <span class='co'># subsetting for quicker run, ignore the next two commands if regularly using the function </span>
-<span class='no'>gene_subset</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(
+<span class='kw'>gene_subset</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(
   <span class='st'>"ENSG00000103196"</span>,  <span class='co'># CRISPLD2</span>
   <span class='st'>"ENSG00000120129"</span>,  <span class='co'># DUSP1</span>
   <span class='st'>"ENSG00000163884"</span>,  <span class='co'># KLF15</span>
   <span class='st'>"ENSG00000179094"</span>,  <span class='co'># PER1</span>
-  <span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span>(<span class='no'>dds_airway</span>)[<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>FALSE</span>,<span class='fl'>99</span>), <span class='fl'>TRUE</span>), <span class='kw'>length.out</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span>(<span class='no'>dds_airway</span>))]) <span class='co'># 1% of ids</span>
-<span class='no'>dds_airway</span> <span class='kw'>&lt;-</span> <span class='no'>dds_airway</span>[<span class='no'>gene_subset</span>,]
+  <span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span>(<span class='kw'>dds_airway</span>)[<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>FALSE</span>,<span class='fl'>99</span>), <span class='fl'>TRUE</span>), length.out=<span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span>(<span class='kw'>dds_airway</span>))]) <span class='co'># 1% of ids</span>
+<span class='kw'>dds_airway</span> <span class='op'>&lt;-</span> <span class='kw'>dds_airway</span>[<span class='kw'>gene_subset</span>,]
+                  
+<span class='kw'>dds_airway</span> <span class='op'>&lt;-</span> <span class='kw'>DESeq2</span>::<span class='fu'><a href='https://rdrr.io/pkg/DESeq2/man/DESeq.html'>DESeq</a></span>(<span class='kw'>dds_airway</span>)</div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='input'><span class='kw'>res_airway</span> <span class='op'>&lt;-</span> <span class='kw'>DESeq2</span>::<span class='fu'><a href='https://rdrr.io/pkg/DESeq2/man/results.html'>results</a></span>(<span class='kw'>dds_airway</span>)
 
-<span class='no'>dds_airway</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>DESeq2</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/DESeq2/man/DESeq.html'>DESeq</a></span>(<span class='no'>dds_airway</span>)</div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='input'><span class='no'>res_airway</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>DESeq2</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/DESeq2/man/results.html'>results</a></span>(<span class='no'>dds_airway</span>)
-
-<span class='fu'>plot_ma</span>(<span class='no'>res_airway</span>, <span class='kw'>FDR</span> <span class='kw'>=</span> <span class='fl'>0.05</span>, <span class='kw'>hlines</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='img'><img src='plot_ma-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'>plot_ma</span>(<span class='no'>res_airway</span>, <span class='kw'>FDR</span> <span class='kw'>=</span> <span class='fl'>0.1</span>,
-        <span class='kw'>intgenes</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"ENSG00000103196"</span>,  <span class='co'># CRISPLD2</span>
+<span class='fu'><a href='https://rdrr.io/pkg/ideal/man/plot_ma.html'>plot_ma</a></span>(<span class='kw'>res_airway</span>, FDR = <span class='fl'>0.05</span>, hlines = <span class='fl'>1</span>)</div><div class='img'><img src='plot_ma-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/pkg/ideal/man/plot_ma.html'>plot_ma</a></span>(<span class='kw'>res_airway</span>, FDR = <span class='fl'>0.1</span>,
+        intgenes = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"ENSG00000103196"</span>,  <span class='co'># CRISPLD2</span>
                      <span class='st'>"ENSG00000120129"</span>,  <span class='co'># DUSP1</span>
                      <span class='st'>"ENSG00000163884"</span>,  <span class='co'># KLF15</span>
                      <span class='st'>"ENSG00000179094"</span>)  <span class='co'># PER1</span>
        )</div><div class='img'><img src='plot_ma-2.png' alt='' width='700' height='433' /></div><div class='input'>
-
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

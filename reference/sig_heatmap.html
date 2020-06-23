@@ -134,18 +134,18 @@ possibility to compactly display also DE only genes" />
 possibility to compactly display also DE only genes</p>
     </div>
 
-    <pre class="usage"><span class='fu'>sig_heatmap</span>(
-  <span class='no'>vst_data</span>,
-  <span class='no'>my_signature</span>,
-  <span class='kw'>res_data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>FDR</span> <span class='kw'>=</span> <span class='fl'>0.05</span>,
-  <span class='kw'>de_only</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='no'>annovec</span>,
-  <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>""</span>,
-  <span class='kw'>cluster_rows</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>cluster_cols</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>center_mean</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>scale_row</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/ideal/man/sig_heatmap.html'>sig_heatmap</a></span>(
+  <span class='kw'>vst_data</span>,
+  <span class='kw'>my_signature</span>,
+  res_data = <span class='kw'>NULL</span>,
+  FDR = <span class='fl'>0.05</span>,
+  de_only = <span class='fl'>FALSE</span>,
+  <span class='kw'>annovec</span>,
+  title = <span class='st'>""</span>,
+  cluster_rows = <span class='fl'>TRUE</span>,
+  cluster_cols = <span class='fl'>FALSE</span>,
+  center_mean = <span class='fl'>TRUE</span>,
+  scale_row = <span class='fl'>FALSE</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -153,7 +153,7 @@ possibility to compactly display also DE only genes</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>vst_data</th>
-      <td><p>A <code>DESeqTransform</code> object - usually the variance
+      <td><p>A <code><a href='https://rdrr.io/pkg/DESeq2/man/DESeqTransform.html'>DESeqTransform</a></code> object - usually the variance
 stabilized transformed data, which will be used to extract the expression values</p></td>
     </tr>
     <tr>
@@ -163,7 +163,7 @@ which compose the gene signature</p></td>
     </tr>
     <tr>
       <th>res_data</th>
-      <td><p>A <code>DESeqResults</code> object. If not provided, it can
+      <td><p>A <code><a href='https://rdrr.io/pkg/DESeq2/man/DESeqResults.html'>DESeqResults</a></code> object. If not provided, it can
 be computed during the execution of the application</p></td>
     </tr>
     <tr>
@@ -210,35 +210,35 @@ expression values</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># with the well known airway package...</span>
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>airway</span>)
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>airway</span>)
-<span class='no'>airway</span></div><div class='output co'>#&gt; class: RangedSummarizedExperiment 
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'>airway</span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='kw'>airway</span>)
+<span class='kw'>airway</span></div><div class='output co'>#&gt; class: RangedSummarizedExperiment 
 #&gt; dim: 64102 8 
 #&gt; metadata(1): ''
 #&gt; assays(1): counts
 #&gt; rownames(64102): ENSG00000000003 ENSG00000000005 ... LRG_98 LRG_99
 #&gt; rowData names(0):
 #&gt; colnames(8): SRR1039508 SRR1039509 ... SRR1039520 SRR1039521
-#&gt; colData names(9): SampleName cell ... Sample BioSample</div><div class='input'><span class='no'>dds_airway</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>DESeq2</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/DESeq2/man/DESeqDataSet.html'>DESeqDataSetFromMatrix</a></span>(<span class='fu'>assay</span>(<span class='no'>airway</span>),
-                                             <span class='kw'>colData</span> <span class='kw'>=</span> <span class='fu'>colData</span>(<span class='no'>airway</span>),
-                                             <span class='kw'>design</span><span class='kw'>=</span>~<span class='no'>cell</span>+<span class='no'>dex</span>)
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='no'>dds_airway</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>DESeq2</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/DESeq2/man/DESeq.html'>DESeq</a></span>(<span class='no'>dds_airway</span>)
-<span class='no'>res_airway</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>DESeq2</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/DESeq2/man/results.html'>results</a></span>(<span class='no'>dds_airway</span>)
-<span class='no'>vst_airway</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>DESeq2</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/DESeq2/man/vst.html'>vst</a></span>(<span class='no'>dds_airway</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>org.Hs.eg.db</span>)
-<span class='no'>annovec</span> <span class='kw'>&lt;-</span> <span class='fu'>mapIds</span>(<span class='no'>org.Hs.eg.db</span>, <span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span>(<span class='no'>dds_airway</span>),<span class='st'>"ENTREZID"</span>,<span class='st'>"ENSEMBL"</span>)
-<span class='no'>mysignatures</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_gmt.html'>read_gmt</a></span>(
+#&gt; colData names(9): SampleName cell ... Sample BioSample</div><div class='input'><span class='kw'>dds_airway</span> <span class='op'>&lt;-</span> <span class='kw'>DESeq2</span>::<span class='fu'><a href='https://rdrr.io/pkg/DESeq2/man/DESeqDataSet.html'>DESeqDataSetFromMatrix</a></span>(<span class='fu'>assay</span>(<span class='kw'>airway</span>),
+                                             colData = <span class='fu'>colData</span>(<span class='kw'>airway</span>),
+                                             design=<span class='op'>~</span><span class='kw'>cell</span><span class='op'>+</span><span class='kw'>dex</span>)
+<span class='co'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='kw'>dds_airway</span> <span class='op'>&lt;-</span> <span class='kw'>DESeq2</span>::<span class='fu'><a href='https://rdrr.io/pkg/DESeq2/man/DESeq.html'>DESeq</a></span>(<span class='kw'>dds_airway</span>)
+<span class='kw'>res_airway</span> <span class='op'>&lt;-</span> <span class='kw'>DESeq2</span>::<span class='fu'><a href='https://rdrr.io/pkg/DESeq2/man/results.html'>results</a></span>(<span class='kw'>dds_airway</span>)
+<span class='kw'>vst_airway</span> <span class='op'>&lt;-</span> <span class='kw'>DESeq2</span>::<span class='fu'><a href='https://rdrr.io/pkg/DESeq2/man/vst.html'>vst</a></span>(<span class='kw'>dds_airway</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'>org.Hs.eg.db</span>)
+<span class='kw'>annovec</span> <span class='op'>&lt;-</span> <span class='fu'>mapIds</span>(<span class='kw'>org.Hs.eg.db</span>, <span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span>(<span class='kw'>dds_airway</span>),<span class='st'>"ENTREZID"</span>,<span class='st'>"ENSEMBL"</span>)
+<span class='kw'>mysignatures</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/ideal/man/read_gmt.html'>read_gmt</a></span>(
   <span class='st'>"http://data.wikipathways.org/20190210/gmt/wikipathways-20190210-gmt-Homo_sapiens.gmt"</span>)
-<span class='no'>mysignature_name</span> <span class='kw'>&lt;-</span> <span class='st'>"Lung fibrosis%WikiPathways_20190210%WP3624%Homo sapiens"</span>
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>pheatmap</span>)
-<span class='fu'>sig_heatmap</span>(<span class='no'>vst_airway</span>,
-            <span class='no'>mysignatures</span><span class='kw'>[[</span><span class='no'>mysignature_name</span>]],
-            <span class='kw'>res_data</span> <span class='kw'>=</span> <span class='no'>res_airway</span>,
-            <span class='kw'>de_only</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-            <span class='kw'>annovec</span> <span class='kw'>=</span> <span class='no'>annovec</span>,
-            <span class='kw'>title</span> <span class='kw'>=</span> <span class='no'>mysignature_name</span>,
-            <span class='kw'>cluster_cols</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+<span class='kw'>mysignature_name</span> <span class='op'>&lt;-</span> <span class='st'>"Lung fibrosis%WikiPathways_20190210%WP3624%Homo sapiens"</span>
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'>pheatmap</span>)
+<span class='fu'><a href='https://rdrr.io/pkg/ideal/man/sig_heatmap.html'>sig_heatmap</a></span>(<span class='kw'>vst_airway</span>,
+            <span class='kw'>mysignatures</span>[[<span class='kw'>mysignature_name</span>]],
+            res_data = <span class='kw'>res_airway</span>,
+            de_only = <span class='fl'>TRUE</span>,
+            annovec = <span class='kw'>annovec</span>,
+            title = <span class='kw'>mysignature_name</span>,
+            cluster_cols = <span class='fl'>TRUE</span>
             )
 }</div></pre>
   </div>
