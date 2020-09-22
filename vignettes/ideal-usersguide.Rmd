@@ -128,6 +128,15 @@ Different modalities are supported to launch the application:
   The design formula can be constructed interactively at runtime
 - `ideal()`, where the count matrix and experimental design can simply be uploaded at runtime, where all the derived objects can be extracted and computed live. 
   These files have to be formatted as tabular text files, and a function in the package tries to guess the separator, based on heuristics of occurrencies per line of commonly used characters
+  
+You can obtain more information on the formats that are expected and required to work with `r Biocpkg("ideal")` by pressing the small round button in Step 1 of the Data Setup panel - these are common to the formats used by `r Biocpkg("pcaExplorer")`.
+For the sake of completeness, you can see an overview reported in the image below.
+
+```{r, out.width="100%"}
+knitr::include_graphics(system.file("www", "help_dataformats.png", package = "pcaExplorer"))
+```
+
+The value to specify for the experimental design is best selected live in Step 2 of the Data Setup panel (see more in Section \@ref(datasetup)) - or if passing directly the `dds` object in the call to `ideal`, is already contained in the `dds` itself. 
 
 ## Accessing the public instance of `r Biocpkg("ideal")` 
 
@@ -210,7 +219,7 @@ For the main analysis, the available panels are described in the following subse
 The landing page for the app is also where you might likely be reading this text (otherwise in the package vignette).
 
 
-## Data Setup
+## Data Setup {#datasetup}
 
 The Data Setup panel is where you can upload or inspect the required inputs for running the app.
 This builds on the primary idea used by `r Biocpkg("pcaExplorer")` and extends it with the following aspects:
