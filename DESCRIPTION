@@ -63,5 +63,5 @@ BugReports: https://github.com/federicomarini/ideal/issues
 biocViews: ImmunoOncology, GeneExpression, DifferentialExpression, RNASeq, Sequencing,
     Visualization, QualityControl, GUI, GeneSetEnrichment, ReportWriting
 VignetteBuilder: knitr
-RoxygenNote: 7.1.0
+RoxygenNote: 7.1.1
 Encoding: UTF-8
