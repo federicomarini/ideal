@@ -132,7 +132,7 @@ Different modalities are supported to launch the application:
 You can obtain more information on the formats that are expected and required to work with `r Biocpkg("ideal")` by pressing the small round button in Step 1 of the Data Setup panel - these are common to the formats used by `r Biocpkg("pcaExplorer")`.
 For the sake of completeness, you can see an overview reported in the image below.
 
-```{r, out.width="100%"}
+```{r, out.width="100%", echo=FALSE}
 knitr::include_graphics(system.file("www", "help_dataformats.png", package = "pcaExplorer"))
 ```
 
