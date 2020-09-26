@@ -4299,6 +4299,13 @@ ideal<- function(dds_obj = NULL,
           # better practice rather than assigning to global env - notify users of this
           assign(paste0("ideal_inputs_", tstamp),cur_inputs, envir = ideal_env)
           assign(paste0("ideal_values_", tstamp),cur_values, envir = ideal_env)
+          showNotification(
+            paste0("ideal closed, state successfully saved to the R environment. ",
+                   "You can access these values by searching the `ideal_env` object."),
+            type = "message")
+          message("ideal closed, state successfully saved to the R environment.")
+          message("     You can access these values by searching the `ideal_env` object.")
+          
           stopApp("ideal closed, state successfully saved to global R environment.")
 
           # assign(paste0("ideal_inputs_",
@@ -4322,6 +4329,7 @@ ideal<- function(dds_obj = NULL,
         # values[names(LiveInputs)] <- LiveInputs
         r_data <- reactiveValuesToList(values)
         save(LiveInputs, r_data , file = filename)
+        message("list of inputs and reactive values correctly saved as binary data")
       })
     }
 
