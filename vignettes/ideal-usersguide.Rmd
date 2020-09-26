@@ -662,6 +662,77 @@ While running the app, the user can
 
 This functionality to retrieve and share the output is provided by action buttons that are placed close to each element of interest. 
 
+## Expanding the analysis after `ideal`
+
+After exporting the objects to the R environment, via the button "Exit ideal and save", it is possible to continue the analyses e.g. using alternative methods for functional enrichment analysis, with Functional Class Scoring methods (such as GSEA, as implemented in `r Biocpkg("fgsea")`), or additional methods for Overrepresentation Analysis (e.g. `r CRANpkg("gprofiler2")`).  
+In the example below, we show an example of the code required to perform `fgsea` on the set of objects exported from `ideal()`.
+
+```{r fgsea, eval=FALSE}
+library("fgsea")
+# selecting the result object from the exported environment
+exported_res <- ideal_env$ideal_values_20200926_135052$res_obj
+summary(exported_res)
+
+# for processing of intermediate steps
+library("dplyr")
+library("tibble")
+
+# extracting the rankes for pre-ranked gsea
+de_ranks <- exported_res %>%
+  as.data.frame() %>% 
+  dplyr::arrange(padj) %>% 
+  dplyr::select(symbol, stat) %>% 
+  deframe()
+head(de_ranks, 20)
+
+# loading the signatures from the gmt file - to be downloaded locally
+pathways_gmtfile <- gmtPathways("path_to/msigdb_v7.0_GMTs/h.all.v6.2.symbols.gmt")
+
+# running fgsea
+fgsea_result <- fgsea(pathways = pathways_gmtfile, 
+                      stats = de_ranks, 
+                      nperm = 100000)
+fgsea_result <- fgsea_result %>% 
+  arrange(desc(NES))
+
+# displaying the results
+DT::datatable(fgsea_result)
+```
+
+The following chunk shows an example of how to perform the functional enrichment analysis with `g:Profiler`'s tool `g:GOST`, using the interface in `r CRANpkg("gprofiler2")`
+
+```{r gprofiler2, eval=FALSE}
+library("gprofiler2")
+
+# selecting the result object from the exported environment
+exported_res <- ideal_env$ideal_values_20200926_135052$res_obj
+summary(exported_res)
+
+# extracting the DE genes vector
+degenes <- deseqresult2DEgenes(exported_res, FDR = 0.01)$symbol
+
+# running the test
+gost_res <- gost(
+  query = degenes[1:1000], 
+  organism = "hsapiens", 
+  ordered_query = FALSE, 
+  multi_query = FALSE, 
+  significant = FALSE, 
+  exclude_iea = TRUE, 
+  measure_underrepresentation = FALSE, 
+  evcodes = TRUE, 
+  user_threshold = 0.05, 
+  correction_method = "g_SCS", 
+  domain_scope = "annotated", 
+  numeric_ns = "", 
+  sources = "GO:BP", 
+  as_short_link = FALSE)
+
+# displaying the results
+DT::datatable(gost_res$result)
+```
+
+
 # Enhancing `ideal`
 
 The `annotation_obj` is a quick helper to make your data and results easier to read. For creating it, you can exploit the corresponding `org.XX.eg.db` packages, available in Bioconductor.
