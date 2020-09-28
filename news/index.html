@@ -71,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ideal</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.13.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.13.2</span>
       </span>
     </div>
 
@@ -134,6 +134,11 @@
 <a href="#other-notes" class="anchor"></a>Other notes</h2>
 <ul>
 <li>Replaced dependency from <code>d3heatmap</code> with the functionality of <code>heatmaply</code>
+</li>
+<li>Additional notifications are returned when closing the app while saving the state to the R environment - both in the console as a <code>message</code>, and in the UI via <code>showNotification</code>
+</li>
+<li>The vignette and the tour contain a section about the format required to run <code>ideal</code> correctly</li>
+<li>The vignette also indicates some exemplary steps after exporting the values to the R environment, showcasing how to perform additional functional enrichment analyses e.g. via <code>fgsea</code> or <code>gprofiler2</code>
 </li>
 </ul>
 </div>
@@ -408,7 +413,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
 </div>
 
       </footer>

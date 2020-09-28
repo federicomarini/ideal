@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ideal</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.13.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.13.2</span>
       </span>
     </div>
 
@@ -80,7 +80,7 @@
       
 
       </header><script src="ideal-usersguide_files/accessible-code-block-0.0.1/empty-anchor.js"></script><script src="ideal-usersguide_files/htmlwidgets-1.5.1/htmlwidgets.js"></script><script src="ideal-usersguide_files/jquery-1.12.4/jquery.min.js"></script><link href="ideal-usersguide_files/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
-<script src="ideal-usersguide_files/datatables-binding-0.14/datatables.js"></script><link href="ideal-usersguide_files/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet">
+<script src="ideal-usersguide_files/datatables-binding-0.15/datatables.js"></script><link href="ideal-usersguide_files/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet">
 <link href="ideal-usersguide_files/dt-core-1.10.20/css/jquery.dataTables.extra.css" rel="stylesheet">
 <script src="ideal-usersguide_files/dt-core-1.10.20/js/jquery.dataTables.min.js"></script><link href="ideal-usersguide_files/crosstalk-1.1.0.1/css/crosstalk.css" rel="stylesheet">
 <script src="ideal-usersguide_files/crosstalk-1.1.0.1/js/crosstalk.min.js"></script><div class="row">
@@ -93,7 +93,7 @@
       </address>
                               <h4 class="author">Harald Binder</h4>
             <address class="author_afil">
-      Institute of Medical Biostatistics, Epidemiology and Informatics (IMBEI), Mainz<br><h4 class="date">24 June 2020</h4>
+      Institute of Medical Biostatistics, Epidemiology and Informatics (IMBEI), Mainz<br><h4 class="date">28 September 2020</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/federicomarini/ideal/blob/master/vignettes/ideal-usersguide.Rmd"><code>vignettes/ideal-usersguide.Rmd</code></a></small>
       <div class="hidden name"><code>ideal-usersguide.Rmd</code></div>
@@ -109,8 +109,8 @@
     
 <!-- **Package**: *ideal* -->
 <!-- **Authors**: Federico Marini [aut, cre] (<https://orcid.org/0000-0003-3252-7758>) -->
-<!-- **Version**: 1.13.1 -->
-<p><strong>Compiled date</strong>: 2020-06-24</p>
+<!-- **Version**: 1.13.2 -->
+<p><strong>Compiled date</strong>: 2020-09-28</p>
 <p><strong>Last edited</strong>: 2019-02-06</p>
 <p><strong>License</strong>: MIT + file LICENSE</p>
 <div id="getting-started" class="section level1">
@@ -120,15 +120,13 @@
 <img src="ideal_logo_v2.png"></p>
 <p><em><a href="https://bioconductor.org/packages/3.12/ideal">ideal</a></em> is an R package distributed as part of the <a href="http://bioconductor.org">Bioconductor</a> project. To install the package, start R and enter:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="co">if</span> (<span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html">requireNamespace</a></span>(<span class="st">"BiocManager"</span>, quietly=<span class="fl">TRUE</span>))
-    <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"BiocManager"</span>)
-<span class="kw">BiocManager</span>::<span class="fu"><a href="https://rdrr.io/pkg/BiocManager/man/install.html">install</a></span>(<span class="st">"ideal"</span>)
-</pre></div>
+<span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html">requireNamespace</a></span><span class="op">(</span><span class="st">"BiocManager"</span>, quietly<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>
+    <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"BiocManager"</span><span class="op">)</span>
+<span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocManager/man/install.html">install</a></span><span class="op">(</span><span class="st">"ideal"</span><span class="op">)</span></pre></div>
 <p>The GitHub repository for <em><a href="https://bioconductor.org/packages/3.12/ideal">ideal</a></em> is <a href="https://github.com/federicomarini/ideal" class="uri">https://github.com/federicomarini/ideal</a>. This is the place to file an issue, report a bug, or provide a pull request.</p>
 <p>Once <em>ideal</em> is installed, it can be loaded by the following command.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="st"><a href="https://github.com/federicomarini/ideal">"ideal"</a></span>)
-</pre></div>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/federicomarini/ideal">"ideal"</a></span><span class="op">)</span></pre></div>
 </div>
 <div id="introduction" class="section level1">
 <h1 class="hasAnchor">
@@ -142,8 +140,7 @@
 <a href="#citation-info" class="anchor"></a>Citation info</h2>
 <p>If you use <em><a href="https://bioconductor.org/packages/3.12/ideal">ideal</a></em> for your analysis, please cite it as here below:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span>(<span class="st">"ideal"</span>)
-</pre></div>
+<span class="fu"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span><span class="op">(</span><span class="st">"ideal"</span><span class="op">)</span></pre></div>
 <pre><code>## 
 ## To cite the package 'ideal' in publications use:
 ## 
@@ -173,8 +170,7 @@
 <a href="#launching-ideal-locally" class="anchor"></a>Launching <em><a href="https://bioconductor.org/packages/3.12/ideal">ideal</a></em> locally</h2>
 <p>First load the library:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="st"><a href="https://github.com/federicomarini/ideal">"ideal"</a></span>)
-</pre></div>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/federicomarini/ideal">"ideal"</a></span><span class="op">)</span></pre></div>
 <p>and then launch the app with the <code>ideal</code> function. This takes the following essential parameters as input:</p>
 <ul>
 <li>
@@ -199,6 +195,9 @@
 <li>
 <code><a href="../reference/ideal.html">ideal()</a></code>, where the count matrix and experimental design can simply be uploaded at runtime, where all the derived objects can be extracted and computed live. These files have to be formatted as tabular text files, and a function in the package tries to guess the separator, based on heuristics of occurrencies per line of commonly used characters</li>
 </ul>
+<p>You can obtain more information on the formats that are expected and required to work with <em><a href="https://bioconductor.org/packages/3.12/ideal">ideal</a></em> by pressing the small round button in Step 1 of the Data Setup panel - these are common to the formats used by <em><a href="https://bioconductor.org/packages/3.12/pcaExplorer">pcaExplorer</a></em>. For the sake of completeness, you can see an overview reported in the image below.</p>
+<p><img src="../../../_temp/Library/pcaExplorer/www/help_dataformats.png" width="100%"></p>
+<p>The value to specify for the experimental design is best selected live in Step 2 of the Data Setup panel (see more in Section @ref(datasetup)) - or if passing directly the <code>dds</code> object in the call to <code>ideal</code>, is already contained in the <code>dds</code> itself.</p>
 </div>
 <div id="accessing-the-public-instance-of-ideal" class="section level2">
 <h2 class="hasAnchor">
@@ -283,9 +282,9 @@
 <a href="#welcome" class="anchor"></a>Welcome!</h2>
 <p>The landing page for the app is also where you might likely be reading this text (otherwise in the package vignette).</p>
 </div>
-<div id="data-setup" class="section level2">
+<div id="datasetup" class="section level2">
 <h2 class="hasAnchor">
-<a href="#data-setup" class="anchor"></a>Data Setup</h2>
+<a href="#datasetup" class="anchor"></a>Data Setup</h2>
 <p>The Data Setup panel is where you can upload or inspect the required inputs for running the app. This builds on the primary idea used by <em><a href="https://bioconductor.org/packages/3.12/pcaExplorer">pcaExplorer</a></em> and extends it with the following aspects:</p>
 <ul>
 <li>the panel structure appears dynamically in three consecutive mandatory steps, marked with color from red to yellow to green, with optional steps in light blue.</li>
@@ -374,21 +373,19 @@
 <p>We will use the <em><a href="https://bioconductor.org/packages/3.12/airway">airway</a></em> dataset, which can be installed with this command:</p>
 <!-- [][]or use pasilla[][] -->
 <div class="sourceCode" id="cb6"><pre class="downlit">
-<span class="co">if</span> (<span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html">requireNamespace</a></span>(<span class="st">"BiocManager"</span>, quietly=<span class="fl">TRUE</span>))
-    <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"BiocManager"</span>)
-<span class="kw">BiocManager</span>::<span class="fu"><a href="https://rdrr.io/pkg/BiocManager/man/install.html">install</a></span>(<span class="st">"airway"</span>)
-</pre></div>
+<span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html">requireNamespace</a></span><span class="op">(</span><span class="st">"BiocManager"</span>, quietly<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>
+    <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"BiocManager"</span><span class="op">)</span>
+<span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocManager/man/install.html">install</a></span><span class="op">(</span><span class="st">"airway"</span><span class="op">)</span></pre></div>
 <p>This package provides a <code>RangedSummarizedExperiment</code> object of read counts in genes for an RNA-Seq experiment on four human airway smooth muscle cell lines treated with dexamethasone. More details such as gene models and count quantifications can be found in the <em><a href="https://bioconductor.org/packages/3.12/airway">airway</a></em> package vignette.</p>
 <p>To run <em><a href="https://bioconductor.org/packages/3.12/ideal">ideal</a></em> on this dataset, the following commands are required. First, prepare the objects to be passed as parameters of <em><a href="https://bioconductor.org/packages/3.12/ideal">ideal</a></em>.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw">airway</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://github.com/mikelove/DESeq2">DESeq2</a></span>)
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">airway</span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/mikelove/DESeq2">DESeq2</a></span><span class="op">)</span>
 
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="kw">airway</span>)
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">airway</span><span class="op">)</span>
 
-<span class="kw">dds_airway</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/DESeq2/man/DESeqDataSet.html">DESeqDataSet</a></span>(<span class="kw">airway</span>,design= <span class="op">~</span> <span class="kw">cell</span> <span class="op">+</span> <span class="kw">dex</span>)
-<span class="kw">dds_airway</span>
-</pre></div>
+<span class="va">dds_airway</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/DESeq2/man/DESeqDataSet.html">DESeqDataSet</a></span><span class="op">(</span><span class="va">airway</span>,design<span class="op">=</span> <span class="op">~</span> <span class="va">cell</span> <span class="op">+</span> <span class="va">dex</span><span class="op">)</span>
+<span class="va">dds_airway</span></pre></div>
 <pre><code>## class: DESeqDataSet 
 ## dim: 64102 8 
 ## metadata(2): '' version
@@ -399,26 +396,23 @@
 ## colData names(9): SampleName cell ... Sample BioSample</code></pre>
 <div class="sourceCode" id="cb9"><pre class="downlit">
 <span class="co"># run deseq on it</span>
-<span class="kw">dds_airway</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/DESeq2/man/DESeq.html">DESeq</a></span>(<span class="kw">dds_airway</span>)
+<span class="va">dds_airway</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/DESeq2/man/DESeq.html">DESeq</a></span><span class="op">(</span><span class="va">dds_airway</span><span class="op">)</span>
 <span class="co"># extract the results</span>
-<span class="kw">res_airway</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/DESeq2/man/results.html">results</a></span>(<span class="kw">dds_airway</span>, contrast = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"dex"</span>,<span class="st">"trt"</span>,<span class="st">"untrt"</span>),alpha = <span class="fl">0.05</span>)
-</pre></div>
+<span class="va">res_airway</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/DESeq2/man/results.html">results</a></span><span class="op">(</span><span class="va">dds_airway</span>, contrast <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"dex"</span>,<span class="st">"trt"</span>,<span class="st">"untrt"</span><span class="op">)</span>,alpha <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></pre></div>
 <p>Then launch the app itself.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit">
-<span class="fu"><a href="../reference/ideal.html">ideal</a></span>(dds_obj = <span class="kw">dds_airway</span>)
+<span class="fu"><a href="../reference/ideal.html">ideal</a></span><span class="op">(</span>dds_obj <span class="op">=</span> <span class="va">dds_airway</span><span class="op">)</span>
 <span class="co"># or also providing the results object</span>
-<span class="fu"><a href="../reference/ideal.html">ideal</a></span>(dds_obj = <span class="kw">dds_airway</span>,res_obj = <span class="kw">res_airway</span>)
-</pre></div>
+<span class="fu"><a href="../reference/ideal.html">ideal</a></span><span class="op">(</span>dds_obj <span class="op">=</span> <span class="va">dds_airway</span>,res_obj <span class="op">=</span> <span class="va">res_airway</span><span class="op">)</span></pre></div>
 <p>The <code>annotation</code> for this dataset can be built manually by exploiting the <em><a href="https://bioconductor.org/packages/3.12/org.Hs.eg.db">org.Hs.eg.db</a></em> package.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw">org.Hs.eg.db</span>)
-<span class="kw">genenames_airway</span> <span class="op">&lt;-</span> <span class="fu">mapIds</span>(<span class="kw">org.Hs.eg.db</span>,keys = <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span>(<span class="kw">dds_airway</span>),column = <span class="st">"SYMBOL"</span>,keytype=<span class="st">"ENSEMBL"</span>)
-<span class="kw">annotation_airway</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(gene_id = <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span>(<span class="kw">dds_airway</span>),
-                                gene_name = <span class="kw">genenames_airway</span>,
-                                row.names = <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span>(<span class="kw">dds_airway</span>),
-                                stringsAsFactors = <span class="fl">FALSE</span>)
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="kw">annotation_airway</span>)                                
-</pre></div>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">org.Hs.eg.db</span><span class="op">)</span>
+<span class="va">genenames_airway</span> <span class="op">&lt;-</span> <span class="fu">mapIds</span><span class="op">(</span><span class="va">org.Hs.eg.db</span>,keys <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">dds_airway</span><span class="op">)</span>,column <span class="op">=</span> <span class="st">"SYMBOL"</span>,keytype<span class="op">=</span><span class="st">"ENSEMBL"</span><span class="op">)</span>
+<span class="va">annotation_airway</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>gene_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">dds_airway</span><span class="op">)</span>,
+                                gene_name <span class="op">=</span> <span class="va">genenames_airway</span>,
+                                row.names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">dds_airway</span><span class="op">)</span>,
+                                stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">annotation_airway</span><span class="op">)</span>                                </pre></div>
 <pre><code>##                         gene_id gene_name
 ## ENSG00000000003 ENSG00000000003    TSPAN6
 ## ENSG00000000005 ENSG00000000005      TNMD
@@ -429,9 +423,8 @@
 <p>or alternatively, can be handily created at runtime in the optional step.</p>
 <p>Then again, the app can be launched with:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit">
-<span class="fu"><a href="../reference/ideal.html">ideal</a></span>(dds_obj = <span class="kw">dds_airway</span>,
-      annotation_obj = <span class="kw">annotation_airway</span>)
-</pre></div>
+<span class="fu"><a href="../reference/ideal.html">ideal</a></span><span class="op">(</span>dds_obj <span class="op">=</span> <span class="va">dds_airway</span>,
+      annotation_obj <span class="op">=</span> <span class="va">annotation_airway</span><span class="op">)</span></pre></div>
 <p>If desired, alternatives can be used. See the well written annotation workflow available at the Bioconductor site (<a href="https://bioconductor.org/help/workflows/annotation/annotation/" class="uri">https://bioconductor.org/help/workflows/annotation/annotation/</a>).</p>
 <div id="coming-from-edgerlimma-voom" class="section level2">
 <h2 class="hasAnchor">
@@ -439,9 +432,8 @@
 </h2>
 <p>Let’s suppose you performed part of your analysis with <em><a href="https://bioconductor.org/packages/3.12/edgeR">edgeR</a></em> or <em><a href="https://bioconductor.org/packages/3.12/limma">limma</a></em>/<code>voom</code> and you want to continue inspecting your data interactively using <em><a href="https://bioconductor.org/packages/3.12/ideal">ideal</a></em>. You can use the functionality provided by the <em><a href="https://bioconductor.org/packages/3.12/DEFormats">DEFormats</a></em> package to convert the object with:</p>
 <div class="sourceCode" id="cb14"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://github.com/aoles/DEFormats">DEFormats</a></span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="http://bioinf.wehi.edu.au/edgeR">edgeR</a></span>)
-</pre></div>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/aoles/DEFormats">DEFormats</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://bioinf.wehi.edu.au/edgeR">edgeR</a></span><span class="op">)</span></pre></div>
 <pre><code>## Loading required package: limma</code></pre>
 <pre><code>## 
 ## Attaching package: 'limma'</code></pre>
@@ -457,25 +449,24 @@
 ## 
 ##     DGEList</code></pre>
 <div class="sourceCode" id="cb21"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="http://bioinf.wehi.edu.au/limma">limma</a></span>)
-<span class="kw">dge_airway</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/DEFormats/man/as.DGEList.html">as.DGEList</a></span>(<span class="kw">dds_airway</span>) <span class="co"># this is your initial object</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://bioinf.wehi.edu.au/limma">limma</a></span><span class="op">)</span>
+<span class="va">dge_airway</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/DEFormats/man/as.DGEList.html">as.DGEList</a></span><span class="op">(</span><span class="va">dds_airway</span><span class="op">)</span> <span class="co"># this is your initial object</span>
 <span class="co"># your factors for the design:</span>
-<span class="kw">dex</span> <span class="op">&lt;-</span> <span class="fu">colData</span>(<span class="kw">dds_airway</span>)<span class="op">$</span><span class="kw">dex</span>
-<span class="kw">cell</span> <span class="op">&lt;-</span> <span class="fu">colData</span>(<span class="kw">dds_airway</span>)<span class="op">$</span><span class="kw">cell</span>
+<span class="va">dex</span> <span class="op">&lt;-</span> <span class="fu">colData</span><span class="op">(</span><span class="va">dds_airway</span><span class="op">)</span><span class="op">$</span><span class="va">dex</span>
+<span class="va">cell</span> <span class="op">&lt;-</span> <span class="fu">colData</span><span class="op">(</span><span class="va">dds_airway</span><span class="op">)</span><span class="op">$</span><span class="va">cell</span>
 
-<span class="kw">redo_dds_airway</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/DEFormats/man/as.DESeqDataSet.html">as.DESeqDataSet</a></span>(<span class="kw">dge_airway</span>)
+<span class="va">redo_dds_airway</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/DEFormats/man/as.DESeqDataSet.html">as.DESeqDataSet</a></span><span class="op">(</span><span class="va">dge_airway</span><span class="op">)</span>
 <span class="co"># force the design to ~cell + dex</span>
-<span class="fu"><a href="https://rdrr.io/pkg/DESeq2/man/design.html">design</a></span>(<span class="kw">redo_dds_airway</span>) <span class="op">&lt;-</span> <span class="op">~</span><span class="kw">cell</span><span class="op">+</span><span class="kw">group</span>  <span class="co">#TODO: this is due to the not 100% re-conversion via DEFormats </span>
+<span class="fu"><a href="https://rdrr.io/pkg/DESeq2/man/design.html">design</a></span><span class="op">(</span><span class="va">redo_dds_airway</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="op">~</span><span class="va">cell</span><span class="op">+</span><span class="va">group</span>  <span class="co">#TODO: this is due to the not 100% re-conversion via DEFormats </span>
 
 <span class="co">### with edgeR</span>
-<span class="kw">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/edgeR/man/calcNormFactors.html">calcNormFactors</a></span>(<span class="kw">dge_airway</span>)
-<span class="kw">design</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/model.matrix.html">model.matrix</a></span>(<span class="op">~</span> <span class="kw">cell</span> <span class="op">+</span> <span class="kw">dex</span>)
-<span class="kw">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/edgeR/man/estimateDisp.html">estimateDisp</a></span>(<span class="kw">y</span>,<span class="kw">design</span>)
+<span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/edgeR/man/calcNormFactors.html">calcNormFactors</a></span><span class="op">(</span><span class="va">dge_airway</span><span class="op">)</span>
+<span class="va">design</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/model.matrix.html">model.matrix</a></span><span class="op">(</span><span class="op">~</span> <span class="va">cell</span> <span class="op">+</span> <span class="va">dex</span><span class="op">)</span>
+<span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/edgeR/man/estimateDisp.html">estimateDisp</a></span><span class="op">(</span><span class="va">y</span>,<span class="va">design</span><span class="op">)</span>
 <span class="co"># If you performed quasi-likelihood F-tests</span>
-<span class="kw">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/edgeR/man/glmQLFTest.html">glmQLFit</a></span>(<span class="kw">y</span>,<span class="kw">design</span>)
-<span class="kw">qlf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/edgeR/man/glmQLFTest.html">glmQLFTest</a></span>(<span class="kw">fit</span>) <span class="co"># contrast for dexamethasone treatment</span>
-<span class="fu"><a href="https://rdrr.io/pkg/edgeR/man/topTags.html">topTags</a></span>(<span class="kw">qlf</span>)
-</pre></div>
+<span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/edgeR/man/glmQLFTest.html">glmQLFit</a></span><span class="op">(</span><span class="va">y</span>,<span class="va">design</span><span class="op">)</span>
+<span class="va">qlf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/edgeR/man/glmQLFTest.html">glmQLFTest</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span> <span class="co"># contrast for dexamethasone treatment</span>
+<span class="fu"><a href="https://rdrr.io/pkg/edgeR/man/topTags.html">topTags</a></span><span class="op">(</span><span class="va">qlf</span><span class="op">)</span></pre></div>
 <pre><code>## Coefficient:  dexuntrt 
 ##                                                                                                  seqnames
 ## ENSG00000109906 11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11
@@ -567,10 +558,9 @@
 ## ENSG00000112936 -3.182516 6.515306 1033.852 3.152321e-226 2.020701e-222</code></pre>
 <div class="sourceCode" id="cb23"><pre class="downlit">
 <span class="co"># If you performed likelihood ratio tests</span>
-<span class="kw">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/edgeR/man/glmfit.html">glmFit</a></span>(<span class="kw">y</span>,<span class="kw">design</span>)
-<span class="kw">lrt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/edgeR/man/glmfit.html">glmLRT</a></span>(<span class="kw">fit</span>)
-<span class="fu"><a href="https://rdrr.io/pkg/edgeR/man/topTags.html">topTags</a></span>(<span class="kw">lrt</span>)
-</pre></div>
+<span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/edgeR/man/glmfit.html">glmFit</a></span><span class="op">(</span><span class="va">y</span>,<span class="va">design</span><span class="op">)</span>
+<span class="va">lrt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/edgeR/man/glmfit.html">glmLRT</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/pkg/edgeR/man/topTags.html">topTags</a></span><span class="op">(</span><span class="va">lrt</span><span class="op">)</span></pre></div>
 <pre><code>## Coefficient:  dexuntrt 
 ##                                                                                                              seqnames
 ## ENSG00000109906             11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11
@@ -663,16 +653,16 @@
 <div class="sourceCode" id="cb25"><pre class="downlit">
 <span class="co"># lrt to DESeqResults</span>
 
-<span class="kw">tbledger</span> <span class="op">&lt;-</span> <span class="kw">lrt</span><span class="op">$</span><span class="kw">table</span>
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(<span class="kw">tbledger</span>)[<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(<span class="kw">tbledger</span>) <span class="op">==</span> <span class="st">'PValue'</span>] <span class="op">&lt;-</span> <span class="st">'pvalue'</span>
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(<span class="kw">tbledger</span>)[<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(<span class="kw">tbledger</span>) <span class="op">==</span> <span class="st">'logFC'</span>] <span class="op">&lt;-</span> <span class="st">'log2FoldChange'</span>
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(<span class="kw">tbledger</span>)[<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(<span class="kw">tbledger</span>) <span class="op">==</span> <span class="st">'logCPM'</span>] <span class="op">&lt;-</span> <span class="st">'baseMean'</span>
+<span class="va">tbledger</span> <span class="op">&lt;-</span> <span class="va">lrt</span><span class="op">$</span><span class="va">table</span>
+<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">tbledger</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">tbledger</span><span class="op">)</span> <span class="op">==</span> <span class="st">'PValue'</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">'pvalue'</span>
+<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">tbledger</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">tbledger</span><span class="op">)</span> <span class="op">==</span> <span class="st">'logFC'</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">'log2FoldChange'</span>
+<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">tbledger</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">tbledger</span><span class="op">)</span> <span class="op">==</span> <span class="st">'logCPM'</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">'baseMean'</span>
 <span class="co"># get from the logcpm to something more the baseMean for better </span>
-<span class="kw">tbledger</span><span class="op">$</span><span class="kw">baseMean</span> <span class="op">&lt;-</span> (<span class="fl">2</span><span class="op">^</span><span class="kw">tbledger</span><span class="op">$</span><span class="kw">baseMean</span>) <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="kw">dge_airway</span><span class="op">$</span><span class="kw">samples</span><span class="op">$</span><span class="kw">lib.size</span>) <span class="op">/</span> <span class="fl">1e6</span>
+<span class="va">tbledger</span><span class="op">$</span><span class="va">baseMean</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="fl">2</span><span class="op">^</span><span class="va">tbledger</span><span class="op">$</span><span class="va">baseMean</span><span class="op">)</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">dge_airway</span><span class="op">$</span><span class="va">samples</span><span class="op">$</span><span class="va">lib.size</span><span class="op">)</span> <span class="op">/</span> <span class="fl">1e6</span>
 <span class="co"># use the constructor for DESeqResults </span>
-<span class="kw">edger_resu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/DESeq2/man/DESeqResults.html">DESeqResults</a></span>(<span class="fu">DataFrame</span>(<span class="kw">tbledger</span>))
-<span class="kw">edger_resu</span> <span class="op">&lt;-</span> <span class="kw">DESeq2</span>:::<span class="fu">pvalueAdjustment</span>(<span class="kw">edger_resu</span>, independentFiltering = <span class="fl">TRUE</span>, 
-                                        alpha = <span class="fl">0.05</span>, pAdjustMethod = <span class="st">"BH"</span>)
+<span class="va">edger_resu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/DESeq2/man/DESeqResults.html">DESeqResults</a></span><span class="op">(</span><span class="fu">DataFrame</span><span class="op">(</span><span class="va">tbledger</span><span class="op">)</span><span class="op">)</span>
+<span class="va">edger_resu</span> <span class="op">&lt;-</span> <span class="fu">DESeq2</span><span class="fu">:::</span><span class="fu">pvalueAdjustment</span><span class="op">(</span><span class="va">edger_resu</span>, independentFiltering <span class="op">=</span> <span class="cn">TRUE</span>, 
+                                        alpha <span class="op">=</span> <span class="fl">0.05</span>, pAdjustMethod <span class="op">=</span> <span class="st">"BH"</span><span class="op">)</span>
                                       
 <span class="co"># cfr with res_airway</span>
 <span class="co"># plot(res_airway$pvalue,edger_resu$pvalue)</span>
@@ -680,33 +670,31 @@
 
 
 <span class="co">### with limma-voom</span>
-<span class="kw">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/edgeR/man/calcNormFactors.html">calcNormFactors</a></span>(<span class="kw">dge_airway</span>)
-<span class="kw">design</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/model.matrix.html">model.matrix</a></span>(<span class="op">~</span><span class="fl">0</span><span class="op">+</span><span class="kw">dex</span><span class="op">+</span><span class="kw">cell</span>)
-<span class="kw">contr.matrix</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/limma/man/makeContrasts.html">makeContrasts</a></span>(<span class="kw">dextrt</span> <span class="op">-</span> <span class="kw">dexuntrt</span>,levels=<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(<span class="kw">design</span>))
-<span class="kw">v</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/limma/man/voom.html">voom</a></span>(<span class="kw">x</span>, <span class="kw">design</span>)
-<span class="kw">vfit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/limma/man/lmFit.html">lmFit</a></span>(<span class="kw">v</span>, <span class="kw">design</span>)
-<span class="kw">vfit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/limma/man/contrasts.fit.html">contrasts.fit</a></span>(<span class="kw">vfit</span>, contrasts=<span class="kw">contr.matrix</span>)
-<span class="kw">efit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/limma/man/ebayes.html">eBayes</a></span>(<span class="kw">vfit</span>)
+<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/edgeR/man/calcNormFactors.html">calcNormFactors</a></span><span class="op">(</span><span class="va">dge_airway</span><span class="op">)</span>
+<span class="va">design</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/model.matrix.html">model.matrix</a></span><span class="op">(</span><span class="op">~</span><span class="fl">0</span><span class="op">+</span><span class="va">dex</span><span class="op">+</span><span class="va">cell</span><span class="op">)</span>
+<span class="va">contr.matrix</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/limma/man/makeContrasts.html">makeContrasts</a></span><span class="op">(</span><span class="va">dextrt</span> <span class="op">-</span> <span class="va">dexuntrt</span>,levels<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">design</span><span class="op">)</span><span class="op">)</span>
+<span class="va">v</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/limma/man/voom.html">voom</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">design</span><span class="op">)</span>
+<span class="va">vfit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/limma/man/lmFit.html">lmFit</a></span><span class="op">(</span><span class="va">v</span>, <span class="va">design</span><span class="op">)</span>
+<span class="va">vfit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/limma/man/contrasts.fit.html">contrasts.fit</a></span><span class="op">(</span><span class="va">vfit</span>, contrasts<span class="op">=</span><span class="va">contr.matrix</span><span class="op">)</span>
+<span class="va">efit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/limma/man/ebayes.html">eBayes</a></span><span class="op">(</span><span class="va">vfit</span><span class="op">)</span>
 
-<span class="kw">tbllimma</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/limma/man/toptable.html">topTable</a></span>(<span class="kw">efit</span>,number= <span class="fl">Inf</span>, sort.by = <span class="st">"none"</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(<span class="kw">tbllimma</span>)[<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(<span class="kw">tbllimma</span>) <span class="op">==</span> <span class="st">'P.Value'</span>] <span class="op">&lt;-</span> <span class="st">'pvalue'</span>
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(<span class="kw">tbllimma</span>)[<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(<span class="kw">tbllimma</span>) <span class="op">==</span> <span class="st">'logFC'</span>] <span class="op">&lt;-</span> <span class="st">'log2FoldChange'</span>
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(<span class="kw">tbllimma</span>)[<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(<span class="kw">tbllimma</span>) <span class="op">==</span> <span class="st">'AveExpr'</span>] <span class="op">&lt;-</span> <span class="st">'baseMean'</span>
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(<span class="kw">tbllimma</span>)[<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(<span class="kw">tbllimma</span>) <span class="op">==</span> <span class="st">'adj.P.Val'</span>] <span class="op">&lt;-</span> <span class="st">'padj'</span>
+<span class="va">tbllimma</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/limma/man/toptable.html">topTable</a></span><span class="op">(</span><span class="va">efit</span>,number<span class="op">=</span> <span class="cn">Inf</span>, sort.by <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">tbllimma</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">tbllimma</span><span class="op">)</span> <span class="op">==</span> <span class="st">'P.Value'</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">'pvalue'</span>
+<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">tbllimma</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">tbllimma</span><span class="op">)</span> <span class="op">==</span> <span class="st">'logFC'</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">'log2FoldChange'</span>
+<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">tbllimma</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">tbllimma</span><span class="op">)</span> <span class="op">==</span> <span class="st">'AveExpr'</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">'baseMean'</span>
+<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">tbllimma</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">tbllimma</span><span class="op">)</span> <span class="op">==</span> <span class="st">'adj.P.Val'</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">'padj'</span>
 <span class="co"># get from the logcpm to something more the baseMean for better </span>
-<span class="kw">tbllimma</span><span class="op">$</span><span class="kw">baseMean</span> <span class="op">&lt;-</span> (<span class="fl">2</span><span class="op">^</span><span class="kw">tbllimma</span><span class="op">$</span><span class="kw">baseMean</span>) <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="kw">dge_airway</span><span class="op">$</span><span class="kw">samples</span><span class="op">$</span><span class="kw">lib.size</span>) <span class="op">/</span> <span class="fl">1e6</span>
+<span class="va">tbllimma</span><span class="op">$</span><span class="va">baseMean</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="fl">2</span><span class="op">^</span><span class="va">tbllimma</span><span class="op">$</span><span class="va">baseMean</span><span class="op">)</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">dge_airway</span><span class="op">$</span><span class="va">samples</span><span class="op">$</span><span class="va">lib.size</span><span class="op">)</span> <span class="op">/</span> <span class="fl">1e6</span>
 <span class="co"># use the constructor for DESeqResults </span>
-<span class="kw">limma_resu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/DESeq2/man/DESeqResults.html">DESeqResults</a></span>(<span class="fu">DataFrame</span>(<span class="kw">tbllimma</span>))
+<span class="va">limma_resu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/DESeq2/man/DESeqResults.html">DESeqResults</a></span><span class="op">(</span><span class="fu">DataFrame</span><span class="op">(</span><span class="va">tbllimma</span><span class="op">)</span><span class="op">)</span>
 
 <span class="co"># cfr with res_airway</span>
-<span class="co"># plot(res_airway$pvalue,limma_resu$pvalue)</span>
-</pre></div>
+<span class="co"># plot(res_airway$pvalue,limma_resu$pvalue)</span></pre></div>
 <p>After preparing the objects, you can launch the app with the following command:</p>
 <div class="sourceCode" id="cb26"><pre class="downlit">
-<span class="fu"><a href="../reference/ideal.html">ideal</a></span>(<span class="kw">redo_dds_airway</span>,<span class="kw">edger_resu</span>)
+<span class="fu"><a href="../reference/ideal.html">ideal</a></span><span class="op">(</span><span class="va">redo_dds_airway</span>,<span class="va">edger_resu</span><span class="op">)</span>
 <span class="co"># or ...</span>
-<span class="fu"><a href="../reference/ideal.html">ideal</a></span>(<span class="kw">redo_dds_airway</span>,<span class="kw">limma_resu</span>)
-</pre></div>
+<span class="fu"><a href="../reference/ideal.html">ideal</a></span><span class="op">(</span><span class="va">redo_dds_airway</span>,<span class="va">limma_resu</span><span class="op">)</span></pre></div>
 <p>Basically, you need a <code>data.frame</code> (e.g. <code>myresults_df</code>) with 3 columns to create the <code>DESeqResults</code> object to be passed to the app, with this names:</p>
 <ul>
 <li>
@@ -729,8 +717,7 @@
 </h2>
 <p><code>deseqresult2DEgenes</code> and <code>deseqresult2tbl</code> generate a tidy table with the results of DESeq2, sorted by the values in the <code>padj</code> column.</p>
 <div class="sourceCode" id="cb27"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/pkg/DESeq2/man/summary.html">summary</a></span>(<span class="kw">res_airway</span>)
-</pre></div>
+<span class="fu"><a href="https://rdrr.io/pkg/DESeq2/man/summary.html">summary</a></span><span class="op">(</span><span class="va">res_airway</span><span class="op">)</span></pre></div>
 <pre><code>## 
 ## out of 33469 with nonzero total read count
 ## adjusted p-value &lt; 0.05
@@ -742,8 +729,7 @@
 ## [1] see 'cooksCutoff' argument of ?results
 ## [2] see 'independentFiltering' argument of ?results</code></pre>
 <div class="sourceCode" id="cb29"><pre class="downlit">
-<span class="kw">res_airway</span>
-</pre></div>
+<span class="va">res_airway</span></pre></div>
 <pre><code>## log2 fold change (MLE): dex trt vs untrt 
 ## Wald test p-value: dex trt vs untrt 
 ## DataFrame with 64102 rows and 6 columns
@@ -774,8 +760,7 @@
 ## LRG_98                  NA
 ## LRG_99                  NA</code></pre>
 <div class="sourceCode" id="cb31"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="fu"><a href="../reference/deseqresult2tbl.html">deseqresult2tbl</a></span>(<span class="kw">res_airway</span>))
-</pre></div>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fu"><a href="../reference/deseqresult2tbl.html">deseqresult2tbl</a></span><span class="op">(</span><span class="va">res_airway</span><span class="op">)</span><span class="op">)</span></pre></div>
 <pre><code>## Warning: `arrange_()` is deprecated as of dplyr 0.7.0.
 ## Please use `arrange()` instead.
 ## See vignette('programming') for more help
@@ -797,8 +782,7 @@
 ## ENSG00000211445 4.618318e-112 1.292590e-108</code></pre>
 <p>In particular, <code>deseqresult2DEgenes</code> only includes genes detected as DE.</p>
 <div class="sourceCode" id="cb34"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="fu"><a href="../reference/deseqresult2DEgenes.html">deseqresult2DEgenes</a></span>(<span class="kw">res_airway</span>,FDR = <span class="fl">0.05</span>))
-</pre></div>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fu"><a href="../reference/deseqresult2DEgenes.html">deseqresult2DEgenes</a></span><span class="op">(</span><span class="va">res_airway</span>,FDR <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span><span class="op">)</span></pre></div>
 <pre><code>##                              id   baseMean log2FoldChange     lfcSE     stat
 ## ENSG00000152583 ENSG00000152583   997.4398       4.574919 0.1840561 24.85611
 ## ENSG00000165995 ENSG00000165995   495.0929       3.291062 0.1331737 24.71255
@@ -815,25 +799,21 @@
 ## ENSG00000211445 4.618318e-112 1.292590e-108</code></pre>
 <div class="sourceCode" id="cb36"><pre class="downlit">
 <span class="co"># the output in the first lines is the same, but</span>
-<span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span>(<span class="kw">res_airway</span>)
-</pre></div>
+<span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">res_airway</span><span class="op">)</span></pre></div>
 <pre><code>## [1] 64102     6</code></pre>
 <div class="sourceCode" id="cb38"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span>(<span class="fu"><a href="../reference/deseqresult2DEgenes.html">deseqresult2DEgenes</a></span>(<span class="kw">res_airway</span>))
-</pre></div>
+<span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="fu"><a href="../reference/deseqresult2DEgenes.html">deseqresult2DEgenes</a></span><span class="op">(</span><span class="va">res_airway</span><span class="op">)</span><span class="op">)</span></pre></div>
 <pre><code>## [1] 4028    7</code></pre>
 <p>This tables can be enhanced with clickable links to the ENSEMBL and NCBI gene databases by the following commands:</p>
 <div class="sourceCode" id="cb40"><pre class="downlit">
-<span class="kw">myde</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/deseqresult2DEgenes.html">deseqresult2DEgenes</a></span>(<span class="kw">res_airway</span>,FDR = <span class="fl">0.05</span>)
-<span class="kw">myde</span><span class="op">$</span><span class="kw">symbol</span> <span class="op">&lt;-</span> <span class="fu">mapIds</span>(<span class="kw">org.Hs.eg.db</span>,keys = <span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span>(<span class="kw">myde</span><span class="op">$</span><span class="kw">id</span>),column = <span class="st">"SYMBOL"</span>,keytype=<span class="st">"ENSEMBL"</span>)
-</pre></div>
+<span class="va">myde</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/deseqresult2DEgenes.html">deseqresult2DEgenes</a></span><span class="op">(</span><span class="va">res_airway</span>,FDR <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span>
+<span class="va">myde</span><span class="op">$</span><span class="va">symbol</span> <span class="op">&lt;-</span> <span class="fu">mapIds</span><span class="op">(</span><span class="va">org.Hs.eg.db</span>,keys <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op">(</span><span class="va">myde</span><span class="op">$</span><span class="va">id</span><span class="op">)</span>,column <span class="op">=</span> <span class="st">"SYMBOL"</span>,keytype<span class="op">=</span><span class="st">"ENSEMBL"</span><span class="op">)</span></pre></div>
 <pre><code>## 'select()' returned 1:many mapping between keys and columns</code></pre>
 <div class="sourceCode" id="cb42"><pre class="downlit">
-<span class="kw">myde_enhanced</span> <span class="op">&lt;-</span> <span class="kw">myde</span>
-<span class="kw">myde_enhanced</span><span class="op">$</span><span class="kw">id</span> <span class="op">&lt;-</span> <span class="kw">ideal</span>:::<span class="fu">createLinkENS</span>(<span class="kw">myde_enhanced</span><span class="op">$</span><span class="kw">id</span>,species = <span class="st">"Homo_sapiens"</span>)
-<span class="kw">myde_enhanced</span><span class="op">$</span><span class="kw">symbol</span> <span class="op">&lt;-</span> <span class="kw">ideal</span>:::<span class="fu">createLinkGeneSymbol</span>(<span class="kw">myde_enhanced</span><span class="op">$</span><span class="kw">symbol</span>)
-<span class="kw">DT</span>::<span class="fu"><a href="https://rdrr.io/pkg/DT/man/datatable.html">datatable</a></span>(<span class="kw">myde_enhanced</span>[<span class="fl">1</span><span class="op">:</span><span class="fl">100</span>,], escape = <span class="fl">FALSE</span>)
-</pre></div>
+<span class="va">myde_enhanced</span> <span class="op">&lt;-</span> <span class="va">myde</span>
+<span class="va">myde_enhanced</span><span class="op">$</span><span class="va">id</span> <span class="op">&lt;-</span> <span class="fu">ideal</span><span class="fu">:::</span><span class="fu">createLinkENS</span><span class="op">(</span><span class="va">myde_enhanced</span><span class="op">$</span><span class="va">id</span>,species <span class="op">=</span> <span class="st">"Homo_sapiens"</span><span class="op">)</span>
+<span class="va">myde_enhanced</span><span class="op">$</span><span class="va">symbol</span> <span class="op">&lt;-</span> <span class="fu">ideal</span><span class="fu">:::</span><span class="fu">createLinkGeneSymbol</span><span class="op">(</span><span class="va">myde_enhanced</span><span class="op">$</span><span class="va">symbol</span><span class="op">)</span>
+<span class="fu">DT</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/DT/man/datatable.html">datatable</a></span><span class="op">(</span><span class="va">myde_enhanced</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">100</span>,<span class="op">]</span>, escape <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></pre></div>
 <div id="htmlwidget-30e4409849e39179307f" style="width:100%;height:auto;" class="datatables html-widget"></div>
 <script type="application/json" data-for="htmlwidget-30e4409849e39179307f">{"x":{"filter":"none","data":[["ENSG00000152583","ENSG00000165995","ENSG00000120129","ENSG00000101347","ENSG00000189221","ENSG00000211445","ENSG00000157214","ENSG00000162614","ENSG00000125148","ENSG00000154734","ENSG00000139132","ENSG00000162493","ENSG00000134243","ENSG00000179094","ENSG00000162692","ENSG00000163884","ENSG00000178695","ENSG00000198624","ENSG00000107562","ENSG00000148848","ENSG00000146250","ENSG00000106976","ENSG00000154930","ENSG00000163394","ENSG00000253368","ENSG00000163661","ENSG00000162616","ENSG00000148175","ENSG00000124766","ENSG00000197381","ENSG00000172403","ENSG00000116285","ENSG00000163083","ENSG00000166741","ENSG00000070404","ENSG00000105989","ENSG00000122035","ENSG00000119139","ENSG00000136478","ENSG00000196569","ENSG00000108821","ENSG00000221866","ENSG00000100242","ENSG00000145685","ENSG00000134686","ENSG00000172986","ENSG00000102804","ENSG00000060718","ENSG00000099337","ENSG00000126803","ENSG00000157150","ENSG00000133142","ENSG00000138316","ENSG00000103196","ENSG00000131389","ENSG00000152268","ENSG00000168309","ENSG00000163171","ENSG00000124440","ENSG00000141401","ENSG00000103742","ENSG00000112837","ENSG00000164647","ENSG00000068383","ENSG00000156675","ENSG00000136999","ENSG00000206538","ENSG00000227051","ENSG00000134363","ENSG00000196517","ENSG00000124762","ENSG00000149218","ENSG00000109906","ENSG00000185432","ENSG00000163378","ENSG00000167641","ENSG00000196975","ENSG00000106484","ENSG00000126016","ENSG00000151726","ENSG00000150907","ENSG00000130513","ENSG00000221869","ENSG00000169715","ENSG00000147027","ENSG00000145390","ENSG00000185950","ENSG00000013293","ENSG00000131831","ENSG00000146122","ENSG00000137672","ENSG00000020577","ENSG00000119138","ENSG00000138735","ENSG00000163110","ENSG00000071282","ENSG00000101825","ENSG00000162407","ENSG00000163513","ENSG00000246430"],["<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000152583\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000152583<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000165995\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000165995<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000120129\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000120129<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000101347\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000101347<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000189221\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000189221<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000211445\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000211445<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000157214\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000157214<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000162614\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000162614<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000125148\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000125148<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000154734\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000154734<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000139132\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000139132<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000162493\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000162493<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000134243\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000134243<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000179094\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000179094<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000162692\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000162692<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000163884\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000163884<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000178695\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000178695<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000198624\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000198624<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000107562\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000107562<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000148848\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000148848<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000146250\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000146250<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000106976\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000106976<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000154930\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000154930<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000163394\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000163394<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000253368\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000253368<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000163661\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000163661<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000162616\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000162616<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000148175\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000148175<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000124766\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000124766<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000197381\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000197381<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000172403\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000172403<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000116285\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000116285<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000163083\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000163083<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000166741\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000166741<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000070404\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000070404<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000105989\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000105989<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000122035\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000122035<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000119139\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000119139<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000136478\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000136478<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000196569\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000196569<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000108821\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000108821<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000221866\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000221866<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000100242\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000100242<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000145685\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000145685<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000134686\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000134686<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000172986\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000172986<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000102804\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000102804<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000060718\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000060718<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000099337\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000099337<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000126803\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000126803<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000157150\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000157150<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000133142\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000133142<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000138316\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000138316<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000103196\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000103196<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000131389\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000131389<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000152268\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000152268<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000168309\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000168309<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000163171\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000163171<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000124440\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000124440<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000141401\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000141401<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000103742\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000103742<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000112837\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000112837<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000164647\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000164647<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000068383\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000068383<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000156675\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000156675<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000136999\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000136999<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000206538\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000206538<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000227051\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000227051<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000134363\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000134363<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000196517\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000196517<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000124762\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000124762<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000149218\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000149218<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000109906\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000109906<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000185432\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000185432<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000163378\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000163378<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000167641\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000167641<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000196975\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000196975<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000106484\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000106484<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000126016\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000126016<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000151726\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000151726<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000150907\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000150907<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000130513\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000130513<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000221869\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000221869<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000169715\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000169715<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000147027\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000147027<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000145390\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000145390<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000185950\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000185950<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000013293\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000013293<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000131831\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000131831<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000146122\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000146122<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000137672\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000137672<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000020577\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000020577<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000119138\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000119138<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000138735\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000138735<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000163110\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000163110<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000071282\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000071282<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000101825\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000101825<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000162407\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000162407<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000163513\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000163513<\/a>","<a href=\"http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000246430\" target=\"_blank\" class=\"btn btn-primary\">ENSG00000246430<\/a>"],[997.439773207048,495.092906698546,3409.02937530956,12703.3870621821,2341.76725275591,12285.6151498691,3009.26322295794,5393.10168349223,3656.252782247,30315.1354711078,1223.46614081102,1099.62586594636,5510.95825597916,776.596665468835,508.170232439755,561.107166129071,2649.85014895882,2057.19173059348,25136.3075719089,1365.17398590702,313.689977800113,884.745882993046,670.046703530433,1216.6020649876,1040.17649034906,8565.70116426611,1467.63582703992,11193.718773887,1281.46865801595,1969.04835631005,8014.7816508389,3232.63543712134,418.921476555884,7432.9363516342,2128.11402480981,333.214688163837,943.340574231144,5029.85142077092,3701.52859767166,17178.4260430908,100990.694351515,847.493946021912,2236.2383212374,2018.16368824202,2737.98198594824,756.366829107728,5397.33684521952,363.762294004358,530.060485021926,449.17684817333,167.615505683076,3055.97384805426,799.568584106461,3082.06913512982,740.410803126942,1597.83892249109,159.526919764023,1357.57154103081,197.043622803841,627.527233035192,370.82982255279,2754.96812806571,1920.71012986285,1247.24185187194,1631.87785808313,435.712716722131,12754.9476812811,4615.74006753287,2906.3410530882,229.640742740425,8020.52881680403,2027.18573134681,385.071028862516,3885.6492404017,1805.28931002148,231.671616289766,4908.8181516426,677.213238740759,386.415162103212,1460.17800298032,678.868174958036,451.004765299293,1963.57429862035,554.194641254197,12593.3295910107,8442.05371962528,1974.88307917017,244.497326184804,1017.17597249954,1942.41443351691,655.449436784439,3105.00555637675,1683.2682077277,6850.26951693182,1314.18432532042,3659.86884296353,4767.14944686345,25853.6620173955,13216.6476019075,2162.53881470905],[4.57491873843491,3.29106176403315,2.9478098639195,3.7669954315873,3.35357994378782,3.73040266633607,1.97677251857873,2.03566491652844,2.21097855583723,2.3456036828563,2.22890298187202,1.89121701527402,2.19571163110442,3.19174990854463,-3.69266058082503,4.45912820866764,-2.52817456060374,2.91843572447791,-1.91166983641132,-1.81454314533375,-2.75624278406195,-1.75625644069071,1.89852992350102,-2.18850417776047,1.98905883196779,2.26026682055986,1.51911806699614,1.44787382405787,-2.4119901286651,2.32109081388685,1.74435752623225,2.42451299177805,3.44998558648886,2.18737318780403,1.8155243546487,-3.041840702728,2.28887059612199,1.92793686438768,1.46583077408219,2.03064228241388,-1.3049464420229,2.75315191919185,1.85904607960479,-1.23994363586989,1.38754886372374,-1.57290367426743,1.20138799368316,2.42734208791256,2.71827771300548,2.45871257645932,2.94532021155258,1.53909067526407,-2.50719276017938,2.63126675642951,-2.12491614560924,1.91295694919961,4.83584740187652,1.50562831455222,2.52988705621146,2.32686807604605,-2.19734247824709,-1.83356244471417,1.56739405864982,1.38112413393709,1.54725188157684,-2.55248079258346,1.3662203263079,-1.151117902147,-1.80754278766037,-2.22924544131829,-1.00797847291903,1.92643097844724,7.35262580898062,2.24936617078873,1.26185128385829,2.89652209582584,1.18507402021209,-1.8637650860243,-2.37428208838473,1.60249023356876,2.22784502832455,-1.86853337535912,1.49982909698427,2.22518024290246,1.16474952177727,2.14750844417035,2.12423823311707,-2.88290688674632,1.42847388936672,1.68143695109109,1.95430726838003,1.20330797579411,2.08291934981393,-1.17882788438342,1.60545647508074,1.60527035076755,-1.32376820049595,-1.0014599405466,1.45838180541525,2.0512069721771],[0.184056092094016,0.133173695928172,0.121437689778808,0.15543798972343,0.141782348968743,0.165830584142874,0.0899823243685513,0.0941823072413248,0.105640780593734,0.115808058684838,0.112839437391306,0.0957795930235857,0.112007681687196,0.163962920457614,0.190185898203412,0.23486368758588,0.134430123750922,0.161296341724216,0.105748095217683,0.10048364886587,0.15488845737001,0.099709266908616,0.108680978814827,0.12542699439084,0.114476718104885,0.130784242562766,0.0879565365437069,0.0843415499900012,0.140805797626506,0.135754467110299,0.103292012983118,0.14427732234503,0.208810170664018,0.134467866594971,0.113376796611316,0.191370959052671,0.144873254515942,0.122239410953865,0.0931376320932516,0.132700384998168,0.0854759991473069,0.181860564601197,0.122956027076033,0.082042023381982,0.0918342407669212,0.104277445142654,0.0798459534985927,0.161719375784474,0.181277396346023,0.164437635025723,0.197284112665946,0.103653790190652,0.169059459494138,0.179650210652514,0.145233369288728,0.131071764516462,0.331701711174415,0.103308740078303,0.174271007852363,0.160804044218343,0.152138396320907,0.127342051010232,0.10938822996284,0.0970434464891334,0.10944584128601,0.18276215635885,0.097961940769841,0.0827635615809177,0.130787597667298,0.161327083682907,0.0731177286642517,0.14025615784282,0.536388708511622,0.164369569871279,0.0924377332110752,0.212578531690495,0.0871650987197266,0.137305943233996,0.175174674129628,0.118381204117078,0.164891665536522,0.138568499803702,0.111243466177346,0.166765250747556,0.0873411821868363,0.161424020150621,0.159990380628695,0.218489977266554,0.10872762788039,0.128926345050476,0.149999816008704,0.0924720105542757,0.160522464318899,0.0909257082542962,0.123921626523687,0.124653447410886,0.103195285203353,0.0782627728552723,0.114687209749094,0.161456466228165],[24.8561114516005,24.7125510867266,24.274258422478,24.2347153246763,23.6530144138545,22.4952633774846,21.968453609647,21.6140905458222,20.9292144890528,20.2542354089507,19.7528721642116,19.7455110798843,19.6032236185049,19.466290912827,-19.416058791465,18.9860265522618,-18.8066074036206,18.0936262613311,-18.0775817519563,-18.0580936880177,-17.7950173361053,-17.6137734750404,17.4688334997035,-17.4484303669186,17.3752258528706,17.2824093810468,17.2712356203484,17.1667917441583,-17.1299063626841,17.0977122395611,16.8876322171914,16.80453277321,16.5221146820477,16.26688400131,16.0131914899022,-15.8949963870474,15.7991245780298,15.7718108206143,15.738329836586,15.3024596156365,-15.266817060237,15.1388066193968,15.1196010786458,-15.1135184720737,15.1092757138963,-15.0838340171804,15.0463228384434,15.0095934772066,14.9951277312965,14.9522496846583,14.9293329896249,14.8483781676791,-14.8302423755608,14.6466110274649,-14.6310462672311,14.5947295075848,14.5789039940579,14.5740652089168,14.5169703635082,14.4702086776287,-14.4430500871865,-14.3987192774745,14.3287267668768,14.2320185844981,14.1371464040691,-13.9661341463477,13.9464399701696,-13.9085109456237,-13.8204449037932,-13.8181723144511,-13.7856918059853,13.735090195513,13.7076446470746,13.6848090102703,13.6508246148457,13.6256567057441,13.5957400108341,-13.5738121899653,-13.5537976604299,13.5366948285465,13.5109620069372,-13.484546473449,13.4824016953339,13.3431889013309,13.3356280807568,13.3035247304989,13.2772872017037,-13.1946871101974,13.1380948634156,13.041841451666,13.0287311036876,13.012672359793,12.9758744899153,-12.9647368936246,12.9554180341062,12.8778656676555,-12.8277972960429,-12.7961213743162,12.7161678151017,12.7043965478496],[2.22093285193583e-136,7.8394097956315e-135,3.66692460934819e-130,9.58381484420375e-130,1.09895484196899e-123,4.61831818405837e-112,5.769974564336e-107,1.32384913483069e-103,2.90239728355277e-97,3.25971323970849e-91,7.57828359061116e-87,8.76733638098813e-87,1.45132059892459e-85,2.12083405194469e-84,5.64602181588391e-84,2.22544194072676e-80,6.66702728291833e-79,3.57753307831918e-73,4.78616718471893e-73,6.81352218183422e-73,7.72434768573479e-71,1.93129966915937e-69,2.47503405304657e-68,3.53822804968641e-68,1.27104880262429e-67,6.38252132214894e-67,7.74659023657251e-67,4.7072958142399e-66,8.87975152400691e-66,1.54345145378799e-65,5.54854607580966e-64,2.26086984826652e-63,2.54322372377207e-61,1.69570082981769e-59,1.03368774602449e-57,6.86324182618493e-57,3.15466953720427e-56,4.86351232159825e-56,8.25950320249014e-56,7.36209124963338e-53,1.27233637702301e-52,8.98289683269604e-52,1.20268967383525e-51,1.31904430440678e-51,1.40677496356828e-51,2.06897349004734e-51,3.64964500987594e-51,6.35359057988509e-51,7.90105490456864e-51,1.505751760282e-50,2.12379849987976e-50,7.12721238011803e-50,9.33951312495769e-50,1.41604595820626e-48,1.78028214752797e-48,3.03413721376411e-48,3.82609967986698e-48,4.10705943192277e-48,9.45998119695354e-48,1.86904264326704e-47,2.77294264902478e-47,5.27112480041721e-47,1.44750076936044e-46,5.79835717752259e-46,2.24192605764367e-45,2.50879642253154e-44,3.30705380296497e-44,5.62380907338503e-44,1.91880253469669e-43,1.98034227627287e-43,3.10773049693143e-43,6.25780915674369e-43,9.1376213400172e-43,1.25135510349165e-42,1.99606962286948e-42,2.81863330347152e-42,4.24445806900687e-42,5.72645001340579e-42,7.52348101180581e-42,9.4966608028548e-42,1.34749044113976e-41,1.92847671571338e-41,1.98537308477573e-41,1.29786596668921e-40,1.4363983436166e-40,2.20808507993743e-40,3.13549010487257e-40,9.41449518311193e-40,1.99178480161052e-39,7.07279009915018e-39,8.39928375241748e-39,1.03652797499626e-38,1.67671662138307e-38,1.93894555962559e-38,2.1894013853844e-38,5.99711477938989e-38,1.14575459560715e-37,1.72346569672777e-37,4.80871289176026e-37,5.58989544174299e-37],[3.72961253825583e-132,6.58236043490199e-131,2.05262216549281e-126,4.02352506696784e-126,3.69094973223705e-120,1.2925902877482e-108,1.38421689798421e-103,2.77892481515147e-100,5.41555084252241e-94,5.47403644344247e-88,1.15692833033758e-83,1.22691566538278e-83,1.87477129367236e-82,2.54394044530765e-81,6.32090962360924e-81,2.33574040691403e-77,6.58584642129691e-76,3.33763961023411e-70,4.23021608068342e-70,5.7209738999771e-70,6.17690336602592e-68,1.47419615200879e-66,1.80709768925265e-65,2.47572765159933e-65,8.5378890169879e-65,4.12237232934027e-64,4.8180922163986e-64,2.82320066459038e-63,5.14198852905683e-63,8.63972675448725e-63,3.00570110487328e-61,1.18646210506061e-60,1.29419260585771e-58,8.37526589268485e-57,4.95963380542552e-55,3.20151166630899e-54,1.43179366319652e-53,2.14928848464735e-53,3.5564573661389e-53,3.09078995887733e-50,5.21130360471889e-50,3.5916615836063e-49,4.69692271923614e-49,5.03425250088706e-49,5.24977154737826e-49,7.55310256920979e-49,1.30401039682652e-48,2.22283013766688e-48,2.7078043880086e-48,5.05721786208311e-48,6.99312709970213e-48,2.3016784134485e-47,2.9592159227814e-47,4.40364069928846e-46,5.43568692789769e-46,9.09861896977513e-46,1.12722266533344e-45,1.18913532828067e-45,2.69256719051595e-45,5.23113885139723e-45,7.63377473853658e-45,1.42770965763558e-44,3.85839371743965e-44,1.52143456378339e-43,5.79210219784772e-43,6.38336641266245e-42,8.28885888256578e-42,1.38883273190228e-41,4.66992042973356e-41,4.75084112077861e-41,7.35043918802387e-41,1.4595470717944e-40,2.10202842688916e-40,2.83973057472098e-40,4.46933295691296e-40,6.22806698226278e-40,9.25677718867952e-40,1.23287532147594e-39,1.59926350166145e-39,1.99346781077926e-39,2.79363049111851e-39,3.94937920572862e-39,4.0169120738119e-39,2.59465037840617e-38,2.83781616286513e-38,4.31167124969643e-38,6.05221670472703e-38,1.79656383647726e-37,3.75820698578039e-37,1.31970404594477e-36,1.54999090169612e-36,1.8920015526209e-36,3.02764540031031e-36,3.4639056151907e-36,3.87017025944845e-36,1.0490577967739e-35,1.98357287876607e-35,2.95328157603566e-35,8.15683995872021e-35,9.387111415319e-35],["<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=SPARCL1[sym]\" target=\"_blank\" class=\"btn btn-primary\">SPARCL1<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=CACNB2[sym]\" target=\"_blank\" class=\"btn btn-primary\">CACNB2<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=DUSP1[sym]\" target=\"_blank\" class=\"btn btn-primary\">DUSP1<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=SAMHD1[sym]\" target=\"_blank\" class=\"btn btn-primary\">SAMHD1<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=MAOA[sym]\" target=\"_blank\" class=\"btn btn-primary\">MAOA<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=GPX3[sym]\" target=\"_blank\" class=\"btn btn-primary\">GPX3<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=STEAP2[sym]\" target=\"_blank\" class=\"btn btn-primary\">STEAP2<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=NEXN[sym]\" target=\"_blank\" class=\"btn btn-primary\">NEXN<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=MT2A[sym]\" target=\"_blank\" class=\"btn btn-primary\">MT2A<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=ADAMTS1[sym]\" target=\"_blank\" class=\"btn btn-primary\">ADAMTS1<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=FGD4[sym]\" target=\"_blank\" class=\"btn btn-primary\">FGD4<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=PDPN[sym]\" target=\"_blank\" class=\"btn btn-primary\">PDPN<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=SORT1[sym]\" target=\"_blank\" class=\"btn btn-primary\">SORT1<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=PER1[sym]\" target=\"_blank\" class=\"btn btn-primary\">PER1<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=VCAM1[sym]\" target=\"_blank\" class=\"btn btn-primary\">VCAM1<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=KLF15[sym]\" target=\"_blank\" class=\"btn btn-primary\">KLF15<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=KCTD12[sym]\" target=\"_blank\" class=\"btn btn-primary\">KCTD12<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=CCDC69[sym]\" target=\"_blank\" class=\"btn btn-primary\">CCDC69<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=CXCL12[sym]\" target=\"_blank\" class=\"btn btn-primary\">CXCL12<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=ADAM12[sym]\" target=\"_blank\" class=\"btn btn-primary\">ADAM12<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=PRSS35[sym]\" target=\"_blank\" class=\"btn btn-primary\">PRSS35<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=DNM1[sym]\" target=\"_blank\" class=\"btn btn-primary\">DNM1<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=ACSS1[sym]\" target=\"_blank\" class=\"btn btn-primary\">ACSS1<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=CCKAR[sym]\" target=\"_blank\" class=\"btn btn-primary\">CCKAR<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=TRNP1[sym]\" target=\"_blank\" class=\"btn btn-primary\">TRNP1<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=PTX3[sym]\" target=\"_blank\" class=\"btn btn-primary\">PTX3<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=DNAJB4[sym]\" target=\"_blank\" class=\"btn btn-primary\">DNAJB4<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=STOM[sym]\" target=\"_blank\" class=\"btn btn-primary\">STOM<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=SOX4[sym]\" target=\"_blank\" class=\"btn btn-primary\">SOX4<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=ADARB1[sym]\" target=\"_blank\" class=\"btn btn-primary\">ADARB1<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=SYNPO2[sym]\" target=\"_blank\" class=\"btn btn-primary\">SYNPO2<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=ERRFI1[sym]\" target=\"_blank\" class=\"btn btn-primary\">ERRFI1<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=INHBB[sym]\" target=\"_blank\" class=\"btn btn-primary\">INHBB<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=NNMT[sym]\" target=\"_blank\" class=\"btn btn-primary\">NNMT<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=FSTL3[sym]\" target=\"_blank\" class=\"btn btn-primary\">FSTL3<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=WNT2[sym]\" target=\"_blank\" class=\"btn btn-primary\">WNT2<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=RASL11A[sym]\" target=\"_blank\" class=\"btn btn-primary\">RASL11A<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=TJP2[sym]\" target=\"_blank\" class=\"btn btn-primary\">TJP2<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=TEX2[sym]\" target=\"_blank\" class=\"btn btn-primary\">TEX2<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=LAMA2[sym]\" target=\"_blank\" class=\"btn btn-primary\">LAMA2<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=COL1A1[sym]\" target=\"_blank\" class=\"btn btn-primary\">COL1A1<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=PLXNA4[sym]\" target=\"_blank\" class=\"btn btn-primary\">PLXNA4<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=SUN2[sym]\" target=\"_blank\" class=\"btn btn-primary\">SUN2<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=LHFPL2[sym]\" target=\"_blank\" class=\"btn btn-primary\">LHFPL2<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=PHC2[sym]\" target=\"_blank\" class=\"btn btn-primary\">PHC2<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=GXYLT2[sym]\" target=\"_blank\" class=\"btn btn-primary\">GXYLT2<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=TSC22D1[sym]\" target=\"_blank\" class=\"btn btn-primary\">TSC22D1<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=COL11A1[sym]\" target=\"_blank\" class=\"btn btn-primary\">COL11A1<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=KCNK6[sym]\" target=\"_blank\" class=\"btn btn-primary\">KCNK6<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=HSPA2[sym]\" target=\"_blank\" class=\"btn btn-primary\">HSPA2<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=TIMP4[sym]\" target=\"_blank\" class=\"btn btn-primary\">TIMP4<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=TCEAL4[sym]\" target=\"_blank\" class=\"btn btn-primary\">TCEAL4<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=ADAMTS14[sym]\" target=\"_blank\" class=\"btn btn-primary\">ADAMTS14<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=CRISPLD2[sym]\" target=\"_blank\" class=\"btn btn-primary\">CRISPLD2<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=SLC6A6[sym]\" target=\"_blank\" class=\"btn btn-primary\">SLC6A6<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=NA[sym]\" target=\"_blank\" class=\"btn btn-primary\">NA<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=FAM107A[sym]\" target=\"_blank\" class=\"btn btn-primary\">FAM107A<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=CDC42EP3[sym]\" target=\"_blank\" class=\"btn btn-primary\">CDC42EP3<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=HIF3A[sym]\" target=\"_blank\" class=\"btn btn-primary\">HIF3A<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=IMPA2[sym]\" target=\"_blank\" class=\"btn btn-primary\">IMPA2<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=IGDCC4[sym]\" target=\"_blank\" class=\"btn btn-primary\">IGDCC4<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=TBX18[sym]\" target=\"_blank\" class=\"btn btn-primary\">TBX18<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=STEAP1[sym]\" target=\"_blank\" class=\"btn btn-primary\">STEAP1<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=INPP5A[sym]\" target=\"_blank\" class=\"btn btn-primary\">INPP5A<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=RAB11FIP1[sym]\" target=\"_blank\" class=\"btn btn-primary\">RAB11FIP1<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=CCN3[sym]\" target=\"_blank\" class=\"btn btn-primary\">CCN3<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=VGLL3[sym]\" target=\"_blank\" class=\"btn btn-primary\">VGLL3<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=C14orf132[sym]\" target=\"_blank\" class=\"btn btn-primary\">C14orf132<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=FST[sym]\" target=\"_blank\" class=\"btn btn-primary\">FST<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=SLC6A9[sym]\" target=\"_blank\" class=\"btn btn-primary\">SLC6A9<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=CDKN1A[sym]\" target=\"_blank\" class=\"btn btn-primary\">CDKN1A<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=ENDOD1[sym]\" target=\"_blank\" class=\"btn btn-primary\">ENDOD1<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=ZBTB16[sym]\" target=\"_blank\" class=\"btn btn-primary\">ZBTB16<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=METTL7A[sym]\" target=\"_blank\" class=\"btn btn-primary\">METTL7A<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=EOGT[sym]\" target=\"_blank\" class=\"btn btn-primary\">EOGT<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=PPP1R14A[sym]\" target=\"_blank\" class=\"btn btn-primary\">PPP1R14A<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=ANXA4[sym]\" target=\"_blank\" class=\"btn btn-primary\">ANXA4<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=MEST[sym]\" target=\"_blank\" class=\"btn btn-primary\">MEST<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=AMOT[sym]\" target=\"_blank\" class=\"btn btn-primary\">AMOT<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=ACSL1[sym]\" target=\"_blank\" class=\"btn btn-primary\">ACSL1<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=FOXO1[sym]\" target=\"_blank\" class=\"btn btn-primary\">FOXO1<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=GDF15[sym]\" target=\"_blank\" class=\"btn btn-primary\">GDF15<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=CEBPD[sym]\" target=\"_blank\" class=\"btn btn-primary\">CEBPD<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=MT1E[sym]\" target=\"_blank\" class=\"btn btn-primary\">MT1E<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=TMEM47[sym]\" target=\"_blank\" class=\"btn btn-primary\">TMEM47<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=USP53[sym]\" target=\"_blank\" class=\"btn btn-primary\">USP53<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=IRS2[sym]\" target=\"_blank\" class=\"btn btn-primary\">IRS2<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=SLC7A14[sym]\" target=\"_blank\" class=\"btn btn-primary\">SLC7A14<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=RAI2[sym]\" target=\"_blank\" class=\"btn btn-primary\">RAI2<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=DAAM2[sym]\" target=\"_blank\" class=\"btn btn-primary\">DAAM2<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=TRPC6[sym]\" target=\"_blank\" class=\"btn btn-primary\">TRPC6<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=SAMD4A[sym]\" target=\"_blank\" class=\"btn btn-primary\">SAMD4A<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=KLF9[sym]\" target=\"_blank\" class=\"btn btn-primary\">KLF9<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=PDE5A[sym]\" target=\"_blank\" class=\"btn btn-primary\">PDE5A<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=PDLIM5[sym]\" target=\"_blank\" class=\"btn btn-primary\">PDLIM5<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=LMCD1[sym]\" target=\"_blank\" class=\"btn btn-primary\">LMCD1<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=MXRA5[sym]\" target=\"_blank\" class=\"btn btn-primary\">MXRA5<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=PLPP3[sym]\" target=\"_blank\" class=\"btn btn-primary\">PLPP3<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=TGFBR2[sym]\" target=\"_blank\" class=\"btn btn-primary\">TGFBR2<\/a>","<a href=\"http://www.ncbi.nlm.nih.gov/gene/?term=LINC00968[sym]\" target=\"_blank\" class=\"btn btn-primary\">LINC00968<\/a>"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>id<\/th>\n      <th>baseMean<\/th>\n      <th>log2FoldChange<\/th>\n      <th>lfcSE<\/th>\n      <th>stat<\/th>\n      <th>pvalue<\/th>\n      <th>padj<\/th>\n      <th>symbol<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[2,3,4,5,6,7]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
@@ -843,18 +823,16 @@
 </h2>
 <p><code>ggplotCounts</code> extends the functionality of the <code>plotCounts</code> function of <em><a href="https://bioconductor.org/packages/3.12/DESeq2">DESeq2</a></em>, and plots the normalized counts of a single gene as a boxplot, with jittered points superimposed.</p>
 <div class="sourceCode" id="cb43"><pre class="downlit">
-<span class="fu"><a href="../reference/ggplotCounts.html">ggplotCounts</a></span>(dds = <span class="kw">dds_airway</span>,
-             gene = <span class="st">"ENSG00000103196"</span>, <span class="co"># CRISPLD2 in the original publication</span>
-             intgroup = <span class="st">"dex"</span>)
-</pre></div>
+<span class="fu"><a href="../reference/ggplotCounts.html">ggplotCounts</a></span><span class="op">(</span>dds <span class="op">=</span> <span class="va">dds_airway</span>,
+             gene <span class="op">=</span> <span class="st">"ENSG00000103196"</span>, <span class="co"># CRISPLD2 in the original publication</span>
+             intgroup <span class="op">=</span> <span class="st">"dex"</span><span class="op">)</span></pre></div>
 <p><img src="ideal-usersguide_files/figure-html/ggpc1-1.png" width="700"></p>
 <p>If an <code>annotation_obj</code> is provided, their gene name can also be included in the title.</p>
 <div class="sourceCode" id="cb44"><pre class="downlit">
-<span class="fu"><a href="../reference/ggplotCounts.html">ggplotCounts</a></span>(dds = <span class="kw">dds_airway</span>,
-             gene = <span class="st">"ENSG00000103196"</span>, <span class="co"># CRISPLD2 in the original publication</span>
-             intgroup = <span class="st">"dex"</span>,
-             annotation_obj = <span class="kw">annotation_airway</span>)
-</pre></div>
+<span class="fu"><a href="../reference/ggplotCounts.html">ggplotCounts</a></span><span class="op">(</span>dds <span class="op">=</span> <span class="va">dds_airway</span>,
+             gene <span class="op">=</span> <span class="st">"ENSG00000103196"</span>, <span class="co"># CRISPLD2 in the original publication</span>
+             intgroup <span class="op">=</span> <span class="st">"dex"</span>,
+             annotation_obj <span class="op">=</span> <span class="va">annotation_airway</span><span class="op">)</span></pre></div>
 <p><img src="ideal-usersguide_files/figure-html/ggpc2-1.png" width="700"></p>
 <p>When used in the context of the app, it is possible to seamless search for genes also by their gene name, making exploration even more immediate.</p>
 </div>
@@ -867,25 +845,23 @@
 <p><em>Please note that the following code chunks are not run only for reducing compilation time. The reader is invited to try out the functionality by simply executing these commands.</em></p>
 <!-- maybe eval=FALSE here? -->
 <div class="sourceCode" id="cb45"><pre class="downlit">
-<span class="kw">res_subset</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/deseqresult2DEgenes.html">deseqresult2DEgenes</a></span>(<span class="kw">res_airway</span>)[<span class="fl">1</span><span class="op">:</span><span class="fl">100</span>,] <span class="co"># taking only a subset of the DE genes</span>
-<span class="kw">myde</span> <span class="op">&lt;-</span> <span class="kw">res_subset</span><span class="op">$</span><span class="kw">id</span>
-<span class="kw">myassayed</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span>(<span class="kw">res_airway</span>)
-<span class="kw">mygo</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/goseqTable.html">goseqTable</a></span>(de.genes = <span class="kw">myde</span>,
-                   assayed.genes = <span class="kw">myassayed</span>,
-                   genome = <span class="st">"hg38"</span>,
-                   id = <span class="st">"ensGene"</span>,
-                   testCats = <span class="st">"GO:BP"</span>,
-                   addGeneToTerms = <span class="fl">FALSE</span>)
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="kw">mygo</span>)
-</pre></div>
+<span class="va">res_subset</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/deseqresult2DEgenes.html">deseqresult2DEgenes</a></span><span class="op">(</span><span class="va">res_airway</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">100</span>,<span class="op">]</span> <span class="co"># taking only a subset of the DE genes</span>
+<span class="va">myde</span> <span class="op">&lt;-</span> <span class="va">res_subset</span><span class="op">$</span><span class="va">id</span>
+<span class="va">myassayed</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">res_airway</span><span class="op">)</span>
+<span class="va">mygo</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/goseqTable.html">goseqTable</a></span><span class="op">(</span>de.genes <span class="op">=</span> <span class="va">myde</span>,
+                   assayed.genes <span class="op">=</span> <span class="va">myassayed</span>,
+                   genome <span class="op">=</span> <span class="st">"hg38"</span>,
+                   id <span class="op">=</span> <span class="st">"ensGene"</span>,
+                   testCats <span class="op">=</span> <span class="st">"GO:BP"</span>,
+                   addGeneToTerms <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">mygo</span><span class="op">)</span></pre></div>
 <p>As for the results, this table can be enhanced by adding the links for each category to the AmiGO database.</p>
 <!-- maybe eval=FALSE here? -->
 <div class="sourceCode" id="cb46"><pre class="downlit">
-<span class="kw">mygo_enhanced</span> <span class="op">&lt;-</span> <span class="kw">mygo</span>
+<span class="va">mygo_enhanced</span> <span class="op">&lt;-</span> <span class="va">mygo</span>
 <span class="co"># using the unexported function to link the GO term to the entry in the AmiGO db</span>
-<span class="kw">mygo_enhanced</span><span class="op">$</span><span class="kw">category</span> <span class="op">&lt;-</span> <span class="kw">ideal</span>:::<span class="fu">createLinkGO</span>(<span class="kw">mygo_enhanced</span><span class="op">$</span><span class="kw">category</span>)
-<span class="kw">DT</span>::<span class="fu"><a href="https://rdrr.io/pkg/DT/man/datatable.html">datatable</a></span>(<span class="kw">mygo_enhanced</span>,escape=<span class="fl">FALSE</span>)
-</pre></div>
+<span class="va">mygo_enhanced</span><span class="op">$</span><span class="va">category</span> <span class="op">&lt;-</span> <span class="fu">ideal</span><span class="fu">:::</span><span class="fu">createLinkGO</span><span class="op">(</span><span class="va">mygo_enhanced</span><span class="op">$</span><span class="va">category</span><span class="op">)</span>
+<span class="fu">DT</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/DT/man/datatable.html">datatable</a></span><span class="op">(</span><span class="va">mygo_enhanced</span>,escape<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></pre></div>
 </div>
 <div id="plot_ma" class="section level2">
 <h2 class="hasAnchor">
@@ -894,34 +870,31 @@
 <p>The MA plot provided by <em><a href="https://bioconductor.org/packages/3.12/ideal">ideal</a></em> displays the gene-wise log2-fold changes (logFCs) versus the average expression value. As a main input parameter, a <code>DESeqResults</code> object is required. Control on the appearance of the plot can be applied by selecting the False Discovery Rate (<code>FDR</code>), the point transparency (<code>point_alpha</code>), adding horizontal lines at particular logFC values (<code>hlines</code>). The user can also decide to add rug plots in the margins (setting <code>add_rug</code> to <code>TRUE</code>).</p>
 <p>To facilitate the inspection of a particular gene or gene set, <code>intgenes</code> can assume the value of a vector of genes (either the IDs or the gene symbols if <code>symbol</code> column is provided in <code>res_obj</code>. Labels can be added via <code>labels_intgenes</code>, while classical labels/title can be also edited as preferred (see <code>plot_ma</code> for all details).</p>
 <div class="sourceCode" id="cb47"><pre class="downlit">
-<span class="fu"><a href="../reference/plot_ma.html">plot_ma</a></span>(<span class="kw">res_airway</span>, FDR = <span class="fl">0.05</span>, hlines = <span class="fl">1</span>,
-        title =<span class="st">"Adding horizontal lines"</span>, add_rug = <span class="fl">FALSE</span>)
-<span class="fu"><a href="../reference/plot_ma.html">plot_ma</a></span>(<span class="kw">res_airway</span>, FDR = <span class="fl">0.1</span>,
-        intgenes = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"ENSG00000103196"</span>,  <span class="co"># CRISPLD2</span>
+<span class="fu"><a href="../reference/plot_ma.html">plot_ma</a></span><span class="op">(</span><span class="va">res_airway</span>, FDR <span class="op">=</span> <span class="fl">0.05</span>, hlines <span class="op">=</span> <span class="fl">1</span>,
+        title <span class="op">=</span><span class="st">"Adding horizontal lines"</span>, add_rug <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+<span class="fu"><a href="../reference/plot_ma.html">plot_ma</a></span><span class="op">(</span><span class="va">res_airway</span>, FDR <span class="op">=</span> <span class="fl">0.1</span>,
+        intgenes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"ENSG00000103196"</span>,  <span class="co"># CRISPLD2</span>
                      <span class="st">"ENSG00000120129"</span>,  <span class="co"># DUSP1</span>
                      <span class="st">"ENSG00000163884"</span>,  <span class="co"># KLF15</span>
-                     <span class="st">"ENSG00000179094"</span>), <span class="co"># PER1</span>
-        title = <span class="st">"Providing a shortlist of genes"</span>,
-        add_rug = <span class="fl">FALSE</span>
-       )
-</pre></div>
+                     <span class="st">"ENSG00000179094"</span><span class="op">)</span>, <span class="co"># PER1</span>
+        title <span class="op">=</span> <span class="st">"Providing a shortlist of genes"</span>,
+        add_rug <span class="op">=</span> <span class="cn">FALSE</span>
+       <span class="op">)</span></pre></div>
 <div class="sourceCode" id="cb48"><pre class="downlit">
-<span class="kw">res_airway2</span> <span class="op">&lt;-</span> <span class="kw">res_airway</span>
-<span class="kw">res_airway2</span><span class="op">$</span><span class="kw">symbol</span> <span class="op">&lt;-</span> <span class="fu">mapIds</span>(<span class="kw">org.Hs.eg.db</span>,keys = <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span>(<span class="kw">res_airway2</span>),column = <span class="st">"SYMBOL"</span>,keytype=<span class="st">"ENSEMBL"</span>)
-</pre></div>
+<span class="va">res_airway2</span> <span class="op">&lt;-</span> <span class="va">res_airway</span>
+<span class="va">res_airway2</span><span class="op">$</span><span class="va">symbol</span> <span class="op">&lt;-</span> <span class="fu">mapIds</span><span class="op">(</span><span class="va">org.Hs.eg.db</span>,keys <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">res_airway2</span><span class="op">)</span>,column <span class="op">=</span> <span class="st">"SYMBOL"</span>,keytype<span class="op">=</span><span class="st">"ENSEMBL"</span><span class="op">)</span></pre></div>
 <pre><code>## 'select()' returned 1:many mapping between keys and columns</code></pre>
 <div class="sourceCode" id="cb50"><pre class="downlit">
-<span class="fu"><a href="../reference/plot_ma.html">plot_ma</a></span>(<span class="kw">res_airway2</span>, FDR = <span class="fl">0.05</span>,
-        intgenes = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"CRISPLD2"</span>,  <span class="co"># CRISPLD2</span>
+<span class="fu"><a href="../reference/plot_ma.html">plot_ma</a></span><span class="op">(</span><span class="va">res_airway2</span>, FDR <span class="op">=</span> <span class="fl">0.05</span>,
+        intgenes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"CRISPLD2"</span>,  <span class="co"># CRISPLD2</span>
                      <span class="st">"DUSP1"</span>,  <span class="co"># DUSP1</span>
                      <span class="st">"KLF15"</span>,  <span class="co"># KLF15</span>
-                     <span class="st">"PER1"</span>), <span class="co"># PER1</span>
-        annotation_obj = <span class="kw">annotation_airway</span>,
-        hlines = <span class="fl">2</span>,
-        add_rug = <span class="fl">FALSE</span>,
-        title = <span class="st">"Putting gene names..."</span>
-       )
-</pre></div>
+                     <span class="st">"PER1"</span><span class="op">)</span>, <span class="co"># PER1</span>
+        annotation_obj <span class="op">=</span> <span class="va">annotation_airway</span>,
+        hlines <span class="op">=</span> <span class="fl">2</span>,
+        add_rug <span class="op">=</span> <span class="cn">FALSE</span>,
+        title <span class="op">=</span> <span class="st">"Putting gene names..."</span>
+       <span class="op">)</span></pre></div>
 <p><img src="ideal-usersguide_files/figure-html/plotma2-1.png" width="700"></p>
 </div>
 <div id="plot_volcano" class="section level2">
@@ -931,17 +904,15 @@
 <p>The volcano plot gives a different flavor for the gene overview, displaying log2-fold changes and log p-values.</p>
 <p>In a way similar to <code>plot_ma</code>, genes can be annotated with <code>intgenes</code>, and vertical lines can be added via <code>vlines</code>. <code>ylim_up</code> controls the y axis upper limit to visualize better the bulk of genes - keep in mind that very small p-values due to robust differences/large effect sizes can be “cut out”.</p>
 <div class="sourceCode" id="cb51"><pre class="downlit">
-<span class="fu"><a href="../reference/plot_volcano.html">plot_volcano</a></span>(<span class="kw">res_airway</span>)
-</pre></div>
+<span class="fu"><a href="../reference/plot_volcano.html">plot_volcano</a></span><span class="op">(</span><span class="va">res_airway</span><span class="op">)</span></pre></div>
 <div class="sourceCode" id="cb52"><pre class="downlit">
-<span class="fu"><a href="../reference/plot_volcano.html">plot_volcano</a></span>(<span class="kw">res_airway2</span>, FDR = <span class="fl">0.05</span>,
-        intgenes = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"CRISPLD2"</span>,  <span class="co"># CRISPLD2</span>
+<span class="fu"><a href="../reference/plot_volcano.html">plot_volcano</a></span><span class="op">(</span><span class="va">res_airway2</span>, FDR <span class="op">=</span> <span class="fl">0.05</span>,
+        intgenes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"CRISPLD2"</span>,  <span class="co"># CRISPLD2</span>
                      <span class="st">"DUSP1"</span>,  <span class="co"># DUSP1</span>
                      <span class="st">"KLF15"</span>,  <span class="co"># KLF15</span>
-                     <span class="st">"PER1"</span>), <span class="co"># PER1</span>
-        title = <span class="st">"Selecting the handful of genes - and displaying the full range for the -log10(pvalue)"</span>,
-        ylim_up = <span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">log10</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span>(<span class="kw">res_airway2</span><span class="op">$</span><span class="kw">pvalue</span>, na.rm =<span class="fl">TRUE</span>)))
-</pre></div>
+                     <span class="st">"PER1"</span><span class="op">)</span>, <span class="co"># PER1</span>
+        title <span class="op">=</span> <span class="st">"Selecting the handful of genes - and displaying the full range for the -log10(pvalue)"</span>,
+        ylim_up <span class="op">=</span> <span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">log10</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">res_airway2</span><span class="op">$</span><span class="va">pvalue</span>, na.rm <span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></pre></div>
 <p><img src="ideal-usersguide_files/figure-html/plotvolcano2-1.png" width="700"></p>
 </div>
 <div id="sepguesser" class="section level2">
@@ -950,29 +921,24 @@
 </h2>
 <p><code>sepguesser</code> makes an educated guess on the separator character for the input text file (<code>file</code>). The separator list can be provided as a vector in <code>sep_list</code> (defaults to comma, tab, semicolon, and whitespace - which ideally could cover most of the cases). The heuristics is based on the number of occurrencies of each separator in each line.</p>
 <div class="sourceCode" id="cb53"><pre class="downlit">
-<span class="fu"><a href="../reference/sepguesser.html">sepguesser</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"extdata/design_commas.txt"</span>,package = <span class="st">"ideal"</span>))
-</pre></div>
+<span class="fu"><a href="../reference/sepguesser.html">sepguesser</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata/design_commas.txt"</span>,package <span class="op">=</span> <span class="st">"ideal"</span><span class="op">)</span><span class="op">)</span></pre></div>
 <pre><code>## [1] ","</code></pre>
 <div class="sourceCode" id="cb55"><pre class="downlit">
-<span class="fu"><a href="../reference/sepguesser.html">sepguesser</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"extdata/design_semicolons.txt"</span>,package = <span class="st">"ideal"</span>))
-</pre></div>
+<span class="fu"><a href="../reference/sepguesser.html">sepguesser</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata/design_semicolons.txt"</span>,package <span class="op">=</span> <span class="st">"ideal"</span><span class="op">)</span><span class="op">)</span></pre></div>
 <pre><code>## [1] ";"</code></pre>
 <div class="sourceCode" id="cb57"><pre class="downlit">
-<span class="fu"><a href="../reference/sepguesser.html">sepguesser</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"extdata/design_spaces.txt"</span>,package = <span class="st">"ideal"</span>))
-</pre></div>
+<span class="fu"><a href="../reference/sepguesser.html">sepguesser</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata/design_spaces.txt"</span>,package <span class="op">=</span> <span class="st">"ideal"</span><span class="op">)</span><span class="op">)</span></pre></div>
 <pre><code>## [1] " "</code></pre>
 <div class="sourceCode" id="cb59"><pre class="downlit">
-<span class="kw">anyfile</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"extdata/design_tabs.txt"</span>,package = <span class="st">"ideal"</span>) <span class="co"># we know it is going to be TAB</span>
-<span class="kw">guessed_sep</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sepguesser.html">sepguesser</a></span>(<span class="kw">anyfile</span>)
-<span class="kw">guessed_sep</span>
-</pre></div>
+<span class="va">anyfile</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata/design_tabs.txt"</span>,package <span class="op">=</span> <span class="st">"ideal"</span><span class="op">)</span> <span class="co"># we know it is going to be TAB</span>
+<span class="va">guessed_sep</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sepguesser.html">sepguesser</a></span><span class="op">(</span><span class="va">anyfile</span><span class="op">)</span>
+<span class="va">guessed_sep</span></pre></div>
 <pre><code>## [1] "\t"</code></pre>
 <div class="sourceCode" id="cb61"><pre class="downlit">
 <span class="co"># to be used for reading in the same file, without having to specify the sep</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.delim</a></span>(<span class="kw">anyfile</span>, header = <span class="fl">TRUE</span>, as.is = <span class="fl">TRUE</span>, 
-           sep = <span class="kw">guessed_sep</span>, 
-           quote = <span class="st">""</span>, row.names = <span class="fl">1</span>, check.names = <span class="fl">FALSE</span>)
-</pre></div>
+<span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.delim</a></span><span class="op">(</span><span class="va">anyfile</span>, header <span class="op">=</span> <span class="cn">TRUE</span>, as.is <span class="op">=</span> <span class="cn">TRUE</span>, 
+           sep <span class="op">=</span> <span class="va">guessed_sep</span>, 
+           quote <span class="op">=</span> <span class="st">""</span>, row.names <span class="op">=</span> <span class="fl">1</span>, check.names <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></pre></div>
 <pre><code>##            SampleName    cell   dex albut        Run avgLength Experiment
 ## SRR1039508 GSM1275862  N61311 untrt untrt SRR1039508       126  SRX384345
 ## SRR1039509 GSM1275863  N61311   trt untrt SRR1039509       126  SRX384346
@@ -1004,6 +970,73 @@
 <li>save the values of the <code>reactiveValues</code> in an environment, or in binary format</li>
 </ul>
 <p>This functionality to retrieve and share the output is provided by action buttons that are placed close to each element of interest.</p>
+<div id="expanding-the-analysis-after-ideal" class="section level2">
+<h2 class="hasAnchor">
+<a href="#expanding-the-analysis-after-ideal" class="anchor"></a>Expanding the analysis after <code>ideal</code>
+</h2>
+<p>After exporting the objects to the R environment, via the button “Exit ideal and save”, it is possible to continue the analyses e.g. using alternative methods for functional enrichment analysis, with Functional Class Scoring methods (such as GSEA, as implemented in <em><a href="https://bioconductor.org/packages/3.12/fgsea">fgsea</a></em>), or additional methods for Overrepresentation Analysis (e.g. <em><a href="https://CRAN.R-project.org/package=gprofiler2">gprofiler2</a></em>).<br>
+In the example below, we show an example of the code required to perform <code>fgsea</code> on the set of objects exported from <code><a href="../reference/ideal.html">ideal()</a></code>.</p>
+<div class="sourceCode" id="cb63"><pre class="downlit">
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st">"fgsea"</span><span class="op">)</span>
+<span class="co"># selecting the result object from the exported environment</span>
+<span class="va">exported_res</span> <span class="op">&lt;-</span> <span class="va">ideal_env</span><span class="op">$</span><span class="va">ideal_values_20200926_135052</span><span class="op">$</span><span class="va">res_obj</span>
+<span class="fu"><a href="https://rdrr.io/pkg/DESeq2/man/summary.html">summary</a></span><span class="op">(</span><span class="va">exported_res</span><span class="op">)</span>
+
+<span class="co"># for processing of intermediate steps</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://dplyr.tidyverse.org">"dplyr"</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://tibble.tidyverse.org/">"tibble"</a></span><span class="op">)</span>
+
+<span class="co"># extracting the rankes for pre-ranked gsea</span>
+<span class="va">de_ranks</span> <span class="op">&lt;-</span> <span class="va">exported_res</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">padj</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">symbol</span>, <span class="va">stat</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://tibble.tidyverse.org/reference/enframe.html">deframe</a></span><span class="op">(</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">de_ranks</span>, <span class="fl">20</span><span class="op">)</span>
+
+<span class="co"># loading the signatures from the gmt file - to be downloaded locally</span>
+<span class="va">pathways_gmtfile</span> <span class="op">&lt;-</span> <span class="fu">gmtPathways</span><span class="op">(</span><span class="st">"path_to/msigdb_v7.0_GMTs/h.all.v6.2.symbols.gmt"</span><span class="op">)</span>
+
+<span class="co"># running fgsea</span>
+<span class="va">fgsea_result</span> <span class="op">&lt;-</span> <span class="fu">fgsea</span><span class="op">(</span>pathways <span class="op">=</span> <span class="va">pathways_gmtfile</span>, 
+                      stats <span class="op">=</span> <span class="va">de_ranks</span>, 
+                      nperm <span class="op">=</span> <span class="fl">100000</span><span class="op">)</span>
+<span class="va">fgsea_result</span> <span class="op">&lt;-</span> <span class="va">fgsea_result</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html">desc</a></span><span class="op">(</span><span class="va">NES</span><span class="op">)</span><span class="op">)</span>
+
+<span class="co"># displaying the results</span>
+<span class="fu">DT</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/DT/man/datatable.html">datatable</a></span><span class="op">(</span><span class="va">fgsea_result</span><span class="op">)</span></pre></div>
+<p>The following chunk shows an example of how to perform the functional enrichment analysis with <code>g:Profiler</code>’s tool <code>g:GOST</code>, using the interface in <em><a href="https://CRAN.R-project.org/package=gprofiler2">gprofiler2</a></em></p>
+<div class="sourceCode" id="cb64"><pre class="downlit">
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st">"gprofiler2"</span><span class="op">)</span>
+
+<span class="co"># selecting the result object from the exported environment</span>
+<span class="va">exported_res</span> <span class="op">&lt;-</span> <span class="va">ideal_env</span><span class="op">$</span><span class="va">ideal_values_20200926_135052</span><span class="op">$</span><span class="va">res_obj</span>
+<span class="fu"><a href="https://rdrr.io/pkg/DESeq2/man/summary.html">summary</a></span><span class="op">(</span><span class="va">exported_res</span><span class="op">)</span>
+
+<span class="co"># extracting the DE genes vector</span>
+<span class="va">degenes</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/deseqresult2DEgenes.html">deseqresult2DEgenes</a></span><span class="op">(</span><span class="va">exported_res</span>, FDR <span class="op">=</span> <span class="fl">0.01</span><span class="op">)</span><span class="op">$</span><span class="va">symbol</span>
+
+<span class="co"># running the test</span>
+<span class="va">gost_res</span> <span class="op">&lt;-</span> <span class="fu">gost</span><span class="op">(</span>
+  query <span class="op">=</span> <span class="va">degenes</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">1000</span><span class="op">]</span>, 
+  organism <span class="op">=</span> <span class="st">"hsapiens"</span>, 
+  ordered_query <span class="op">=</span> <span class="cn">FALSE</span>, 
+  multi_query <span class="op">=</span> <span class="cn">FALSE</span>, 
+  significant <span class="op">=</span> <span class="cn">FALSE</span>, 
+  exclude_iea <span class="op">=</span> <span class="cn">TRUE</span>, 
+  measure_underrepresentation <span class="op">=</span> <span class="cn">FALSE</span>, 
+  evcodes <span class="op">=</span> <span class="cn">TRUE</span>, 
+  user_threshold <span class="op">=</span> <span class="fl">0.05</span>, 
+  correction_method <span class="op">=</span> <span class="st">"g_SCS"</span>, 
+  domain_scope <span class="op">=</span> <span class="st">"annotated"</span>, 
+  numeric_ns <span class="op">=</span> <span class="st">""</span>, 
+  sources <span class="op">=</span> <span class="st">"GO:BP"</span>, 
+  as_short_link <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+
+<span class="co"># displaying the results</span>
+<span class="fu">DT</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/DT/man/datatable.html">datatable</a></span><span class="op">(</span><span class="va">gost_res</span><span class="op">$</span><span class="va">result</span><span class="op">)</span></pre></div>
+</div>
 </div>
 <div id="enhancing-ideal" class="section level1">
 <h1 class="hasAnchor">
@@ -1076,12 +1109,11 @@
 <div id="session-info" class="section level1 unnumbered">
 <h1 class="hasAnchor">
 <a href="#session-info" class="anchor"></a>Session Info</h1>
-<div class="sourceCode" id="cb63"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html">sessionInfo</a></span>()
-</pre></div>
+<div class="sourceCode" id="cb65"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></pre></div>
 <pre><code>## R version 4.0.2 (2020-06-22)
 ## Platform: x86_64-apple-darwin17.0 (64-bit)
-## Running under: macOS Catalina 10.15.5
+## Running under: macOS Catalina 10.15.6
 ## 
 ## Matrix products: default
 ## BLAS:   /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRblas.dylib
@@ -1095,71 +1127,72 @@
 ## [8] methods   base     
 ## 
 ## other attached packages:
-##  [1] edgeR_3.31.4                limma_3.45.7               
+##  [1] edgeR_3.31.4                limma_3.45.14              
 ##  [3] DEFormats_1.17.0            org.Hs.eg.db_3.11.4        
-##  [5] DESeq2_1.29.6               airway_1.9.0               
-##  [7] SummarizedExperiment_1.19.5 DelayedArray_0.15.5        
-##  [9] matrixStats_0.56.0          Matrix_1.2-18              
-## [11] GenomicRanges_1.41.5        GenomeInfoDb_1.25.2        
-## [13] ideal_1.13.1                topGO_2.41.0               
+##  [5] DESeq2_1.29.14              airway_1.9.0               
+##  [7] SummarizedExperiment_1.19.6 DelayedArray_0.15.9        
+##  [9] matrixStats_0.57.0          Matrix_1.2-18              
+## [11] GenomicRanges_1.41.6        GenomeInfoDb_1.25.11       
+## [13] ideal_1.13.2                topGO_2.41.0               
 ## [15] SparseM_1.78                GO.db_3.11.4               
-## [17] AnnotationDbi_1.51.0        IRanges_2.23.10            
-## [19] S4Vectors_0.27.12           Biobase_2.49.0             
+## [17] AnnotationDbi_1.51.3        IRanges_2.23.10            
+## [19] S4Vectors_0.27.13           Biobase_2.49.1             
 ## [21] graph_1.67.1                BiocGenerics_0.35.4        
-## [23] BiocStyle_2.17.0           
+## [23] BiocStyle_2.17.1           
 ## 
 ## loaded via a namespace (and not attached):
-##   [1] shinydashboard_0.7.1     tidyselect_1.1.0         heatmaply_1.1.0         
+##   [1] shinydashboard_0.7.1     tidyselect_1.1.0         heatmaply_1.1.1         
 ##   [4] RSQLite_2.2.0            htmlwidgets_1.5.1        grid_4.0.2              
-##   [7] TSP_1.1-10               BiocParallel_1.23.0      IHW_1.17.0              
-##  [10] munsell_0.5.0            codetools_0.2-16         DT_0.14                 
-##  [13] rentrez_1.2.2            withr_2.2.0              colorspace_1.4-1        
-##  [16] Category_2.55.0          pcaExplorer_2.15.2       knitr_1.29              
-##  [19] NMF_0.22.0               labeling_0.3             slam_0.1-47             
-##  [22] GenomeInfoDbData_1.2.3   lpsymphony_1.17.0        farver_2.0.3            
-##  [25] bit64_0.9-7              pheatmap_1.0.12          rprojroot_1.3-2         
-##  [28] vctrs_0.3.1              generics_0.0.2           xfun_0.15               
-##  [31] BiocFileCache_1.13.0     gclus_1.3.2              R6_2.4.1                
-##  [34] doParallel_1.0.15        seriation_1.2-8          locfit_1.5-9.4          
-##  [37] bitops_1.0-6             shinyAce_0.4.1           assertthat_0.2.1        
-##  [40] promises_1.1.1           scales_1.1.1             gtable_0.3.0            
-##  [43] rlang_0.4.6              genefilter_1.71.0        splines_4.0.2           
-##  [46] rtracklayer_1.49.3       lazyeval_0.2.2           checkmate_2.0.0         
-##  [49] shinyBS_0.61             BiocManager_1.30.10      yaml_2.2.1              
-##  [52] reshape2_1.4.4           GenomicFeatures_1.41.0   threejs_0.3.3           
-##  [55] crosstalk_1.1.0.1        backports_1.1.8          httpuv_1.5.4            
-##  [58] RBGL_1.65.0              tools_4.0.2              bookdown_0.19           
-##  [61] gridBase_0.4-7           ggplot2_3.3.2            ellipsis_0.3.1          
-##  [64] gplots_3.0.3             RColorBrewer_1.1-2       Rcpp_1.0.4.6            
-##  [67] plyr_1.8.6               base64enc_0.1-3          progress_1.2.2          
-##  [70] zlibbioc_1.35.0          purrr_0.3.4              RCurl_1.98-1.2          
-##  [73] BiasedUrn_1.07           prettyunits_1.1.1        openssl_1.4.1           
-##  [76] viridis_0.5.1            ggrepel_0.8.2            cluster_2.1.0           
-##  [79] fs_1.4.1                 magrittr_1.5             data.table_1.12.8       
-##  [82] goseq_1.41.0             hms_0.5.3                mime_0.9                
-##  [85] evaluate_0.14            xtable_1.8-4             XML_3.99-0.3            
-##  [88] gridExtra_2.3            compiler_4.0.2           biomaRt_2.45.1          
-##  [91] tibble_3.0.1             KernSmooth_2.23-17       crayon_1.3.4            
-##  [94] htmltools_0.5.0          GOstats_2.55.0           mgcv_1.8-31             
-##  [97] later_1.1.0.1            tidyr_1.1.0              geneplotter_1.67.0      
-## [100] DBI_1.1.0                geneLenDataBase_1.25.0   dbplyr_1.4.4            
-## [103] MASS_7.3-51.6            rappdirs_0.3.1           gdata_2.18.0            
-## [106] igraph_1.2.5             pkgconfig_2.0.3          pkgdown_1.5.1.9000      
-## [109] GenomicAlignments_1.25.3 registry_0.5-1           plotly_4.9.2.1          
-## [112] foreach_1.5.0            annotate_1.67.0          rngtools_1.5            
-## [115] pkgmaker_0.31.1          webshot_0.5.2            XVector_0.29.2          
-## [118] AnnotationForge_1.31.2   bibtex_0.4.2.2           stringr_1.4.0           
-## [121] digest_0.6.25            Biostrings_2.57.2        rmarkdown_2.3.1         
-## [124] rintrojs_0.2.2           dendextend_1.13.4        GSEABase_1.51.1         
-## [127] curl_4.3                 shiny_1.5.0              Rsamtools_2.5.2         
-## [130] gtools_3.8.2             lifecycle_0.2.0          nlme_3.1-148            
-## [133] jsonlite_1.6.1           desc_1.2.0               viridisLite_0.3.0       
-## [136] askpass_1.1              pillar_1.4.4             lattice_0.20-41         
-## [139] fastmap_1.0.1            httr_1.4.1               survival_3.1-12         
-## [142] glue_1.4.1               fdrtool_1.2.15           UpSetR_1.4.0            
-## [145] iterators_1.0.12         bit_1.1-15.2             Rgraphviz_2.33.0        
-## [148] stringi_1.4.6            blob_1.2.1               caTools_1.18.0          
-## [151] memoise_1.1.0            dplyr_1.0.0</code></pre>
+##   [7] TSP_1.1-10               BiocParallel_1.23.2      cpp11_0.2.1             
+##  [10] IHW_1.17.0               munsell_0.5.0            codetools_0.2-16        
+##  [13] ragg_0.3.1               DT_0.15                  rentrez_1.2.2           
+##  [16] withr_2.3.0              colorspace_1.4-1         Category_2.55.0         
+##  [19] pcaExplorer_2.15.2       knitr_1.30               NMF_0.23.0              
+##  [22] labeling_0.3             slam_0.1-47              GenomeInfoDbData_1.2.3  
+##  [25] lpsymphony_1.17.0        farver_2.0.3             bit64_4.0.5             
+##  [28] pheatmap_1.0.12          rprojroot_1.3-2          vctrs_0.3.4             
+##  [31] generics_0.0.2           xfun_0.17                BiocFileCache_1.13.1    
+##  [34] gclus_1.3.2              R6_2.4.1                 doParallel_1.0.15       
+##  [37] seriation_1.2-8          locfit_1.5-9.4           bitops_1.0-6            
+##  [40] shinyAce_0.4.1           assertthat_0.2.1         promises_1.1.1          
+##  [43] scales_1.1.1             gtable_0.3.0             rlang_0.4.7             
+##  [46] genefilter_1.71.0        systemfonts_0.3.1        splines_4.0.2           
+##  [49] rtracklayer_1.49.5       lazyeval_0.2.2           checkmate_2.0.0         
+##  [52] shinyBS_0.61             BiocManager_1.30.10      yaml_2.2.1              
+##  [55] reshape2_1.4.4           GenomicFeatures_1.41.3   threejs_0.3.3           
+##  [58] crosstalk_1.1.0.1        backports_1.1.10         httpuv_1.5.4            
+##  [61] RBGL_1.65.0              tools_4.0.2              bookdown_0.20           
+##  [64] gridBase_0.4-7           ggplot2_3.3.2            ellipsis_0.3.1          
+##  [67] gplots_3.1.0             RColorBrewer_1.1-2       Rcpp_1.0.5              
+##  [70] plyr_1.8.6               base64enc_0.1-3          progress_1.2.2          
+##  [73] zlibbioc_1.35.0          purrr_0.3.4              RCurl_1.98-1.2          
+##  [76] BiasedUrn_1.07           prettyunits_1.1.1        openssl_1.4.3           
+##  [79] viridis_0.5.1            ggrepel_0.8.2            cluster_2.1.0           
+##  [82] fs_1.5.0                 magrittr_1.5             data.table_1.13.0       
+##  [85] goseq_1.41.0             hms_0.5.3                mime_0.9                
+##  [88] evaluate_0.14            xtable_1.8-4             XML_3.99-0.5            
+##  [91] gridExtra_2.3            compiler_4.0.2           biomaRt_2.45.3          
+##  [94] tibble_3.0.3             KernSmooth_2.23-17       crayon_1.3.4            
+##  [97] htmltools_0.5.0          GOstats_2.55.0           mgcv_1.8-31             
+## [100] later_1.1.0.1            tidyr_1.1.2              geneplotter_1.67.0      
+## [103] DBI_1.1.0                geneLenDataBase_1.25.0   dbplyr_1.4.4            
+## [106] MASS_7.3-51.6            rappdirs_0.3.1           igraph_1.2.5            
+## [109] pkgconfig_2.0.3          pkgdown_1.6.1.9000       GenomicAlignments_1.25.3
+## [112] registry_0.5-1           plotly_4.9.2.1           foreach_1.5.0           
+## [115] annotate_1.67.1          rngtools_1.5             pkgmaker_0.31.1         
+## [118] webshot_0.5.2            XVector_0.29.3           AnnotationForge_1.31.2  
+## [121] bibtex_0.4.2.3           stringr_1.4.0            digest_0.6.25           
+## [124] Biostrings_2.57.2        rmarkdown_2.3            rintrojs_0.2.2          
+## [127] dendextend_1.14.0        GSEABase_1.51.1          curl_4.3                
+## [130] shiny_1.5.0              Rsamtools_2.5.3          gtools_3.8.2            
+## [133] lifecycle_0.2.0          nlme_3.1-148             jsonlite_1.7.1          
+## [136] desc_1.2.0               viridisLite_0.3.0        askpass_1.1             
+## [139] pillar_1.4.6             lattice_0.20-41          fastmap_1.0.1           
+## [142] httr_1.4.2               survival_3.1-12          glue_1.4.2              
+## [145] fdrtool_1.2.15           UpSetR_1.4.0             iterators_1.0.12        
+## [148] bit_4.0.4                Rgraphviz_2.33.0         stringi_1.5.3           
+## [151] blob_1.2.1               caTools_1.18.0           memoise_1.1.0           
+## [154] dplyr_1.0.2</code></pre>
 </div>
   </div>
 
@@ -1178,7 +1211,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
 </div>
 
       </footer>
