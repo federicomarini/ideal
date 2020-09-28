@@ -1,6 +1,7 @@
 element;intro
 #Welcome;Welcome to the tour for the Data Setup tab!
 #upload_count_matrix;Here you can upload your count matrix. Please read in the collapsible help about the formats that are accepted, or click on the question mark icon on the right to trigger a modal popup.
+#help_format;You can click on this round button to trigger the opening of a modal dialog window, which contains information (in the form of text and screenshots) on the formats that are expected/required to work with ideal
 #box_ddsobj;Up here you have three Info Boxes. The first is a summary for your DESeqDataSet object you will create soon...
 #box_annobj;... the second will contain the overview on the annotation object you can provide or compute...
 #box_resobj;... and the third is about the DESeqResults object you will compute in the following tabs. They turn from red to green as you have populated the underlying objects.

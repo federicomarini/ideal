@@ -3,6 +3,9 @@
 ## Other notes
 
 * Replaced dependency from `d3heatmap` with the functionality of `heatmaply`
+* Additional notifications are returned when closing the app while saving the state to the R environment - both in the console as a `message`, and in the UI via `showNotification`
+* The vignette and the tour contain a section about the format required to run `ideal` correctly
+* The vignette also indicates some exemplary steps after exporting the values to the R environment, showcasing how to perform additional functional enrichment analyses e.g. via `fgsea` or `gprofiler2`
 
 # ideal 1.12.0
 
