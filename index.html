@@ -117,13 +117,13 @@
 <h3 class="hasAnchor">
 <a href="#installation-troubleshooting" class="anchor"></a>Installation troubleshooting</h3>
 <p>If using <code>devtools</code> or <code>remotes</code> to install packages, you could run into the warning</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># ... after launching the install_github command</span></span>
-<span id="cb4-2"><a href="#cb4-2"></a>Error<span class="op">:</span><span class="st"> </span>(converted from warning) package ´IRanges´ was built under R version <span class="dv">3</span>.<span class="fl">6.2</span></span>
-<span id="cb4-3"><a href="#cb4-3"></a>Execution halted</span>
-<span id="cb4-4"><a href="#cb4-4"></a>ERROR<span class="op">:</span><span class="st"> </span>lazy loading failed <span class="cf">for</span> package ´ideal´</span>
-<span id="cb4-5"><a href="#cb4-5"></a><span class="op">*</span>removing ´Library<span class="op">/</span>Frameworks<span class="op">/</span>R.framework<span class="op">/</span>Versions<span class="op">/</span><span class="fl">3.6</span><span class="op">/</span>Resources<span class="op">/</span>library<span class="op">/</span>ideal´</span>
-<span id="cb4-6"><a href="#cb4-6"></a>Error<span class="op">:</span><span class="st"> </span>Failed to install <span class="st">'ideal'</span> from GitHub<span class="op">:</span></span>
-<span id="cb4-7"><a href="#cb4-7"></a><span class="st">  </span>(converted from warning) installation of package ´......<span class="op">/</span>ideal_<span class="dv">1</span>.<span class="dv">11</span>.<span class="fl">2.</span>tar.gz´ had non zero exit status</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="co"># ... after launching the install_github command</span></a>
+<a class="sourceLine" id="cb4-2" data-line-number="2">Error<span class="op">:</span><span class="st"> </span>(converted from warning) package ´IRanges´ was built under R version <span class="dv">3</span>.<span class="fl">6.2</span></a>
+<a class="sourceLine" id="cb4-3" data-line-number="3">Execution halted</a>
+<a class="sourceLine" id="cb4-4" data-line-number="4">ERROR<span class="op">:</span><span class="st"> </span>lazy loading failed <span class="cf">for</span> package ´ideal´</a>
+<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="op">*</span>removing ´Library<span class="op">/</span>Frameworks<span class="op">/</span>R.framework<span class="op">/</span>Versions<span class="op">/</span><span class="fl">3.6</span><span class="op">/</span>Resources<span class="op">/</span>library<span class="op">/</span>ideal´</a>
+<a class="sourceLine" id="cb4-6" data-line-number="6">Error<span class="op">:</span><span class="st"> </span>Failed to install <span class="st">'ideal'</span> from GitHub<span class="op">:</span></a>
+<a class="sourceLine" id="cb4-7" data-line-number="7"><span class="st">  </span>(converted from warning) installation of package ´......<span class="op">/</span>ideal_<span class="dv">1</span>.<span class="dv">11</span>.<span class="fl">2.</span>tar.gz´ had non zero exit status</a></code></pre></div>
 <p>In this case, you can follow the instructions found at <a href="https://remotes.r-lib.org/index.html#environment-variables" class="uri">https://remotes.r-lib.org/index.html#environment-variables</a>, which specifically suggest to set <code>R_REMOTES_NO_ERRORS_FROM_WARNINGS</code> to <code>true</code>. You can do so directly in R before installing the package by entering</p>
 <div class="sourceCode" id="cb5"><pre class="downlit">
 <span class="fu"><a href="https://rdrr.io/r/base/Sys.setenv.html">Sys.setenv</a></span><span class="op">(</span>R_REMOTES_NO_ERRORS_FROM_WARNINGS<span class="op">=</span><span class="st">"true"</span><span class="op">)</span>
@@ -185,7 +185,7 @@
 <div id="contact" class="section level2">
 <h2 class="hasAnchor">
 <a href="#contact" class="anchor"></a>Contact</h2>
-<p>For additional details regarding the functions of <strong>ideal</strong>, please consult the documentation or write an email to <a href="mailto:marinif@uni-mainz.de" class="email">marinif@uni-mainz.de</a>.</p>
+<p>For additional details regarding the functions of <strong>ideal</strong>, please consult the documentation or write an email to <a href="mailto:marinif@uni-mainz.de">marinif@uni-mainz.de</a>.</p>
 <div id="bug-reportsissuesnew-features" class="section level3">
 <h3 class="hasAnchor">
 <a href="#bug-reportsissuesnew-features" class="anchor"></a>Bug reports/Issues/New features</h3>
@@ -248,7 +248,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
