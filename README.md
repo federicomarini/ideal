@@ -1,6 +1,5 @@
 
 [![R build status](https://github.com/federicomarini/ideal/workflows/R-CMD-check/badge.svg)](https://github.com/federicomarini/ideal/actions)
-[![Linux Build Status](https://travis-ci.org/federicomarini/ideal.svg?branch=master)](https://travis-ci.org/federicomarini/ideal)
 [![codecov.io](https://codecov.io/github/federicomarini/ideal/coverage.svg?branch=master)](https://codecov.io/github/federicomarini/ideal?branch=master)
 [![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://www.tidyverse.org/lifecycle/#stable)
 
