@@ -57,3 +57,13 @@
 #' @name ideal-pkg
 #' @docType package
 NULL
+
+.onAttach <- function(libname, pkgname) {
+  pkgVersion <- packageDescription("ideal", fields = "Version")
+  msg <- paste0("Welcome to ideal v", pkgVersion, "\n\n")
+  citation <- paste0("If you use ideal in your work, please cite:\n\n",
+                     "Federico Marini, Jan Linke, Harald Binder\n",
+                     "ideal: an R/Bioconductor package for Interactive Differential Expression Analysis\n",
+                     "bioRxiv, 2020 - https://doi.org/10.1101/2020.01.10.901652\n")
+  packageStartupMessage(paste0(msg, citation))
+}
