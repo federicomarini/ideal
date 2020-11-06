@@ -3341,22 +3341,42 @@ ideal<- function(dds_obj = NULL,
     })
 
     observeEvent(input$button_runlrt,{
-      withProgress(message="Computing the LRT results...",
-                   detail = "This step can take a little while",
-                   value = 0,{
+      withProgress(
+        message="Computing the LRT results...",
+        detail = "This step can take a little while",
+        value = 0,{
+          lrt_full_model <- as.formula(paste0("~",paste(input$choose_lrt_full, collapse=" + ")))
+          if(!is.null(input$choose_lrt_reduced)) {
+            lrt_reduced_model <- as.formula(
+              paste0("~",paste(input$choose_lrt_reduced, collapse=" + ")))
+          } else {
+            lrt_reduced_model <- as.formula("~1")
+          }
 
-                     values$ddslrt <- DESeq(values$dds_obj,test = "LRT",
-                                            full = as.formula(paste0("~",paste(input$choose_lrt_full, collapse=" + "))),
-                                            reduced = as.formula(paste0("~",paste(input$choose_lrt_reduced, collapse=" + "))))
-
-                     values$reslrt <- results(values$ddslrt)
-
-
-                     if(!is.null(values$annotation_obj))
-                       values$reslrt$symbol <- values$annotation_obj$gene_name[match(rownames(values$reslrt),
-                                                                                     rownames(values$annotation_obj))]
-                   })
-
+          if (is.null(input$choose_lrt_reduced))
+            showNotification("Using ~1 as reduced model...", type = "message")
+          
+          if(lrt_full_model == design(values$dds_obj)) {
+            
+            values$ddslrt <- DESeq(values$dds_obj, test = "LRT",
+                                   full = lrt_full_model,
+                                   reduced = lrt_reduced_model)
+            
+            values$res_obj <- results(values$ddslrt)
+            
+            if(!is.null(values$annotation_obj))
+              values$res_obj$symbol <- 
+              values$annotation_obj$gene_name[match(rownames(values$res_obj),
+                                                    rownames(values$annotation_obj))]
+          } else {
+            showNotification(
+              ui = paste0("The full model must be equal to the specified design of the object ",
+                     format(design(values$dds_obj))),
+              type = "warning"
+            )
+          }
+        }
+      )
     })
 
     # copy this in the report for debugging purposes or so
