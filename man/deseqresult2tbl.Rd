@@ -19,9 +19,8 @@ Generate a tidy table with the results of DESeq
 
 # with simulated data...
 library(DESeq2)
-dds <- DESeq2::makeExampleDESeqDataSet(n=100, m=8, betaSD = 1)
+dds <- DESeq2::makeExampleDESeqDataSet(n = 100, m = 8, betaSD = 1)
 dds <- DESeq2::DESeq(dds)
 res <- DESeq2::results(dds)
 deseqresult2tbl(res)
-
 }

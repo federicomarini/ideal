@@ -28,7 +28,7 @@ e.g. HGNC-based gene symbols. Optional.}
 \item{transform}{Logical value, corresponding whether to have log scale y-axis
 or not. Defaults to TRUE.}
 
-\item{labels_repel}{Logical value. Whether to use \code{ggrepel}'s functions to 
+\item{labels_repel}{Logical value. Whether to use \code{ggrepel}'s functions to
 place labels; defaults to TRUE.}
 }
 \value{
@@ -47,13 +47,11 @@ library(airway)
 data(airway)
 airway
 dds_airway <- DESeq2::DESeqDataSetFromMatrix(assay(airway),
-                                             colData = colData(airway),
-                                             design=~cell+dex)
+  colData = colData(airway),
+  design = ~ cell + dex
+)
 ggplotCounts(dds_airway,
-             gene = "ENSG00000103196", # CRISPLD2 in the original publication
-             intgroup = "dex")
-
-
-
-
+  gene = "ENSG00000103196", # CRISPLD2 in the original publication
+  intgroup = "dex"
+)
 }

@@ -61,8 +61,9 @@ set.seed(42)
 To install the package, start R and enter:
 
 ```{r installation, eval=FALSE}
-if (!requireNamespace("BiocManager", quietly=TRUE))
-    install.packages("BiocManager")
+if (!requireNamespace("BiocManager", quietly = TRUE)) {
+  install.packages("BiocManager")
+}
 BiocManager::install("ideal")
 ```
 
@@ -336,8 +337,9 @@ We will use the `r Biocpkg("airway")` dataset, which can be installed with this 
 <!-- [][]or use pasilla[][] -->
 
 ```{r installairway, eval=FALSE}
-if (!requireNamespace("BiocManager", quietly=TRUE))
-    install.packages("BiocManager")
+if (!requireNamespace("BiocManager", quietly = TRUE)) {
+  install.packages("BiocManager")
+}
 BiocManager::install("airway")
 ```
 
@@ -351,12 +353,12 @@ library(DESeq2)
 
 data(airway)
 
-dds_airway <- DESeqDataSet(airway,design= ~ cell + dex)
+dds_airway <- DESeqDataSet(airway, design = ~ cell + dex)
 dds_airway
 # run deseq on it
 dds_airway <- DESeq(dds_airway)
 # extract the results
-res_airway <- results(dds_airway, contrast = c("dex","trt","untrt"),alpha = 0.05)
+res_airway <- results(dds_airway, contrast = c("dex", "trt", "untrt"), alpha = 0.05)
 ```
 
 Then launch the app itself.
@@ -364,19 +366,21 @@ Then launch the app itself.
 ```{r launchairway, eval=FALSE}
 ideal(dds_obj = dds_airway)
 # or also providing the results object
-ideal(dds_obj = dds_airway,res_obj = res_airway)
+ideal(dds_obj = dds_airway, res_obj = res_airway)
 ```
 
 The `annotation` for this dataset can be built manually by exploiting the `r Biocpkg("org.Hs.eg.db")` package.
 
 ```{r annoairway, message = FALSE}
 library(org.Hs.eg.db)
-genenames_airway <- mapIds(org.Hs.eg.db,keys = rownames(dds_airway),column = "SYMBOL",keytype="ENSEMBL")
-annotation_airway <- data.frame(gene_id = rownames(dds_airway),
-                                gene_name = genenames_airway,
-                                row.names = rownames(dds_airway),
-                                stringsAsFactors = FALSE)
-head(annotation_airway)                                
+genenames_airway <- mapIds(org.Hs.eg.db, keys = rownames(dds_airway), column = "SYMBOL", keytype = "ENSEMBL")
+annotation_airway <- data.frame(
+  gene_id = rownames(dds_airway),
+  gene_name = genenames_airway,
+  row.names = rownames(dds_airway),
+  stringsAsFactors = FALSE
+)
+head(annotation_airway)
 ```
 
 or alternatively, can be handily created at runtime in the optional step.
@@ -384,8 +388,10 @@ or alternatively, can be handily created at runtime in the optional step.
 Then again, the app can be launched with: 
 
 ```{r launchairwayanno, eval=FALSE}
-ideal(dds_obj = dds_airway,
-      annotation_obj = annotation_airway)
+ideal(
+  dds_obj = dds_airway,
+  annotation_obj = annotation_airway
+)
 ```
 
 If desired, alternatives can be used. See the well written annotation workflow available at the Bioconductor site (https://bioconductor.org/help/workflows/annotation/annotation/).
@@ -406,34 +412,36 @@ cell <- colData(dds_airway)$cell
 
 redo_dds_airway <- as.DESeqDataSet(dge_airway)
 # force the design to ~cell + dex
-design(redo_dds_airway) <- ~cell+group  #TODO: this is due to the not 100% re-conversion via DEFormats 
+design(redo_dds_airway) <- ~ cell + group # TODO: this is due to the not 100% re-conversion via DEFormats
 
 ### with edgeR
 y <- calcNormFactors(dge_airway)
 design <- model.matrix(~ cell + dex)
-y <- estimateDisp(y,design)
+y <- estimateDisp(y, design)
 # If you performed quasi-likelihood F-tests
-fit <- glmQLFit(y,design)
+fit <- glmQLFit(y, design)
 qlf <- glmQLFTest(fit) # contrast for dexamethasone treatment
 topTags(qlf)
 # If you performed likelihood ratio tests
-fit <- glmFit(y,design)
+fit <- glmFit(y, design)
 lrt <- glmLRT(fit)
 topTags(lrt)
 
 # lrt to DESeqResults
 
 tbledger <- lrt$table
-colnames(tbledger)[colnames(tbledger) == 'PValue'] <- 'pvalue'
-colnames(tbledger)[colnames(tbledger) == 'logFC'] <- 'log2FoldChange'
-colnames(tbledger)[colnames(tbledger) == 'logCPM'] <- 'baseMean'
-# get from the logcpm to something more the baseMean for better 
+colnames(tbledger)[colnames(tbledger) == "PValue"] <- "pvalue"
+colnames(tbledger)[colnames(tbledger) == "logFC"] <- "log2FoldChange"
+colnames(tbledger)[colnames(tbledger) == "logCPM"] <- "baseMean"
+# get from the logcpm to something more the baseMean for better
 tbledger$baseMean <- (2^tbledger$baseMean) * mean(dge_airway$samples$lib.size) / 1e6
-# use the constructor for DESeqResults 
+# use the constructor for DESeqResults
 edger_resu <- DESeqResults(DataFrame(tbledger))
-edger_resu <- DESeq2:::pvalueAdjustment(edger_resu, independentFiltering = TRUE, 
-                                        alpha = 0.05, pAdjustMethod = "BH")
-                                      
+edger_resu <- DESeq2:::pvalueAdjustment(edger_resu,
+  independentFiltering = TRUE,
+  alpha = 0.05, pAdjustMethod = "BH"
+)
+
 # cfr with res_airway
 # plot(res_airway$pvalue,edger_resu$pvalue)
 
@@ -441,21 +449,21 @@ edger_resu <- DESeq2:::pvalueAdjustment(edger_resu, independentFiltering = TRUE,
 
 ### with limma-voom
 x <- calcNormFactors(dge_airway)
-design <- model.matrix(~0+dex+cell)
-contr.matrix <- makeContrasts(dextrt - dexuntrt,levels=colnames(design))
+design <- model.matrix(~ 0 + dex + cell)
+contr.matrix <- makeContrasts(dextrt - dexuntrt, levels = colnames(design))
 v <- voom(x, design)
 vfit <- lmFit(v, design)
-vfit <- contrasts.fit(vfit, contrasts=contr.matrix)
+vfit <- contrasts.fit(vfit, contrasts = contr.matrix)
 efit <- eBayes(vfit)
 
-tbllimma <- topTable(efit,number= Inf, sort.by = "none")
-colnames(tbllimma)[colnames(tbllimma) == 'P.Value'] <- 'pvalue'
-colnames(tbllimma)[colnames(tbllimma) == 'logFC'] <- 'log2FoldChange'
-colnames(tbllimma)[colnames(tbllimma) == 'AveExpr'] <- 'baseMean'
-colnames(tbllimma)[colnames(tbllimma) == 'adj.P.Val'] <- 'padj'
-# get from the logcpm to something more the baseMean for better 
+tbllimma <- topTable(efit, number = Inf, sort.by = "none")
+colnames(tbllimma)[colnames(tbllimma) == "P.Value"] <- "pvalue"
+colnames(tbllimma)[colnames(tbllimma) == "logFC"] <- "log2FoldChange"
+colnames(tbllimma)[colnames(tbllimma) == "AveExpr"] <- "baseMean"
+colnames(tbllimma)[colnames(tbllimma) == "adj.P.Val"] <- "padj"
+# get from the logcpm to something more the baseMean for better
 tbllimma$baseMean <- (2^tbllimma$baseMean) * mean(dge_airway$samples$lib.size) / 1e6
-# use the constructor for DESeqResults 
+# use the constructor for DESeqResults
 limma_resu <- DESeqResults(DataFrame(tbllimma))
 
 # cfr with res_airway
@@ -465,9 +473,9 @@ limma_resu <- DESeqResults(DataFrame(tbllimma))
 After preparing the objects, you can launch the app with the following command:
 
 ```{r ideal-edgerlimma, eval=FALSE}
-ideal(redo_dds_airway,edger_resu)
+ideal(redo_dds_airway, edger_resu)
 # or ...
-ideal(redo_dds_airway,limma_resu)
+ideal(redo_dds_airway, limma_resu)
 ```
 
 Basically, you need a `data.frame` (e.g. `myresults_df`) with 3 columns to create the `DESeqResults` object to be passed to the app, with this names:
@@ -499,7 +507,7 @@ head(deseqresult2tbl(res_airway))
 In particular, `deseqresult2DEgenes` only includes genes detected as DE.
 
 ```{r res2de}
-head(deseqresult2DEgenes(res_airway,FDR = 0.05))
+head(deseqresult2DEgenes(res_airway, FDR = 0.05))
 # the output in the first lines is the same, but
 dim(res_airway)
 dim(deseqresult2DEgenes(res_airway))
@@ -508,13 +516,13 @@ dim(deseqresult2DEgenes(res_airway))
 This tables can be enhanced with clickable links to the ENSEMBL and NCBI gene databases by the following commands:
 
 ```{r res-enhance}
-myde <- deseqresult2DEgenes(res_airway,FDR = 0.05)
-myde$symbol <- mapIds(org.Hs.eg.db,keys = as.character(myde$id),column = "SYMBOL",keytype="ENSEMBL")
+myde <- deseqresult2DEgenes(res_airway, FDR = 0.05)
+myde$symbol <- mapIds(org.Hs.eg.db, keys = as.character(myde$id), column = "SYMBOL", keytype = "ENSEMBL")
 
 myde_enhanced <- myde
-myde_enhanced$id <- ideal:::createLinkENS(myde_enhanced$id,species = "Homo_sapiens")
+myde_enhanced$id <- ideal:::createLinkENS(myde_enhanced$id, species = "Homo_sapiens")
 myde_enhanced$symbol <- ideal:::createLinkGeneSymbol(myde_enhanced$symbol)
-DT::datatable(myde_enhanced[1:100,], escape = FALSE)
+DT::datatable(myde_enhanced[1:100, ], escape = FALSE)
 ```
 
 ## `ggplotCounts`
@@ -522,18 +530,22 @@ DT::datatable(myde_enhanced[1:100,], escape = FALSE)
 `ggplotCounts` extends the functionality of the `plotCounts` function of `r Biocpkg("DESeq2")`, and plots the normalized counts of a single gene as a boxplot, with jittered points superimposed.
 
 ```{r ggpc1}
-ggplotCounts(dds = dds_airway,
-             gene = "ENSG00000103196", # CRISPLD2 in the original publication
-             intgroup = "dex")
+ggplotCounts(
+  dds = dds_airway,
+  gene = "ENSG00000103196", # CRISPLD2 in the original publication
+  intgroup = "dex"
+)
 ```
 
 If an `annotation_obj` is provided, their gene name can also be included in the title.
 
 ```{r ggpc2}
-ggplotCounts(dds = dds_airway,
-             gene = "ENSG00000103196", # CRISPLD2 in the original publication
-             intgroup = "dex",
-             annotation_obj = annotation_airway)
+ggplotCounts(
+  dds = dds_airway,
+  gene = "ENSG00000103196", # CRISPLD2 in the original publication
+  intgroup = "dex",
+  annotation_obj = annotation_airway
+)
 ```
 
 When used in the context of the app, it is possible to seamless search for genes also by their gene name, making exploration even more immediate.
@@ -549,15 +561,17 @@ Its counterpart, based on the `r Biocpkg("topGO")` package, can be found in the 
 <!-- maybe eval=FALSE here? -->
 
 ```{r goseq, eval=FALSE}
-res_subset <- deseqresult2DEgenes(res_airway)[1:100,] # taking only a subset of the DE genes
+res_subset <- deseqresult2DEgenes(res_airway)[1:100, ] # taking only a subset of the DE genes
 myde <- res_subset$id
 myassayed <- rownames(res_airway)
-mygo <- goseqTable(de.genes = myde,
-                   assayed.genes = myassayed,
-                   genome = "hg38",
-                   id = "ensGene",
-                   testCats = "GO:BP",
-                   addGeneToTerms = FALSE)
+mygo <- goseqTable(
+  de.genes = myde,
+  assayed.genes = myassayed,
+  genome = "hg38",
+  id = "ensGene",
+  testCats = "GO:BP",
+  addGeneToTerms = FALSE
+)
 head(mygo)
 ```
 
@@ -569,7 +583,7 @@ As for the results, this table can be enhanced by adding the links for each cate
 mygo_enhanced <- mygo
 # using the unexported function to link the GO term to the entry in the AmiGO db
 mygo_enhanced$category <- ideal:::createLinkGO(mygo_enhanced$category)
-DT::datatable(mygo_enhanced,escape=FALSE)
+DT::datatable(mygo_enhanced, escape = FALSE)
 ```
 
 
@@ -584,31 +598,39 @@ To facilitate the inspection of a particular gene or gene set, `intgenes` can as
 Labels can be added via `labels_intgenes`, while classical labels/title can be also edited as preferred (see `plot_ma` for all details). 
 
 ```{r plotma, eval=FALSE}
-plot_ma(res_airway, FDR = 0.05, hlines = 1,
-        title ="Adding horizontal lines", add_rug = FALSE)
-plot_ma(res_airway, FDR = 0.1,
-        intgenes = c("ENSG00000103196",  # CRISPLD2
-                     "ENSG00000120129",  # DUSP1
-                     "ENSG00000163884",  # KLF15
-                     "ENSG00000179094"), # PER1
-        title = "Providing a shortlist of genes",
-        add_rug = FALSE
-       )
+plot_ma(res_airway,
+  FDR = 0.05, hlines = 1,
+  title = "Adding horizontal lines", add_rug = FALSE
+)
+plot_ma(res_airway,
+  FDR = 0.1,
+  intgenes = c(
+    "ENSG00000103196", # CRISPLD2
+    "ENSG00000120129", # DUSP1
+    "ENSG00000163884", # KLF15
+    "ENSG00000179094"
+  ), # PER1
+  title = "Providing a shortlist of genes",
+  add_rug = FALSE
+)
 ```
 
 ```{r plotma2}
 res_airway2 <- res_airway
-res_airway2$symbol <- mapIds(org.Hs.eg.db,keys = rownames(res_airway2),column = "SYMBOL",keytype="ENSEMBL")
-plot_ma(res_airway2, FDR = 0.05,
-        intgenes = c("CRISPLD2",  # CRISPLD2
-                     "DUSP1",  # DUSP1
-                     "KLF15",  # KLF15
-                     "PER1"), # PER1
-        annotation_obj = annotation_airway,
-        hlines = 2,
-        add_rug = FALSE,
-        title = "Putting gene names..."
-       )
+res_airway2$symbol <- mapIds(org.Hs.eg.db, keys = rownames(res_airway2), column = "SYMBOL", keytype = "ENSEMBL")
+plot_ma(res_airway2,
+  FDR = 0.05,
+  intgenes = c(
+    "CRISPLD2", # CRISPLD2
+    "DUSP1", # DUSP1
+    "KLF15", # KLF15
+    "PER1"
+  ), # PER1
+  annotation_obj = annotation_airway,
+  hlines = 2,
+  add_rug = FALSE,
+  title = "Putting gene names..."
+)
 ```
 
 ## `plot_volcano`
@@ -623,13 +645,17 @@ plot_volcano(res_airway)
 ```
 
 ```{r plotvolcano2}
-plot_volcano(res_airway2, FDR = 0.05,
-        intgenes = c("CRISPLD2",  # CRISPLD2
-                     "DUSP1",  # DUSP1
-                     "KLF15",  # KLF15
-                     "PER1"), # PER1
-        title = "Selecting the handful of genes - and displaying the full range for the -log10(pvalue)",
-        ylim_up = -log10(min(res_airway2$pvalue, na.rm =TRUE)))
+plot_volcano(res_airway2,
+  FDR = 0.05,
+  intgenes = c(
+    "CRISPLD2", # CRISPLD2
+    "DUSP1", # DUSP1
+    "KLF15", # KLF15
+    "PER1"
+  ), # PER1
+  title = "Selecting the handful of genes - and displaying the full range for the -log10(pvalue)",
+  ylim_up = -log10(min(res_airway2$pvalue, na.rm = TRUE))
+)
 ```
 
 ## `sepguesser`   
@@ -639,16 +665,18 @@ The separator list can be provided as a vector in `sep_list` (defaults to comma,
 The heuristics is based on the number of occurrencies of each separator in each line.
 
 ```{r sepguess}
-sepguesser(system.file("extdata/design_commas.txt",package = "ideal"))
-sepguesser(system.file("extdata/design_semicolons.txt",package = "ideal"))
-sepguesser(system.file("extdata/design_spaces.txt",package = "ideal"))
-anyfile <- system.file("extdata/design_tabs.txt",package = "ideal") # we know it is going to be TAB
+sepguesser(system.file("extdata/design_commas.txt", package = "ideal"))
+sepguesser(system.file("extdata/design_semicolons.txt", package = "ideal"))
+sepguesser(system.file("extdata/design_spaces.txt", package = "ideal"))
+anyfile <- system.file("extdata/design_tabs.txt", package = "ideal") # we know it is going to be TAB
 guessed_sep <- sepguesser(anyfile)
 guessed_sep
 # to be used for reading in the same file, without having to specify the sep
-read.delim(anyfile, header = TRUE, as.is = TRUE, 
-           sep = guessed_sep, 
-           quote = "", row.names = 1, check.names = FALSE)
+read.delim(anyfile,
+  header = TRUE, as.is = TRUE,
+  sep = guessed_sep,
+  quote = "", row.names = 1, check.names = FALSE
+)
 ```
 
 # Creating and sharing output objects
@@ -679,9 +707,9 @@ library("tibble")
 
 # extracting the rankes for pre-ranked gsea
 de_ranks <- exported_res %>%
-  as.data.frame() %>% 
-  dplyr::arrange(padj) %>% 
-  dplyr::select(symbol, stat) %>% 
+  as.data.frame() %>%
+  dplyr::arrange(padj) %>%
+  dplyr::select(symbol, stat) %>%
   deframe()
 head(de_ranks, 20)
 
@@ -689,10 +717,12 @@ head(de_ranks, 20)
 pathways_gmtfile <- gmtPathways("path_to/msigdb_v7.0_GMTs/h.all.v6.2.symbols.gmt")
 
 # running fgsea
-fgsea_result <- fgsea(pathways = pathways_gmtfile, 
-                      stats = de_ranks, 
-                      nperm = 100000)
-fgsea_result <- fgsea_result %>% 
+fgsea_result <- fgsea(
+  pathways = pathways_gmtfile,
+  stats = de_ranks,
+  nperm = 100000
+)
+fgsea_result <- fgsea_result %>%
   arrange(desc(NES))
 
 # displaying the results
@@ -713,20 +743,21 @@ degenes <- deseqresult2DEgenes(exported_res, FDR = 0.01)$symbol
 
 # running the test
 gost_res <- gost(
-  query = degenes[1:1000], 
-  organism = "hsapiens", 
-  ordered_query = FALSE, 
-  multi_query = FALSE, 
-  significant = FALSE, 
-  exclude_iea = TRUE, 
-  measure_underrepresentation = FALSE, 
-  evcodes = TRUE, 
-  user_threshold = 0.05, 
-  correction_method = "g_SCS", 
-  domain_scope = "annotated", 
-  numeric_ns = "", 
-  sources = "GO:BP", 
-  as_short_link = FALSE)
+  query = degenes[1:1000],
+  organism = "hsapiens",
+  ordered_query = FALSE,
+  multi_query = FALSE,
+  significant = FALSE,
+  exclude_iea = TRUE,
+  measure_underrepresentation = FALSE,
+  evcodes = TRUE,
+  user_threshold = 0.05,
+  correction_method = "g_SCS",
+  domain_scope = "annotated",
+  numeric_ns = "",
+  sources = "GO:BP",
+  as_short_link = FALSE
+)
 
 # displaying the results
 DT::datatable(gost_res$result)
