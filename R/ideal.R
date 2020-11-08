@@ -3319,9 +3319,13 @@ ideal<- function(dds_obj = NULL,
       fac1 <- input$choose_expfac
       nrl <- length(levels(colData(values$dds_obj)[,fac1]))
 
-      if(nrl > 2)
-        selectInput("choose_lrt_reduced",label = "Choose the factor(s) for the reduced model",
-                    choices = c("",design_factors()), selected = "", multiple = TRUE)
+      if(nrl > 2) {
+        tagList(
+          selectInput("choose_lrt_reduced",label = "Choose the factor(s) for the reduced model",
+                      choices = c("",design_factors()), selected = "", multiple = TRUE),
+          p("If left blank, the formula for the reduced model will be '~ 1'")
+        )
+      }
     })
 
 
