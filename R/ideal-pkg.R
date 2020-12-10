@@ -65,7 +65,7 @@ NULL
     "If you use ideal in your work, please cite:\n\n",
     "Federico Marini, Jan Linke, Harald Binder\n",
     "ideal: an R/Bioconductor package for Interactive Differential Expression Analysis\n",
-    "bioRxiv, 2020 - https://doi.org/10.1101/2020.01.10.901652\n"
+    "BMC Bioinformatics, 2020 - https://doi.org/10.1186/s12859-020-03819-5\n"
   )
   packageStartupMessage(paste0(msg, citation))
 }
