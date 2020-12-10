@@ -21,9 +21,8 @@ Generate a tidy table with the DE genes from the results of DESeq
 
 # with simulated data...
 library(DESeq2)
-dds <- DESeq2::makeExampleDESeqDataSet(n=100, m=8, betaSD = 2)
+dds <- DESeq2::makeExampleDESeqDataSet(n = 100, m = 8, betaSD = 2)
 dds <- DESeq(dds)
 res <- results(dds)
 deseqresult2DEgenes(res)
-
 }

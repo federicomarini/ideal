@@ -37,34 +37,37 @@
 #' data(airway)
 #' airway
 #' dds_airway <- DESeq2::DESeqDataSetFromMatrix(assay(airway),
-#'                                              colData = colData(airway),
-#'                                              design=~cell+dex)
-#' # subsetting for quicker run, ignore the next two commands if regularly using the function 
+#'   colData = colData(airway),
+#'   design = ~ cell + dex
+#' )
+#' # subsetting for quicker run, ignore the next two commands if regularly using the function
 #' gene_subset <- c(
-#'   "ENSG00000103196",  # CRISPLD2
-#'   "ENSG00000120129",  # DUSP1
-#'   "ENSG00000163884",  # KLF15
-#'   "ENSG00000179094",  # PER1
-#'   rownames(dds_airway)[rep(c(rep(FALSE,99), TRUE), length.out=nrow(dds_airway))]) # 1% of ids
-#' dds_airway <- dds_airway[gene_subset,]
-#'                   
+#'   "ENSG00000103196", # CRISPLD2
+#'   "ENSG00000120129", # DUSP1
+#'   "ENSG00000163884", # KLF15
+#'   "ENSG00000179094", # PER1
+#'   rownames(dds_airway)[rep(c(rep(FALSE, 99), TRUE), length.out = nrow(dds_airway))]
+#' ) # 1% of ids
+#' dds_airway <- dds_airway[gene_subset, ]
+#'
 #' dds_airway <- DESeq2::DESeq(dds_airway)
 #' res_airway <- DESeq2::results(dds_airway)
 #'
 #' plot_ma(res_airway, FDR = 0.05, hlines = 1)
 #'
-#' plot_ma(res_airway, FDR = 0.1,
-#'         intgenes = c("ENSG00000103196",  # CRISPLD2
-#'                      "ENSG00000120129",  # DUSP1
-#'                      "ENSG00000163884",  # KLF15
-#'                      "ENSG00000179094")  # PER1
-#'        )
-#'
-#'
+#' plot_ma(res_airway,
+#'   FDR = 0.1,
+#'   intgenes = c(
+#'     "ENSG00000103196", # CRISPLD2
+#'     "ENSG00000120129", # DUSP1
+#'     "ENSG00000163884", # KLF15
+#'     "ENSG00000179094"
+#'   ) # PER1
+#' )
 plot_ma <- function(res_obj,
                     FDR = 0.05,
                     point_alpha = 0.2,
-                    sig_color = 'red',
+                    sig_color = "red",
                     annotation_obj = NULL, # TODO: add a check, if not available skip this part
                     hlines = NULL,
                     title = NULL,
@@ -80,20 +83,22 @@ plot_ma <- function(res_obj,
     lfc = res_obj$log2FoldChange,
     padj = res_obj$padj,
     isDE = ifelse(is.na(res_obj$padj), FALSE, res_obj$padj < FDR),
-    ID = rownames(res_obj))
+    ID = rownames(res_obj)
+  )
 
-  ma_df <- ma_df[ma_df$mean > 0,]
+  ma_df <- ma_df[ma_df$mean > 0, ]
 
-  if(!is.null(annotation_obj))
-    ma_df$genename <- annotation_obj$gene_name[match(ma_df$ID,rownames(annotation_obj))]
+  if (!is.null(annotation_obj)) {
+    ma_df$genename <- annotation_obj$gene_name[match(ma_df$ID, rownames(annotation_obj))]
+  }
 
   ma_df$logmean <- log10(ma_df$mean) # TO ALLOW FOR BRUSHING!!
   # ma_df$DE <- ifelse(ma_df$isDE,"yes","no")
-  ma_df$DE <- ifelse(ma_df$isDE,"red","black")
+  ma_df$DE <- ifelse(ma_df$isDE, "red", "black")
 
   p <- ggplot(ma_df, aes_string(x = "logmean", y = "lfc", colour = "DE"))
 
-  if(!is.null(hlines)) {
+  if (!is.null(hlines)) {
     p <- p + geom_hline(aes(yintercept = hlines), col = "lightblue", alpha = 0.4) +
       geom_hline(aes(yintercept = -hlines), col = "lightblue", alpha = 0.4)
   }
@@ -103,27 +108,29 @@ plot_ma <- function(res_obj,
 
   p <- p + geom_point(alpha = point_alpha)
   p <- p + scale_colour_manual(
-    name = paste0("FDR = ",FDR),
+    name = paste0("FDR = ", FDR),
     values = c("black", sig_color),
-    labels = c("nonDE","DE"))
+    labels = c("nonDE", "DE")
+  )
 
-  if(!is.null(ylim))
+  if (!is.null(ylim)) {
     p <- p + coord_cartesian(ylim = ylim)
+  }
 
-  if(!is.null(title))
+  if (!is.null(title)) {
     p <- p + ggtitle(title)
+  }
 
-  if(!is.null(intgenes)){
+  if (!is.null(intgenes)) {
 
     # now here for the symbol
     res_df <- as.data.frame(res_obj)
     res_df$logmean <- log10(res_df$baseMean)
 
-    if("symbol" %in% colnames(res_df)){
+    if ("symbol" %in% colnames(res_df)) {
       # use the gene names
       df_intgenes <- res_df[res_df$symbol %in% intgenes, ]
       df_intgenes$myids <- df_intgenes$symbol
-
     } else {
       # use whatever is there as id
       df_intgenes <- res_df[rownames(res_df) %in% intgenes, ]
@@ -131,23 +138,27 @@ plot_ma <- function(res_obj,
     }
 
     # df_intgenes <- res_df[res_df$symbol %in% intgenes,]
-    p <- p + geom_point(data = df_intgenes,aes_string("logmean", "log2FoldChange"), color = intgenes_color, size = 4)
+    p <- p + geom_point(data = df_intgenes, aes_string("logmean", "log2FoldChange"), color = intgenes_color, size = 4)
 
-    if(labels_intgenes) {
-      if(labels_repel) {
-        p <- p + geom_text_repel(data = df_intgenes,aes_string("logmean", "log2FoldChange",label="myids"),
-                           color = intgenes_color, size=5)
+    if (labels_intgenes) {
+      if (labels_repel) {
+        p <- p + geom_text_repel(
+          data = df_intgenes, aes_string("logmean", "log2FoldChange", label = "myids"),
+          color = intgenes_color, size = 5
+        )
       } else {
-        p <- p + geom_text(data = df_intgenes,aes_string("logmean", "log2FoldChange",label="myids"),
-                         color = intgenes_color, size=5,hjust=0.25, vjust=-0.75)
-      }    
+        p <- p + geom_text(
+          data = df_intgenes, aes_string("logmean", "log2FoldChange", label = "myids"),
+          color = intgenes_color, size = 5, hjust = 0.25, vjust = -0.75
+        )
+      }
     }
   }
 
-  if(add_rug)
+  if (add_rug) {
     p <- p + geom_rug(alpha = 0.3)
+  }
 
   p <- p + theme_bw()
   p
 }
-

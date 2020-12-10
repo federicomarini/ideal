@@ -35,7 +35,7 @@ the Shiny App}
 of each sample. If not provided, it is possible to upload the data during the
 execution of the Shiny App}
 
-\item{gene_signatures}{A list of vectors, one for each pathway/signature. This 
+\item{gene_signatures}{A list of vectors, one for each pathway/signature. This
 is for example the output of the \code{\link{read_gmt}} function. The provided
 object can also be replaced during runtime in the dedicated upload widget.}
 }
@@ -50,7 +50,7 @@ This function launches the main application included in the package.
 \examples{
 # with simulated data...
 library(DESeq2)
-dds <- DESeq2::makeExampleDESeqDataSet(n=100, m=8)
+dds <- DESeq2::makeExampleDESeqDataSet(n = 100, m = 8)
 cm <- counts(dds)
 cd <- colData(dds)
 
@@ -59,8 +59,9 @@ library(airway)
 data(airway)
 airway
 dds_airway <- DESeq2::DESeqDataSetFromMatrix(assay(airway),
-                                             colData = colData(airway),
-                                             design=~cell+dex)
+  colData = colData(airway),
+  design = ~ cell + dex
+)
 \dontrun{
 
 ideal()

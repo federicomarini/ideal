@@ -4,7 +4,7 @@
 
 
 
-footer <- function(){
+footer <- function() {
   tags$div(
     class = "panel-footer",
     style = "text-align:center",
@@ -13,12 +13,12 @@ footer <- function(){
       list(
         # hr(),
         "ideal is a project developed by Federico Marini in the Bioinformatics division of the ",
-        tags$a(href="http://www.unimedizin-mainz.de/imbei","IMBEI"),
-        "- Institute for Medical Biostatistics, Epidemiology and Informatics",br(),
-        "License: ",tags$a(href="https://opensource.org/licenses/MIT","MIT"), br(),
+        tags$a(href = "http://www.unimedizin-mainz.de/imbei", "IMBEI"),
+        "- Institute for Medical Biostatistics, Epidemiology and Informatics", br(),
+        "License: ", tags$a(href = "https://opensource.org/licenses/MIT", "MIT"), br(),
 
         "Development of the ideal package is on ",
-        tags$a(href="https://github.com/federicomarini/ideal", "GitHub")
+        tags$a(href = "https://github.com/federicomarini/ideal", "GitHub")
       )
     )
   )
@@ -45,31 +45,30 @@ footer <- function(){
 #' @export
 #'
 #' @examples
-#' sepguesser(system.file("extdata/design_commas.txt",package = "ideal"))
-#' sepguesser(system.file("extdata/design_semicolons.txt",package = "ideal"))
-#' sepguesser(system.file("extdata/design_spaces.txt",package = "ideal"))
-#' mysep <- sepguesser(system.file("extdata/design_tabs.txt",package = "ideal"))
+#' sepguesser(system.file("extdata/design_commas.txt", package = "ideal"))
+#' sepguesser(system.file("extdata/design_semicolons.txt", package = "ideal"))
+#' sepguesser(system.file("extdata/design_spaces.txt", package = "ideal"))
+#' mysep <- sepguesser(system.file("extdata/design_tabs.txt", package = "ideal"))
 #'
 #' # to be used for reading in the same file, without having to specify the sep
-#'
-sepguesser <- function(file, sep_list = c(",", "\t", ";"," ")) {
-  separators_list = sep_list
-  rl = readLines(file, warn = FALSE)
-  rl = rl[rl != ""] # allow last line to be empty
-  sephits_min = sapply(separators_list, function(x) min(stringr::str_count(rl, x))) #minimal number of separators on all lines
-  sep = separators_list[which.max(sephits_min)]
+sepguesser <- function(file, sep_list = c(",", "\t", ";", " ")) {
+  separators_list <- sep_list
+  rl <- readLines(file, warn = FALSE)
+  rl <- rl[rl != ""] # allow last line to be empty
+  sephits_min <- sapply(separators_list, function(x) min(stringr::str_count(rl, x))) # minimal number of separators on all lines
+  sep <- separators_list[which.max(sephits_min)]
   sep
 }
 
-sepguesser2 <- function(file, sep_list = c(",", "\t", ";"," ")) {
-  separators_list = sep_list
-  rl = readLines(file, warn = FALSE)
-  rl = rl[rl != ""] # allow last line to be empty
-  sephits_min = sapply(separators_list, function(x) min(stringr::str_count(rl, x))) #minimal number of separators on all lines
-  
-  counts <- sapply(separators_list, function(x) min(count.fields(textConnection(rl), sep=x)))
-  
-  sep = separators_list[which.max(counts)]
+sepguesser2 <- function(file, sep_list = c(",", "\t", ";", " ")) {
+  separators_list <- sep_list
+  rl <- readLines(file, warn = FALSE)
+  rl <- rl[rl != ""] # allow last line to be empty
+  sephits_min <- sapply(separators_list, function(x) min(stringr::str_count(rl, x))) # minimal number of separators on all lines
+
+  counts <- sapply(separators_list, function(x) min(count.fields(textConnection(rl), sep = x)))
+
+  sep <- separators_list[which.max(counts)]
   # sep = separators_list[which.max(sephits_min)]
   sep
 }
@@ -105,4 +104,3 @@ sepguesser2 <- function(file, sep_list = c(",", "\t", ";"," ")) {
 # }
 #
 #
-

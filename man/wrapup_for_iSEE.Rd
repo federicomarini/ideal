@@ -12,8 +12,8 @@ wrapup_for_iSEE(dds, res)
 \item{res}{A \code{\link{DESeqResults}} object.}
 }
 \value{
-A SummarizedExperiment object, with raw counts, normalized counts, and 
-variance-stabilizing transformed counts in the assay slots; and with colData 
+A SummarizedExperiment object, with raw counts, normalized counts, and
+variance-stabilizing transformed counts in the assay slots; and with colData
 and rowData extracted from the corresponding input parameters
 }
 \description{
@@ -23,28 +23,28 @@ Combine data from a typical DESeq2 run
 Combines the DESeqDataSet input and DESeqResults into a SummarizedExperiment
 object, which can be readily explored with iSEE.
 
-A typical usage would be after running the DESeq2 pipeline as specified in 
-one of the workflows which include this package, e.g. in the context of the 
+A typical usage would be after running the DESeq2 pipeline as specified in
+one of the workflows which include this package, e.g. in the context of the
 ideal package.
 }
 \examples{
 # with simulated data...
 library(DESeq2)
-dds <- DESeq2::makeExampleDESeqDataSet(n=10000, m=8)
+dds <- DESeq2::makeExampleDESeqDataSet(n = 10000, m = 8)
 dds <- DESeq(dds)
 res <- results(dds)
 se <- wrapup_for_iSEE(dds, res)
 # library(iSEE)
 # iSEE(se)
-
 \dontrun{
 # or with the well known airway package...
 library(airway)
 data(airway)
 airway
 dds_airway <- DESeq2::DESeqDataSetFromMatrix(assay(airway),
-                                             colData = colData(airway),
-                                             design=~cell+dex)
+  colData = colData(airway),
+  design = ~ cell + dex
+)
 dds_airway <- DESeq2::DESeq(dds_airway)
 res_airway <- DESeq2::results(dds_airway)
 se_airway <- wrapup_for_iSEE(dds_airway, res_airway)

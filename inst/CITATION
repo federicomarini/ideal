@@ -3,17 +3,17 @@ citHeader("To cite the package 'ideal' in publications use:")
 citEntry(
   entry        = "Article",
   title        = "ideal: an R/Bioconductor package for Interactive Differential Expression Analysis",
-  journal      = "bioRxiv",
+  journal      = "BMC Bioinformatics",
   author       = personList(as.person("Federico Marini"),
                    as.person("Jan Linke"),
                    as.person("Harald Binder")),
 	year         = "2020",
-	doi          = "10.1101/2020.01.10.901652",
+	doi          = "10.1186/s12859-020-03819-5",
   url          = "http://bioconductor.org/packages/ideal/",
 
   textVersion  =
-  paste("Federico Marini (2020).",
-        "ideal: an R/Bioconductor package for Interactive Differential Expression Analysis, bioRxiv",
-        "URL http://bioconductor.org/packages/ideal/",
-        "doi: 10.1101/2020.01.10.901652")
+  paste("Federico Marini, Jan Linke, Harald Binder (2020).",
+        "ideal: an R/Bioconductor package for Interactive Differential Expression Analysis, BMC Bioinformatics\n",
+        " - URL: http://bioconductor.org/packages/ideal/",
+        " - doi: 10.1186/s12859-020-03819-5")
 )

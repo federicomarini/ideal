@@ -22,7 +22,7 @@ sig_heatmap(
 \item{vst_data}{A \code{\link{DESeqTransform}} object - usually the variance
 stabilized transformed data, which will be used to extract the expression values}
 
-\item{my_signature}{A character vector, usually named, containing the genes 
+\item{my_signature}{A character vector, usually named, containing the genes
 which compose the gene signature}
 
 \item{res_data}{A \code{\link{DESeqResults}} object. If not provided, it can
@@ -30,7 +30,7 @@ be computed during the execution of the application}
 
 \item{FDR}{Numeric value between 0 and 1, the False Discovery Rate}
 
-\item{de_only}{Logical, whether to display only DE genes belonging to the pathway - 
+\item{de_only}{Logical, whether to display only DE genes belonging to the pathway -
 defaults to FALSE}
 
 \item{annovec}{A named character vector, with the corresponding annotation across IDs}
@@ -39,20 +39,20 @@ defaults to FALSE}
 
 \item{cluster_rows}{Logical, whether to cluster rows - defaults to TRUE}
 
-\item{cluster_cols}{Logical, whether to cluster column - defaults to FALSE. 
+\item{cluster_cols}{Logical, whether to cluster column - defaults to FALSE.
 Recommended to be set to TRUE if de_only is also set to TRUE}
 
-\item{center_mean}{Logical, whether to perform mean centering on the expression 
+\item{center_mean}{Logical, whether to perform mean centering on the expression
 values. Defaults to TRUE, as it improves the general readability of the heatmap}
 
-\item{scale_row}{Logical, whether to perform row-based standardization of the 
+\item{scale_row}{Logical, whether to perform row-based standardization of the
 expression values}
 }
 \value{
 A plot based on the \code{pheatmap} function
 }
 \description{
-Plot a heatmap for the selected gene signature on the provided data, with the 
+Plot a heatmap for the selected gene signature on the provided data, with the
 possibility to compactly display also DE only genes
 }
 \examples{
@@ -61,25 +61,27 @@ library(airway)
 data(airway)
 airway
 dds_airway <- DESeq2::DESeqDataSetFromMatrix(assay(airway),
-                                             colData = colData(airway),
-                                             design=~cell+dex)
+  colData = colData(airway),
+  design = ~ cell + dex
+)
 \dontrun{
 dds_airway <- DESeq2::DESeq(dds_airway)
 res_airway <- DESeq2::results(dds_airway)
 vst_airway <- DESeq2::vst(dds_airway)
 library(org.Hs.eg.db)
-annovec <- mapIds(org.Hs.eg.db, rownames(dds_airway),"ENTREZID","ENSEMBL")
+annovec <- mapIds(org.Hs.eg.db, rownames(dds_airway), "ENTREZID", "ENSEMBL")
 mysignatures <- read_gmt(
-  "http://data.wikipathways.org/20190210/gmt/wikipathways-20190210-gmt-Homo_sapiens.gmt")
+  "http://data.wikipathways.org/20190210/gmt/wikipathways-20190210-gmt-Homo_sapiens.gmt"
+)
 mysignature_name <- "Lung fibrosis\%WikiPathways_20190210\%WP3624\%Homo sapiens"
 library(pheatmap)
 sig_heatmap(vst_airway,
-            mysignatures[[mysignature_name]],
-            res_data = res_airway,
-            de_only = TRUE,
-            annovec = annovec,
-            title = mysignature_name,
-            cluster_cols = TRUE
-            )
+  mysignatures[[mysignature_name]],
+  res_data = res_airway,
+  de_only = TRUE,
+  annovec = annovec,
+  title = mysignature_name,
+  cluster_cols = TRUE
+)
 }
 }
