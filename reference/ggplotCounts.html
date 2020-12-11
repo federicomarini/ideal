@@ -172,7 +172,7 @@ or not. Defaults to TRUE.</p></td>
     </tr>
     <tr>
       <th>labels_repel</th>
-      <td><p>Logical value. Whether to use <code>ggrepel</code>'s functions to 
+      <td><p>Logical value. Whether to use <code>ggrepel</code>'s functions to
 place labels; defaults to TRUE.</p></td>
     </tr>
     </table>
@@ -197,16 +197,14 @@ therefore pseudocounts of 0.5 are added to each point</p>
 #&gt; rowData names(0):
 #&gt; colnames(8): SRR1039508 SRR1039509 ... SRR1039520 SRR1039521
 #&gt; colData names(9): SampleName cell ... Sample BioSample</div><div class='input'><span class='va'>dds_airway</span> <span class='op'>&lt;-</span> <span class='fu'>DESeq2</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/DESeq2/man/DESeqDataSet.html'>DESeqDataSetFromMatrix</a></span><span class='op'>(</span><span class='fu'>assay</span><span class='op'>(</span><span class='va'>airway</span><span class='op'>)</span>,
-                                             colData <span class='op'>=</span> <span class='fu'>colData</span><span class='op'>(</span><span class='va'>airway</span><span class='op'>)</span>,
-                                             design<span class='op'>=</span><span class='op'>~</span><span class='va'>cell</span><span class='op'>+</span><span class='va'>dex</span><span class='op'>)</span>
+  colData <span class='op'>=</span> <span class='fu'>colData</span><span class='op'>(</span><span class='va'>airway</span><span class='op'>)</span>,
+  design <span class='op'>=</span> <span class='op'>~</span> <span class='va'>cell</span> <span class='op'>+</span> <span class='va'>dex</span>
+<span class='op'>)</span>
 <span class='fu'>ggplotCounts</span><span class='op'>(</span><span class='va'>dds_airway</span>,
-             gene <span class='op'>=</span> <span class='st'>"ENSG00000103196"</span>, <span class='co'># CRISPLD2 in the original publication</span>
-             intgroup <span class='op'>=</span> <span class='st'>"dex"</span><span class='op'>)</span>
-</div><div class='img'><img src='ggplotCounts-1.png' alt='' width='700' height='433' /></div><div class='input'>
-
-
-
-</div></pre>
+  gene <span class='op'>=</span> <span class='st'>"ENSG00000103196"</span>, <span class='co'># CRISPLD2 in the original publication</span>
+  intgroup <span class='op'>=</span> <span class='st'>"dex"</span>
+<span class='op'>)</span>
+</div><div class='img'><img src='ggplotCounts-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

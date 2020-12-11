@@ -214,20 +214,21 @@ and requires that the corresponding TxDb packages are installed and available</p
 #&gt; rowData names(0):
 #&gt; colnames(8): SRR1039508 SRR1039509 ... SRR1039520 SRR1039521
 #&gt; colData names(9): SampleName cell ... Sample BioSample</div><div class='input'><span class='va'>dds_airway</span> <span class='op'>&lt;-</span> <span class='fu'>DESeq2</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/DESeq2/man/DESeqDataSet.html'>DESeqDataSetFromMatrix</a></span><span class='op'>(</span><span class='fu'>assay</span><span class='op'>(</span><span class='va'>airway</span><span class='op'>)</span>,
-                                             colData <span class='op'>=</span> <span class='fu'>colData</span><span class='op'>(</span><span class='va'>airway</span><span class='op'>)</span>,
-                                             design<span class='op'>=</span><span class='op'>~</span><span class='va'>cell</span><span class='op'>+</span><span class='va'>dex</span><span class='op'>)</span>
+  colData <span class='op'>=</span> <span class='fu'>colData</span><span class='op'>(</span><span class='va'>airway</span><span class='op'>)</span>,
+  design <span class='op'>=</span> <span class='op'>~</span> <span class='va'>cell</span> <span class='op'>+</span> <span class='va'>dex</span>
+<span class='op'>)</span>
 <span class='va'>dds_airway</span> <span class='op'>&lt;-</span> <span class='fu'>DESeq2</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/DESeq2/man/DESeq.html'>DESeq</a></span><span class='op'>(</span><span class='va'>dds_airway</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='input'><span class='va'>res_airway</span> <span class='op'>&lt;-</span> <span class='fu'>DESeq2</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/DESeq2/man/results.html'>results</a></span><span class='op'>(</span><span class='va'>dds_airway</span><span class='op'>)</span>
 
-<span class='va'>res_subset</span> <span class='op'>&lt;-</span> <span class='fu'><a href='deseqresult2DEgenes.html'>deseqresult2DEgenes</a></span><span class='op'>(</span><span class='va'>res_airway</span><span class='op'>)</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>100</span>,<span class='op'>]</span>
+<span class='va'>res_subset</span> <span class='op'>&lt;-</span> <span class='fu'><a href='deseqresult2DEgenes.html'>deseqresult2DEgenes</a></span><span class='op'>(</span><span class='va'>res_airway</span><span class='op'>)</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>100</span>, <span class='op'>]</span>
 <span class='va'>myde</span> <span class='op'>&lt;-</span> <span class='va'>res_subset</span><span class='op'>$</span><span class='va'>id</span>
 <span class='va'>myassayed</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span><span class='op'>(</span><span class='va'>res_airway</span><span class='op'>)</span>
-
 <span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
 <span class='va'>mygo</span> <span class='op'>&lt;-</span> <span class='fu'>goseqTable</span><span class='op'>(</span><span class='va'>myde</span>,
-                   <span class='va'>myassayed</span>,
-                   testCats <span class='op'>=</span> <span class='st'>"GO:BP"</span>,
-                   addGeneToTerms <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+  <span class='va'>myassayed</span>,
+  testCats <span class='op'>=</span> <span class='st'>"GO:BP"</span>,
+  addGeneToTerms <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>mygo</span><span class='op'>)</span>
 <span class='op'>}</span>
 

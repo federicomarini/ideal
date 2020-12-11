@@ -177,7 +177,7 @@
 #&gt; <span class='message'>    rowWeightedMads, rowWeightedMeans, rowWeightedMedians,</span>
 #&gt; <span class='message'>    rowWeightedSds, rowWeightedVars</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:Biobase’:</span>
 #&gt; <span class='message'></span>
-#&gt; <span class='message'>    rowMedians</span></div><div class='input'><span class='va'>dds</span> <span class='op'>&lt;-</span> <span class='fu'>DESeq2</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/DESeq2/man/makeExampleDESeqDataSet.html'>makeExampleDESeqDataSet</a></span><span class='op'>(</span>n<span class='op'>=</span><span class='fl'>100</span>, m<span class='op'>=</span><span class='fl'>8</span>, betaSD <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
+#&gt; <span class='message'>    rowMedians</span></div><div class='input'><span class='va'>dds</span> <span class='op'>&lt;-</span> <span class='fu'>DESeq2</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/DESeq2/man/makeExampleDESeqDataSet.html'>makeExampleDESeqDataSet</a></span><span class='op'>(</span>n <span class='op'>=</span> <span class='fl'>100</span>, m <span class='op'>=</span> <span class='fl'>8</span>, betaSD <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
 <span class='va'>dds</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/DESeq2/man/DESeq.html'>DESeq</a></span><span class='op'>(</span><span class='va'>dds</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='input'><span class='va'>res</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/DESeq2/man/results.html'>results</a></span><span class='op'>(</span><span class='va'>dds</span><span class='op'>)</span>
 <span class='fu'>deseqresult2DEgenes</span><span class='op'>(</span><span class='va'>res</span><span class='op'>)</span>
@@ -284,8 +284,7 @@
 #&gt; gene22 2.350466e-02
 #&gt; gene24 2.350466e-02
 #&gt; gene93 2.372423e-02
-#&gt; gene36 2.766360e-02</div><div class='input'>
-</div></span></pre>
+#&gt; gene36 2.766360e-02</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

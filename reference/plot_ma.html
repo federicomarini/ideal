@@ -240,31 +240,34 @@ in the row names</p>
 #&gt; rowData names(0):
 #&gt; colnames(8): SRR1039508 SRR1039509 ... SRR1039520 SRR1039521
 #&gt; colData names(9): SampleName cell ... Sample BioSample</div><div class='input'><span class='va'>dds_airway</span> <span class='op'>&lt;-</span> <span class='fu'>DESeq2</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/DESeq2/man/DESeqDataSet.html'>DESeqDataSetFromMatrix</a></span><span class='op'>(</span><span class='fu'>assay</span><span class='op'>(</span><span class='va'>airway</span><span class='op'>)</span>,
-                                             colData <span class='op'>=</span> <span class='fu'>colData</span><span class='op'>(</span><span class='va'>airway</span><span class='op'>)</span>,
-                                             design<span class='op'>=</span><span class='op'>~</span><span class='va'>cell</span><span class='op'>+</span><span class='va'>dex</span><span class='op'>)</span>
-<span class='co'># subsetting for quicker run, ignore the next two commands if regularly using the function </span>
+  colData <span class='op'>=</span> <span class='fu'>colData</span><span class='op'>(</span><span class='va'>airway</span><span class='op'>)</span>,
+  design <span class='op'>=</span> <span class='op'>~</span> <span class='va'>cell</span> <span class='op'>+</span> <span class='va'>dex</span>
+<span class='op'>)</span>
+<span class='co'># subsetting for quicker run, ignore the next two commands if regularly using the function</span>
 <span class='va'>gene_subset</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>
-  <span class='st'>"ENSG00000103196"</span>,  <span class='co'># CRISPLD2</span>
-  <span class='st'>"ENSG00000120129"</span>,  <span class='co'># DUSP1</span>
-  <span class='st'>"ENSG00000163884"</span>,  <span class='co'># KLF15</span>
-  <span class='st'>"ENSG00000179094"</span>,  <span class='co'># PER1</span>
-  <span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span><span class='op'>(</span><span class='va'>dds_airway</span><span class='op'>)</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='cn'>FALSE</span>,<span class='fl'>99</span><span class='op'>)</span>, <span class='cn'>TRUE</span><span class='op'>)</span>, length.out<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>dds_airway</span><span class='op'>)</span><span class='op'>)</span><span class='op'>]</span><span class='op'>)</span> <span class='co'># 1% of ids</span>
-<span class='va'>dds_airway</span> <span class='op'>&lt;-</span> <span class='va'>dds_airway</span><span class='op'>[</span><span class='va'>gene_subset</span>,<span class='op'>]</span>
-                  
+  <span class='st'>"ENSG00000103196"</span>, <span class='co'># CRISPLD2</span>
+  <span class='st'>"ENSG00000120129"</span>, <span class='co'># DUSP1</span>
+  <span class='st'>"ENSG00000163884"</span>, <span class='co'># KLF15</span>
+  <span class='st'>"ENSG00000179094"</span>, <span class='co'># PER1</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span><span class='op'>(</span><span class='va'>dds_airway</span><span class='op'>)</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='cn'>FALSE</span>, <span class='fl'>99</span><span class='op'>)</span>, <span class='cn'>TRUE</span><span class='op'>)</span>, length.out <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>dds_airway</span><span class='op'>)</span><span class='op'>)</span><span class='op'>]</span>
+<span class='op'>)</span> <span class='co'># 1% of ids</span>
+<span class='va'>dds_airway</span> <span class='op'>&lt;-</span> <span class='va'>dds_airway</span><span class='op'>[</span><span class='va'>gene_subset</span>, <span class='op'>]</span>
+
 <span class='va'>dds_airway</span> <span class='op'>&lt;-</span> <span class='fu'>DESeq2</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/DESeq2/man/DESeq.html'>DESeq</a></span><span class='op'>(</span><span class='va'>dds_airway</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='input'><span class='va'>res_airway</span> <span class='op'>&lt;-</span> <span class='fu'>DESeq2</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/DESeq2/man/results.html'>results</a></span><span class='op'>(</span><span class='va'>dds_airway</span><span class='op'>)</span>
 
 <span class='fu'>plot_ma</span><span class='op'>(</span><span class='va'>res_airway</span>, FDR <span class='op'>=</span> <span class='fl'>0.05</span>, hlines <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
 </div><div class='img'><img src='plot_ma-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'>plot_ma</span><span class='op'>(</span><span class='va'>res_airway</span>, FDR <span class='op'>=</span> <span class='fl'>0.1</span>,
-        intgenes <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"ENSG00000103196"</span>,  <span class='co'># CRISPLD2</span>
-                     <span class='st'>"ENSG00000120129"</span>,  <span class='co'># DUSP1</span>
-                     <span class='st'>"ENSG00000163884"</span>,  <span class='co'># KLF15</span>
-                     <span class='st'>"ENSG00000179094"</span><span class='op'>)</span>  <span class='co'># PER1</span>
-       <span class='op'>)</span>
-</div><div class='img'><img src='plot_ma-2.png' alt='' width='700' height='433' /></div><div class='input'>
-
-</div></pre>
+<span class='fu'>plot_ma</span><span class='op'>(</span><span class='va'>res_airway</span>,
+  FDR <span class='op'>=</span> <span class='fl'>0.1</span>,
+  intgenes <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>
+    <span class='st'>"ENSG00000103196"</span>, <span class='co'># CRISPLD2</span>
+    <span class='st'>"ENSG00000120129"</span>, <span class='co'># DUSP1</span>
+    <span class='st'>"ENSG00000163884"</span>, <span class='co'># KLF15</span>
+    <span class='st'>"ENSG00000179094"</span>
+  <span class='op'>)</span> <span class='co'># PER1</span>
+<span class='op'>)</span>
+</div><div class='img'><img src='plot_ma-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

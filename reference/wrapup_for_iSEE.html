@@ -149,35 +149,35 @@
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A SummarizedExperiment object, with raw counts, normalized counts, and 
-variance-stabilizing transformed counts in the assay slots; and with colData 
+    <p>A SummarizedExperiment object, with raw counts, normalized counts, and
+variance-stabilizing transformed counts in the assay slots; and with colData
 and rowData extracted from the corresponding input parameters</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Combines the DESeqDataSet input and DESeqResults into a SummarizedExperiment
 object, which can be readily explored with iSEE.</p>
-<p>A typical usage would be after running the DESeq2 pipeline as specified in 
-one of the workflows which include this package, e.g. in the context of the 
+<p>A typical usage would be after running the DESeq2 pipeline as specified in
+one of the workflows which include this package, e.g. in the context of the
 ideal package.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># with simulated data...</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/mikelove/DESeq2'>DESeq2</a></span><span class='op'>)</span>
-<span class='va'>dds</span> <span class='op'>&lt;-</span> <span class='fu'>DESeq2</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/DESeq2/man/makeExampleDESeqDataSet.html'>makeExampleDESeqDataSet</a></span><span class='op'>(</span>n<span class='op'>=</span><span class='fl'>10000</span>, m<span class='op'>=</span><span class='fl'>8</span><span class='op'>)</span>
+<span class='va'>dds</span> <span class='op'>&lt;-</span> <span class='fu'>DESeq2</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/DESeq2/man/makeExampleDESeqDataSet.html'>makeExampleDESeqDataSet</a></span><span class='op'>(</span>n <span class='op'>=</span> <span class='fl'>10000</span>, m <span class='op'>=</span> <span class='fl'>8</span><span class='op'>)</span>
 <span class='va'>dds</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/DESeq2/man/DESeq.html'>DESeq</a></span><span class='op'>(</span><span class='va'>dds</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='input'><span class='va'>res</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/DESeq2/man/results.html'>results</a></span><span class='op'>(</span><span class='va'>dds</span><span class='op'>)</span>
 <span class='va'>se</span> <span class='op'>&lt;-</span> <span class='fu'>wrapup_for_iSEE</span><span class='op'>(</span><span class='va'>dds</span>, <span class='va'>res</span><span class='op'>)</span>
 <span class='co'># library(iSEE)</span>
 <span class='co'># iSEE(se)</span>
-
 <span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
 <span class='co'># or with the well known airway package...</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'>airway</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>airway</span><span class='op'>)</span>
 <span class='va'>airway</span>
 <span class='va'>dds_airway</span> <span class='op'>&lt;-</span> <span class='fu'>DESeq2</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/DESeq2/man/DESeqDataSet.html'>DESeqDataSetFromMatrix</a></span><span class='op'>(</span><span class='fu'>assay</span><span class='op'>(</span><span class='va'>airway</span><span class='op'>)</span>,
-                                             colData <span class='op'>=</span> <span class='fu'>colData</span><span class='op'>(</span><span class='va'>airway</span><span class='op'>)</span>,
-                                             design<span class='op'>=</span><span class='op'>~</span><span class='va'>cell</span><span class='op'>+</span><span class='va'>dex</span><span class='op'>)</span>
+  colData <span class='op'>=</span> <span class='fu'>colData</span><span class='op'>(</span><span class='va'>airway</span><span class='op'>)</span>,
+  design <span class='op'>=</span> <span class='op'>~</span> <span class='va'>cell</span> <span class='op'>+</span> <span class='va'>dex</span>
+<span class='op'>)</span>
 <span class='va'>dds_airway</span> <span class='op'>&lt;-</span> <span class='fu'>DESeq2</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/DESeq2/man/DESeq.html'>DESeq</a></span><span class='op'>(</span><span class='va'>dds_airway</span><span class='op'>)</span>
 <span class='va'>res_airway</span> <span class='op'>&lt;-</span> <span class='fu'>DESeq2</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/DESeq2/man/results.html'>results</a></span><span class='op'>(</span><span class='va'>dds_airway</span><span class='op'>)</span>
 <span class='va'>se_airway</span> <span class='op'>&lt;-</span> <span class='fu'>wrapup_for_iSEE</span><span class='op'>(</span><span class='va'>dds_airway</span>, <span class='va'>res_airway</span><span class='op'>)</span>

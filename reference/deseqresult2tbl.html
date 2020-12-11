@@ -151,7 +151,7 @@
     <pre class="examples"><div class='input'>
 <span class='co'># with simulated data...</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/mikelove/DESeq2'>DESeq2</a></span><span class='op'>)</span>
-<span class='va'>dds</span> <span class='op'>&lt;-</span> <span class='fu'>DESeq2</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/DESeq2/man/makeExampleDESeqDataSet.html'>makeExampleDESeqDataSet</a></span><span class='op'>(</span>n<span class='op'>=</span><span class='fl'>100</span>, m<span class='op'>=</span><span class='fl'>8</span>, betaSD <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
+<span class='va'>dds</span> <span class='op'>&lt;-</span> <span class='fu'>DESeq2</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/DESeq2/man/makeExampleDESeqDataSet.html'>makeExampleDESeqDataSet</a></span><span class='op'>(</span>n <span class='op'>=</span> <span class='fl'>100</span>, m <span class='op'>=</span> <span class='fl'>8</span>, betaSD <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
 <span class='va'>dds</span> <span class='op'>&lt;-</span> <span class='fu'>DESeq2</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/DESeq2/man/DESeq.html'>DESeq</a></span><span class='op'>(</span><span class='va'>dds</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='input'><span class='va'>res</span> <span class='op'>&lt;-</span> <span class='fu'>DESeq2</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/DESeq2/man/results.html'>results</a></span><span class='op'>(</span><span class='va'>dds</span><span class='op'>)</span>
 <span class='fu'>deseqresult2tbl</span><span class='op'>(</span><span class='va'>res</span><span class='op'>)</span>
@@ -356,8 +356,7 @@
 #&gt; gene84            NA
 #&gt; gene91            NA
 #&gt; gene97            NA
-#&gt; gene98            NA</div><div class='input'>
-</div></pre>
+#&gt; gene98            NA</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
