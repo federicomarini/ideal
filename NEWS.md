@@ -1,3 +1,14 @@
+# ideal 1.16.0
+
+## New features
+
+* Adjusted the behavior for the modeling with LRT, with extra notifications to inform the user on how to make the most out of the functionality.
+
+## Other notes
+
+* The manuscript of `ideal` is now published in BMC Bioinformatics! The citation file has been updated accordingly.
+* A full round of `styler` has been applied to the codebase.
+
 # ideal 1.14.0
 
 ## Other notes
