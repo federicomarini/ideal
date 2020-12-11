@@ -71,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ideal</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.15.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.15.1</span>
       </span>
     </div>
 
@@ -126,12 +126,31 @@
       <small>Source: <a href='https://github.com/federicomarini/ideal/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="ideal-1140" class="section level1">
-<h1 class="page-header" data-toc-text="1.14.0">
-<a href="#ideal-1140" class="anchor"></a>ideal 1.14.0</h1>
+    <div id="ideal-1160" class="section level1">
+<h1 class="page-header" data-toc-text="1.16.0">
+<a href="#ideal-1160" class="anchor"></a>ideal 1.16.0</h1>
+<div id="new-features" class="section level2">
+<h2 class="hasAnchor">
+<a href="#new-features" class="anchor"></a>New features</h2>
+<ul>
+<li>Adjusted the behavior for the modeling with LRT, with extra notifications to inform the user on how to make the most out of the functionality.</li>
+</ul>
+</div>
 <div id="other-notes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#other-notes" class="anchor"></a>Other notes</h2>
+<ul>
+<li>The manuscript of <code>ideal</code> is now published in BMC Bioinformatics! The citation file has been updated accordingly.</li>
+<li>A full round of <code>styler</code> has been applied to the codebase.</li>
+</ul>
+</div>
+</div>
+    <div id="ideal-1140" class="section level1">
+<h1 class="page-header" data-toc-text="1.14.0">
+<a href="#ideal-1140" class="anchor"></a>ideal 1.14.0</h1>
+<div id="other-notes-1" class="section level2">
+<h2 class="hasAnchor">
+<a href="#other-notes-1" class="anchor"></a>Other notes</h2>
 <ul>
 <li>Replaced dependency from <code>d3heatmap</code> with the functionality of <code>heatmaply</code>
 </li>
@@ -146,16 +165,16 @@
     <div id="ideal-1120" class="section level1">
 <h1 class="page-header" data-toc-text="1.12.0">
 <a href="#ideal-1120" class="anchor"></a>ideal 1.12.0</h1>
-<div id="new-features" class="section level2">
+<div id="new-features-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features" class="anchor"></a>New features</h2>
+<a href="#new-features-1" class="anchor"></a>New features</h2>
 <ul>
 <li>Implemented a series of gentle fail mechanisms to avoid abrupt crashing of the app if the expected objects or formats are not provided</li>
 </ul>
 </div>
-<div id="other-notes-1" class="section level2">
+<div id="other-notes-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#other-notes-1" class="anchor"></a>Other notes</h2>
+<a href="#other-notes-2" class="anchor"></a>Other notes</h2>
 <ul>
 <li>Alignments of UI elements have been adjusted</li>
 <li>Updated citation info - the preprint for <code>ideal</code>, “ideal: an R/Bioconductor package for Interactive Differential Expression Analysis”, is now published at bioRxiv, <a href="https://doi.org/10.1101/2020.01.10.901652" class="uri">https://doi.org/10.1101/2020.01.10.901652</a>
@@ -170,9 +189,9 @@
     <div id="ideal-1100" class="section level1">
 <h1 class="page-header" data-toc-text="1.10.0">
 <a href="#ideal-1100" class="anchor"></a>ideal 1.10.0</h1>
-<div id="new-features-1" class="section level2">
+<div id="new-features-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-1" class="anchor"></a>New features</h2>
+<a href="#new-features-2" class="anchor"></a>New features</h2>
 <ul>
 <li>
 <code>ggplotCounts</code> gains a new parameter, <code>labels_repel</code>, to control the placement of the different labels in the plot - this can be useful when a large number of samples is available</li>
@@ -186,9 +205,9 @@
 </li>
 </ul>
 </div>
-<div id="other-notes-2" class="section level2">
+<div id="other-notes-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#other-notes-2" class="anchor"></a>Other notes</h2>
+<a href="#other-notes-3" class="anchor"></a>Other notes</h2>
 <ul>
 <li>Better class checks via <code>is(...)</code> as per <code>BiocCheck</code> suggestion</li>
 </ul>
@@ -197,9 +216,9 @@
     <div id="ideal-180" class="section level1">
 <h1 class="page-header" data-toc-text="1.8.0">
 <a href="#ideal-180" class="anchor"></a>ideal 1.8.0</h1>
-<div id="new-features-2" class="section level2">
+<div id="new-features-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-2" class="anchor"></a>New features</h2>
+<a href="#new-features-3" class="anchor"></a>New features</h2>
 <ul>
 <li>
 <code>plot_ma</code> gains an additional parameter, <code>labels_repel</code>, for better placing the labels on the features to mark</li>
@@ -211,9 +230,9 @@
 <li>It is possible to export the input data together with the results in a combined <code>SummarizedExperiment</code> object, which can be seamlessly fed into <code>iSEE</code> (<a href="http://bioconductor.org/packages/release/bioc/html/iSEE.html" class="uri">http://bioconductor.org/packages/release/bioc/html/iSEE.html</a>). This leverages a new function, <code>wrapup_for_iSEE</code>, which is available and exported from <code>ideal</code>.</li>
 </ul>
 </div>
-<div id="other-notes-3" class="section level2">
+<div id="other-notes-4" class="section level2">
 <h2 class="hasAnchor">
-<a href="#other-notes-3" class="anchor"></a>Other notes</h2>
+<a href="#other-notes-4" class="anchor"></a>Other notes</h2>
 <ul>
 <li>An information box has been added to provide detailed information on the required input formats</li>
 <li>Added notification to specify how to install the airway package for demonstration purposes if not already available</li>
@@ -224,18 +243,18 @@
     <div id="ideal-160" class="section level1">
 <h1 class="page-header" data-toc-text="1.6.0">
 <a href="#ideal-160" class="anchor"></a>ideal 1.6.0</h1>
-<div id="new-features-3" class="section level2">
+<div id="new-features-4" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-3" class="anchor"></a>New features</h2>
+<a href="#new-features-4" class="anchor"></a>New features</h2>
 <ul>
 <li>Added extra diagnostic to results exploration (stratified pvalues histograms, schweder-spjotvoll plot)</li>
 <li>Added functionality for the tab Signatures Explorer: read in gmt files, and explore signatures for all/DE genes visually as heatmaps. The signatures can also be provided in the main call of the function as an argument, on top of uploading at runtime</li>
 <li>Different handling of the selection of ids/gene names, now not requiring anymore that the result is computed, but based on the dds object (and on the presence or not of the annotation object)</li>
 </ul>
 </div>
-<div id="other-notes-4" class="section level2">
+<div id="other-notes-5" class="section level2">
 <h2 class="hasAnchor">
-<a href="#other-notes-4" class="anchor"></a>Other notes</h2>
+<a href="#other-notes-5" class="anchor"></a>Other notes</h2>
 <ul>
 <li>Built project website via pkgdown, with customized reference structure</li>
 <li>Added a <code>NEWS.md</code> file to track changes to the package</li>
@@ -259,9 +278,9 @@
     <div id="ideal-140" class="section level1">
 <h1 class="page-header" data-toc-text="1.4.0">
 <a href="#ideal-140" class="anchor"></a>ideal 1.4.0</h1>
-<div id="new-features-4" class="section level2">
+<div id="new-features-5" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-4" class="anchor"></a>New features</h2>
+<a href="#new-features-5" class="anchor"></a>New features</h2>
 <ul>
 <li>Specified single go term selection for generating heatmaps of gene signatures</li>
 <li>Added support for logFC shrinkage, following the latest devels of DESeq2</li>
@@ -276,9 +295,9 @@
 <li>Fixed the behavior with addMLE</li>
 </ul>
 </div>
-<div id="other-notes-5" class="section level2">
+<div id="other-notes-6" class="section level2">
 <h2 class="hasAnchor">
-<a href="#other-notes-5" class="anchor"></a>Other notes</h2>
+<a href="#other-notes-6" class="anchor"></a>Other notes</h2>
 <ul>
 <li>Added further progress indicators to give feedback during lengthy steps</li>
 <li>Improved ggplotCounts for better scale display, using exact arg matching, defaulting to the transformed counts</li>
@@ -288,9 +307,9 @@
     <div id="ideal-0990" class="section level1">
 <h1 class="page-header" data-toc-text="0.99.0">
 <a href="#ideal-0990" class="anchor"></a>ideal 0.99.0</h1>
-<div id="new-features-5" class="section level2">
+<div id="new-features-6" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-5" class="anchor"></a>New features</h2>
+<a href="#new-features-6" class="anchor"></a>New features</h2>
 <ul>
 <li>Ready for Bioc submission</li>
 <li>Completed the news</li>
@@ -300,9 +319,9 @@
     <div id="ideal-091" class="section level1">
 <h1 class="page-header" data-toc-text="0.9.1">
 <a href="#ideal-091" class="anchor"></a>ideal 0.9.1</h1>
-<div id="new-features-6" class="section level2">
+<div id="new-features-7" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-6" class="anchor"></a>New features</h2>
+<a href="#new-features-7" class="anchor"></a>New features</h2>
 <ul>
 <li>Added Instructions fully from rendered version of the vignette to have available at runtime</li>
 <li>Added support for downloading all plots and tables</li>
@@ -312,9 +331,9 @@
     <div id="ideal-090" class="section level1">
 <h1 class="page-header" data-toc-text="0.9.0">
 <a href="#ideal-090" class="anchor"></a>ideal 0.9.0</h1>
-<div id="new-features-7" class="section level2">
+<div id="new-features-8" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-7" class="anchor"></a>New features</h2>
+<a href="#new-features-8" class="anchor"></a>New features</h2>
 <ul>
 <li>Interactive tours are covering now all tabs, with extensive walkthroughs for the user</li>
 <li>Added all screenshots to vignette</li>
@@ -324,9 +343,9 @@
     <div id="ideal-062" class="section level1">
 <h1 class="page-header" data-toc-text="0.6.2">
 <a href="#ideal-062" class="anchor"></a>ideal 0.6.2</h1>
-<div id="new-features-8" class="section level2">
+<div id="new-features-9" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-8" class="anchor"></a>New features</h2>
+<a href="#new-features-9" class="anchor"></a>New features</h2>
 <ul>
 <li>Interactive tours are now available, coded in external files</li>
 <li>Travis-CI is now supported</li>
@@ -336,9 +355,9 @@
     <div id="ideal-060" class="section level1">
 <h1 class="page-header" data-toc-text="0.6.0">
 <a href="#ideal-060" class="anchor"></a>ideal 0.6.0</h1>
-<div id="new-features-9" class="section level2">
+<div id="new-features-10" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-9" class="anchor"></a>New features</h2>
+<a href="#new-features-10" class="anchor"></a>New features</h2>
 <ul>
 <li>Added MA plot with extra custom list to avoid manual selection of many genes</li>
 <li>MA plot function now automatically supports subset of gene to be extra plotted</li>
@@ -354,9 +373,9 @@
     <div id="ideal-040" class="section level1">
 <h1 class="page-header" data-toc-text="0.4.0">
 <a href="#ideal-040" class="anchor"></a>ideal 0.4.0</h1>
-<div id="new-features-10" class="section level2">
+<div id="new-features-11" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-10" class="anchor"></a>New features</h2>
+<a href="#new-features-11" class="anchor"></a>New features</h2>
 <ul>
 <li>Gene box info added, based on rentrez</li>
 <li>New look for MA plots and volcano plots</li>
@@ -366,9 +385,9 @@
     <div id="ideal-030" class="section level1">
 <h1 class="page-header" data-toc-text="0.3.0">
 <a href="#ideal-030" class="anchor"></a>ideal 0.3.0</h1>
-<div id="new-features-11" class="section level2">
+<div id="new-features-12" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-11" class="anchor"></a>New features</h2>
+<a href="#new-features-12" class="anchor"></a>New features</h2>
 <ul>
 <li>Restructuring of the folders done, package can be correctly installed, loaded - namespace, description are set up</li>
 </ul>
@@ -377,9 +396,9 @@
     <div id="ideal-020" class="section level1">
 <h1 class="page-header" data-toc-text="0.2.0">
 <a href="#ideal-020" class="anchor"></a>ideal 0.2.0</h1>
-<div id="new-features-12" class="section level2">
+<div id="new-features-13" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-12" class="anchor"></a>New features</h2>
+<a href="#new-features-13" class="anchor"></a>New features</h2>
 <ul>
 <li>Correct structure of the package</li>
 </ul>
@@ -388,9 +407,9 @@
     <div id="ideal-010" class="section level1">
 <h1 class="page-header" data-toc-text="0.1.0">
 <a href="#ideal-010" class="anchor"></a>ideal 0.1.0</h1>
-<div id="new-features-13" class="section level2">
+<div id="new-features-14" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-13" class="anchor"></a>New features</h2>
+<a href="#new-features-14" class="anchor"></a>New features</h2>
 <ul>
 <li>Package created!</li>
 </ul>
