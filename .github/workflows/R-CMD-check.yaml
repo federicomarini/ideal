@@ -84,6 +84,7 @@ jobs:
         run: |
           brew install harfbuzz
           brew install fribidi
+          brew install --cask gfortran
 
       - name: Install dependencies
         run: |
