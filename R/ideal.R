@@ -1164,7 +1164,9 @@ ideal <- function(dds_obj = NULL,
                 actionButton("updatepreview_button", "Update report", class = "btn btn-primary"), p()
               ),
               column(3, downloadButton("saveRmd", "Generate & Save", class = "btn btn-success")),
-              column(3, uiOutput("ui_iSEEexport"))
+              column(3, 
+                     uiOutput("ui_iSEEexport"),
+                     uiOutput("ui_GeneTonicexport"))
             ),
 
             tabBox(
@@ -4756,6 +4758,7 @@ ideal <- function(dds_obj = NULL,
       }
     )
 
+    # iSEE export ------------------------------------------------------------
     output$ui_iSEEexport <- renderUI({
       validate(
         need(((!is.null(values$dds_obj)) & (!is.null(values$res_obj))),
@@ -4785,6 +4788,68 @@ ideal <- function(dds_obj = NULL,
       }, content = function(file) {
         se <- wrapup_for_iSEE(values$dds_obj, values$res_obj)
         saveRDS(se, file = file)
+      }
+    )
+    
+    # GeneTonic export -------------------------------------------------------
+    output$ui_GeneTonicexport <- renderUI({
+      validate(
+        need(((!is.null(values$dds_obj)) & (!is.null(values$res_obj))),
+             message = "Please build and compute the dds and res object to export as 
+             a list for use in GeneTonic"
+        ),
+        need(!is.null(values$annotation_obj),
+             message = "Please provide or obtain an annotation object")
+      )
+      
+      go_tbls_available <- c("topgo_updown",
+                             "topgo_down",
+                             "topgo_up")
+      
+      return(
+        tagList(
+          textInput(
+            "gtl_exportgt_name",
+            label = "Choose a filename for the serialized .rds object",
+            value = "gtl_ideal_toGeneTonic.rds"
+          ),
+          selectInput(
+            "gotbl_forgt",
+            label = "Select which GO table to export (topGO output supported)",
+            choices = go_tbls_available[
+              unlist(lapply(go_tbls_available, function(arg) {
+                !is.null(values[[arg]])
+              }))
+            ]
+          ),
+          downloadButton(
+            "button_GeneTonicexport",
+            label = "Export as serialized list for GeneTonic"
+          )
+        )
+      )
+    })
+    
+    output$button_GeneTonicexport <- downloadHandler(
+      filename = function() {
+        input$gtl_exportgt_name
+      }, content = function(file) {
+        
+        dds_obj <- values$dds_obj
+        
+        res_obj <- values$res_obj
+        res_obj$SYMBOL <- res_obj$symbol
+        
+        res_enrich <- shake_topGOtableResult(values[[input$gotbl_forgt]])
+        
+        anno_df <- values$annotation_obj
+        
+        gtl <- list(dds = dds_obj,
+                    res_de = res_obj,
+                    res_enrich = res_enrich,
+                    annotation_obj = anno_df)
+        
+        saveRDS(gtl, file = file)
       }
     )
 

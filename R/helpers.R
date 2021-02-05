@@ -75,6 +75,47 @@ sepguesser2 <- function(file, sep_list = c(",", "\t", ";", " ")) {
 
 
 
+shake_topGOtableResult <- function(obj,
+                                   p_value_column = "p.value_elim") {
+  
+  if(!all(c("GO.ID", "Term", "Annotated", "Significant", "Expected", "p.value_classic") %in%
+          colnames(obj))) {
+    stop("The provided object must be of in the format specified by the `pcaExplorer::topGOtable` function")
+  }
+  
+  if(!p_value_column %in% colnames(obj)) {
+    stop("You specified a column for the p-value which is not contained in the provided object. \n",
+         "Please check the colnames of your object in advance.")
+  }
+  
+  if(!"genes" %in% colnames(obj)) {
+    stop("The column `genes` is not present in the provided object and is required for properly running GeneTonic.",
+         "\nMaybe you did set `addGeneToTerms` to FALSE in the call to `pcaExplorer::topGOtable`?")
+  }
+  
+  # Thought: store somewhere the ontology if possible - in an extra column?
+  message("Found ", nrow(obj), " gene sets in `topGOtableResult` object.")
+  message("Converting for usage in GeneTonic...")
+  
+  fullresults <- obj
+  
+  mydf <- data.frame(
+    gs_id = fullresults$GO.ID,
+    gs_description = fullresults$Term,
+    gs_pvalue = fullresults[[p_value_column]],
+    gs_genes = fullresults$genes,
+    gs_de_count = fullresults$Significant,
+    gs_bg_count = fullresults$Annotated,
+    Expected = fullresults$Expected,
+    stringsAsFactors = FALSE
+  )
+  
+  rownames(mydf) <- mydf$gs_id
+  
+  return(mydf)
+}
+
+
 
 
 # combineTogether <- function(normCounts,resuTable,anns) {

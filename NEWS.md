@@ -2,6 +2,7 @@
 
 ## New features
 
+* It is now possible to export the processed data (count data, results, functional enrichment table) into a combined list object, which can be seamlessly fed into `GeneTonic` (http://bioconductor.org/packages/release/bioc/html/GeneTonic.html). 
 * Adjusted the behavior for the modeling with LRT, with extra notifications to inform the user on how to make the most out of the functionality.
 
 ## Other notes
