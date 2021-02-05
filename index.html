@@ -124,7 +124,7 @@
 <span id="cb4-5"><a href="#cb4-5"></a><span class="op">*</span>removing ´Library<span class="op">/</span>Frameworks<span class="op">/</span>R.framework<span class="op">/</span>Versions<span class="op">/</span><span class="fl">3.6</span><span class="op">/</span>Resources<span class="op">/</span>library<span class="op">/</span>ideal´</span>
 <span id="cb4-6"><a href="#cb4-6"></a>Error<span class="op">:</span><span class="st"> </span>Failed to install <span class="st">'ideal'</span> from GitHub<span class="op">:</span></span>
 <span id="cb4-7"><a href="#cb4-7"></a><span class="st">  </span>(converted from warning) installation of package ´......<span class="op">/</span>ideal_<span class="dv">1</span>.<span class="dv">11</span>.<span class="fl">2.</span>tar.gz´ had non zero exit status</span></code></pre></div>
-<p>In this case, you can follow the instructions found at <a href="https://remotes.r-lib.org/index.html#environment-variables" class="uri">https://remotes.r-lib.org/index.html#environment-variables</a>, which specifically suggest to set <code>R_REMOTES_NO_ERRORS_FROM_WARNINGS</code> to <code>true</code>. You can do so directly in R before installing the package by entering</p>
+<p>In this case, you can follow the instructions found at https://remotes.r-lib.org/index.html#environment-variables, which specifically suggest to set <code>R_REMOTES_NO_ERRORS_FROM_WARNINGS</code> to <code>true</code>. You can do so directly in R before installing the package by entering</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Sys.setenv.html">Sys.setenv</a></span><span class="op">(</span>R_REMOTES_NO_ERRORS_FROM_WARNINGS<span class="op">=</span><span class="st">"true"</span><span class="op">)</span>
 <span class="co"># and then again</span>
@@ -133,8 +133,8 @@
 <div id="which-version-should-i-use" class="section level3">
 <h3 class="hasAnchor">
 <a href="#which-version-should-i-use" class="anchor"></a>Which version should I use?</h3>
-<p>If you are a <strong>regular user</strong>, you should <strong>install the latest stable release version</strong>. This can be done at best by using <code><a href="https://rdrr.io/pkg/BiocManager/man/install.html">BiocManager::install("ideal")</a></code>, as recommended in <a href="https://www.bioconductor.org/install/#troubleshoot-bioconductor-packages" class="uri">https://www.bioconductor.org/install/#troubleshoot-bioconductor-packages</a>. Please follow the general instructions in <a href="https://www.bioconductor.org/install" class="uri">https://www.bioconductor.org/install</a> to make sure you are using the correct version, matched to the version of the R software in use.</p>
-<p>If you are a <strong>software developer</strong> and want to have access to the latest features that are currently in the <strong>devel branch of Bioconductor</strong> (i.e. experimental functionality, and more), you can do so by calling first <code><a href="https://rdrr.io/pkg/BiocManager/man/install.html">BiocManager::install(version = "devel")</a></code> as specified in <a href="https://bioconductor.org/developers/how-to/useDevel/" class="uri">https://bioconductor.org/developers/how-to/useDevel/</a>, then followed by <code><a href="https://rdrr.io/pkg/BiocManager/man/install.html">BiocManager::install("ideal")</a></code>. Keep in mind that according to the release cycle you might need to install the devel version of R itself.</p>
+<p>If you are a <strong>regular user</strong>, you should <strong>install the latest stable release version</strong>. This can be done at best by using <code><a href="https://rdrr.io/pkg/BiocManager/man/install.html">BiocManager::install("ideal")</a></code>, as recommended in https://www.bioconductor.org/install/#troubleshoot-bioconductor-packages. Please follow the general instructions in https://www.bioconductor.org/install to make sure you are using the correct version, matched to the version of the R software in use.</p>
+<p>If you are a <strong>software developer</strong> and want to have access to the latest features that are currently in the <strong>devel branch of Bioconductor</strong> (i.e. experimental functionality, and more), you can do so by calling first <code><a href="https://rdrr.io/pkg/BiocManager/man/install.html">BiocManager::install(version = "devel")</a></code> as specified in https://bioconductor.org/developers/how-to/useDevel/, then followed by <code><a href="https://rdrr.io/pkg/BiocManager/man/install.html">BiocManager::install("ideal")</a></code>. Keep in mind that according to the release cycle you might need to install the devel version of R itself.</p>
 <p>If you just want to use the <strong>bleeding edge version</strong>, which is the one you can find on GitHub, you can install that by calling <code><a href="https://rdrr.io/pkg/BiocManager/man/install.html">BiocManager::install("federicomarini/ideal")</a></code> (which is basically a wrapper around <code>remotes::install("federicomarini/ideal")</code>). This approach might be recommended for <strong>experienced users</strong> - based on which Bioconductor version you might be using, you might encounter mismatches in the dependencies if you mix up versions from release and devel branches.</p>
 </div>
 </div>
@@ -175,21 +175,21 @@
 </h2>
 <p>To use <code>ideal</code> without installing any additional software, you can access the public instance of the Shiny Server made available at the Institute of Medical Biostatistics, Epidemiology and Informatics (IMBEI) in Mainz.</p>
 <p>This resource is accessible at this address:</p>
-<p><a href="http://shiny.imbei.uni-mainz.de:3838/ideal" class="uri">http://shiny.imbei.uni-mainz.de:3838/ideal</a></p>
+<p>http://shiny.imbei.uni-mainz.de:3838/ideal</p>
 </div>
 <div id="deploying-to-a-shiny-server" class="section level2">
 <h2 class="hasAnchor">
 <a href="#deploying-to-a-shiny-server" class="anchor"></a>Deploying to a Shiny Server</h2>
-<p>A deployment-oriented version of the package is available at <a href="https://github.com/federicomarini/ideal_serveredition" class="uri">https://github.com/federicomarini/ideal_serveredition</a>. This repository contains also detailed instruction to setup the running instance of a Shiny Server, where <code>ideal</code> can be run without further installation for the end-users.</p>
+<p>A deployment-oriented version of the package is available at https://github.com/federicomarini/ideal_serveredition. This repository contains also detailed instruction to setup the running instance of a Shiny Server, where <code>ideal</code> can be run without further installation for the end-users.</p>
 </div>
 <div id="contact" class="section level2">
 <h2 class="hasAnchor">
 <a href="#contact" class="anchor"></a>Contact</h2>
-<p>For additional details regarding the functions of <strong>ideal</strong>, please consult the documentation or write an email to <a href="mailto:marinif@uni-mainz.de" class="email">marinif@uni-mainz.de</a>.</p>
+<p>For additional details regarding the functions of <strong>ideal</strong>, please consult the documentation or write an email to marinif@uni-mainz.de.</p>
 <div id="bug-reportsissuesnew-features" class="section level3">
 <h3 class="hasAnchor">
 <a href="#bug-reportsissuesnew-features" class="anchor"></a>Bug reports/Issues/New features</h3>
-<p>Please use <a href="https://github.com/federicomarini/ideal/issues" class="uri">https://github.com/federicomarini/ideal/issues</a> for reporting bugs, issues or for suggesting new features to be implemented.</p>
+<p>Please use https://github.com/federicomarini/ideal/issues for reporting bugs, issues or for suggesting new features to be implemented.</p>
 </div>
 </div>
 </div>

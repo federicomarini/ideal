@@ -135,6 +135,7 @@
 <h2 class="hasAnchor">
 <a href="#new-features" class="anchor"></a>New features</h2>
 <ul>
+<li>It is now possible to export the processed data (count data, results, functional enrichment table) into a combined list object, which can be seamlessly fed into <code>GeneTonic</code> (http://bioconductor.org/packages/release/bioc/html/GeneTonic.html).</li>
 <li>Adjusted the behavior for the modeling with LRT, with extra notifications to inform the user on how to make the most out of the functionality.</li>
 </ul>
 </div>
@@ -179,8 +180,7 @@
 <a href="#other-notes-2" class="anchor"></a>Other notes</h2>
 <ul>
 <li>Alignments of UI elements have been adjusted</li>
-<li>Updated citation info - the preprint for <code>ideal</code>, “ideal: an R/Bioconductor package for Interactive Differential Expression Analysis”, is now published at bioRxiv, <a href="https://doi.org/10.1101/2020.01.10.901652" class="uri">https://doi.org/10.1101/2020.01.10.901652</a>
-</li>
+<li>Updated citation info - the preprint for <code>ideal</code>, “ideal: an R/Bioconductor package for Interactive Differential Expression Analysis”, is now published at bioRxiv, https://doi.org/10.1101/2020.01.10.901652</li>
 <li>Data transformation (for table viewing and visualizations, where homoscedastic data is expected) is now taken care of with the variance stabilizing transformation (<code>vst</code>), instead of the <code>rlog</code>
 </li>
 <li>The installation information in the <code>README.md</code> includes a troubleshooting section to solve some common issues one might encounter</li>
@@ -225,11 +225,10 @@
 <li>
 <code>plot_ma</code> gains an additional parameter, <code>labels_repel</code>, for better placing the labels on the features to mark</li>
 <li>The pairwise correlation plots can now use logarithmic scale in the axes, use smaller subsets of the data for quicker inspection, and resizes the correlation info proportionally to its intensity</li>
-<li>The id types can now be chosen among the <code>keytypes</code> of the corresponding annotation packages (which still need to be installed when <code>ideal</code> is launched). Other input fields that specify id types also behave in a similar manner (e.g. in the Signature Explorer tab). This caused a problem for scenarios where common id types such as <code>ENSEMBL</code> are not available, like in Arabidopsis (where ids are provided often as <code>TAIR</code>) - thanks to Marc Galland for picking this up in <a href="https://github.com/federicomarini/ideal/issues/1" class="uri">https://github.com/federicomarini/ideal/issues/1</a>
-</li>
+<li>The id types can now be chosen among the <code>keytypes</code> of the corresponding annotation packages (which still need to be installed when <code>ideal</code> is launched). Other input fields that specify id types also behave in a similar manner (e.g. in the Signature Explorer tab). This caused a problem for scenarios where common id types such as <code>ENSEMBL</code> are not available, like in Arabidopsis (where ids are provided often as <code>TAIR</code>) - thanks to Marc Galland for picking this up in https://github.com/federicomarini/ideal/issues/1</li>
 <li>The Signatures Explorer tab also has a fully fledged tour for first-time users, together with a collapsible help panel to describe its functionality in brief</li>
 <li>The zoomed MA-plot gains a new widget to control the labels size for the names of the genes</li>
-<li>It is possible to export the input data together with the results in a combined <code>SummarizedExperiment</code> object, which can be seamlessly fed into <code>iSEE</code> (<a href="http://bioconductor.org/packages/release/bioc/html/iSEE.html" class="uri">http://bioconductor.org/packages/release/bioc/html/iSEE.html</a>). This leverages a new function, <code>wrapup_for_iSEE</code>, which is available and exported from <code>ideal</code>.</li>
+<li>It is possible to export the input data together with the results in a combined <code>SummarizedExperiment</code> object, which can be seamlessly fed into <code>iSEE</code> (http://bioconductor.org/packages/release/bioc/html/iSEE.html). This leverages a new function, <code>wrapup_for_iSEE</code>, which is available and exported from <code>ideal</code>.</li>
 </ul>
 </div>
 <div id="other-notes-4" class="section level2">
