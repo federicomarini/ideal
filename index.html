@@ -23,6 +23,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -35,7 +37,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">ideal</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.15.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.15.3</span>
       </span>
     </div>
 
@@ -97,19 +99,19 @@
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<p><code>ideal</code> can be easily installed using <code><a href="https://rdrr.io/pkg/BiocManager/man/install.html">BiocManager::install()</a></code>:</p>
+<p><code>ideal</code> can be easily installed using <code><a href="https://rdrr.io/pkg/BiocManager/man/install.html" class="external-link">BiocManager::install()</a></code>:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html">requireNamespace</a></span><span class="op">(</span><span class="st">"BiocManager"</span>, quietly<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>
-    <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"BiocManager"</span><span class="op">)</span>
-<span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocManager/man/install.html">install</a></span><span class="op">(</span><span class="st">"ideal"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"BiocManager"</span>, quietly<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>
+    <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"BiocManager"</span><span class="op">)</span>
+<span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocManager/man/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"ideal"</span><span class="op">)</span></code></pre></div>
 <p>Note that this should be the preferred way to install the latest stable release version.</p>
 <p>To also install the packages listed in the <code>Suggests:</code> field, you can run</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocManager/man/install.html">install</a></span><span class="op">(</span><span class="st">"ideal"</span>, dependencies <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocManager/man/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"ideal"</span>, dependencies <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p>to make sure to have for example the required demo dataset (<code>airway</code>) when running the app - or if you want to follow through the vignette entirely.</p>
 <p>Optionally, if you want to install the development version from GitHub, you can use:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocManager/man/install.html">install</a></span><span class="op">(</span><span class="st">"federicomarini/ideal"</span>, dependencies <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocManager/man/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"federicomarini/ideal"</span>, dependencies <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="co"># or alternatively...</span>
 <span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"federicomarini/ideal"</span>, dependencies <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p>Setting <code>dependencies = TRUE</code> should ensure that all packages, including the ones in the <code>Suggests:</code> field of the <code>DESCRIPTION</code>, are installed - this can be essential if you want to reproduce the code in the vignette, for example.</p>
@@ -126,16 +128,16 @@
 <span id="cb4-7"><a href="#cb4-7"></a><span class="st">  </span>(converted from warning) installation of package ´......<span class="op">/</span>ideal_<span class="dv">1</span>.<span class="dv">11</span>.<span class="fl">2.</span>tar.gz´ had non zero exit status</span></code></pre></div>
 <p>In this case, you can follow the instructions found at https://remotes.r-lib.org/index.html#environment-variables, which specifically suggest to set <code>R_REMOTES_NO_ERRORS_FROM_WARNINGS</code> to <code>true</code>. You can do so directly in R before installing the package by entering</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Sys.setenv.html">Sys.setenv</a></span><span class="op">(</span>R_REMOTES_NO_ERRORS_FROM_WARNINGS<span class="op">=</span><span class="st">"true"</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Sys.setenv.html" class="external-link">Sys.setenv</a></span><span class="op">(</span>R_REMOTES_NO_ERRORS_FROM_WARNINGS<span class="op">=</span><span class="st">"true"</span><span class="op">)</span>
 <span class="co"># and then again</span>
 <span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"federicomarini/ideal"</span>, dependencies <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="which-version-should-i-use" class="section level3">
 <h3 class="hasAnchor">
 <a href="#which-version-should-i-use" class="anchor"></a>Which version should I use?</h3>
-<p>If you are a <strong>regular user</strong>, you should <strong>install the latest stable release version</strong>. This can be done at best by using <code><a href="https://rdrr.io/pkg/BiocManager/man/install.html">BiocManager::install("ideal")</a></code>, as recommended in https://www.bioconductor.org/install/#troubleshoot-bioconductor-packages. Please follow the general instructions in https://www.bioconductor.org/install to make sure you are using the correct version, matched to the version of the R software in use.</p>
-<p>If you are a <strong>software developer</strong> and want to have access to the latest features that are currently in the <strong>devel branch of Bioconductor</strong> (i.e. experimental functionality, and more), you can do so by calling first <code><a href="https://rdrr.io/pkg/BiocManager/man/install.html">BiocManager::install(version = "devel")</a></code> as specified in https://bioconductor.org/developers/how-to/useDevel/, then followed by <code><a href="https://rdrr.io/pkg/BiocManager/man/install.html">BiocManager::install("ideal")</a></code>. Keep in mind that according to the release cycle you might need to install the devel version of R itself.</p>
-<p>If you just want to use the <strong>bleeding edge version</strong>, which is the one you can find on GitHub, you can install that by calling <code><a href="https://rdrr.io/pkg/BiocManager/man/install.html">BiocManager::install("federicomarini/ideal")</a></code> (which is basically a wrapper around <code>remotes::install("federicomarini/ideal")</code>). This approach might be recommended for <strong>experienced users</strong> - based on which Bioconductor version you might be using, you might encounter mismatches in the dependencies if you mix up versions from release and devel branches.</p>
+<p>If you are a <strong>regular user</strong>, you should <strong>install the latest stable release version</strong>. This can be done at best by using <code><a href="https://rdrr.io/pkg/BiocManager/man/install.html" class="external-link">BiocManager::install("ideal")</a></code>, as recommended in https://www.bioconductor.org/install/#troubleshoot-bioconductor-packages. Please follow the general instructions in https://www.bioconductor.org/install to make sure you are using the correct version, matched to the version of the R software in use.</p>
+<p>If you are a <strong>software developer</strong> and want to have access to the latest features that are currently in the <strong>devel branch of Bioconductor</strong> (i.e. experimental functionality, and more), you can do so by calling first <code><a href="https://rdrr.io/pkg/BiocManager/man/install.html" class="external-link">BiocManager::install(version = "devel")</a></code> as specified in https://bioconductor.org/developers/how-to/useDevel/, then followed by <code><a href="https://rdrr.io/pkg/BiocManager/man/install.html" class="external-link">BiocManager::install("ideal")</a></code>. Keep in mind that according to the release cycle you might need to install the devel version of R itself.</p>
+<p>If you just want to use the <strong>bleeding edge version</strong>, which is the one you can find on GitHub, you can install that by calling <code><a href="https://rdrr.io/pkg/BiocManager/man/install.html" class="external-link">BiocManager::install("federicomarini/ideal")</a></code> (which is basically a wrapper around <code>remotes::install("federicomarini/ideal")</code>). This approach might be recommended for <strong>experienced users</strong> - based on which Bioconductor version you might be using, you might encounter mismatches in the dependencies if you mix up versions from release and devel branches.</p>
 </div>
 </div>
 <div id="quick-start" class="section level2">
@@ -143,7 +145,7 @@
 <a href="#quick-start" class="anchor"></a>Quick start</h2>
 <p>This command loads the <code>ideal</code> package</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/federicomarini/ideal">"ideal"</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/federicomarini/ideal" class="external-link">"ideal"</a></span><span class="op">)</span></code></pre></div>
 <p>The main parameters for <code>ideal</code> are</p>
 <ul>
 <li>
@@ -198,7 +200,7 @@
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
-<h2>Links</h2>
+<h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
 <li>Download from BIOC at <br><a href="https://www.bioconductor.org/packages/ideal">https://​www.bioconductor.org/​packages/​ideal</a>
 </li>
@@ -210,7 +212,7 @@
 </div>
 
 <div class="license">
-<h2>License</h2>
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
 <li>
 <a href="https://opensource.org/licenses/mit-license.php">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a>
@@ -220,14 +222,14 @@
 
 
 <div class="citation">
-<h2>Citation</h2>
+<h2 data-toc-skip>Citation</h2>
 <ul class="list-unstyled">
 <li><a href="authors.html">Citing ideal</a></li>
 </ul>
 </div>
 
 <div class="developers">
-<h2>Developers</h2>
+<h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
 <li>
 <a href="https://federicomarini.github.io">Federico Marini</a> <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0003-3252-7758" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
@@ -235,11 +237,11 @@
 </div>
 
 <div class="dev-status">
-<h2>Dev status</h2>
+<h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://github.com/federicomarini/ideal/actions"><img src="https://github.com/federicomarini/ideal/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
-<li><a href="https://codecov.io/github/federicomarini/ideal?branch=master"><img src="https://codecov.io/github/federicomarini/ideal/coverage.svg?branch=master" alt="codecov.io"></a></li>
-<li><a href="https://www.tidyverse.org/lifecycle/#stable"><img src="https://img.shields.io/badge/lifecycle-stable-brightgreen.svg" alt="Lifecycle: stable"></a></li>
+<li><a href="https://github.com/federicomarini/ideal/actions" class="external-link"><img src="https://github.com/federicomarini/ideal/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
+<li><a href="https://codecov.io/github/federicomarini/ideal?branch=master" class="external-link"><img src="https://codecov.io/github/federicomarini/ideal/coverage.svg?branch=master" alt="codecov.io"></a></li>
+<li><a href="https://www.tidyverse.org/lifecycle/#stable" class="external-link"><img src="https://img.shields.io/badge/lifecycle-stable-brightgreen.svg" alt="Lifecycle: stable"></a></li>
 </ul>
 </div>
 
@@ -248,11 +250,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by <a href="https://federicomarini.github.io">Federico Marini</a>.</p>
+  <p></p>
+<p>Developed by <a href="https://federicomarini.github.io" class="external-link">Federico Marini</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.6.1.9001.</p>
 </div>
 
       </footer>
@@ -260,6 +264,8 @@
 
   
 
+
+  
 
   </body>
 </html>
