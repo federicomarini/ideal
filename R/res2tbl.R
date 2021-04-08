@@ -24,7 +24,7 @@ deseqresult2tbl <- function(deseqresult) {
   names(deseqresult)[1] <- "id"
   deseqresult$id <- as.character(deseqresult$id)
 
-  dplyr::arrange_(deseqresult, "padj")
+  dplyr::arrange(deseqresult, .data$padj)
 }
 
 
@@ -65,7 +65,7 @@ deseqresult2DEgenes <- function(deseqresult,
   #   deseqresult <- dplyr::select(deseqresult, id, baseMean, log2FoldChange:symbol)
   # else
   #   deseqresult <- dplyr::select(deseqresult, id, baseMean, log2FoldChange:padj)
-  tmp <- dplyr::arrange_(deseqresult, "padj")
+  tmp <- dplyr::arrange(deseqresult, .data$padj)
   res <- tmp[!(is.na(tmp$padj)) & tmp$padj <= FDR, ]
   res
 }

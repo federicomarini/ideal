@@ -41,6 +41,7 @@ Imports:
     DT, 
     rentrez, 
     rintrojs, 
+    rlang,
     ggrepel, 
     knitr,
     rmarkdown, 

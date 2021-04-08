@@ -37,6 +37,7 @@
 #' @importFrom gplots venn
 #' @importFrom IHW ihw
 #' @importFrom rentrez entrez_summary
+#' @importFrom rlang .data
 #' @importFrom pheatmap pheatmap
 #' @importFrom heatmaply heatmaply
 #' @importFrom plotly plotlyOutput renderPlotly
