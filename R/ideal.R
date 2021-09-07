@@ -541,7 +541,12 @@ ideal <- function(dds_obj = NULL,
               DT::dataTableOutput("table_res"),
               downloadButton("downloadTblResu", "Download", class = "btn btn-success"),
               fluidRow(
-                h3("Diagnostic plots"),
+                column(
+                  width = 8,
+                  h3("Diagnostic plots")
+                )
+              ),
+              fluidRow(
                 column(
                   width = 6,
                   plotOutput("pvals_hist"),
@@ -655,7 +660,7 @@ ideal <- function(dds_obj = NULL,
               fluidRow(
                 column(
                   6,
-                  h4("volcano plot"),
+                  h4("Volcano plot"),
                   plotOutput("volcanoplot"),
                   div(
                     align = "right", style = "margin-right:15px; margin-bottom:10px",
@@ -665,7 +670,12 @@ ideal <- function(dds_obj = NULL,
                 )
               ),
 
-              fluidRow(radioButtons("heatmap_colv", "Cluster samples", choices = list("Yes" = TRUE, "No" = FALSE), selected = TRUE)),
+              fluidRow(
+                column(
+                  width = 6,
+                  radioButtons("heatmap_colv", "Cluster samples", choices = list("Yes" = TRUE, "No" = FALSE), selected = TRUE)
+                ),
+              ),
               fluidRow(
                 column(
                   4,
@@ -673,7 +683,7 @@ ideal <- function(dds_obj = NULL,
                 ),
                 column(
                   4,
-                  checkboxInput("pseudocounts", "use log2(1+counts)", value = TRUE)
+                  checkboxInput("pseudocounts", "Use log2(1+counts)", value = TRUE)
                 )
               ),
               fluidRow(
@@ -1123,7 +1133,7 @@ ideal <- function(dds_obj = NULL,
               column(
                 width = 6,
                 box(
-                  title = "markdown options", status = "primary", solidHeader = TRUE, collapsible = TRUE, width = 9, collapsed = TRUE,
+                  title = "Markdown options", status = "primary", solidHeader = TRUE, collapsible = TRUE, width = 9, collapsed = TRUE,
                   id = "md_opts",
                   radioButtons("rmd_dl_format", label = "Choose Format:", c("HTML" = "html", "R Markdown" = "rmd"), inline = TRUE),
                   textInput("report_title", "Title: "),
@@ -1142,7 +1152,7 @@ ideal <- function(dds_obj = NULL,
               column(
                 width = 6,
                 box(
-                  title = "editor options", status = "primary", solidHeader = TRUE, collapsible = TRUE, width = 9, collapsed = TRUE,
+                  title = "Editor options", status = "primary", solidHeader = TRUE, collapsible = TRUE, width = 9, collapsed = TRUE,
                   id = "editor_opts",
                   checkboxInput("enableAutocomplete", "Enable AutoComplete", TRUE),
                   conditionalPanel(
@@ -1843,7 +1853,7 @@ ideal <- function(dds_obj = NULL,
         pkg_choices <- keytypes(get(annopkg))
         std_choices <- union(std_choices, pkg_choices)
       }
-      selectInput("idtype", "select the id type in your data", choices = std_choices)
+      selectInput("idtype", "Select the id type in your data", choices = std_choices)
     })
 
     output$speciespkg <- renderText({
@@ -1972,7 +1982,7 @@ ideal <- function(dds_obj = NULL,
       shiny::validate(
         need(
           "results" %in% mcols(mcols(values$dds_obj))$type,
-          "dds object provided, but couldn't find results. you should first run DESeq() with the button up here"
+          "dds object provided, but couldn't find results. You should first run DESeq() with the button up here"
         )
       )
       summary(results(values$dds_obj), alpha = input$FDR)
@@ -3419,7 +3429,7 @@ ideal <- function(dds_obj = NULL,
 
     # server signature explorer ------------------------------------------------------
     output$sig_ui_gmtin <- renderUI({
-      fileInput("sig_gmtin", "gmt input file")
+      fileInput("sig_gmtin", "Provide a gmt input file")
     })
 
     loaded_gmt <- reactive({
@@ -3507,7 +3517,7 @@ ideal <- function(dds_obj = NULL,
         pkg_choices <- keytypes(get(annopkg))
         std_choices <- union(std_choices, pkg_choices)
       }
-      selectInput("sig_id_data", "select the id type in your dds data", choices = std_choices)
+      selectInput("sig_id_data", "Select the id type in your dds data", choices = std_choices)
     })
 
     output$sig_ui_id_sigs <- renderUI({
@@ -3901,7 +3911,7 @@ ideal <- function(dds_obj = NULL,
       shiny::validate(
         need(
           "results" %in% mcols(mcols(values$dds_obj))$type,
-          "I couldn't find results. you should first run DESeq() with the button up here"
+          "I couldn't find results. You should first run DESeq() with the button in the Data Setup panel"
         )
       )
 
