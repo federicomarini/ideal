@@ -1,3 +1,13 @@
+# ideal 1.18.0
+
+## Bug fixes
+
+* Fixed the unexpected behaviour when decorating the signature heatmap with colData elements
+
+## Other notes
+
+* Some alignments of the UI elements in the `ideal()` app, to harmonize the content of the page
+
 # ideal 1.16.0
 
 ## New features
