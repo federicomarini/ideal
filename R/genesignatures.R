@@ -46,6 +46,10 @@ read_gmt <- function(gmtfile) {
 #' @param cluster_rows Logical, whether to cluster rows - defaults to TRUE
 #' @param cluster_cols Logical, whether to cluster column - defaults to FALSE.
 #' Recommended to be set to TRUE if de_only is also set to TRUE
+#' @param anno_colData Character vector, specifying the elements of the colData
+#' information to be displayed as a decoration of the heatmap. Can be a vector of
+#' any length, as long as these names are included as colData. Defaults to NULL,
+#' which would plot no annotation on the samples.
 #' @param center_mean Logical, whether to perform mean centering on the expression
 #' values. Defaults to TRUE, as it improves the general readability of the heatmap
 #' @param scale_row Logical, whether to perform row-based standardization of the
@@ -87,6 +91,7 @@ sig_heatmap <- function(vst_data, my_signature,
                         res_data = NULL, FDR = 0.05,
                         de_only = FALSE, annovec, title = "",
                         cluster_rows = TRUE, cluster_cols = FALSE,
+                        anno_colData = NULL,
                         center_mean = TRUE, scale_row = FALSE
                         # ,
                         # anno_colData
@@ -116,10 +121,26 @@ sig_heatmap <- function(vst_data, my_signature,
     mydata_sig <- mydata_sig[de_to_keep, ]
   }
 
-  pheatmap(mydata_sig,
-    # annotation_col = anno_colData,
-    cluster_rows = cluster_rows, cluster_cols = cluster_cols,
-    scale = ifelse(scale_row, "row", "none"), main = title,
-    labels_row = annovec[rownames(mydata_sig)]
-  )
+  # decorating columns
+  if (!is.null(anno_colData)) {
+    expgroups <- as.data.frame(colData(vst_data)[, anno_colData])
+    # expgroups <- interaction(expgroups)
+    rownames(expgroups) <- colnames(vst_data)
+    colnames(expgroups) <- anno_colData
+
+    pheatmap(mydata_sig,
+             annotation_col = expgroups,
+             cluster_rows = cluster_rows, cluster_cols = cluster_cols,
+             scale = ifelse(scale_row, "row", "none"), main = title,
+             labels_row = annovec[rownames(mydata_sig)]
+    )
+  } else {
+
+    pheatmap(mydata_sig,
+             # annotation_col = anno_colData,
+             cluster_rows = cluster_rows, cluster_cols = cluster_cols,
+             scale = ifelse(scale_row, "row", "none"), main = title,
+             labels_row = annovec[rownames(mydata_sig)]
+    )
+  }
 }
