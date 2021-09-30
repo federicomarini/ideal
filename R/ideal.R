@@ -1174,7 +1174,7 @@ ideal <- function(dds_obj = NULL,
                 actionButton("updatepreview_button", "Update report", class = "btn btn-primary"), p()
               ),
               column(3, downloadButton("saveRmd", "Generate & Save", class = "btn btn-success")),
-              column(3, 
+              column(3,
                      uiOutput("ui_iSEEexport"),
                      uiOutput("ui_GeneTonicexport"))
             ),
@@ -3595,7 +3595,7 @@ ideal <- function(dds_obj = NULL,
           FDR = input$FDR,
           de_only = input$sig_useDEonly,
           annovec = values$anno_vec,
-          # anno_colData = colData(values$vst_obj)[,input$sig_annocoldata, drop = FALSE],
+          anno_colData = input$sig_annocoldata,
           title = names(values$gene_signatures)[match(input$sig_selectsig, names(values$gene_signatures))],
           cluster_rows = input$sig_clusterrows,
           cluster_cols = input$sig_clustercols,
@@ -4772,7 +4772,7 @@ ideal <- function(dds_obj = NULL,
     output$ui_iSEEexport <- renderUI({
       validate(
         need(((!is.null(values$dds_obj)) & (!is.null(values$res_obj))),
-          message = "Please build and compute the dds and res object to export as 
+          message = "Please build and compute the dds and res object to export as
              SummarizedExperiment for use in iSEE"
         )
       )
@@ -4800,22 +4800,22 @@ ideal <- function(dds_obj = NULL,
         saveRDS(se, file = file)
       }
     )
-    
+
     # GeneTonic export -------------------------------------------------------
     output$ui_GeneTonicexport <- renderUI({
       validate(
         need(((!is.null(values$dds_obj)) & (!is.null(values$res_obj))),
-             message = "Please build and compute the dds and res object to export as 
+             message = "Please build and compute the dds and res object to export as
              a list for use in GeneTonic"
         ),
         need(!is.null(values$annotation_obj),
              message = "Please provide or obtain an annotation object")
       )
-      
+
       go_tbls_available <- c("topgo_updown",
                              "topgo_down",
                              "topgo_up")
-      
+
       return(
         tagList(
           textInput(
@@ -4839,26 +4839,26 @@ ideal <- function(dds_obj = NULL,
         )
       )
     })
-    
+
     output$button_GeneTonicexport <- downloadHandler(
       filename = function() {
         input$gtl_exportgt_name
       }, content = function(file) {
-        
+
         dds_obj <- values$dds_obj
-        
+
         res_obj <- values$res_obj
         res_obj$SYMBOL <- res_obj$symbol
-        
+
         res_enrich <- shake_topGOtableResult(values[[input$gotbl_forgt]])
-        
+
         anno_df <- values$annotation_obj
-        
+
         gtl <- list(dds = dds_obj,
                     res_de = res_obj,
                     res_enrich = res_enrich,
                     annotation_obj = anno_df)
-        
+
         saveRDS(gtl, file = file)
       }
     )
