@@ -18,9 +18,11 @@ Returns a list of pathways from a GMT file.
 }
 \examples{
 # this example reads in the freely available pathways from wikipathways
+\dontrun{
 mysigs <- read_gmt(
   "http://data.wikipathways.org/20180910/gmt/wikipathways-20180910-gmt-Homo_sapiens.gmt"
 )
 head(mysigs)
 # see how the gene identifiers are encoded as ENTREZ id
+}
 }
