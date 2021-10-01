@@ -115,7 +115,7 @@ ideal <- function(dds_obj = NULL,
             class = "btn_no_border",
             onclick = "setTimeout(function(){window.close();}, 100); "
           ),
-          icon = icon("sign-out"), status = "primary"
+          icon = icon("sign-out-alt"), status = "primary"
         ),
         menuItem(
           text = downloadButton("task_state_save", "Save State as .RData")
@@ -169,7 +169,7 @@ ideal <- function(dds_obj = NULL,
         )
       ),
       menuItem("Quick viewer",
-        icon = icon("flash"),
+        icon = icon("bolt"),
         startExpanded = TRUE,
         id = "qvmenu",
         fluidRow(
@@ -593,7 +593,7 @@ ideal <- function(dds_obj = NULL,
           # ui panel summary plots -----------------------------------------------------------
           tabPanel(
             "Summary Plots",
-            icon = icon("photo"),
+            icon = icon("image"),
             conditionalPanel(
               condition = "!output.checkresu",
               headerPanel("Interactive graphical exploration of the results"),
@@ -894,7 +894,7 @@ ideal <- function(dds_obj = NULL,
                     )
                   ),
                   tabPanel("UPDOWN",
-                    icon = icon("arrows-v"),
+                    icon = icon("arrows-alt-v"),
                     fluidRow(column(width = 6, actionButton("button_enrUPDOWN", "Perform gene set enrichment analysis on the up- and downregulated genes", class = "btn btn-primary"))),
                     fluidRow(column(width = 6, actionButton("button_enrUPDOWN_goseq", "Perform gene set enrichment analysis on the up- and downregulated genes - goseq", class = "btn btn-primary"))),
                     fluidRow(column(width = 6, actionButton("button_enrUPDOWN_topgo", "Perform gene set enrichment analysis on the up- and downregulated genes - topGO", class = "btn btn-primary"))),
@@ -1110,7 +1110,7 @@ ideal <- function(dds_obj = NULL,
           # ui panel report editor -----------------------------------------------------------
           tabPanel(
             "Report Editor",
-            icon = icon("pencil"),
+            icon = icon("pencil-alt"),
             headerPanel("Create, view and export a report of your analysis"),
             fluidRow(
               column(
@@ -1183,12 +1183,12 @@ ideal <- function(dds_obj = NULL,
               width = NULL,
               id = "report_tabbox",
               tabPanel("Report preview",
-                icon = icon("file-text"),
+                icon = icon("file-alt"),
                 htmlOutput("knitDoc")
               ),
 
               tabPanel("Edit report",
-                icon = icon("pencil-square-o"),
+                icon = icon("edit"),
                 aceEditor("acereport_rmd",
                   mode = "markdown", theme = "solarized_light", autoComplete = "live",
                   value = "_Initialization of the_ `ideal` _report generation..._",
@@ -1201,7 +1201,7 @@ ideal <- function(dds_obj = NULL,
           # ui panel about -----------------------------------------------------------
           tabPanel(
             "About",
-            icon = icon("institution"),
+            icon = icon("university"),
 
             # headerPanel("Information on ideal/session"),
 
