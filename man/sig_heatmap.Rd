@@ -14,6 +14,7 @@ sig_heatmap(
   title = "",
   cluster_rows = TRUE,
   cluster_cols = FALSE,
+  anno_colData = NULL,
   center_mean = TRUE,
   scale_row = FALSE
 )
@@ -41,6 +42,11 @@ defaults to FALSE}
 
 \item{cluster_cols}{Logical, whether to cluster column - defaults to FALSE.
 Recommended to be set to TRUE if de_only is also set to TRUE}
+
+\item{anno_colData}{Character vector, specifying the elements of the colData
+information to be displayed as a decoration of the heatmap. Can be a vector of
+any length, as long as these names are included as colData. Defaults to NULL,
+which would plot no annotation on the samples.}
 
 \item{center_mean}{Logical, whether to perform mean centering on the expression
 values. Defaults to TRUE, as it improves the general readability of the heatmap}
