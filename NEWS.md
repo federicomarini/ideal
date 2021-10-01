@@ -7,6 +7,7 @@
 ## Other notes
 
 * Some alignments of the UI elements in the `ideal()` app, to harmonize the content of the page
+* Updated the icons in the user interface to match recent changes in the names from FontAwesome
 
 # ideal 1.16.0
 
