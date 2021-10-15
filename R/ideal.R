@@ -989,8 +989,7 @@ ideal <- function(dds_obj = NULL,
                 column(
                   width = 4,
                   checkboxInput("toggle_list1", "Use list1 genes", TRUE),
-                  checkboxInput("toggle_list2", "Use list2 genes", FALSE),
-                  checkboxInput("toggle_list3", "Use list3 genes", FALSE)
+                  checkboxInput("toggle_list2", "Use list2 genes", FALSE)
                 )
               ),
 
@@ -2243,8 +2242,7 @@ ideal <- function(dds_obj = NULL,
         listDOWN = values$genelistDOWN(),
         listUPDOWN = values$genelistUPDOWN(),
         list1 = as.character(values$genelist1$`Gene Symbol`),
-        list2 = as.character(values$genelist2$`Gene Symbol`),
-        list3 = NULL
+        list2 = as.character(values$genelist2$`Gene Symbol`)
       ) # will be changed to be the ones selected by the user
 
 
@@ -2257,8 +2255,7 @@ ideal <- function(dds_obj = NULL,
         input$toggle_down,
         input$toggle_updown,
         input$toggle_list1,
-        input$toggle_list2,
-        input$toggle_list3
+        input$toggle_list2
       ))]
       gll_final <- gll_nonempty[match(lists_tokeep, names(gll_nonempty))]
     })
