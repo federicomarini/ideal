@@ -33,7 +33,7 @@ in the assays}
 \item{FDR_GO_cutoff}{Numeric value for subsetting the results}
 
 \item{nTop}{Number of categories to extract, and optionally process for adding
-genes to the respective}
+genes to the respective terms}
 
 \item{orgDbPkg}{Character string, named as the \code{org.XX.eg.db}
 package which should be available in Bioconductor}
