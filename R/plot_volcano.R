@@ -19,6 +19,8 @@
 #' @param intgenes_color The color to use to mark the genes on the main plot.
 #' @param labels_intgenes Logical, whether to add the gene identifiers/names close
 #' to the marked plots
+#' @param labels_repel Logical, whether to use \code{geom_text_repel} for placing the
+#' labels on the features to mark
 #'
 #' @return An object created by \code{ggplot}
 #' @export
@@ -53,7 +55,8 @@ plot_volcano <- function(res_obj,
                          title = NULL,
                          intgenes = NULL,
                          intgenes_color = "steelblue",
-                         labels_intgenes = TRUE) {
+                         labels_intgenes = TRUE,
+                         labels_repel = TRUE) {
   mydf <- as.data.frame(res_obj)
   mydf$id <- rownames(mydf)
   mydf$isDE <- ifelse(is.na(res_obj$padj), FALSE, res_obj$padj < FDR)
@@ -99,10 +102,19 @@ plot_volcano <- function(res_obj,
     p <- p + geom_point(data = df_intgenes, aes_string("log2FoldChange", "-log10(pvalue)"), color = intgenes_color, size = 4)
 
     if (labels_intgenes) {
-      p <- p + geom_text(
-        data = df_intgenes, aes_string("log2FoldChange", "-log10(pvalue)", label = "myids"),
-        color = intgenes_color, size = 5, hjust = 0.25, vjust = -0.75
-      )
+      
+      if (labels_repel) {
+        p <- p + geom_text_repel(
+          data = df_intgenes, aes_string("log2FoldChange", "-log10(pvalue)", label = "myids"),
+          color = intgenes_color, size = 5
+        )
+      } else {
+        p <- p + geom_text(
+          data = df_intgenes, aes_string("log2FoldChange", "-log10(pvalue)", label = "myids"),
+          color = intgenes_color, size = 5, hjust = 0.25, vjust = -0.75
+        )
+      }
+      
     }
   }
 
