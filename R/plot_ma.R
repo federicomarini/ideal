@@ -4,7 +4,7 @@
 #' additional support to annotate genes if provided.
 #'
 #' The genes of interest are to be provided as gene symbols if a \code{symbol}
-#' column is provided in \code{res_obj}, or else b< using  the identifiers specified
+#' column is provided in \code{res_obj}, or else by using  the identifiers specified
 #' in the row names
 #'
 #' @param res_obj A \code{\link{DESeqResults}} object
@@ -61,8 +61,8 @@
 #'     "ENSG00000103196", # CRISPLD2
 #'     "ENSG00000120129", # DUSP1
 #'     "ENSG00000163884", # KLF15
-#'     "ENSG00000179094"
-#'   ) # PER1
+#'     "ENSG00000179094"  # PER1
+#'   ) 
 #' )
 plot_ma <- function(res_obj,
                     FDR = 0.05,
