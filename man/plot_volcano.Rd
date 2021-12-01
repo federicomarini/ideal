@@ -12,7 +12,8 @@ plot_volcano(
   title = NULL,
   intgenes = NULL,
   intgenes_color = "steelblue",
-  labels_intgenes = TRUE
+  labels_intgenes = TRUE,
+  labels_repel = TRUE
 )
 }
 \arguments{
@@ -35,6 +36,9 @@ row names}
 
 \item{labels_intgenes}{Logical, whether to add the gene identifiers/names close
 to the marked plots}
+
+\item{labels_repel}{Logical, whether to use \code{geom_text_repel} for placing the
+labels on the features to mark}
 }
 \value{
 An object created by \code{ggplot}
