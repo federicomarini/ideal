@@ -10,6 +10,7 @@ plot_ma(
   point_alpha = 0.2,
   sig_color = "red",
   annotation_obj = NULL,
+  draw_y0 = TRUE,
   hlines = NULL,
   title = NULL,
   xlab = "mean of normalized counts - log10 scale",
@@ -33,6 +34,9 @@ plot_ma(
 \item{annotation_obj}{A \code{data.frame} object, with row.names as gene
 identifiers (e.g. ENSEMBL ids) and a column, \code{gene_name}, containing
 e.g. HGNC-based gene symbols. Optional}
+
+\item{draw_y0}{Logical, whether to draw the horizontal line at y=0. Defaults to
+TRUE.}
 
 \item{hlines}{The y coordinate (in absolute value) where to draw horizontal lines,
 optional}

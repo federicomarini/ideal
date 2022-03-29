@@ -14,6 +14,8 @@
 #' @param annotation_obj A \code{data.frame} object, with row.names as gene
 #' identifiers (e.g. ENSEMBL ids) and a column, \code{gene_name}, containing
 #' e.g. HGNC-based gene symbols. Optional
+#' @param draw_y0 Logical, whether to draw the horizontal line at y=0. Defaults to
+#' TRUE.
 #' @param hlines The y coordinate (in absolute value) where to draw horizontal lines,
 #' optional
 #' @param title A title for the plot, optional
@@ -69,6 +71,7 @@ plot_ma <- function(res_obj,
                     point_alpha = 0.2,
                     sig_color = "red",
                     annotation_obj = NULL, # TODO: add a check, if not available skip this part
+                    draw_y0 = TRUE,
                     hlines = NULL,
                     title = NULL,
                     xlab = "mean of normalized counts - log10 scale",
@@ -102,7 +105,9 @@ plot_ma <- function(res_obj,
     p <- p + geom_hline(aes(yintercept = hlines), col = "lightblue", alpha = 0.4) +
       geom_hline(aes(yintercept = -hlines), col = "lightblue", alpha = 0.4)
   }
-  p <- p + geom_hline(aes(yintercept = 0), col = "red", alpha = 0.4)
+  
+  if (draw_y0)
+    p <- p + geom_hline(aes(yintercept = 0), col = "red", alpha = 0.4)
 
   p <- p + xlab(xlab) + ylab("log fold change")
 
