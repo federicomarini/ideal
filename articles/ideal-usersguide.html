@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ideal</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.19.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.21.1</span>
       </span>
     </div>
 
@@ -82,7 +82,7 @@
       
 
       </header><script src="ideal-usersguide_files/accessible-code-block-0.0.1/empty-anchor.js"></script><script src="ideal-usersguide_files/htmlwidgets-1.5.4/htmlwidgets.js"></script><link href="ideal-usersguide_files/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
-<script src="ideal-usersguide_files/datatables-binding-0.21/datatables.js"></script><link href="ideal-usersguide_files/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet">
+<script src="ideal-usersguide_files/datatables-binding-0.23/datatables.js"></script><link href="ideal-usersguide_files/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet">
 <link href="ideal-usersguide_files/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet">
 <script src="ideal-usersguide_files/dt-core-1.11.3/js/jquery.dataTables.min.js"></script><link href="ideal-usersguide_files/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
 <script src="ideal-usersguide_files/crosstalk-1.2.0/js/crosstalk.min.js"></script><div class="row">
@@ -95,7 +95,7 @@
       </address>
                               <h4 data-toc-skip class="author">Harald Binder</h4>
             <address class="author_afil">
-      Institute of Medical Biostatistics, Epidemiology and Informatics (IMBEI), Mainz<br><h4 data-toc-skip class="date">8 March 2022</h4>
+      Institute of Medical Biostatistics, Epidemiology and Informatics (IMBEI), Mainz<br><h4 data-toc-skip class="date">27 May 2022</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/federicomarini/ideal/blob/HEAD/vignettes/ideal-usersguide.Rmd" class="external-link"><code>vignettes/ideal-usersguide.Rmd</code></a></small>
       <div class="hidden name"><code>ideal-usersguide.Rmd</code></div>
@@ -106,13 +106,13 @@
     
         <div class="abstract">
       <p class="abstract">Abstract</p>
-      <p>In the scope of differential expression analysis, we provide the R/Bioconductor package <em><a href="https://bioconductor.org/packages/3.15/ideal" class="external-link">ideal</a></em>, which serves as a web application to allow simultaneously for interactive and reproducible analysis. <em><a href="https://bioconductor.org/packages/3.15/ideal" class="external-link">ideal</a></em> guides the user throughout the steps of Differential Expression analysis and produces a wealth of effective visualizations to facilitate data interpretation, in a comprehensive and accessible way for a wide range of scientists.</p>
+      <p>In the scope of differential expression analysis, we provide the R/Bioconductor package <em><a href="https://bioconductor.org/packages/3.16/ideal" class="external-link">ideal</a></em>, which serves as a web application to allow simultaneously for interactive and reproducible analysis. <em><a href="https://bioconductor.org/packages/3.16/ideal" class="external-link">ideal</a></em> guides the user throughout the steps of Differential Expression analysis and produces a wealth of effective visualizations to facilitate data interpretation, in a comprehensive and accessible way for a wide range of scientists.</p>
     </div>
     
 <!-- **Package**: *ideal* -->
 <!-- **Authors**: Federico Marini [aut, cre] (<https://orcid.org/0000-0003-3252-7758>) -->
-<!-- **Version**: 1.19.1 -->
-<p><strong>Compiled date</strong>: 2022-03-08</p>
+<!-- **Version**: 1.21.1 -->
+<p><strong>Compiled date</strong>: 2022-05-27</p>
 <p><strong>Last edited</strong>: 2019-02-06</p>
 <p><strong>License</strong>: MIT + file LICENSE</p>
 <div class="section level2">
@@ -120,13 +120,13 @@
 </h2>
 <p align="center">
 <img src="ideal_logo_v2.png"></p>
-<p><em><a href="https://bioconductor.org/packages/3.15/ideal" class="external-link">ideal</a></em> is an R package distributed as part of the <a href="http://bioconductor.org" class="external-link">Bioconductor</a> project. To install the package, start R and enter:</p>
+<p><em><a href="https://bioconductor.org/packages/3.16/ideal" class="external-link">ideal</a></em> is an R package distributed as part of the <a href="http://bioconductor.org" class="external-link">Bioconductor</a> project. To install the package, start R and enter:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"BiocManager"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
   <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"BiocManager"</span><span class="op">)</span>
 <span class="op">}</span>
 <span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocManager/man/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"ideal"</span><span class="op">)</span></code></pre></div>
-<p>The GitHub repository for <em><a href="https://bioconductor.org/packages/3.15/ideal" class="external-link">ideal</a></em> is <a href="https://github.com/federicomarini/ideal" class="external-link uri">https://github.com/federicomarini/ideal</a>. This is the place to file an issue, report a bug, or provide a pull request.</p>
+<p>The GitHub repository for <em><a href="https://bioconductor.org/packages/3.16/ideal" class="external-link">ideal</a></em> is <a href="https://github.com/federicomarini/ideal" class="external-link uri">https://github.com/federicomarini/ideal</a>. This is the place to file an issue, report a bug, or provide a pull request.</p>
 <p>Once <em>ideal</em> is installed, it can be loaded by the following command.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/federicomarini/ideal" class="external-link">"ideal"</a></span><span class="op">)</span></code></pre></div>
@@ -134,43 +134,43 @@
 <div class="section level2">
 <h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
-<p><em><a href="https://bioconductor.org/packages/3.15/ideal" class="external-link">ideal</a></em> is a Bioconductor package containing a Shiny application for analyzing RNA-Seq data in the context of differential expression. This enables an interactive and at the same time analysis, keeping the functionality accessible, and yet providing a comprehensive selection of graphs and tables to mine the dataset at hand.</p>
-<p><em><a href="https://bioconductor.org/packages/3.15/ideal" class="external-link">ideal</a></em> is an R package which fully leverages the infrastructure of the Bioconductor project in order to deliver an interactive yet reproducible analysis for the detection of differentially expressed genes in RNA-Seq datasets. Graphs, tables, and interactive HTML reports can be readily exported and shared across collaborators. The dynamic user interface displays a broad level of content and information, subdivided by thematic tasks. All in all, it aims to enforce a proper analysis, by reaching out both life scientists and experienced bioinformaticians, and also fosters the communication between the two sides, offering robust statistical methods and high standard of accessible documentation.</p>
-<p>It is structured in a similar way to the <em><a href="https://bioconductor.org/packages/3.15/pcaExplorer" class="external-link">pcaExplorer</a></em>, also designed as an interactive companion tool for RNA-seq analysis focused rather on the exploratory data analysis e.g. using principal components analysis as a main tool.</p>
-<p>The interactive/reactive design of the app, with a dynamically generated user interface makes it easy and immediate to apply the gold standard methods (in the current implementation, based on <em><a href="https://bioconductor.org/packages/3.15/DESeq2" class="external-link">DESeq2</a></em>) in a way that is information-rich and accessible also to the bench biologist, while also providing additional insight also for the experienced data analyst. Reproducibility is supported via state saving and automated report generation.</p>
+<p><em><a href="https://bioconductor.org/packages/3.16/ideal" class="external-link">ideal</a></em> is a Bioconductor package containing a Shiny application for analyzing RNA-Seq data in the context of differential expression. This enables an interactive and at the same time analysis, keeping the functionality accessible, and yet providing a comprehensive selection of graphs and tables to mine the dataset at hand.</p>
+<p><em><a href="https://bioconductor.org/packages/3.16/ideal" class="external-link">ideal</a></em> is an R package which fully leverages the infrastructure of the Bioconductor project in order to deliver an interactive yet reproducible analysis for the detection of differentially expressed genes in RNA-Seq datasets. Graphs, tables, and interactive HTML reports can be readily exported and shared across collaborators. The dynamic user interface displays a broad level of content and information, subdivided by thematic tasks. All in all, it aims to enforce a proper analysis, by reaching out both life scientists and experienced bioinformaticians, and also fosters the communication between the two sides, offering robust statistical methods and high standard of accessible documentation.</p>
+<p>It is structured in a similar way to the <em><a href="https://bioconductor.org/packages/3.16/pcaExplorer" class="external-link">pcaExplorer</a></em>, also designed as an interactive companion tool for RNA-seq analysis focused rather on the exploratory data analysis e.g. using principal components analysis as a main tool.</p>
+<p>The interactive/reactive design of the app, with a dynamically generated user interface makes it easy and immediate to apply the gold standard methods (in the current implementation, based on <em><a href="https://bioconductor.org/packages/3.16/DESeq2" class="external-link">DESeq2</a></em>) in a way that is information-rich and accessible also to the bench biologist, while also providing additional insight also for the experienced data analyst. Reproducibility is supported via state saving and automated report generation.</p>
 <div class="section level3">
 <h3 id="citation-info">Citation info<a class="anchor" aria-label="anchor" href="#citation-info"></a>
 </h3>
-<p>If you use <em><a href="https://bioconductor.org/packages/3.15/ideal" class="external-link">ideal</a></em> for your analysis, please cite it as here below:</p>
+<p>If you use <em><a href="https://bioconductor.org/packages/3.16/ideal" class="external-link">ideal</a></em> for your analysis, please cite it as here below:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/citation.html" class="external-link">citation</a></span><span class="op">(</span><span class="st">"ideal"</span><span class="op">)</span></code></pre></div>
 <pre><code><span class="co">## </span>
-<span class="co">## To cite the package 'ideal' in publications use:</span>
+<span class="co">## Please cite the articles below for the 'ideal' software itself, or its</span>
+<span class="co">## usage in combined workflows with the 'pcaExplorer' or 'GeneTonic'</span>
+<span class="co">## software packages:</span>
 <span class="co">## </span>
 <span class="co">##   Federico Marini, Jan Linke, Harald Binder (2020). ideal: an</span>
 <span class="co">##   R/Bioconductor package for Interactive Differential Expression</span>
-<span class="co">##   Analysis, BMC Bioinformatics - URL:</span>
-<span class="co">##   http://bioconductor.org/packages/ideal/ - doi:</span>
-<span class="co">##   10.1186/s12859-020-03819-5</span>
+<span class="co">##   Analysis. BMC Bioinformatics, 21, 565,</span>
+<span class="co">##   &lt;doi:10.1186/s12859-020-03819-5&gt; &lt;doi:10.18129/B9.bioc.ideal&gt;.</span>
 <span class="co">## </span>
-<span class="co">## A BibTeX entry for LaTeX users is</span>
+<span class="co">##   Annekathrin Ludt, Arsenij Ustjanzew, Harald Binder, Konstantin</span>
+<span class="co">##   Strauch, Federico Marini (2022). Interactive and Reproducible</span>
+<span class="co">##   Workflows for Exploring and Modeling RNA-seq Data with pcaExplorer,</span>
+<span class="co">##   ideal, and GeneTonic. Current Protocols, 2 (4), e411,</span>
+<span class="co">##   &lt;doi:10.1002/cpz1.411&gt;.</span>
 <span class="co">## </span>
-<span class="co">##   @Article{,</span>
-<span class="co">##     title = {ideal: an R/Bioconductor package for Interactive Differential Expression Analysis},</span>
-<span class="co">##     journal = {BMC Bioinformatics},</span>
-<span class="co">##     author = {Federico Marini and Jan Linke and Harald Binder},</span>
-<span class="co">##     year = {2020},</span>
-<span class="co">##     doi = {10.1186/s12859-020-03819-5},</span>
-<span class="co">##     url = {http://bioconductor.org/packages/ideal/},</span>
-<span class="co">##   }</span></code></pre>
+<span class="co">## To see these entries in BibTeX format, use 'print(&lt;citation&gt;,</span>
+<span class="co">## bibtex=TRUE)', 'toBibtex(.)', or set</span>
+<span class="co">## 'options(citation.bibtex.max=999)'.</span></code></pre>
 </div>
 </div>
 <div class="section level2">
 <h2 id="using-the-application">Using the application<a class="anchor" aria-label="anchor" href="#using-the-application"></a>
 </h2>
-<p>There are different ways to use <em><a href="https://bioconductor.org/packages/3.15/ideal" class="external-link">ideal</a></em> for interactive differential expression analysis.</p>
+<p>There are different ways to use <em><a href="https://bioconductor.org/packages/3.16/ideal" class="external-link">ideal</a></em> for interactive differential expression analysis.</p>
 <div class="section level3">
-<h3 id="launching-ideal-locally">Launching <em><a href="https://bioconductor.org/packages/3.15/ideal" class="external-link">ideal</a></em> locally<a class="anchor" aria-label="anchor" href="#launching-ideal-locally"></a>
+<h3 id="launching-ideal-locally">Launching <em><a href="https://bioconductor.org/packages/3.16/ideal" class="external-link">ideal</a></em> locally<a class="anchor" aria-label="anchor" href="#launching-ideal-locally"></a>
 </h3>
 <p>First load the library:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
@@ -199,22 +199,22 @@
 <li>
 <code><a href="../reference/ideal.html">ideal()</a></code>, where the count matrix and experimental design can simply be uploaded at runtime, where all the derived objects can be extracted and computed live. These files have to be formatted as tabular text files, and a function in the package tries to guess the separator, based on heuristics of occurrencies per line of commonly used characters</li>
 </ul>
-<p>You can obtain more information on the formats that are expected and required to work with <em><a href="https://bioconductor.org/packages/3.15/ideal" class="external-link">ideal</a></em> by pressing the small round button in Step 1 of the Data Setup panel - these are common to the formats used by <em><a href="https://bioconductor.org/packages/3.15/pcaExplorer" class="external-link">pcaExplorer</a></em>. For the sake of completeness, you can see an overview reported in the image below.</p>
+<p>You can obtain more information on the formats that are expected and required to work with <em><a href="https://bioconductor.org/packages/3.16/ideal" class="external-link">ideal</a></em> by pressing the small round button in Step 1 of the Data Setup panel - these are common to the formats used by <em><a href="https://bioconductor.org/packages/3.16/pcaExplorer" class="external-link">pcaExplorer</a></em>. For the sake of completeness, you can see an overview reported in the image below.</p>
 <p><img src="../../../_temp/Library/pcaExplorer/www/help_dataformats.png" width="100%"></p>
 <p>The value to specify for the experimental design is best selected live in Step 2 of the Data Setup panel (see more in Section @ref(datasetup)) - or if passing directly the <code>dds</code> object in the call to <code>ideal</code>, is already contained in the <code>dds</code> itself.</p>
 </div>
 <div class="section level3">
-<h3 id="accessing-the-public-instance-of-ideal">Accessing the public instance of <em><a href="https://bioconductor.org/packages/3.15/ideal" class="external-link">ideal</a></em><a class="anchor" aria-label="anchor" href="#accessing-the-public-instance-of-ideal"></a>
+<h3 id="accessing-the-public-instance-of-ideal">Accessing the public instance of <em><a href="https://bioconductor.org/packages/3.16/ideal" class="external-link">ideal</a></em><a class="anchor" aria-label="anchor" href="#accessing-the-public-instance-of-ideal"></a>
 </h3>
-<p>To use <em><a href="https://bioconductor.org/packages/3.15/ideal" class="external-link">ideal</a></em> without installing any additional software, you can access the public instance of the Shiny Server made available at the Institute of Medical Biostatistics, Epidemiology and Informatics (IMBEI) in Mainz.</p>
+<p>To use <em><a href="https://bioconductor.org/packages/3.16/ideal" class="external-link">ideal</a></em> without installing any additional software, you can access the public instance of the Shiny Server made available at the Institute of Medical Biostatistics, Epidemiology and Informatics (IMBEI) in Mainz.</p>
 <p>This resource is accessible at this address:</p>
 <p><a href="http://shiny.imbei.uni-mainz.de:3838/ideal" class="external-link uri">http://shiny.imbei.uni-mainz.de:3838/ideal</a></p>
 </div>
 <div class="section level3">
 <h3 id="deploying-to-a-shiny-server">Deploying to a Shiny Server<a class="anchor" aria-label="anchor" href="#deploying-to-a-shiny-server"></a>
 </h3>
-<p>A deployment-oriented version of the package is available at <a href="https://github.com/federicomarini/ideal_serveredition" class="external-link uri">https://github.com/federicomarini/ideal_serveredition</a>. This repository contains also detailed instruction to setup the running instance of a Shiny Server, where <em><a href="https://bioconductor.org/packages/3.15/ideal" class="external-link">ideal</a></em> can be run without further installation for the end-users.</p>
-<p>Please note that you still need <em><a href="https://bioconductor.org/packages/3.15/ideal" class="external-link">ideal</a></em> to be installed there once during the setup phase - for this operation, you might require root administrator permissions.</p>
+<p>A deployment-oriented version of the package is available at <a href="https://github.com/federicomarini/ideal_serveredition" class="external-link uri">https://github.com/federicomarini/ideal_serveredition</a>. This repository contains also detailed instruction to setup the running instance of a Shiny Server, where <em><a href="https://bioconductor.org/packages/3.16/ideal" class="external-link">ideal</a></em> can be run without further installation for the end-users.</p>
+<p>Please note that you still need <em><a href="https://bioconductor.org/packages/3.16/ideal" class="external-link">ideal</a></em> to be installed there once during the setup phase - for this operation, you might require root administrator permissions.</p>
 <!-- Following the structure of \texttt{pcaExplorer}, the deployment as a standalone web application is easily achieved also for \texttt{ideal}, with the only requirement of a running Shiny Server. Handling of sensitive human patient data can thus occur in a secured way, e.g. with restricted access to an internal instance of the application. This will also avoid the need of external software installation for the users, which could moreover seamlessly access higher performing computing infrastructures. -->
 <!-- This implementation of \texttt{ideal} is made available at github.com/federicomarini/ideal\_serveredition  -->
 </div>
@@ -253,7 +253,7 @@
 <div class="section level4">
 <h4 id="quick-viewer">Quick viewer<a class="anchor" aria-label="anchor" href="#quick-viewer"></a>
 </h4>
-<p>This displays a list of the underlying objects with which basically all of the analysis can be performed. A green tick icon appears close to each when the respective component is either provided or calculated. For obtaining the best analysis experience in <em><a href="https://bioconductor.org/packages/3.15/ideal" class="external-link">ideal</a></em>, it is recommended to provide all of them.</p>
+<p>This displays a list of the underlying objects with which basically all of the analysis can be performed. A green tick icon appears close to each when the respective component is either provided or calculated. For obtaining the best analysis experience in <em><a href="https://bioconductor.org/packages/3.16/ideal" class="external-link">ideal</a></em>, it is recommended to provide all of them.</p>
 </div>
 <div class="section level4">
 <h4 id="first-steps-help">First steps help<a class="anchor" aria-label="anchor" href="#first-steps-help"></a>
@@ -277,7 +277,7 @@
 <div class="section level2">
 <h2 id="the-main-app-panels">The main app panels<a class="anchor" aria-label="anchor" href="#the-main-app-panels"></a>
 </h2>
-<p>The <em><a href="https://bioconductor.org/packages/3.15/ideal" class="external-link">ideal</a></em> app is a one-paged dashboard, structured in different panels, where each of them is focused on a different aspect of the data exploration.</p>
+<p>The <em><a href="https://bioconductor.org/packages/3.16/ideal" class="external-link">ideal</a></em> app is a one-paged dashboard, structured in different panels, where each of them is focused on a different aspect of the data exploration.</p>
 <p>On top of the panels, three <code>valueBox</code> objects serve as guiding elements for having an overview of the data at hand: how many genes and samples are in the data, how many entries are in the annotation object, and how many genes were found to be differentially expressed in the results. Whenever each of the underlying objects is available, the background color turns from red to green.</p>
 <p>For the main analysis, the available panels are described in the following subsections.</p>
 <div class="section level3">
@@ -288,12 +288,12 @@
 <div class="section level3">
 <h3 id="datasetup">Data Setup<a class="anchor" aria-label="anchor" href="#datasetup"></a>
 </h3>
-<p>The Data Setup panel is where you can upload or inspect the required inputs for running the app. This builds on the primary idea used by <em><a href="https://bioconductor.org/packages/3.15/pcaExplorer" class="external-link">pcaExplorer</a></em> and extends it with the following aspects:</p>
+<p>The Data Setup panel is where you can upload or inspect the required inputs for running the app. This builds on the primary idea used by <em><a href="https://bioconductor.org/packages/3.16/pcaExplorer" class="external-link">pcaExplorer</a></em> and extends it with the following aspects:</p>
 <ul>
 <li>the panel structure appears dynamically in three consecutive mandatory steps, marked with color from red to yellow to green, with optional steps in light blue.</li>
 <li>the optional step of retrieving the annotation on the fly relieves the user from the task of composing the <code>data.frame</code> in advance, and is based on the widely adopted <code>org.XX.eg.db</code> Bioconductor packages.</li>
 <li>when the objects are already passed as parameters, or computed, a brief overview/summary for them is displayed</li>
-<li>to tighten the concert operations between similar tools with different scope (as <em><a href="https://bioconductor.org/packages/3.15/pcaExplorer" class="external-link">pcaExplorer</a></em> and <em><a href="https://bioconductor.org/packages/3.15/ideal" class="external-link">ideal</a></em> are), the information flow can move from the data exploration to decisions taken at the moment of testing</li>
+<li>to tighten the concert operations between similar tools with different scope (as <em><a href="https://bioconductor.org/packages/3.16/pcaExplorer" class="external-link">pcaExplorer</a></em> and <em><a href="https://bioconductor.org/packages/3.16/ideal" class="external-link">ideal</a></em> are), the information flow can move from the data exploration to decisions taken at the moment of testing</li>
 </ul>
 <p>A diagnostic mean-dispersion plot is also provided in a collapsible element at the bottom of the panel, shown when the <code>DESeqDataSet</code> is generated and the <code>DESeq</code> command from the <code>DESeq2</code> package has been applied.</p>
 </div>
@@ -302,13 +302,13 @@
 </h3>
 <p align="center">
 <img src="ss_05_overview.png" style="width:800px;"></p>
-<p>As in <em><a href="https://bioconductor.org/packages/3.15/pcaExplorer" class="external-link">pcaExplorer</a></em>, interactive tables for the raw, normalized, or variance stabilized transformed (preferred over regularized logarithm transformation, because of its speed during the dispersion estimation - especially with larger number of samples) counts are shown in this tab. The user can also generate a sample-to-sample correlation scatter plot with the selected data.</p>
-<p>Additionally, <em><a href="https://bioconductor.org/packages/3.15/ideal" class="external-link">ideal</a></em> has an option to include a filter step at the gene level by removing genes with low absolute or averages low values. After this, it might be possible to have to re-run the analysis in step 3 from the Data Setup panel.</p>
+<p>As in <em><a href="https://bioconductor.org/packages/3.16/pcaExplorer" class="external-link">pcaExplorer</a></em>, interactive tables for the raw, normalized, or variance stabilized transformed (preferred over regularized logarithm transformation, because of its speed during the dispersion estimation - especially with larger number of samples) counts are shown in this tab. The user can also generate a sample-to-sample correlation scatter plot with the selected data.</p>
+<p>Additionally, <em><a href="https://bioconductor.org/packages/3.16/ideal" class="external-link">ideal</a></em> has an option to include a filter step at the gene level by removing genes with low absolute or averages low values. After this, it might be possible to have to re-run the analysis in step 3 from the Data Setup panel.</p>
 </div>
 <div class="section level3">
 <h3 id="extract-results">Extract Results<a class="anchor" aria-label="anchor" href="#extract-results"></a>
 </h3>
-<p>This tab is an interface for generating the summary tables after testing for DE. It is usually based on the Wald test, as implemented in DESeq2, but when the factor of interest is assuming more than two levels, the user can also perform an ANOVA-like test across the groups with the likelihood ratio test. Options for enabling/disabling automated independent filtering, adding the additional column of unshrunken log2 fold change values (instead of the moderated estimates used by default), as well as using the Independent Hypothesis Weighting (<em><a href="https://bioconductor.org/packages/3.15/IHW" class="external-link">IHW</a></em>) framework, are provided.</p>
+<p>This tab is an interface for generating the summary tables after testing for DE. It is usually based on the Wald test, as implemented in DESeq2, but when the factor of interest is assuming more than two levels, the user can also perform an ANOVA-like test across the groups with the likelihood ratio test. Options for enabling/disabling automated independent filtering, adding the additional column of unshrunken log2 fold change values (instead of the moderated estimates used by default), as well as using the Independent Hypothesis Weighting (<em><a href="https://bioconductor.org/packages/3.16/IHW" class="external-link">IHW</a></em>) framework, are provided.</p>
 <p>The False Discovery Rate (FDR) can be set from the sidebar panel, and a couple of diagnostic plots, such as the histogram of raw p-values and the distribution of log2fc, are shown below the interactive enhanced version of the table - with clickable elements to link to ENSEMBL database and NCBI website.</p>
 </div>
 <div class="section level3">
@@ -323,7 +323,7 @@
 </h3>
 <p align="center">
 <img src="ss_09_genefinder.png" style="width:800px;"></p>
-<p>The functionality in the Gene Finder builds upon the one provided by <em><a href="https://bioconductor.org/packages/3.15/pcaExplorer" class="external-link">pcaExplorer</a></em>, and allows to query up to four genes in the same view, which can here be selected from a dropdown input list which supports autocompletion.</p>
+<p>The functionality in the Gene Finder builds upon the one provided by <em><a href="https://bioconductor.org/packages/3.16/pcaExplorer" class="external-link">pcaExplorer</a></em>, and allows to query up to four genes in the same view, which can here be selected from a dropdown input list which supports autocompletion.</p>
 <p>A combined summary table (with both normalized counts and results statistics) is located below an MA plot where the selected genes are marked and annotated on the plot. To avoid repeating this manually, the user can also quickly upload a list of genes as text file (one gene identifier per line), such as members of gene families (e.g. all cytokines, all immunoglobulines, …) or defined by common function (e.g. all housekeeping genes, or others based on any annotation).</p>
 </div>
 <div class="section level3">
@@ -340,7 +340,7 @@
 <li>
 <code>goseq</code>, which accounts for the specific length bias intrinsic in RNA-Seq assays (longer genes have higher chances of being called DE).</li>
 </ul>
-<p><em><a href="https://bioconductor.org/packages/3.15/ideal" class="external-link">ideal</a></em> allows the user to work simultaneously with more gene lists, two of which can be uploaded in a custom way (e.g. list of gene families, or extracted from other existing publications).</p>
+<p><em><a href="https://bioconductor.org/packages/3.16/ideal" class="external-link">ideal</a></em> allows the user to work simultaneously with more gene lists, two of which can be uploaded in a custom way (e.g. list of gene families, or extracted from other existing publications).</p>
 <p>The interaction among these lists can be visually represented in Venn diagrams, as well as with the appealing alternative from the UpSetR package, where all combination of sets are explicitly shown.</p>
 <p>Each of the methods for GO enrichment delivers its own interactive <code>DT</code>-based table, which can then be explored interactively with the display of a heatmap for all the (DE) genes annotated to a particular term, picking the normalized transformed values for comparing robustly the expression values. This is simply triggered by clicking any of the rows for the results tables. Another useful feature is provided by the clickable link to the AmiGO database on each of the GO term identifiers.</p>
 </div>
@@ -358,30 +358,30 @@
 <div class="section level3">
 <h3 id="report-editor">Report Editor<a class="anchor" aria-label="anchor" href="#report-editor"></a>
 </h3>
-<p>The Report Editor tab works in the same way of <em><a href="https://bioconductor.org/packages/3.15/pcaExplorer" class="external-link">pcaExplorer</a></em>, with the scope of providing an interface to full computational reproducibility of the analyses.</p>
+<p>The Report Editor tab works in the same way of <em><a href="https://bioconductor.org/packages/3.16/pcaExplorer" class="external-link">pcaExplorer</a></em>, with the scope of providing an interface to full computational reproducibility of the analyses.</p>
 <p>General <code>Markdown options</code> and <code>Editor options</code> are available, and the text editor, based on the <code>shinyAce</code> package, contains a comprehensive template report, that can be edited to the best convenience of the user.</p>
 <p>The code contained in the template report fetches the latest state of the reactive values in the ongoing session, and its output is a comprehensive HTML file that can be expanded, edited, previewed in the tab itself, downloaded, and shared with a few mouse clicks.</p>
-<p>As for <em><a href="https://bioconductor.org/packages/3.15/pcaExplorer" class="external-link">pcaExplorer</a></em>, the functionality to display the report preview is based on <code>knit2html</code>, and some elements such as <code>DataTable</code> objects might not render correctly. To render them correctly, please install the PhantomJS executable before launching the app. This can be done by using the <em><a href="https://CRAN.R-project.org/package=webshot" class="external-link">webshot</a></em> package and calling <code><a href="https://rdrr.io/pkg/webshot/man/install_phantomjs.html" class="external-link">webshot::install_phantomjs()</a></code> - HTML widgets will be rendered automatically as screenshots. Keep in mind that the fully rendered report (the one you can obtain with the “Generate &amp; Save” button) is not affected by this, since it uses <code><a href="https://pkgs.rstudio.com/rmarkdown/reference/render.html" class="external-link">rmarkdown::render()</a></code>.</p>
+<p>As for <em><a href="https://bioconductor.org/packages/3.16/pcaExplorer" class="external-link">pcaExplorer</a></em>, the functionality to display the report preview is based on <code>knit2html</code>, and some elements such as <code>DataTable</code> objects might not render correctly. To render them correctly, please install the PhantomJS executable before launching the app. This can be done by using the <em><a href="https://CRAN.R-project.org/package=webshot" class="external-link">webshot</a></em> package and calling <code><a href="http://wch.github.io/webshot/reference/install_phantomjs.html" class="external-link">webshot::install_phantomjs()</a></code> - HTML widgets will be rendered automatically as screenshots. Keep in mind that the fully rendered report (the one you can obtain with the “Generate &amp; Save” button) is not affected by this, since it uses <code><a href="https://rdrr.io/pkg/rmarkdown/man/render.html" class="external-link">rmarkdown::render()</a></code>.</p>
 </div>
 <div class="section level3">
 <h3 id="about">About<a class="anchor" aria-label="anchor" href="#about"></a>
 </h3>
-<p>The About tab contains the output of <code>sessionInfo</code>, plus general information on <em><a href="https://bioconductor.org/packages/3.15/ideal" class="external-link">ideal</a></em>, including the link to the Github development version. If requested, the modular structure of the app can be easily expanded, and many new operations on the same set of input data and derived results can be embedded in the same framework.</p>
+<p>The About tab contains the output of <code>sessionInfo</code>, plus general information on <em><a href="https://bioconductor.org/packages/3.16/ideal" class="external-link">ideal</a></em>, including the link to the Github development version. If requested, the modular structure of the app can be easily expanded, and many new operations on the same set of input data and derived results can be embedded in the same framework.</p>
 </div>
 </div>
 <div class="section level2">
-<h2 id="running-ideal-on-an-exemplary-data-set">Running <em><a href="https://bioconductor.org/packages/3.15/ideal" class="external-link">ideal</a></em> on an exemplary data set<a class="anchor" aria-label="anchor" href="#running-ideal-on-an-exemplary-data-set"></a>
+<h2 id="running-ideal-on-an-exemplary-data-set">Running <em><a href="https://bioconductor.org/packages/3.16/ideal" class="external-link">ideal</a></em> on an exemplary data set<a class="anchor" aria-label="anchor" href="#running-ideal-on-an-exemplary-data-set"></a>
 </h2>
-<p>We can run <em><a href="https://bioconductor.org/packages/3.15/ideal" class="external-link">ideal</a></em> for demonstration purpose on published datasets that are available as SummarizedExperiment in an experiment Bioconductor packages.</p>
-<p>We will use the <em><a href="https://bioconductor.org/packages/3.15/airway" class="external-link">airway</a></em> dataset, which can be installed with this command:</p>
+<p>We can run <em><a href="https://bioconductor.org/packages/3.16/ideal" class="external-link">ideal</a></em> for demonstration purpose on published datasets that are available as SummarizedExperiment in an experiment Bioconductor packages.</p>
+<p>We will use the <em><a href="https://bioconductor.org/packages/3.16/airway" class="external-link">airway</a></em> dataset, which can be installed with this command:</p>
 <!-- [][]or use pasilla[][] -->
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"BiocManager"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
   <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"BiocManager"</span><span class="op">)</span>
 <span class="op">}</span>
 <span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocManager/man/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"airway"</span><span class="op">)</span></code></pre></div>
-<p>This package provides a <code>RangedSummarizedExperiment</code> object of read counts in genes for an RNA-Seq experiment on four human airway smooth muscle cell lines treated with dexamethasone. More details such as gene models and count quantifications can be found in the <em><a href="https://bioconductor.org/packages/3.15/airway" class="external-link">airway</a></em> package vignette.</p>
-<p>To run <em><a href="https://bioconductor.org/packages/3.15/ideal" class="external-link">ideal</a></em> on this dataset, the following commands are required. First, prepare the objects to be passed as parameters of <em><a href="https://bioconductor.org/packages/3.15/ideal" class="external-link">ideal</a></em>.</p>
+<p>This package provides a <code>RangedSummarizedExperiment</code> object of read counts in genes for an RNA-Seq experiment on four human airway smooth muscle cell lines treated with dexamethasone. More details such as gene models and count quantifications can be found in the <em><a href="https://bioconductor.org/packages/3.16/airway" class="external-link">airway</a></em> package vignette.</p>
+<p>To run <em><a href="https://bioconductor.org/packages/3.16/ideal" class="external-link">ideal</a></em> on this dataset, the following commands are required. First, prepare the objects to be passed as parameters of <em><a href="https://bioconductor.org/packages/3.16/ideal" class="external-link">ideal</a></em>.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">airway</span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/mikelove/DESeq2" class="external-link">DESeq2</a></span><span class="op">)</span>
@@ -408,7 +408,7 @@
 <code class="sourceCode R"><span class="fu"><a href="../reference/ideal.html">ideal</a></span><span class="op">(</span>dds_obj <span class="op">=</span> <span class="va">dds_airway</span><span class="op">)</span>
 <span class="co"># or also providing the results object</span>
 <span class="fu"><a href="../reference/ideal.html">ideal</a></span><span class="op">(</span>dds_obj <span class="op">=</span> <span class="va">dds_airway</span>, res_obj <span class="op">=</span> <span class="va">res_airway</span><span class="op">)</span></code></pre></div>
-<p>The <code>annotation</code> for this dataset can be built manually by exploiting the <em><a href="https://bioconductor.org/packages/3.15/org.Hs.eg.db" class="external-link">org.Hs.eg.db</a></em> package.</p>
+<p>The <code>annotation</code> for this dataset can be built manually by exploiting the <em><a href="https://bioconductor.org/packages/3.16/org.Hs.eg.db" class="external-link">org.Hs.eg.db</a></em> package.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">org.Hs.eg.db</span><span class="op">)</span>
 <span class="va">genenames_airway</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/AnnotationDbi/man/AnnotationDb-class.html" class="external-link">mapIds</a></span><span class="op">(</span><span class="va">org.Hs.eg.db</span>, keys <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">dds_airway</span><span class="op">)</span>, column <span class="op">=</span> <span class="st">"SYMBOL"</span>, keytype <span class="op">=</span> <span class="st">"ENSEMBL"</span><span class="op">)</span>
@@ -437,7 +437,7 @@
 <div class="section level3">
 <h3 id="coming-from-edgerlimma-voom">Coming from <code>edgeR</code>/<code>limma-voom</code><a class="anchor" aria-label="anchor" href="#coming-from-edgerlimma-voom"></a>
 </h3>
-<p>Let’s suppose you performed part of your analysis with <em><a href="https://bioconductor.org/packages/3.15/edgeR" class="external-link">edgeR</a></em> or <em><a href="https://bioconductor.org/packages/3.15/limma" class="external-link">limma</a></em>/<code>voom</code> and you want to continue inspecting your data interactively using <em><a href="https://bioconductor.org/packages/3.15/ideal" class="external-link">ideal</a></em>. You can use the functionality provided by the <em><a href="https://bioconductor.org/packages/3.15/DEFormats" class="external-link">DEFormats</a></em> package to convert the object with:</p>
+<p>Let’s suppose you performed part of your analysis with <em><a href="https://bioconductor.org/packages/3.16/edgeR" class="external-link">edgeR</a></em> or <em><a href="https://bioconductor.org/packages/3.16/limma" class="external-link">limma</a></em>/<code>voom</code> and you want to continue inspecting your data interactively using <em><a href="https://bioconductor.org/packages/3.16/ideal" class="external-link">ideal</a></em>. You can use the functionality provided by the <em><a href="https://bioconductor.org/packages/3.16/DEFormats" class="external-link">DEFormats</a></em> package to convert the object with:</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/aoles/DEFormats" class="external-link">DEFormats</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://bioinf.wehi.edu.au/edgeR" class="external-link">edgeR</a></span><span class="op">)</span></code></pre></div>
@@ -719,7 +719,7 @@
 <div class="section level2">
 <h2 id="functions-exported-by-the-package-for-standalone-usage">Functions exported by the package for standalone usage<a class="anchor" aria-label="anchor" href="#functions-exported-by-the-package-for-standalone-usage"></a>
 </h2>
-<p>The functions exported by the <em><a href="https://bioconductor.org/packages/3.15/ideal" class="external-link">ideal</a></em> package can be also used in a standalone scenario, provided the required objects are in the working environment. They are listed here for an overview, but please refer to the documentation for additional details. Where possible, for each function a code snippet will be provided for its typical usage.</p>
+<p>The functions exported by the <em><a href="https://bioconductor.org/packages/3.16/ideal" class="external-link">ideal</a></em> package can be also used in a standalone scenario, provided the required objects are in the working environment. They are listed here for an overview, but please refer to the documentation for additional details. Where possible, for each function a code snippet will be provided for its typical usage.</p>
 <div class="section level3">
 <h3 id="deseqresult2degenes-and-deseqresult2tbl">
 <code>deseqresult2DEgenes</code> and <code>deseqresult2tbl</code><a class="anchor" aria-label="anchor" href="#deseqresult2degenes-and-deseqresult2tbl"></a>
@@ -825,7 +825,7 @@
 <h3 id="ggplotcounts">
 <code>ggplotCounts</code><a class="anchor" aria-label="anchor" href="#ggplotcounts"></a>
 </h3>
-<p><code>ggplotCounts</code> extends the functionality of the <code>plotCounts</code> function of <em><a href="https://bioconductor.org/packages/3.15/DESeq2" class="external-link">DESeq2</a></em>, and plots the normalized counts of a single gene as a boxplot, with jittered points superimposed.</p>
+<p><code>ggplotCounts</code> extends the functionality of the <code>plotCounts</code> function of <em><a href="https://bioconductor.org/packages/3.16/DESeq2" class="external-link">DESeq2</a></em>, and plots the normalized counts of a single gene as a boxplot, with jittered points superimposed.</p>
 <div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/ggplotCounts.html">ggplotCounts</a></span><span class="op">(</span>
   dds <span class="op">=</span> <span class="va">dds_airway</span>,
@@ -848,8 +848,8 @@
 <h3 id="goseqtable">
 <code>goseqTable</code><a class="anchor" aria-label="anchor" href="#goseqtable"></a>
 </h3>
-<p><code>goseqTable</code> is a wrapper to extract the functional GO terms enriched in in a list of (DE) genes, based on the algorithm and the implementation in the <em><a href="https://bioconductor.org/packages/3.15/goseq" class="external-link">goseq</a></em> package.</p>
-<p>Its counterpart, based on the <em><a href="https://bioconductor.org/packages/3.15/topGO" class="external-link">topGO</a></em> package, can be found in the <em><a href="https://bioconductor.org/packages/3.15/pcaExplorer" class="external-link">pcaExplorer</a></em> package.</p>
+<p><code>goseqTable</code> is a wrapper to extract the functional GO terms enriched in in a list of (DE) genes, based on the algorithm and the implementation in the <em><a href="https://bioconductor.org/packages/3.16/goseq" class="external-link">goseq</a></em> package.</p>
+<p>Its counterpart, based on the <em><a href="https://bioconductor.org/packages/3.16/topGO" class="external-link">topGO</a></em> package, can be found in the <em><a href="https://bioconductor.org/packages/3.16/pcaExplorer" class="external-link">pcaExplorer</a></em> package.</p>
 <p><em>Please note that the following code chunks are not run only for reducing compilation time. The reader is invited to try out the functionality by simply executing these commands.</em></p>
 <!-- maybe eval=FALSE here? -->
 <div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
@@ -877,7 +877,7 @@
 <h3 id="plot_ma">
 <code>plot_ma</code><a class="anchor" aria-label="anchor" href="#plot_ma"></a>
 </h3>
-<p>The MA plot provided by <em><a href="https://bioconductor.org/packages/3.15/ideal" class="external-link">ideal</a></em> displays the gene-wise log2-fold changes (logFCs) versus the average expression value. As a main input parameter, a <code>DESeqResults</code> object is required. Control on the appearance of the plot can be applied by selecting the False Discovery Rate (<code>FDR</code>), the point transparency (<code>point_alpha</code>), adding horizontal lines at particular logFC values (<code>hlines</code>). The user can also decide to add rug plots in the margins (setting <code>add_rug</code> to <code>TRUE</code>).</p>
+<p>The MA plot provided by <em><a href="https://bioconductor.org/packages/3.16/ideal" class="external-link">ideal</a></em> displays the gene-wise log2-fold changes (logFCs) versus the average expression value. As a main input parameter, a <code>DESeqResults</code> object is required. Control on the appearance of the plot can be applied by selecting the False Discovery Rate (<code>FDR</code>), the point transparency (<code>point_alpha</code>), adding horizontal lines at particular logFC values (<code>hlines</code>). The user can also decide to add rug plots in the margins (setting <code>add_rug</code> to <code>TRUE</code>).</p>
 <p>To facilitate the inspection of a particular gene or gene set, <code>intgenes</code> can assume the value of a vector of genes (either the IDs or the gene symbols if <code>symbol</code> column is provided in <code>res_obj</code>. Labels can be added via <code>labels_intgenes</code>, while classical labels/title can be also edited as preferred (see <code>plot_ma</code> for all details).</p>
 <div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/plot_ma.html">plot_ma</a></span><span class="op">(</span><span class="va">res_airway</span>,
@@ -997,7 +997,7 @@
 <div class="section level3">
 <h3 id="expanding-the-analysis-after-ideal">Expanding the analysis after <code>ideal</code><a class="anchor" aria-label="anchor" href="#expanding-the-analysis-after-ideal"></a>
 </h3>
-<p>After exporting the objects to the R environment, via the button “Exit ideal and save”, it is possible to continue the analyses e.g. using alternative methods for functional enrichment analysis, with Functional Class Scoring methods (such as GSEA, as implemented in <em><a href="https://bioconductor.org/packages/3.15/fgsea" class="external-link">fgsea</a></em>), or additional methods for Overrepresentation Analysis (e.g. <em><a href="https://CRAN.R-project.org/package=gprofiler2" class="external-link">gprofiler2</a></em>).<br>
+<p>After exporting the objects to the R environment, via the button “Exit ideal and save”, it is possible to continue the analyses e.g. using alternative methods for functional enrichment analysis, with Functional Class Scoring methods (such as GSEA, as implemented in <em><a href="https://bioconductor.org/packages/3.16/fgsea" class="external-link">fgsea</a></em>), or additional methods for Overrepresentation Analysis (e.g. <em><a href="https://CRAN.R-project.org/package=gprofiler2" class="external-link">gprofiler2</a></em>).<br>
 In the example below, we show an example of the code required to perform <code>fgsea</code> on the set of objects exported from <code><a href="../reference/ideal.html">ideal()</a></code>.</p>
 <div class="sourceCode" id="cb62"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st">"fgsea"</span><span class="op">)</span>
@@ -1010,10 +1010,10 @@ In the example below, we show an example of the code required to perform <code>f
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://tibble.tidyverse.org/" class="external-link">"tibble"</a></span><span class="op">)</span>
 
 <span class="co"># extracting the rankes for pre-ranked gsea</span>
-<span class="va">de_ranks</span> <span class="op">&lt;-</span> <span class="va">exported_res</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">padj</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">symbol</span>, <span class="va">stat</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
+<span class="va">de_ranks</span> <span class="op">&lt;-</span> <span class="va">exported_res</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span>
+  <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">padj</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">symbol</span>, <span class="va">stat</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span>
   <span class="fu"><a href="https://tibble.tidyverse.org/reference/enframe.html" class="external-link">deframe</a></span><span class="op">(</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-class.html" class="external-link">head</a></span><span class="op">(</span><span class="va">de_ranks</span>, <span class="fl">20</span><span class="op">)</span>
 
@@ -1026,7 +1026,7 @@ In the example below, we show an example of the code required to perform <code>f
   stats <span class="op">=</span> <span class="va">de_ranks</span>,
   nperm <span class="op">=</span> <span class="fl">100000</span>
 <span class="op">)</span>
-<span class="va">fgsea_result</span> <span class="op">&lt;-</span> <span class="va">fgsea_result</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
+<span class="va">fgsea_result</span> <span class="op">&lt;-</span> <span class="va">fgsea_result</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html" class="external-link">desc</a></span><span class="op">(</span><span class="va">NES</span><span class="op">)</span><span class="op">)</span>
 
 <span class="co"># displaying the results</span>
@@ -1070,65 +1070,65 @@ In the example below, we show an example of the code required to perform <code>f
 <p>The <code>annotation_obj</code> is a quick helper to make your data and results easier to read. For creating it, you can exploit the corresponding <code>org.XX.eg.db</code> packages, available in Bioconductor.</p>
 <p>Currently available are the following (in alphabetical order):</p>
 <ul>
-<li><em><a href="https://bioconductor.org/packages/3.15/org.Ag.eg.db" class="external-link">org.Ag.eg.db</a></em></li>
-<li><em><a href="https://bioconductor.org/packages/3.15/org.At.tair.db" class="external-link">org.At.tair.db</a></em></li>
-<li><em><a href="https://bioconductor.org/packages/3.15/org.Bt.eg.db" class="external-link">org.Bt.eg.db</a></em></li>
-<li><em><a href="https://bioconductor.org/packages/3.15/org.Ce.eg.db" class="external-link">org.Ce.eg.db</a></em></li>
-<li><em><a href="https://bioconductor.org/packages/3.15/org.Cf.eg.db" class="external-link">org.Cf.eg.db</a></em></li>
-<li><em><a href="https://bioconductor.org/packages/3.15/org.Dm.eg.db" class="external-link">org.Dm.eg.db</a></em></li>
-<li><em><a href="https://bioconductor.org/packages/3.15/org.Dr.eg.db" class="external-link">org.Dr.eg.db</a></em></li>
-<li><em><a href="https://bioconductor.org/packages/3.15/org.EcK12.eg.db" class="external-link">org.EcK12.eg.db</a></em></li>
-<li><em><a href="https://bioconductor.org/packages/3.15/org.EcSakai.eg.db" class="external-link">org.EcSakai.eg.db</a></em></li>
-<li><em><a href="https://bioconductor.org/packages/3.15/org.Gg.eg.db" class="external-link">org.Gg.eg.db</a></em></li>
-<li><em><a href="https://bioconductor.org/packages/3.15/org.Hs.eg.db" class="external-link">org.Hs.eg.db</a></em></li>
-<li><em><a href="https://bioconductor.org/packages/3.15/org.Mm.eg.db" class="external-link">org.Mm.eg.db</a></em></li>
-<li><em><a href="https://bioconductor.org/packages/3.15/org.Mmu.eg.db" class="external-link">org.Mmu.eg.db</a></em></li>
-<li><em><a href="https://bioconductor.org/packages/3.15/org.Pf.plasmo.db" class="external-link">org.Pf.plasmo.db</a></em></li>
-<li><em><a href="https://bioconductor.org/packages/3.15/org.Pt.eg.db" class="external-link">org.Pt.eg.db</a></em></li>
-<li><em><a href="https://bioconductor.org/packages/3.15/org.Rn.eg.db" class="external-link">org.Rn.eg.db</a></em></li>
-<li><em><a href="https://bioconductor.org/packages/3.15/org.Sc.sgd.db" class="external-link">org.Sc.sgd.db</a></em></li>
-<li><em><a href="https://bioconductor.org/packages/3.15/org.Sco.eg.db" class="external-link">org.Sco.eg.db</a></em></li>
-<li><em><a href="https://bioconductor.org/packages/3.15/org.Ss.eg.db" class="external-link">org.Ss.eg.db</a></em></li>
-<li><em><a href="https://bioconductor.org/packages/3.15/org.Tgondii.eg.db" class="external-link">org.Tgondii.eg.db</a></em></li>
-<li><em><a href="https://bioconductor.org/packages/3.15/org.Xl.eg.db" class="external-link">org.Xl.eg.db</a></em></li>
+<li><em><a href="https://bioconductor.org/packages/3.16/org.Ag.eg.db" class="external-link">org.Ag.eg.db</a></em></li>
+<li><em><a href="https://bioconductor.org/packages/3.16/org.At.tair.db" class="external-link">org.At.tair.db</a></em></li>
+<li><em><a href="https://bioconductor.org/packages/3.16/org.Bt.eg.db" class="external-link">org.Bt.eg.db</a></em></li>
+<li><em><a href="https://bioconductor.org/packages/3.16/org.Ce.eg.db" class="external-link">org.Ce.eg.db</a></em></li>
+<li><em><a href="https://bioconductor.org/packages/3.16/org.Cf.eg.db" class="external-link">org.Cf.eg.db</a></em></li>
+<li><em><a href="https://bioconductor.org/packages/3.16/org.Dm.eg.db" class="external-link">org.Dm.eg.db</a></em></li>
+<li><em><a href="https://bioconductor.org/packages/3.16/org.Dr.eg.db" class="external-link">org.Dr.eg.db</a></em></li>
+<li><em><a href="https://bioconductor.org/packages/3.16/org.EcK12.eg.db" class="external-link">org.EcK12.eg.db</a></em></li>
+<li><em><a href="https://bioconductor.org/packages/3.16/org.EcSakai.eg.db" class="external-link">org.EcSakai.eg.db</a></em></li>
+<li><em><a href="https://bioconductor.org/packages/3.16/org.Gg.eg.db" class="external-link">org.Gg.eg.db</a></em></li>
+<li><em><a href="https://bioconductor.org/packages/3.16/org.Hs.eg.db" class="external-link">org.Hs.eg.db</a></em></li>
+<li><em><a href="https://bioconductor.org/packages/3.16/org.Mm.eg.db" class="external-link">org.Mm.eg.db</a></em></li>
+<li><em><a href="https://bioconductor.org/packages/3.16/org.Mmu.eg.db" class="external-link">org.Mmu.eg.db</a></em></li>
+<li><em><a href="https://bioconductor.org/packages/3.16/org.Pf.plasmo.db" class="external-link">org.Pf.plasmo.db</a></em></li>
+<li><em><a href="https://bioconductor.org/packages/3.16/org.Pt.eg.db" class="external-link">org.Pt.eg.db</a></em></li>
+<li><em><a href="https://bioconductor.org/packages/3.16/org.Rn.eg.db" class="external-link">org.Rn.eg.db</a></em></li>
+<li><em><a href="https://bioconductor.org/packages/3.16/org.Sc.sgd.db" class="external-link">org.Sc.sgd.db</a></em></li>
+<li><em><a href="https://bioconductor.org/packages/3.16/org.Sco.eg.db" class="external-link">org.Sco.eg.db</a></em></li>
+<li><em><a href="https://bioconductor.org/packages/3.16/org.Ss.eg.db" class="external-link">org.Ss.eg.db</a></em></li>
+<li><em><a href="https://bioconductor.org/packages/3.16/org.Tgondii.eg.db" class="external-link">org.Tgondii.eg.db</a></em></li>
+<li><em><a href="https://bioconductor.org/packages/3.16/org.Xl.eg.db" class="external-link">org.Xl.eg.db</a></em></li>
 </ul>
 <p>They can all be easily installed with <code>BiocManager::install("orgdb_packagename")</code>.</p>
 <p>In a similar way, for using at best the <code>goseq</code> package, the gene length information can also be computed if the corresponding <code>TxDb</code> packages are installed. Currently, following <code>TxDb</code> packages are available:</p>
 <ul>
-<li><em><a href="https://bioconductor.org/packages/3.15/TxDb.Athaliana.BioMart.plantsmart22" class="external-link">TxDb.Athaliana.BioMart.plantsmart22</a></em></li>
-<li><em><a href="https://bioconductor.org/packages/3.15/TxDb.Athaliana.BioMart.plantsmart25" class="external-link">TxDb.Athaliana.BioMart.plantsmart25</a></em></li>
-<li><em><a href="https://bioconductor.org/packages/3.15/TxDb.Athaliana.BioMart.plantsmart28" class="external-link">TxDb.Athaliana.BioMart.plantsmart28</a></em></li>
-<li><em><a href="https://bioconductor.org/packages/3.15/TxDb.Btaurus.UCSC.bosTau8.refGene" class="external-link">TxDb.Btaurus.UCSC.bosTau8.refGene</a></em></li>
-<li><em><a href="https://bioconductor.org/packages/3.15/TxDb.Celegans.UCSC.ce11.refGene" class="external-link">TxDb.Celegans.UCSC.ce11.refGene</a></em></li>
-<li><em><a href="https://bioconductor.org/packages/3.15/TxDb.Celegans.UCSC.ce6.ensGene" class="external-link">TxDb.Celegans.UCSC.ce6.ensGene</a></em></li>
-<li><em><a href="https://bioconductor.org/packages/3.15/TxDb.Cfamiliaris.UCSC.canFam3.refGene" class="external-link">TxDb.Cfamiliaris.UCSC.canFam3.refGene</a></em></li>
-<li><em><a href="https://bioconductor.org/packages/3.15/TxDb.Dmelanogaster.UCSC.dm3.ensGene" class="external-link">TxDb.Dmelanogaster.UCSC.dm3.ensGene</a></em></li>
-<li><em><a href="https://bioconductor.org/packages/3.15/TxDb.Dmelanogaster.UCSC.dm6.ensGene" class="external-link">TxDb.Dmelanogaster.UCSC.dm6.ensGene</a></em></li>
-<li><em><a href="https://bioconductor.org/packages/3.15/TxDb.Drerio.UCSC.danRer10.refGene" class="external-link">TxDb.Drerio.UCSC.danRer10.refGene</a></em></li>
-<li><em><a href="https://bioconductor.org/packages/3.15/TxDb.Ggallus.UCSC.galGal4.refGene" class="external-link">TxDb.Ggallus.UCSC.galGal4.refGene</a></em></li>
-<li><em><a href="https://bioconductor.org/packages/3.15/TxDb.Hsapiens.UCSC.hg18.knownGene" class="external-link">TxDb.Hsapiens.UCSC.hg18.knownGene</a></em></li>
-<li><em><a href="https://bioconductor.org/packages/3.15/TxDb.Hsapiens.UCSC.hg19.knownGene" class="external-link">TxDb.Hsapiens.UCSC.hg19.knownGene</a></em></li>
-<li><em><a href="https://bioconductor.org/packages/3.15/TxDb.Hsapiens.UCSC.hg19.lincRNAsTranscripts" class="external-link">TxDb.Hsapiens.UCSC.hg19.lincRNAsTranscripts</a></em></li>
-<li><em><a href="https://bioconductor.org/packages/3.15/TxDb.Hsapiens.UCSC.hg38.knownGene" class="external-link">TxDb.Hsapiens.UCSC.hg38.knownGene</a></em></li>
-<li><em><a href="https://bioconductor.org/packages/3.15/TxDb.Mmulatta.UCSC.rheMac3.refGene" class="external-link">TxDb.Mmulatta.UCSC.rheMac3.refGene</a></em></li>
-<li><em><a href="https://bioconductor.org/packages/3.15/TxDb.Mmulatta.UCSC.rheMac8.refGene" class="external-link">TxDb.Mmulatta.UCSC.rheMac8.refGene</a></em></li>
-<li><em><a href="https://bioconductor.org/packages/3.15/TxDb.Mmusculus.UCSC.mm10.ensGene" class="external-link">TxDb.Mmusculus.UCSC.mm10.ensGene</a></em></li>
-<li><em><a href="https://bioconductor.org/packages/3.15/TxDb.Mmusculus.UCSC.mm10.knownGene" class="external-link">TxDb.Mmusculus.UCSC.mm10.knownGene</a></em></li>
-<li><em><a href="https://bioconductor.org/packages/3.15/TxDb.Mmusculus.UCSC.mm9.knownGene" class="external-link">TxDb.Mmusculus.UCSC.mm9.knownGene</a></em></li>
-<li><em><a href="https://bioconductor.org/packages/3.15/TxDb.Ptroglodytes.UCSC.panTro4.refGene" class="external-link">TxDb.Ptroglodytes.UCSC.panTro4.refGene</a></em></li>
-<li><em><a href="https://bioconductor.org/packages/3.15/TxDb.Rnorvegicus.UCSC.rn4.ensGene" class="external-link">TxDb.Rnorvegicus.UCSC.rn4.ensGene</a></em></li>
-<li><em><a href="https://bioconductor.org/packages/3.15/TxDb.Rnorvegicus.UCSC.rn5.refGene" class="external-link">TxDb.Rnorvegicus.UCSC.rn5.refGene</a></em></li>
-<li><em><a href="https://bioconductor.org/packages/3.15/TxDb.Rnorvegicus.UCSC.rn6.refGene" class="external-link">TxDb.Rnorvegicus.UCSC.rn6.refGene</a></em></li>
-<li><em><a href="https://bioconductor.org/packages/3.15/TxDb.Scerevisiae.UCSC.sacCer2.sgdGene" class="external-link">TxDb.Scerevisiae.UCSC.sacCer2.sgdGene</a></em></li>
-<li><em><a href="https://bioconductor.org/packages/3.15/TxDb.Scerevisiae.UCSC.sacCer3.sgdGene" class="external-link">TxDb.Scerevisiae.UCSC.sacCer3.sgdGene</a></em></li>
-<li><em><a href="https://bioconductor.org/packages/3.15/TxDb.Sscrofa.UCSC.susScr3.refGene" class="external-link">TxDb.Sscrofa.UCSC.susScr3.refGene</a></em></li>
+<li><em><a href="https://bioconductor.org/packages/3.16/TxDb.Athaliana.BioMart.plantsmart22" class="external-link">TxDb.Athaliana.BioMart.plantsmart22</a></em></li>
+<li><em><a href="https://bioconductor.org/packages/3.16/TxDb.Athaliana.BioMart.plantsmart25" class="external-link">TxDb.Athaliana.BioMart.plantsmart25</a></em></li>
+<li><em><a href="https://bioconductor.org/packages/3.16/TxDb.Athaliana.BioMart.plantsmart28" class="external-link">TxDb.Athaliana.BioMart.plantsmart28</a></em></li>
+<li><em><a href="https://bioconductor.org/packages/3.16/TxDb.Btaurus.UCSC.bosTau8.refGene" class="external-link">TxDb.Btaurus.UCSC.bosTau8.refGene</a></em></li>
+<li><em><a href="https://bioconductor.org/packages/3.16/TxDb.Celegans.UCSC.ce11.refGene" class="external-link">TxDb.Celegans.UCSC.ce11.refGene</a></em></li>
+<li><em><a href="https://bioconductor.org/packages/3.16/TxDb.Celegans.UCSC.ce6.ensGene" class="external-link">TxDb.Celegans.UCSC.ce6.ensGene</a></em></li>
+<li><em><a href="https://bioconductor.org/packages/3.16/TxDb.Cfamiliaris.UCSC.canFam3.refGene" class="external-link">TxDb.Cfamiliaris.UCSC.canFam3.refGene</a></em></li>
+<li><em><a href="https://bioconductor.org/packages/3.16/TxDb.Dmelanogaster.UCSC.dm3.ensGene" class="external-link">TxDb.Dmelanogaster.UCSC.dm3.ensGene</a></em></li>
+<li><em><a href="https://bioconductor.org/packages/3.16/TxDb.Dmelanogaster.UCSC.dm6.ensGene" class="external-link">TxDb.Dmelanogaster.UCSC.dm6.ensGene</a></em></li>
+<li><em><a href="https://bioconductor.org/packages/3.16/TxDb.Drerio.UCSC.danRer10.refGene" class="external-link">TxDb.Drerio.UCSC.danRer10.refGene</a></em></li>
+<li><em><a href="https://bioconductor.org/packages/3.16/TxDb.Ggallus.UCSC.galGal4.refGene" class="external-link">TxDb.Ggallus.UCSC.galGal4.refGene</a></em></li>
+<li><em><a href="https://bioconductor.org/packages/3.16/TxDb.Hsapiens.UCSC.hg18.knownGene" class="external-link">TxDb.Hsapiens.UCSC.hg18.knownGene</a></em></li>
+<li><em><a href="https://bioconductor.org/packages/3.16/TxDb.Hsapiens.UCSC.hg19.knownGene" class="external-link">TxDb.Hsapiens.UCSC.hg19.knownGene</a></em></li>
+<li><em><a href="https://bioconductor.org/packages/3.16/TxDb.Hsapiens.UCSC.hg19.lincRNAsTranscripts" class="external-link">TxDb.Hsapiens.UCSC.hg19.lincRNAsTranscripts</a></em></li>
+<li><em><a href="https://bioconductor.org/packages/3.16/TxDb.Hsapiens.UCSC.hg38.knownGene" class="external-link">TxDb.Hsapiens.UCSC.hg38.knownGene</a></em></li>
+<li><em><a href="https://bioconductor.org/packages/3.16/TxDb.Mmulatta.UCSC.rheMac3.refGene" class="external-link">TxDb.Mmulatta.UCSC.rheMac3.refGene</a></em></li>
+<li><em><a href="https://bioconductor.org/packages/3.16/TxDb.Mmulatta.UCSC.rheMac8.refGene" class="external-link">TxDb.Mmulatta.UCSC.rheMac8.refGene</a></em></li>
+<li><em><a href="https://bioconductor.org/packages/3.16/TxDb.Mmusculus.UCSC.mm10.ensGene" class="external-link">TxDb.Mmusculus.UCSC.mm10.ensGene</a></em></li>
+<li><em><a href="https://bioconductor.org/packages/3.16/TxDb.Mmusculus.UCSC.mm10.knownGene" class="external-link">TxDb.Mmusculus.UCSC.mm10.knownGene</a></em></li>
+<li><em><a href="https://bioconductor.org/packages/3.16/TxDb.Mmusculus.UCSC.mm9.knownGene" class="external-link">TxDb.Mmusculus.UCSC.mm9.knownGene</a></em></li>
+<li><em><a href="https://bioconductor.org/packages/3.16/TxDb.Ptroglodytes.UCSC.panTro4.refGene" class="external-link">TxDb.Ptroglodytes.UCSC.panTro4.refGene</a></em></li>
+<li><em><a href="https://bioconductor.org/packages/3.16/TxDb.Rnorvegicus.UCSC.rn4.ensGene" class="external-link">TxDb.Rnorvegicus.UCSC.rn4.ensGene</a></em></li>
+<li><em><a href="https://bioconductor.org/packages/3.16/TxDb.Rnorvegicus.UCSC.rn5.refGene" class="external-link">TxDb.Rnorvegicus.UCSC.rn5.refGene</a></em></li>
+<li><em><a href="https://bioconductor.org/packages/3.16/TxDb.Rnorvegicus.UCSC.rn6.refGene" class="external-link">TxDb.Rnorvegicus.UCSC.rn6.refGene</a></em></li>
+<li><em><a href="https://bioconductor.org/packages/3.16/TxDb.Scerevisiae.UCSC.sacCer2.sgdGene" class="external-link">TxDb.Scerevisiae.UCSC.sacCer2.sgdGene</a></em></li>
+<li><em><a href="https://bioconductor.org/packages/3.16/TxDb.Scerevisiae.UCSC.sacCer3.sgdGene" class="external-link">TxDb.Scerevisiae.UCSC.sacCer3.sgdGene</a></em></li>
+<li><em><a href="https://bioconductor.org/packages/3.16/TxDb.Sscrofa.UCSC.susScr3.refGene" class="external-link">TxDb.Sscrofa.UCSC.susScr3.refGene</a></em></li>
 </ul>
 <p>As for the <code>org.XX.eg.db</code> above, these can all be quickly installed with <code>BiocManager::install("txdb_packagename")</code>.</p>
 </div>
 <div class="section level2">
 <h2 id="further-development">Further development<a class="anchor" aria-label="anchor" href="#further-development"></a>
 </h2>
-<p>Additional functionality for the <em><a href="https://bioconductor.org/packages/3.15/ideal" class="external-link">ideal</a></em> will be added in the future, as it is tightly related to a topic under current development research.</p>
+<p>Additional functionality for the <em><a href="https://bioconductor.org/packages/3.16/ideal" class="external-link">ideal</a></em> will be added in the future, as it is tightly related to a topic under current development research.</p>
 <p>Improvements, suggestions, bugs, issues and feedback of any type can be sent to <a href="mailto:marinif@uni-mainz.de" class="email">marinif@uni-mainz.de</a>.</p>
 </div>
 <div class="section level2">
@@ -1136,7 +1136,7 @@ In the example below, we show an example of the code required to perform <code>f
 </h2>
 <div class="sourceCode" id="cb64"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## R Under development (unstable) (2022-03-07 r81853)</span>
+<pre><code><span class="co">## R version 4.2.0 (2022-04-22)</span>
 <span class="co">## Platform: x86_64-apple-darwin17.0 (64-bit)</span>
 <span class="co">## Running under: macOS Big Sur/Monterey 10.16</span>
 <span class="co">## </span>
@@ -1152,75 +1152,75 @@ In the example below, we show an example of the code required to perform <code>f
 <span class="co">## [8] base     </span>
 <span class="co">## </span>
 <span class="co">## other attached packages:</span>
-<span class="co">##  [1] edgeR_3.37.0                limma_3.51.5               </span>
-<span class="co">##  [3] DEFormats_1.23.0            org.Hs.eg.db_3.14.0        </span>
-<span class="co">##  [5] DESeq2_1.35.0               airway_1.15.1              </span>
-<span class="co">##  [7] SummarizedExperiment_1.25.3 GenomicRanges_1.47.6       </span>
-<span class="co">##  [9] GenomeInfoDb_1.31.4         MatrixGenerics_1.7.0       </span>
-<span class="co">## [11] matrixStats_0.61.0          ideal_1.19.1               </span>
-<span class="co">## [13] topGO_2.47.0                SparseM_1.81               </span>
-<span class="co">## [15] GO.db_3.14.0                AnnotationDbi_1.57.1       </span>
-<span class="co">## [17] IRanges_2.29.1              S4Vectors_0.33.10          </span>
-<span class="co">## [19] Biobase_2.55.0              graph_1.73.0               </span>
-<span class="co">## [21] BiocGenerics_0.41.2         BiocStyle_2.23.1           </span>
+<span class="co">##  [1] edgeR_3.39.1                limma_3.53.2               </span>
+<span class="co">##  [3] DEFormats_1.25.0            org.Hs.eg.db_3.15.0        </span>
+<span class="co">##  [5] DESeq2_1.37.0               airway_1.17.0              </span>
+<span class="co">##  [7] SummarizedExperiment_1.27.1 GenomicRanges_1.49.0       </span>
+<span class="co">##  [9] GenomeInfoDb_1.33.3         MatrixGenerics_1.9.0       </span>
+<span class="co">## [11] matrixStats_0.62.0          ideal_1.21.1               </span>
+<span class="co">## [13] topGO_2.49.0                SparseM_1.81               </span>
+<span class="co">## [15] GO.db_3.15.0                AnnotationDbi_1.59.1       </span>
+<span class="co">## [17] IRanges_2.31.0              S4Vectors_0.35.0           </span>
+<span class="co">## [19] Biobase_2.57.1              graph_1.75.0               </span>
+<span class="co">## [21] BiocGenerics_0.43.0         BiocStyle_2.25.0           </span>
 <span class="co">## </span>
 <span class="co">## loaded via a namespace (and not attached):</span>
 <span class="co">##   [1] utf8_1.2.2               shinydashboard_0.7.2     tidyselect_1.1.2        </span>
-<span class="co">##   [4] heatmaply_1.3.0          RSQLite_2.2.10           htmlwidgets_1.5.4       </span>
-<span class="co">##   [7] grid_4.2.0               TSP_1.2-0                BiocParallel_1.29.15    </span>
-<span class="co">##  [10] IHW_1.23.0               munsell_0.5.0            codetools_0.2-18        </span>
-<span class="co">##  [13] ragg_1.2.2               rentrez_1.2.3            DT_0.21                 </span>
-<span class="co">##  [16] withr_2.5.0              colorspace_2.0-3         Category_2.61.0         </span>
-<span class="co">##  [19] filelock_1.0.2           highr_0.9                pcaExplorer_2.21.2      </span>
-<span class="co">##  [22] knitr_1.37               NMF_0.23.0               labeling_0.4.2          </span>
-<span class="co">##  [25] slam_0.1-50              GenomeInfoDbData_1.2.7   lpsymphony_1.23.0       </span>
+<span class="co">##   [4] heatmaply_1.3.0          RSQLite_2.2.14           htmlwidgets_1.5.4       </span>
+<span class="co">##   [7] grid_4.2.0               TSP_1.2-0                BiocParallel_1.31.4     </span>
+<span class="co">##  [10] IHW_1.25.0               munsell_0.5.0            codetools_0.2-18        </span>
+<span class="co">##  [13] ragg_1.2.2               rentrez_1.2.3            DT_0.23                 </span>
+<span class="co">##  [16] withr_2.5.0              colorspace_2.0-3         Category_2.63.0         </span>
+<span class="co">##  [19] filelock_1.0.2           highr_0.9                pcaExplorer_2.23.0      </span>
+<span class="co">##  [22] knitr_1.39               NMF_0.24.0               labeling_0.4.2          </span>
+<span class="co">##  [25] slam_0.1-50              GenomeInfoDbData_1.2.8   lpsymphony_1.25.0       </span>
 <span class="co">##  [28] farver_2.1.0             bit64_4.0.5              pheatmap_1.0.12         </span>
-<span class="co">##  [31] rprojroot_2.0.2          vctrs_0.3.8              generics_0.1.2          </span>
-<span class="co">##  [34] xfun_0.30                BiocFileCache_2.3.4      R6_2.5.1                </span>
-<span class="co">##  [37] doParallel_1.0.17        seriation_1.3.3          locfit_1.5-9.5          </span>
-<span class="co">##  [40] bitops_1.0-7             cachem_1.0.6             shinyAce_0.4.1          </span>
-<span class="co">##  [43] DelayedArray_0.21.2      assertthat_0.2.1         promises_1.2.0.1        </span>
-<span class="co">##  [46] BiocIO_1.5.0             scales_1.1.1             gtable_0.3.0            </span>
-<span class="co">##  [49] rlang_1.0.2              genefilter_1.77.0        systemfonts_1.0.4       </span>
-<span class="co">##  [52] splines_4.2.0            rtracklayer_1.55.3       lazyeval_0.2.2          </span>
-<span class="co">##  [55] checkmate_2.0.0          shinyBS_0.61             BiocManager_1.30.16     </span>
+<span class="co">##  [31] rprojroot_2.0.3          vctrs_0.4.1              generics_0.1.2          </span>
+<span class="co">##  [34] xfun_0.31                BiocFileCache_2.5.0      R6_2.5.1                </span>
+<span class="co">##  [37] doParallel_1.0.17        seriation_1.3.5          locfit_1.5-9.5          </span>
+<span class="co">##  [40] bitops_1.0-7             cachem_1.0.6             shinyAce_0.4.2          </span>
+<span class="co">##  [43] DelayedArray_0.23.0      assertthat_0.2.1         promises_1.2.0.1        </span>
+<span class="co">##  [46] BiocIO_1.7.1             scales_1.2.0             gtable_0.3.0            </span>
+<span class="co">##  [49] rlang_1.0.2              genefilter_1.79.0        systemfonts_1.0.4       </span>
+<span class="co">##  [52] splines_4.2.0            rtracklayer_1.57.0       lazyeval_0.2.2          </span>
+<span class="co">##  [55] checkmate_2.1.0          shinyBS_0.61.1           BiocManager_1.30.18     </span>
 <span class="co">##  [58] yaml_2.3.5               reshape2_1.4.4           backports_1.4.1         </span>
-<span class="co">##  [61] GenomicFeatures_1.47.12  threejs_0.3.3            crosstalk_1.2.0         </span>
-<span class="co">##  [64] httpuv_1.6.5             RBGL_1.71.0              tools_4.2.0             </span>
-<span class="co">##  [67] bookdown_0.24            gridBase_0.4-7           ggplot2_3.3.5           </span>
-<span class="co">##  [70] gplots_3.1.1             ellipsis_0.3.2           jquerylib_0.1.4         </span>
-<span class="co">##  [73] RColorBrewer_1.1-2       Rcpp_1.0.8               plyr_1.8.6              </span>
-<span class="co">##  [76] base64enc_0.1-3          progress_1.2.2           zlibbioc_1.41.0         </span>
+<span class="co">##  [61] GenomicFeatures_1.49.4   threejs_0.3.3            crosstalk_1.2.0         </span>
+<span class="co">##  [64] httpuv_1.6.5             RBGL_1.73.0              tools_4.2.0             </span>
+<span class="co">##  [67] bookdown_0.26            gridBase_0.4-7           ggplot2_3.3.6           </span>
+<span class="co">##  [70] gplots_3.1.3             ellipsis_0.3.2           jquerylib_0.1.4         </span>
+<span class="co">##  [73] RColorBrewer_1.1-3       Rcpp_1.0.8.3             plyr_1.8.7              </span>
+<span class="co">##  [76] base64enc_0.1-3          progress_1.2.2           zlibbioc_1.43.0         </span>
 <span class="co">##  [79] purrr_0.3.4              RCurl_1.98-1.6           BiasedUrn_1.07          </span>
 <span class="co">##  [82] prettyunits_1.1.1        viridis_0.6.2            ggrepel_0.9.1           </span>
-<span class="co">##  [85] cluster_2.1.2            fs_1.5.2                 magrittr_2.0.2          </span>
-<span class="co">##  [88] data.table_1.14.2        goseq_1.47.0             hms_1.1.1               </span>
+<span class="co">##  [85] cluster_2.1.3            fs_1.5.2                 magrittr_2.0.3          </span>
+<span class="co">##  [88] data.table_1.14.2        goseq_1.49.0             hms_1.1.1               </span>
 <span class="co">##  [91] mime_0.12                evaluate_0.15            xtable_1.8-4            </span>
 <span class="co">##  [94] XML_3.99-0.9             gridExtra_2.3            compiler_4.2.0          </span>
-<span class="co">##  [97] biomaRt_2.51.3           tibble_3.1.6             KernSmooth_2.23-20      </span>
-<span class="co">## [100] crayon_1.5.0             htmltools_0.5.2          GOstats_2.61.0          </span>
-<span class="co">## [103] mgcv_1.8-39              later_1.3.0              tidyr_1.2.0             </span>
-<span class="co">## [106] geneplotter_1.73.0       DBI_1.1.2                geneLenDataBase_1.31.0  </span>
-<span class="co">## [109] dbplyr_2.1.1             rappdirs_0.3.3           Matrix_1.4-0            </span>
-<span class="co">## [112] cli_3.2.0                parallel_4.2.0           igraph_1.2.11           </span>
-<span class="co">## [115] pkgconfig_2.0.3          pkgdown_2.0.2.9000       GenomicAlignments_1.31.2</span>
+<span class="co">##  [97] biomaRt_2.53.2           tibble_3.1.7             KernSmooth_2.23-20      </span>
+<span class="co">## [100] crayon_1.5.1             htmltools_0.5.2          GOstats_2.63.0          </span>
+<span class="co">## [103] mgcv_1.8-40              later_1.3.0              tidyr_1.2.0             </span>
+<span class="co">## [106] geneplotter_1.75.0       DBI_1.1.2                geneLenDataBase_1.33.0  </span>
+<span class="co">## [109] dbplyr_2.1.1             rappdirs_0.3.3           Matrix_1.4-1            </span>
+<span class="co">## [112] cli_3.3.0                parallel_4.2.0           igraph_1.3.1            </span>
+<span class="co">## [115] pkgconfig_2.0.3          pkgdown_2.0.3.9000       GenomicAlignments_1.33.0</span>
 <span class="co">## [118] registry_0.5-1           plotly_4.10.0            xml2_1.3.3              </span>
-<span class="co">## [121] foreach_1.5.2            annotate_1.73.0          bslib_0.3.1             </span>
-<span class="co">## [124] rngtools_1.5.2           pkgmaker_0.32.2          webshot_0.5.2           </span>
-<span class="co">## [127] XVector_0.35.0           AnnotationForge_1.37.0   stringr_1.4.0           </span>
-<span class="co">## [130] digest_0.6.29            Biostrings_2.63.1        rmarkdown_2.12          </span>
-<span class="co">## [133] rintrojs_0.3.0           dendextend_1.15.2        GSEABase_1.57.0         </span>
-<span class="co">## [136] restfulr_0.0.13          curl_4.3.2               gtools_3.9.2            </span>
-<span class="co">## [139] shiny_1.7.1              Rsamtools_2.11.0         rjson_0.2.21            </span>
-<span class="co">## [142] lifecycle_1.0.1          nlme_3.1-155             jsonlite_1.8.0          </span>
-<span class="co">## [145] desc_1.4.1               viridisLite_0.4.0        fansi_1.0.2             </span>
-<span class="co">## [148] pillar_1.7.0             lattice_0.20-45          KEGGREST_1.35.0         </span>
-<span class="co">## [151] fastmap_1.1.0            httr_1.4.2               survival_3.3-1          </span>
+<span class="co">## [121] foreach_1.5.2            annotate_1.75.0          bslib_0.3.1             </span>
+<span class="co">## [124] rngtools_1.5.2           pkgmaker_0.32.2          webshot_0.5.3           </span>
+<span class="co">## [127] XVector_0.37.0           AnnotationForge_1.39.0   stringr_1.4.0           </span>
+<span class="co">## [130] digest_0.6.29            Biostrings_2.65.0        rmarkdown_2.14          </span>
+<span class="co">## [133] rintrojs_0.3.0           dendextend_1.15.2        GSEABase_1.59.0         </span>
+<span class="co">## [136] restfulr_0.0.13          curl_4.3.2               gtools_3.9.2.1          </span>
+<span class="co">## [139] shiny_1.7.1              Rsamtools_2.13.3         rjson_0.2.21            </span>
+<span class="co">## [142] lifecycle_1.0.1          nlme_3.1-157             jsonlite_1.8.0          </span>
+<span class="co">## [145] desc_1.4.1               viridisLite_0.4.0        fansi_1.0.3             </span>
+<span class="co">## [148] pillar_1.7.0             lattice_0.20-45          KEGGREST_1.37.0         </span>
+<span class="co">## [151] fastmap_1.1.0            httr_1.4.3               survival_3.3-1          </span>
 <span class="co">## [154] glue_1.6.2               fdrtool_1.2.17           UpSetR_1.4.0            </span>
 <span class="co">## [157] png_0.1-7                iterators_1.0.14         bit_4.0.4               </span>
-<span class="co">## [160] Rgraphviz_2.39.0         stringi_1.7.6            sass_0.4.0              </span>
-<span class="co">## [163] blob_1.2.2               textshaping_0.3.6        caTools_1.18.2          </span>
-<span class="co">## [166] memoise_2.0.1            dplyr_1.0.8</span></code></pre>
+<span class="co">## [160] Rgraphviz_2.41.1         stringi_1.7.6            sass_0.4.1              </span>
+<span class="co">## [163] blob_1.2.3               textshaping_0.3.6        caTools_1.18.2          </span>
+<span class="co">## [166] memoise_2.0.1            dplyr_1.0.9</span></code></pre>
 </div>
   </div>
 
@@ -1241,7 +1241,7 @@ In the example below, we show an example of the code required to perform <code>f
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.9000.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.9000.</p>
 </div>
 
       </footer>
