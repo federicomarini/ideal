@@ -56,7 +56,7 @@ Suggests:
     airway, 
     org.Hs.eg.db,
     TxDb.Hsapiens.UCSC.hg38.knownGene, 
-    DEFormats,
+    DEFormats, 
     edgeR
 URL: https://github.com/federicomarini/ideal,
     https://federicomarini.github.io/ideal/
