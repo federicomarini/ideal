@@ -18,7 +18,7 @@ additional support to annotate genes if provided."><!-- mathjax --><script src="
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ideal</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.21.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.21.2</span>
       </span>
     </div>
 
@@ -71,69 +71,102 @@ additional support to annotate genes if provided.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">plot_ma</span><span class="op">(</span>
-  <span class="va">res_obj</span>,
-  FDR <span class="op">=</span> <span class="fl">0.05</span>,
-  point_alpha <span class="op">=</span> <span class="fl">0.2</span>,
-  sig_color <span class="op">=</span> <span class="st">"red"</span>,
-  annotation_obj <span class="op">=</span> <span class="cn">NULL</span>,
-  draw_y0 <span class="op">=</span> <span class="cn">TRUE</span>,
-  hlines <span class="op">=</span> <span class="cn">NULL</span>,
-  title <span class="op">=</span> <span class="cn">NULL</span>,
-  xlab <span class="op">=</span> <span class="st">"mean of normalized counts - log10 scale"</span>,
-  ylim <span class="op">=</span> <span class="cn">NULL</span>,
-  add_rug <span class="op">=</span> <span class="cn">TRUE</span>,
-  intgenes <span class="op">=</span> <span class="cn">NULL</span>,
-  intgenes_color <span class="op">=</span> <span class="st">"steelblue"</span>,
-  labels_intgenes <span class="op">=</span> <span class="cn">TRUE</span>,
-  labels_repel <span class="op">=</span> <span class="cn">TRUE</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">plot_ma</span><span class="op">(</span></span>
+<span>  <span class="va">res_obj</span>,</span>
+<span>  FDR <span class="op">=</span> <span class="fl">0.05</span>,</span>
+<span>  point_alpha <span class="op">=</span> <span class="fl">0.2</span>,</span>
+<span>  sig_color <span class="op">=</span> <span class="st">"red"</span>,</span>
+<span>  annotation_obj <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  draw_y0 <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  hlines <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  title <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  xlab <span class="op">=</span> <span class="st">"mean of normalized counts - log10 scale"</span>,</span>
+<span>  ylim <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  add_rug <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  intgenes <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  intgenes_color <span class="op">=</span> <span class="st">"steelblue"</span>,</span>
+<span>  labels_intgenes <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  labels_repel <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>res_obj</dt>
 <dd><p>A <code><a href="https://rdrr.io/pkg/DESeq2/man/DESeqResults.html" class="external-link">DESeqResults</a></code> object</p></dd>
+
+
 <dt>FDR</dt>
 <dd><p>Numeric value, the significance level for thresholding adjusted p-values</p></dd>
+
+
 <dt>point_alpha</dt>
 <dd><p>Alpha transparency value for the points (0 = transparent, 1 = opaque)</p></dd>
+
+
 <dt>sig_color</dt>
 <dd><p>Color to use to mark differentially expressed genes. Defaults to red</p></dd>
+
+
 <dt>annotation_obj</dt>
 <dd><p>A <code>data.frame</code> object, with row.names as gene
 identifiers (e.g. ENSEMBL ids) and a column, <code>gene_name</code>, containing
 e.g. HGNC-based gene symbols. Optional</p></dd>
+
+
 <dt>draw_y0</dt>
 <dd><p>Logical, whether to draw the horizontal line at y=0. Defaults to
 TRUE.</p></dd>
+
+
 <dt>hlines</dt>
 <dd><p>The y coordinate (in absolute value) where to draw horizontal lines,
 optional</p></dd>
+
+
 <dt>title</dt>
 <dd><p>A title for the plot, optional</p></dd>
+
+
 <dt>xlab</dt>
 <dd><p>X axis label, defaults to "mean of normalized counts - log10 scale"</p></dd>
+
+
 <dt>ylim</dt>
 <dd><p>Vector of two numeric values, Y axis limits to restrict the view</p></dd>
+
+
 <dt>add_rug</dt>
 <dd><p>Logical, whether to add rug plots in the margins</p></dd>
+
+
 <dt>intgenes</dt>
 <dd><p>Vector of genes of interest. Gene symbols if a <code>symbol</code>
 column is provided in <code>res_obj</code>, or else the identifiers specified in the
 row names</p></dd>
+
+
 <dt>intgenes_color</dt>
 <dd><p>The color to use to mark the genes on the main plot.</p></dd>
+
+
 <dt>labels_intgenes</dt>
 <dd><p>Logical, whether to add the gene identifiers/names close
 to the marked plots</p></dd>
+
+
 <dt>labels_repel</dt>
 <dd><p>Logical, whether to use <code>geom_text_repel</code> for placing the
 labels on the features to mark</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>An object created by <code>ggplot</code></p>
+    
+
+<p>An object created by <code>ggplot</code></p>
+
+
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -144,9 +177,9 @@ in the row names</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">airway</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">airway</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">airway</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">airway</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">airway</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">airway</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> class: RangedSummarizedExperiment </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> dim: 64102 8 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> metadata(1): ''</span>
@@ -155,41 +188,41 @@ in the row names</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rowData names(0):</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> colnames(8): SRR1039508 SRR1039509 ... SRR1039520 SRR1039521</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> colData names(9): SampleName cell ... Sample BioSample</span>
-<span class="r-in"><span class="va">dds_airway</span> <span class="op">&lt;-</span> <span class="fu">DESeq2</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/DESeq2/man/DESeqDataSet.html" class="external-link">DESeqDataSetFromMatrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">assay</a></span><span class="op">(</span><span class="va">airway</span><span class="op">)</span>,</span>
-<span class="r-in">  colData <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">colData</a></span><span class="op">(</span><span class="va">airway</span><span class="op">)</span>,</span>
-<span class="r-in">  design <span class="op">=</span> <span class="op">~</span> <span class="va">cell</span> <span class="op">+</span> <span class="va">dex</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"><span class="co"># subsetting for quicker run, ignore the next two commands if regularly using the function</span></span>
-<span class="r-in"><span class="va">gene_subset</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-class.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span class="r-in">  <span class="st">"ENSG00000103196"</span>, <span class="co"># CRISPLD2</span></span>
-<span class="r-in">  <span class="st">"ENSG00000120129"</span>, <span class="co"># DUSP1</span></span>
-<span class="r-in">  <span class="st">"ENSG00000163884"</span>, <span class="co"># KLF15</span></span>
-<span class="r-in">  <span class="st">"ENSG00000179094"</span>, <span class="co"># PER1</span></span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">dds_airway</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-class.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-class.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-class.html" class="external-link">rep</a></span><span class="op">(</span><span class="cn">FALSE</span>, <span class="fl">99</span><span class="op">)</span>, <span class="cn">TRUE</span><span class="op">)</span>, length.out <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">dds_airway</span><span class="op">)</span><span class="op">)</span><span class="op">]</span></span>
-<span class="r-in"><span class="op">)</span> <span class="co"># 1% of ids</span></span>
-<span class="r-in"><span class="va">dds_airway</span> <span class="op">&lt;-</span> <span class="va">dds_airway</span><span class="op">[</span><span class="va">gene_subset</span>, <span class="op">]</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">dds_airway</span> <span class="op">&lt;-</span> <span class="fu">DESeq2</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/DESeq2/man/DESeq.html" class="external-link">DESeq</a></span><span class="op">(</span><span class="va">dds_airway</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="va">dds_airway</span> <span class="op">&lt;-</span> <span class="fu">DESeq2</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/DESeq2/man/DESeqDataSet.html" class="external-link">DESeqDataSetFromMatrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">assay</a></span><span class="op">(</span><span class="va">airway</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  colData <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">colData</a></span><span class="op">(</span><span class="va">airway</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  design <span class="op">=</span> <span class="op">~</span> <span class="va">cell</span> <span class="op">+</span> <span class="va">dex</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># subsetting for quicker run, ignore the next two commands if regularly using the function</span></span></span>
+<span class="r-in"><span><span class="va">gene_subset</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="st">"ENSG00000103196"</span>, <span class="co"># CRISPLD2</span></span></span>
+<span class="r-in"><span>  <span class="st">"ENSG00000120129"</span>, <span class="co"># DUSP1</span></span></span>
+<span class="r-in"><span>  <span class="st">"ENSG00000163884"</span>, <span class="co"># KLF15</span></span></span>
+<span class="r-in"><span>  <span class="st">"ENSG00000179094"</span>, <span class="co"># PER1</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">dds_airway</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="cn">FALSE</span>, <span class="fl">99</span><span class="op">)</span>, <span class="cn">TRUE</span><span class="op">)</span>, length.out <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">dds_airway</span><span class="op">)</span><span class="op">)</span><span class="op">]</span></span></span>
+<span class="r-in"><span><span class="op">)</span> <span class="co"># 1% of ids</span></span></span>
+<span class="r-in"><span><span class="va">dds_airway</span> <span class="op">&lt;-</span> <span class="va">dds_airway</span><span class="op">[</span><span class="va">gene_subset</span>, <span class="op">]</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">dds_airway</span> <span class="op">&lt;-</span> <span class="fu">DESeq2</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/DESeq2/man/DESeq.html" class="external-link">DESeq</a></span><span class="op">(</span><span class="va">dds_airway</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> estimating size factors</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> estimating dispersions</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> gene-wise dispersion estimates</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> mean-dispersion relationship</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> final dispersion estimates</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> fitting model and testing</span>
-<span class="r-in"><span class="va">res_airway</span> <span class="op">&lt;-</span> <span class="fu">DESeq2</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/DESeq2/man/results.html" class="external-link">results</a></span><span class="op">(</span><span class="va">dds_airway</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">plot_ma</span><span class="op">(</span><span class="va">res_airway</span>, FDR <span class="op">=</span> <span class="fl">0.05</span>, hlines <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="va">res_airway</span> <span class="op">&lt;-</span> <span class="fu">DESeq2</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/DESeq2/man/results.html" class="external-link">results</a></span><span class="op">(</span><span class="va">dds_airway</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">plot_ma</span><span class="op">(</span><span class="va">res_airway</span>, FDR <span class="op">=</span> <span class="fl">0.05</span>, hlines <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="plot_ma-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">plot_ma</span><span class="op">(</span><span class="va">res_airway</span>,</span>
-<span class="r-in">  FDR <span class="op">=</span> <span class="fl">0.1</span>,</span>
-<span class="r-in">  intgenes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-class.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span class="r-in">    <span class="st">"ENSG00000103196"</span>, <span class="co"># CRISPLD2</span></span>
-<span class="r-in">    <span class="st">"ENSG00000120129"</span>, <span class="co"># DUSP1</span></span>
-<span class="r-in">    <span class="st">"ENSG00000163884"</span>, <span class="co"># KLF15</span></span>
-<span class="r-in">    <span class="st">"ENSG00000179094"</span>  <span class="co"># PER1</span></span>
-<span class="r-in">  <span class="op">)</span> </span>
-<span class="r-in"><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">plot_ma</span><span class="op">(</span><span class="va">res_airway</span>,</span></span>
+<span class="r-in"><span>  FDR <span class="op">=</span> <span class="fl">0.1</span>,</span></span>
+<span class="r-in"><span>  intgenes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="st">"ENSG00000103196"</span>, <span class="co"># CRISPLD2</span></span></span>
+<span class="r-in"><span>    <span class="st">"ENSG00000120129"</span>, <span class="co"># DUSP1</span></span></span>
+<span class="r-in"><span>    <span class="st">"ENSG00000163884"</span>, <span class="co"># KLF15</span></span></span>
+<span class="r-in"><span>    <span class="st">"ENSG00000179094"</span>  <span class="co"># PER1</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span> </span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="plot_ma-2.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
@@ -205,7 +238,7 @@ in the row names</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.9000.</p>
 </div>
 
       </footer></div>

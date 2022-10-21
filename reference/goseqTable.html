@@ -18,7 +18,7 @@ based on the algorithm and the implementation in the goseq package"><!-- mathjax
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ideal</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.21.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.21.2</span>
       </span>
     </div>
 
@@ -71,49 +71,68 @@ based on the algorithm and the implementation in the goseq package</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">goseqTable</span><span class="op">(</span>
-  <span class="va">de.genes</span>,
-  <span class="va">assayed.genes</span>,
-  genome <span class="op">=</span> <span class="st">"hg38"</span>,
-  id <span class="op">=</span> <span class="st">"ensGene"</span>,
-  testCats <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-class.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"GO:BP"</span>, <span class="st">"GO:MF"</span>, <span class="st">"GO:CC"</span><span class="op">)</span>,
-  FDR_GO_cutoff <span class="op">=</span> <span class="fl">1</span>,
-  nTop <span class="op">=</span> <span class="fl">200</span>,
-  orgDbPkg <span class="op">=</span> <span class="st">"org.Hs.eg.db"</span>,
-  addGeneToTerms <span class="op">=</span> <span class="cn">TRUE</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">goseqTable</span><span class="op">(</span></span>
+<span>  <span class="va">de.genes</span>,</span>
+<span>  <span class="va">assayed.genes</span>,</span>
+<span>  genome <span class="op">=</span> <span class="st">"hg38"</span>,</span>
+<span>  id <span class="op">=</span> <span class="st">"ensGene"</span>,</span>
+<span>  testCats <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"GO:BP"</span>, <span class="st">"GO:MF"</span>, <span class="st">"GO:CC"</span><span class="op">)</span>,</span>
+<span>  FDR_GO_cutoff <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  nTop <span class="op">=</span> <span class="fl">200</span>,</span>
+<span>  orgDbPkg <span class="op">=</span> <span class="st">"org.Hs.eg.db"</span>,</span>
+<span>  addGeneToTerms <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>de.genes</dt>
 <dd><p>A vector of (differentially expressed) genes</p></dd>
+
+
 <dt>assayed.genes</dt>
 <dd><p>A vector of background genes, e.g. all (expressed) genes
 in the assays</p></dd>
+
+
 <dt>genome</dt>
 <dd><p>A string identifying the genome that genes refer to, as in the
 <code>goseq</code> function</p></dd>
+
+
 <dt>id</dt>
 <dd><p>A string identifying the gene identifier used by genes, as in the
 <code>goseq</code> function</p></dd>
+
+
 <dt>testCats</dt>
 <dd><p>A vector specifying which categories to test for over representation amongst DE genes - can be any combination of "GO:CC", "GO:BP", "GO:MF" &amp; "KEGG"</p></dd>
+
+
 <dt>FDR_GO_cutoff</dt>
 <dd><p>Numeric value for subsetting the results</p></dd>
+
+
 <dt>nTop</dt>
 <dd><p>Number of categories to extract, and optionally process for adding
 genes to the respective terms</p></dd>
+
+
 <dt>orgDbPkg</dt>
 <dd><p>Character string, named as the <code>org.XX.eg.db</code>
 package which should be available in Bioconductor</p></dd>
+
+
 <dt>addGeneToTerms</dt>
 <dd><p>Logical, whether to add a column with all genes annotated
 to each GO term</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A table containing the computed GO Terms and related enrichment scores</p>
+    
+
+<p>A table containing the computed GO Terms and related enrichment scores</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -123,10 +142,10 @@ and requires that the corresponding TxDb packages are installed and available</p
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">airway</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">airway</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">airway</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">airway</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">airway</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">airway</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> class: RangedSummarizedExperiment </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> dim: 64102 8 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> metadata(1): ''</span>
@@ -135,31 +154,31 @@ and requires that the corresponding TxDb packages are installed and available</p
 <span class="r-out co"><span class="r-pr">#&gt;</span> rowData names(0):</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> colnames(8): SRR1039508 SRR1039509 ... SRR1039520 SRR1039521</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> colData names(9): SampleName cell ... Sample BioSample</span>
-<span class="r-in"><span class="va">dds_airway</span> <span class="op">&lt;-</span> <span class="fu">DESeq2</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/DESeq2/man/DESeqDataSet.html" class="external-link">DESeqDataSetFromMatrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">assay</a></span><span class="op">(</span><span class="va">airway</span><span class="op">)</span>,</span>
-<span class="r-in">  colData <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">colData</a></span><span class="op">(</span><span class="va">airway</span><span class="op">)</span>,</span>
-<span class="r-in">  design <span class="op">=</span> <span class="op">~</span> <span class="va">cell</span> <span class="op">+</span> <span class="va">dex</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"><span class="va">dds_airway</span> <span class="op">&lt;-</span> <span class="fu">DESeq2</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/DESeq2/man/DESeq.html" class="external-link">DESeq</a></span><span class="op">(</span><span class="va">dds_airway</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="va">dds_airway</span> <span class="op">&lt;-</span> <span class="fu">DESeq2</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/DESeq2/man/DESeqDataSet.html" class="external-link">DESeqDataSetFromMatrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">assay</a></span><span class="op">(</span><span class="va">airway</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  colData <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">colData</a></span><span class="op">(</span><span class="va">airway</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  design <span class="op">=</span> <span class="op">~</span> <span class="va">cell</span> <span class="op">+</span> <span class="va">dex</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">dds_airway</span> <span class="op">&lt;-</span> <span class="fu">DESeq2</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/DESeq2/man/DESeq.html" class="external-link">DESeq</a></span><span class="op">(</span><span class="va">dds_airway</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> estimating size factors</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> estimating dispersions</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> gene-wise dispersion estimates</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> mean-dispersion relationship</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> final dispersion estimates</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> fitting model and testing</span>
-<span class="r-in"><span class="va">res_airway</span> <span class="op">&lt;-</span> <span class="fu">DESeq2</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/DESeq2/man/results.html" class="external-link">results</a></span><span class="op">(</span><span class="va">dds_airway</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">res_subset</span> <span class="op">&lt;-</span> <span class="fu"><a href="deseqresult2DEgenes.html">deseqresult2DEgenes</a></span><span class="op">(</span><span class="va">res_airway</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">100</span>, <span class="op">]</span></span>
-<span class="r-in"><span class="va">myde</span> <span class="op">&lt;-</span> <span class="va">res_subset</span><span class="op">$</span><span class="va">id</span></span>
-<span class="r-in"><span class="va">myassayed</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">res_airway</span><span class="op">)</span></span>
-<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="va">mygo</span> <span class="op">&lt;-</span> <span class="fu">goseqTable</span><span class="op">(</span><span class="va">myde</span>,</span>
-<span class="r-in">  <span class="va">myassayed</span>,</span>
-<span class="r-in">  testCats <span class="op">=</span> <span class="st">"GO:BP"</span>,</span>
-<span class="r-in">  addGeneToTerms <span class="op">=</span> <span class="cn">FALSE</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-class.html" class="external-link">head</a></span><span class="op">(</span><span class="va">mygo</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"></span>
+<span class="r-in"><span><span class="va">res_airway</span> <span class="op">&lt;-</span> <span class="fu">DESeq2</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/DESeq2/man/results.html" class="external-link">results</a></span><span class="op">(</span><span class="va">dds_airway</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">res_subset</span> <span class="op">&lt;-</span> <span class="fu"><a href="deseqresult2DEgenes.html">deseqresult2DEgenes</a></span><span class="op">(</span><span class="va">res_airway</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">100</span>, <span class="op">]</span></span></span>
+<span class="r-in"><span><span class="va">myde</span> <span class="op">&lt;-</span> <span class="va">res_subset</span><span class="op">$</span><span class="va">id</span></span></span>
+<span class="r-in"><span><span class="va">myassayed</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">res_airway</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="va">mygo</span> <span class="op">&lt;-</span> <span class="fu">goseqTable</span><span class="op">(</span><span class="va">myde</span>,</span></span>
+<span class="r-in"><span>  <span class="va">myassayed</span>,</span></span>
+<span class="r-in"><span>  testCats <span class="op">=</span> <span class="st">"GO:BP"</span>,</span></span>
+<span class="r-in"><span>  addGeneToTerms <span class="op">=</span> <span class="cn">FALSE</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">mygo</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -174,7 +193,7 @@ and requires that the corresponding TxDb packages are installed and available</p
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.9000.</p>
 </div>
 
       </footer></div>

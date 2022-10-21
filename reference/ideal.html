@@ -18,7 +18,7 @@ This function launches the main application included in the package."><!-- mathj
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ideal</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.21.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.21.2</span>
       </span>
     </div>
 
@@ -71,14 +71,14 @@ This function launches the main application included in the package.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">ideal</span><span class="op">(</span>
-  dds_obj <span class="op">=</span> <span class="cn">NULL</span>,
-  res_obj <span class="op">=</span> <span class="cn">NULL</span>,
-  annotation_obj <span class="op">=</span> <span class="cn">NULL</span>,
-  countmatrix <span class="op">=</span> <span class="cn">NULL</span>,
-  expdesign <span class="op">=</span> <span class="cn">NULL</span>,
-  gene_signatures <span class="op">=</span> <span class="cn">NULL</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">ideal</span><span class="op">(</span></span>
+<span>  dds_obj <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  res_obj <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  annotation_obj <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  countmatrix <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  expdesign <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  gene_signatures <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -88,45 +88,58 @@ This function launches the main application included in the package.</p>
 <code>countmatrix</code> and a <code>expdesign</code> need to be provided. If none of
 the above is provided, it is possible to upload the data during the
 execution of the Shiny App</p></dd>
+
+
 <dt>res_obj</dt>
 <dd><p>A <code><a href="https://rdrr.io/pkg/DESeq2/man/DESeqResults.html" class="external-link">DESeqResults</a></code> object. If not provided, it can
 be computed during the execution of the application</p></dd>
+
+
 <dt>annotation_obj</dt>
 <dd><p>A <code>data.frame</code> object, with row.names as gene
 identifiers (e.g. ENSEMBL ids) and a column, <code>gene_name</code>, containing
 e.g. HGNC-based gene symbols. If not provided, it can be constructed during
 the execution via the org.eg.XX.db packages - these need to be installed</p></dd>
+
+
 <dt>countmatrix</dt>
 <dd><p>A count matrix, with genes as rows and samples as columns.
 If not provided, it is possible to upload the data during the execution of
 the Shiny App</p></dd>
+
+
 <dt>expdesign</dt>
 <dd><p>A <code>data.frame</code> containing the info on the covariates
 of each sample. If not provided, it is possible to upload the data during the
 execution of the Shiny App</p></dd>
+
+
 <dt>gene_signatures</dt>
 <dd><p>A list of vectors, one for each pathway/signature. This
 is for example the output of the <code><a href="read_gmt.html">read_gmt</a></code> function. The provided
 object can also be replaced during runtime in the dedicated upload widget.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A Shiny App is launched for interactive data exploration and
+    
+
+<p>A Shiny App is launched for interactive data exploration and
 differential expression analysis</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># with simulated data...</span></span>
-<span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/mikelove/DESeq2" class="external-link">DESeq2</a></span><span class="op">)</span></span>
-<span class="r-in"><span class="va">dds</span> <span class="op">&lt;-</span> <span class="fu">DESeq2</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/DESeq2/man/makeExampleDESeqDataSet.html" class="external-link">makeExampleDESeqDataSet</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">100</span>, m <span class="op">=</span> <span class="fl">8</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">cm</span> <span class="op">&lt;-</span> <span class="fu">counts</span><span class="op">(</span><span class="va">dds</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">cd</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">colData</a></span><span class="op">(</span><span class="va">dds</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># with the well known airway package...</span></span>
-<span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">airway</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">airway</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">airway</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># with simulated data...</span></span></span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/mikelove/DESeq2" class="external-link">DESeq2</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">dds</span> <span class="op">&lt;-</span> <span class="fu">DESeq2</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/DESeq2/man/makeExampleDESeqDataSet.html" class="external-link">makeExampleDESeqDataSet</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">100</span>, m <span class="op">=</span> <span class="fl">8</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">cm</span> <span class="op">&lt;-</span> <span class="fu">counts</span><span class="op">(</span><span class="va">dds</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">cd</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">colData</a></span><span class="op">(</span><span class="va">dds</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># with the well known airway package...</span></span></span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">airway</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">airway</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">airway</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> class: RangedSummarizedExperiment </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> dim: 64102 8 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> metadata(1): ''</span>
@@ -135,21 +148,21 @@ differential expression analysis</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rowData names(0):</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> colnames(8): SRR1039508 SRR1039509 ... SRR1039520 SRR1039521</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> colData names(9): SampleName cell ... Sample BioSample</span>
-<span class="r-in"><span class="va">dds_airway</span> <span class="op">&lt;-</span> <span class="fu">DESeq2</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/DESeq2/man/DESeqDataSet.html" class="external-link">DESeqDataSetFromMatrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">assay</a></span><span class="op">(</span><span class="va">airway</span><span class="op">)</span>,</span>
-<span class="r-in">  colData <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">colData</a></span><span class="op">(</span><span class="va">airway</span><span class="op">)</span>,</span>
-<span class="r-in">  design <span class="op">=</span> <span class="op">~</span> <span class="va">cell</span> <span class="op">+</span> <span class="va">dex</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">ideal</span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">ideal</span><span class="op">(</span><span class="va">dds</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">ideal</span><span class="op">(</span><span class="va">dds_airway</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">dds_airway</span> <span class="op">&lt;-</span> <span class="fu">DESeq2</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/DESeq2/man/DESeq.html" class="external-link">DESeq</a></span><span class="op">(</span><span class="va">dds_airway</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">res_airway</span> <span class="op">&lt;-</span> <span class="fu">DESeq2</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/DESeq2/man/results.html" class="external-link">results</a></span><span class="op">(</span><span class="va">dds_airway</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">ideal</span><span class="op">(</span><span class="va">dds_airway</span>, <span class="va">res_airway</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"></span>
+<span class="r-in"><span><span class="va">dds_airway</span> <span class="op">&lt;-</span> <span class="fu">DESeq2</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/DESeq2/man/DESeqDataSet.html" class="external-link">DESeqDataSetFromMatrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">assay</a></span><span class="op">(</span><span class="va">airway</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  colData <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">colData</a></span><span class="op">(</span><span class="va">airway</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  design <span class="op">=</span> <span class="op">~</span> <span class="va">cell</span> <span class="op">+</span> <span class="va">dex</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">ideal</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">ideal</span><span class="op">(</span><span class="va">dds</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">ideal</span><span class="op">(</span><span class="va">dds_airway</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">dds_airway</span> <span class="op">&lt;-</span> <span class="fu">DESeq2</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/DESeq2/man/DESeq.html" class="external-link">DESeq</a></span><span class="op">(</span><span class="va">dds_airway</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">res_airway</span> <span class="op">&lt;-</span> <span class="fu">DESeq2</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/DESeq2/man/results.html" class="external-link">results</a></span><span class="op">(</span><span class="va">dds_airway</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">ideal</span><span class="op">(</span><span class="va">dds_airway</span>, <span class="va">res_airway</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -164,7 +177,7 @@ differential expression analysis</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.9000.</p>
 </div>
 
       </footer></div>

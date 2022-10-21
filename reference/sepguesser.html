@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ideal</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.21.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.21.2</span>
       </span>
     </div>
 
@@ -69,34 +69,39 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">sepguesser</span><span class="op">(</span><span class="va">file</span>, sep_list <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-class.html" class="external-link">c</a></span><span class="op">(</span><span class="st">","</span>, <span class="st">"\t"</span>, <span class="st">";"</span>, <span class="st">" "</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">sepguesser</span><span class="op">(</span><span class="va">file</span>, sep_list <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">","</span>, <span class="st">"\t"</span>, <span class="st">";"</span>, <span class="st">" "</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>file</dt>
 <dd><p>The name of the file which the data are to be read from</p></dd>
+
+
 <dt>sep_list</dt>
 <dd><p>A vector containing the candidates for being identified as
 separators. Defaults to <code>c(",", "\t", ";"," ")</code></p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A character value, corresponding to the guessed separator. One of ","
+    
+
+<p>A character value, corresponding to the guessed separator. One of ","
 (comma), "\t" (tab), ";" (semicolon)," " (whitespace)</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">sepguesser</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/design_commas.txt"</span>, package <span class="op">=</span> <span class="st">"ideal"</span><span class="op">)</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">sepguesser</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/design_commas.txt"</span>, package <span class="op">=</span> <span class="st">"ideal"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] ","</span>
-<span class="r-in"><span class="fu">sepguesser</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/design_semicolons.txt"</span>, package <span class="op">=</span> <span class="st">"ideal"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">sepguesser</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/design_semicolons.txt"</span>, package <span class="op">=</span> <span class="st">"ideal"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] ";"</span>
-<span class="r-in"><span class="fu">sepguesser</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/design_spaces.txt"</span>, package <span class="op">=</span> <span class="st">"ideal"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">sepguesser</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/design_spaces.txt"</span>, package <span class="op">=</span> <span class="st">"ideal"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] " "</span>
-<span class="r-in"><span class="va">mysep</span> <span class="op">&lt;-</span> <span class="fu">sepguesser</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/design_tabs.txt"</span>, package <span class="op">=</span> <span class="st">"ideal"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># to be used for reading in the same file, without having to specify the sep</span></span>
+<span class="r-in"><span><span class="va">mysep</span> <span class="op">&lt;-</span> <span class="fu">sepguesser</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/design_tabs.txt"</span>, package <span class="op">=</span> <span class="st">"ideal"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># to be used for reading in the same file, without having to specify the sep</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -111,7 +116,7 @@ separators. Defaults to <code>c(",", "\t", ";"," ")</code></p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.9000.</p>
 </div>
 
       </footer></div>

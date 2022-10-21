@@ -18,7 +18,7 @@ on the boxplot"><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/l
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ideal</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.21.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.21.2</span>
       </span>
     </div>
 
@@ -71,39 +71,54 @@ on the boxplot</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">ggplotCounts</span><span class="op">(</span>
-  <span class="va">dds</span>,
-  <span class="va">gene</span>,
-  intgroup <span class="op">=</span> <span class="st">"condition"</span>,
-  annotation_obj <span class="op">=</span> <span class="cn">NULL</span>,
-  transform <span class="op">=</span> <span class="cn">TRUE</span>,
-  labels_repel <span class="op">=</span> <span class="cn">TRUE</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">ggplotCounts</span><span class="op">(</span></span>
+<span>  <span class="va">dds</span>,</span>
+<span>  <span class="va">gene</span>,</span>
+<span>  intgroup <span class="op">=</span> <span class="st">"condition"</span>,</span>
+<span>  annotation_obj <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  transform <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  labels_repel <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>dds</dt>
 <dd><p>A <code><a href="https://rdrr.io/pkg/DESeq2/man/DESeqDataSet.html" class="external-link">DESeqDataSet</a></code> object.</p></dd>
+
+
 <dt>gene</dt>
 <dd><p>A character, specifying the name of the gene to plot</p></dd>
+
+
 <dt>intgroup</dt>
 <dd><p>Interesting groups: a character vector of
 names in <code>colData(dds)</code> to use for grouping</p></dd>
+
+
 <dt>annotation_obj</dt>
 <dd><p>A <code>data.frame</code> object, with <code>row.names</code> as gene
 identifiers (e.g. ENSEMBL ids) and a column, <code>gene_name</code>, containing
 e.g. HGNC-based gene symbols. Optional.</p></dd>
+
+
 <dt>transform</dt>
 <dd><p>Logical value, corresponding whether to have log scale y-axis
 or not. Defaults to TRUE.</p></dd>
+
+
 <dt>labels_repel</dt>
 <dd><p>Logical value. Whether to use <code>ggrepel</code>'s functions to
 place labels; defaults to TRUE.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>An object created by <code>ggplot</code></p>
+    
+
+<p>An object created by <code>ggplot</code></p>
+
+
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -113,9 +128,9 @@ therefore pseudocounts of 0.5 are added to each point</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">airway</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">airway</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">airway</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">airway</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">airway</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">airway</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> class: RangedSummarizedExperiment </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> dim: 64102 8 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> metadata(1): ''</span>
@@ -124,14 +139,14 @@ therefore pseudocounts of 0.5 are added to each point</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rowData names(0):</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> colnames(8): SRR1039508 SRR1039509 ... SRR1039520 SRR1039521</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> colData names(9): SampleName cell ... Sample BioSample</span>
-<span class="r-in"><span class="va">dds_airway</span> <span class="op">&lt;-</span> <span class="fu">DESeq2</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/DESeq2/man/DESeqDataSet.html" class="external-link">DESeqDataSetFromMatrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">assay</a></span><span class="op">(</span><span class="va">airway</span><span class="op">)</span>,</span>
-<span class="r-in">  colData <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">colData</a></span><span class="op">(</span><span class="va">airway</span><span class="op">)</span>,</span>
-<span class="r-in">  design <span class="op">=</span> <span class="op">~</span> <span class="va">cell</span> <span class="op">+</span> <span class="va">dex</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"><span class="fu">ggplotCounts</span><span class="op">(</span><span class="va">dds_airway</span>,</span>
-<span class="r-in">  gene <span class="op">=</span> <span class="st">"ENSG00000103196"</span>, <span class="co"># CRISPLD2 in the original publication</span></span>
-<span class="r-in">  intgroup <span class="op">=</span> <span class="st">"dex"</span></span>
-<span class="r-in"><span class="op">)</span></span>
+<span class="r-in"><span><span class="va">dds_airway</span> <span class="op">&lt;-</span> <span class="fu">DESeq2</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/DESeq2/man/DESeqDataSet.html" class="external-link">DESeqDataSetFromMatrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">assay</a></span><span class="op">(</span><span class="va">airway</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  colData <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">colData</a></span><span class="op">(</span><span class="va">airway</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  design <span class="op">=</span> <span class="op">~</span> <span class="va">cell</span> <span class="op">+</span> <span class="va">dex</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">ggplotCounts</span><span class="op">(</span><span class="va">dds_airway</span>,</span></span>
+<span class="r-in"><span>  gene <span class="op">=</span> <span class="st">"ENSG00000103196"</span>, <span class="co"># CRISPLD2 in the original publication</span></span></span>
+<span class="r-in"><span>  intgroup <span class="op">=</span> <span class="st">"dex"</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="ggplotCounts-1.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
@@ -147,7 +162,7 @@ therefore pseudocounts of 0.5 are added to each point</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.9000.</p>
 </div>
 
       </footer></div>
