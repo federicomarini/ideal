@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ideal</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.21.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.23.0</span>
       </span>
     </div>
 
@@ -137,71 +137,83 @@
 <span class="r-in"><span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/DESeq2/man/results.html" class="external-link">results</a></span><span class="op">(</span><span class="va">dds</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">deseqresult2DEgenes</span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            id   baseMean log2FoldChange     lfcSE      stat       pvalue</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gene73 gene73 159.046069       4.244326 0.4623663  9.179576 4.327926e-20</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gene40 gene40 610.470607       3.529247 0.4586178  7.695401 1.410517e-14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gene42 gene42  71.612573       2.817219 0.4525573  6.225109 4.812202e-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gene5   gene5  65.523447       3.154648 0.5381724  5.861779 4.579335e-09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gene36 gene36  48.772285      -3.343422 0.5828485 -5.736348 9.674001e-09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gene74 gene74 229.841405       2.367616 0.4143246  5.714398 1.100930e-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gene72 gene72 164.536955       2.848661 0.5206205  5.471666 4.458249e-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gene27 gene27  40.385721       4.362489 0.8611647  5.065801 4.066869e-07</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gene26 gene26 130.739989      -1.836943 0.3648586 -5.034671 4.786691e-07</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gene9   gene9  21.910881      -3.198543 0.6402995 -4.995386 5.871826e-07</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gene7   gene7  13.606113      -5.257772 1.0678894 -4.923517 8.500228e-07</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gene86 gene86  30.789347      -2.985548 0.6136684 -4.865084 1.144082e-06</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gene61 gene61  61.036687      -2.194397 0.4546204 -4.826879 1.386897e-06</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gene58 gene58  17.222718      -3.262287 0.7277067 -4.482969 7.361162e-06</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gene30 gene30  99.103357      -2.141405 0.4809889 -4.452088 8.503932e-06</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gene32 gene32  24.015400       3.896497 0.8798725  4.428479 9.489996e-06</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gene56 gene56  57.988010       2.411936 0.5662139  4.259761 2.046452e-05</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gene82 gene82 132.671768       2.490235 0.5878539  4.236146 2.273894e-05</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gene71 gene71   8.772735      -5.233068 1.2527687 -4.177202 2.951171e-05</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gene25 gene25  34.309814       2.600892 0.6262576  4.153071 3.280436e-05</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gene23 gene23  62.453330      -1.792103 0.4507716 -3.975634 7.019208e-05</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gene31 gene31  11.307524      -3.312569 0.9009529 -3.676739 2.362345e-04</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gene38 gene38  56.861614       2.217419 0.6815784  3.253359 1.140492e-03</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gene12 gene12  10.781049       2.677839 0.8406589  3.185404 1.445518e-03</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gene60 gene60  11.023779      -2.450048 0.7919950 -3.093515 1.978008e-03</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gene29 gene29   6.981685       3.543255 1.1873143  2.984261 2.842645e-03</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gene95 gene95  19.721867      -1.903890 0.6400424 -2.974631 2.933407e-03</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gene47 gene47  43.621141       1.470279 0.5033448  2.921017 3.488902e-03</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gene50 gene50 120.031775       1.381421 0.4737079  2.916186 3.543391e-03</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gene24 gene24   8.420716      -2.535457 0.9512418 -2.665418 7.689261e-03</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gene84 gene84 140.691703       1.409270 0.5543674  2.542123 1.101814e-02</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gene67 gene67   2.213289      -4.708244 1.9686496 -2.391611 1.677462e-02</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene28 gene28 297.557436       4.316785 0.4096773 10.537036 5.830776e-26</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene92 gene92 474.859781       3.502226 0.3674355  9.531539 1.549685e-21</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene95 gene95 166.773950       4.445370 0.5629755  7.896205 2.875237e-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene40 gene40  57.116601       4.619267 0.6016522  7.677636 1.620511e-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene79 gene79 568.750810       2.750547 0.3737062  7.360185 1.836551e-13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene85 gene85  73.935012       3.802820 0.5480376  6.938976 3.949526e-12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene58 gene58  65.280095      -2.974978 0.4371672 -6.805127 1.009601e-11</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene98 gene98  71.892100       2.761127 0.4385671  6.295790 3.058373e-10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene22 gene22 369.074151       2.253684 0.3773749  5.972002 2.343592e-09</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene26 gene26 170.417461       2.084935 0.3798766  5.488454 4.054668e-08</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene41 gene41  77.149560       3.127078 0.6126905  5.103846 3.328196e-07</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene44 gene44  20.951024       4.042269 0.8323900  4.856220 1.196478e-06</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene78 gene78  14.282558      -4.070285 0.8491182 -4.793543 1.638610e-06</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene15 gene15  11.808077      -5.074138 1.0723446 -4.731816 2.225198e-06</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene39 gene39  12.319966      -5.096114 1.0827518 -4.706632 2.518429e-06</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene21 gene21  11.512907      -3.958652 0.8792683 -4.502211 6.725008e-06</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene97 gene97  12.255195      -4.015803 0.9057172 -4.433838 9.257021e-06</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene83 gene83  36.640668      -2.588667 0.5885980 -4.398022 1.092421e-05</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene6   gene6  34.333438      -1.928814 0.4962695 -3.886626 1.016472e-04</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene19 gene19  30.103528      -2.587604 0.6746786 -3.835313 1.254043e-04</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene76 gene76  10.945044      -3.240087 0.8967455 -3.613162 3.024853e-04</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene43 gene43 160.507967       1.491524 0.4257440  3.503336 4.594691e-04</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene17 gene17  32.378346       2.334417 0.6689966  3.489430 4.840516e-04</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene70 gene70   4.199547      -5.623071 1.6353485 -3.438454 5.850449e-04</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene54 gene54  43.346190       1.966588 0.5948729  3.305896 9.467309e-04</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene64 gene64  77.566826       1.812593 0.5594088  3.240194 1.194483e-03</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene96 gene96 368.832647       1.424049 0.4925013  2.891462 3.834545e-03</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene71 gene71   6.514903      -3.387320 1.1785264 -2.874199 4.050532e-03</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene1   gene1   4.946146      -3.781152 1.3240818 -2.855678 4.294499e-03</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene91 gene91  32.010709      -1.492738 0.5402123 -2.763243 5.723012e-03</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene56 gene56  65.037292       1.389600 0.5153361  2.696493 7.007379e-03</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene30 gene30  25.567899      -1.582612 0.5984851 -2.644364 8.184460e-03</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene81 gene81   9.129951      -2.124124 0.8025593 -2.646689 8.128416e-03</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene52 gene52  28.350322      -1.420936 0.5395410 -2.633601 8.448482e-03</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene8   gene8  19.947124      -1.403209 0.5412462 -2.592552 9.526672e-03</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene75 gene75   8.887858      -2.371822 0.9503859 -2.495641 1.257298e-02</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene13 gene13   8.692247      -2.029250 0.8198619 -2.475113 1.331942e-02</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene87 gene87  25.322939       2.150444 0.8865876  2.425530 1.528607e-02</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                padj</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gene73 4.111530e-18</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gene40 6.699954e-13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gene42 1.523864e-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gene5  1.087592e-07</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gene36 1.743139e-07</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gene74 1.743139e-07</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gene72 6.050480e-07</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gene27 4.829407e-06</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gene26 5.052618e-06</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gene9  5.578234e-06</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gene7  7.341106e-06</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gene86 9.057317e-06</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gene61 1.013501e-05</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gene58 4.995074e-05</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gene30 5.385824e-05</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gene32 5.634685e-05</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gene56 1.143606e-04</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gene82 1.200111e-04</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gene71 1.475585e-04</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gene25 1.558207e-04</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gene23 3.175356e-04</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gene31 1.020104e-03</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gene38 4.710727e-03</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gene12 5.721843e-03</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gene60 7.516429e-03</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gene29 1.032125e-02</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gene95 1.032125e-02</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gene47 1.160766e-02</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gene50 1.160766e-02</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gene24 2.434933e-02</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gene84 3.376526e-02</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gene67 4.979966e-02</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene28 5.364314e-24</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene92 7.128550e-20</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene95 8.817393e-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene40 3.727176e-13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene79 3.379254e-12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene85 6.055940e-11</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene58 1.326905e-10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene98 3.517129e-09</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene22 2.395672e-08</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene26 3.730294e-07</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene41 2.783582e-06</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene44 9.172997e-06</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene78 1.159631e-05</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene15 1.462273e-05</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene39 1.544637e-05</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene21 3.866880e-05</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene97 5.009682e-05</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene83 5.583483e-05</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene6  4.921865e-04</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene19 5.768599e-04</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene76 1.325174e-03</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene43 1.921416e-03</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene17 1.936206e-03</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene70 2.242672e-03</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene54 3.483970e-03</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene64 4.226631e-03</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene96 1.306586e-02</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene71 1.330889e-02</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene1  1.362393e-02</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene91 1.755057e-02</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene56 2.079609e-02</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene30 2.281728e-02</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene81 2.281728e-02</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene52 2.286060e-02</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene8  2.504154e-02</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene75 3.213095e-02</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene13 3.311856e-02</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gene87 3.700838e-02</span>
 </code></pre></div>
     </div>
   </div>
@@ -216,7 +228,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.9000.</p>
 </div>
 
       </footer></div>
