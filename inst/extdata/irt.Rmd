@@ -12,6 +12,7 @@ opts_chunk$set(
 
 If you are viewing this report in the Preview, you might require the installation of the PhantomJS to render correctly some HTML widgets (`datatable` objects created with the `r BiocStyle::CRANpkg("DT")` package). 
 This can be done by using the `r BiocStyle::CRANpkg("webshot")` package and calling `webshot::install_phantomjs()`.
+Alternatively, the more recent `r BiocStyle::CRANpkg("webshot2")` package uses the headless Chrome browser (via the `r BiocStyle::CRANpkg("chromote")` package, requiring Google Chrome or other Chromium-based browser).
 
 # Data Setup
 
