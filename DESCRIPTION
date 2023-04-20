@@ -53,6 +53,7 @@ Imports:
 Suggests: 
     testthat, 
     BiocStyle, 
+    markdown,
     airway, 
     org.Hs.eg.db,
     TxDb.Hsapiens.UCSC.hg38.knownGene, 
