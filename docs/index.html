@@ -23,6 +23,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -35,7 +37,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">ideal</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.13.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.25.1</span>
       </span>
     </div>
 
@@ -51,7 +53,7 @@
   <a href="reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -68,7 +70,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/federicomarini/ideal">
+  <a href="https://github.com/federicomarini/ideal" class="external-link">
     <span class="fa fa-github fa-lg"></span>
      
   </a>
@@ -87,58 +89,64 @@
   <div class="contents col-md-9">
 
 
-<div id="ideal---interactive-differential-expression-analysis-in-rna-seq-data" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#ideal---interactive-differential-expression-analysis-in-rna-seq-data" class="anchor"></a><code>ideal</code> - Interactive Differential Expression AnaLysis in RNA-seq data</h1></div>
+<div class="section level1">
+<div class="page-header"><h1 id="ideal---interactive-differential-expression-analysis-in-rna-seq-data">
+<code>ideal</code> - Interactive Differential Expression AnaLysis in RNA-seq data<a class="anchor" aria-label="anchor" href="#ideal---interactive-differential-expression-analysis-in-rna-seq-data"></a>
+</h1></div>
 <p><code>ideal</code> is a Bioconductor package containing a Shiny application for analyzing RNA-Seq data in the context of differential expression. This enables an interactive and at the same time reproducible analysis, keeping the functionality accessible, and yet providing a comprehensive selection of graphs and tables to mine the dataset at hand.</p>
 <p><code>ideal</code> is an R package which fully leverages the infrastructure of the Bioconductor project in order to deliver an interactive yet reproducible analysis for the detection of differentially expressed genes in RNA-Seq datasets. Graphs, tables, and interactive HTML reports can be readily exported and shared across collaborators. The dynamic user interface displays a broad level of content and information, subdivided by thematic tasks. All in all, it aims to enforce a proper analysis, by reaching out both life scientists and experienced bioinformaticians, and also fosters the communication between the two sides, offering robust statistical methods and high standard of accessible documentation.</p>
 <p>It is structured in a similar way to the <code>pcaExplorer</code>, also designed as an interactive companion tool for RNA-seq analysis focused rather on the exploratory data analysis e.g. using principal components analysis as a main tool.</p>
 <p>The interactive/reactive design of the app, with a dynamically generated user interface makes it easy and immediate to apply the gold standard methods in a way that is information-rich and accessible also to the bench biologist, while also providing additional insight also for the experienced data analyst. Reproducibility is supported via state saving and automated report generation.</p>
-<div id="installation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h2>
-<p><code>ideal</code> can be easily installed using <code><a href="https://rdrr.io/pkg/BiocManager/man/install.html">BiocManager::install()</a></code>:</p>
-<div class="sourceCode" id="cb1"><pre class="r"><span class="kw">if</span> (!<span class="fu"><a href="https://rdrr.io/r/base/ns-load.html">requireNamespace</a></span>(<span class="st">"BiocManager"</span>, <span class="kw">quietly</span><span class="kw">=</span><span class="fl">TRUE</span>))
-    <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"BiocManager"</span>)
-<span class="kw pkg">BiocManager</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocManager/man/install.html">install</a></span>(<span class="st">"ideal"</span>)</pre></div>
+<div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
+<p><code>ideal</code> can be easily installed using <code><a href="https://rdrr.io/pkg/BiocManager/man/install.html" class="external-link">BiocManager::install()</a></code>:</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"BiocManager"</span>, quietly<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"BiocManager"</span><span class="op">)</span></span>
+<span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocManager/man/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"ideal"</span><span class="op">)</span></span></code></pre></div>
 <p>Note that this should be the preferred way to install the latest stable release version.</p>
 <p>To also install the packages listed in the <code>Suggests:</code> field, you can run</p>
-<div class="sourceCode" id="cb2"><pre class="r"><span class="kw pkg">BiocManager</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocManager/man/install.html">install</a></span>(<span class="st">"ideal"</span>, <span class="kw">dependencies</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocManager/man/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"ideal"</span>, dependencies <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p>to make sure to have for example the required demo dataset (<code>airway</code>) when running the app - or if you want to follow through the vignette entirely.</p>
 <p>Optionally, if you want to install the development version from GitHub, you can use:</p>
-<div class="sourceCode" id="cb3"><pre class="r"><span class="kw pkg">BiocManager</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocManager/man/install.html">install</a></span>(<span class="st">"federicomarini/ideal"</span>, <span class="kw">dependencies</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
-<span class="co"># or alternatively...</span>
-<span class="kw pkg">devtools</span><span class="kw ns">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span>(<span class="st">"federicomarini/ideal"</span>, <span class="kw">dependencies</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></div>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocManager/man/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"federicomarini/ideal"</span>, dependencies <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="co"># or alternatively...</span></span>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"federicomarini/ideal"</span>, dependencies <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p>Setting <code>dependencies = TRUE</code> should ensure that all packages, including the ones in the <code>Suggests:</code> field of the <code>DESCRIPTION</code>, are installed - this can be essential if you want to reproduce the code in the vignette, for example.</p>
-<div id="installation-troubleshooting" class="section level3">
-<h3 class="hasAnchor">
-<a href="#installation-troubleshooting" class="anchor"></a>Installation troubleshooting</h3>
+<div class="section level3">
+<h3 id="installation-troubleshooting">Installation troubleshooting<a class="anchor" aria-label="anchor" href="#installation-troubleshooting"></a>
+</h3>
 <p>If using <code>devtools</code> or <code>remotes</code> to install packages, you could run into the warning</p>
-<div class="sourceCode" id="cb4"><pre class="r"># ... after launching the install_github command
-Error: (converted from warning) package ´IRanges´ was built under R version 3.6.2
-Execution halted
-ERROR: lazy loading failed for package ´ideal´
-*removing ´Library/Frameworks/R.framework/Versions/3.6/Resources/library/ideal´
-Error: Failed to install 'ideal' from GitHub:
-  (converted from warning) installation of package ´....../ideal_1.11.2.tar.gz´ had non zero exit status</pre></div>
-<p>In this case, you can follow the instructions found at <a href="https://remotes.r-lib.org/index.html#environment-variables" class="uri">https://remotes.r-lib.org/index.html#environment-variables</a>, which specifically suggest to set <code>R_REMOTES_NO_ERRORS_FROM_WARNINGS</code> to <code>true</code>. You can do so directly in R before installing the package by entering</p>
-<div class="sourceCode" id="cb5"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/Sys.setenv.html">Sys.setenv</a></span>(<span class="kw">R_REMOTES_NO_ERRORS_FROM_WARNINGS</span><span class="kw">=</span><span class="st">"true"</span>)
-<span class="co"># and then again</span>
-<span class="kw pkg">devtools</span><span class="kw ns">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span>(<span class="st">"federicomarini/ideal"</span>, <span class="kw">dependencies</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ... after launching the install_github command</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>Error<span class="sc">:</span> (converted from warning) package ´IRanges´ was built under R version <span class="dv">3</span>.<span class="fl">6.2</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>Execution halted</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>ERROR<span class="sc">:</span> lazy loading failed <span class="cf">for</span> package ´ideal´</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="sc">*</span>removing ´Library<span class="sc">/</span>Frameworks<span class="sc">/</span>R.framework<span class="sc">/</span>Versions<span class="sc">/</span><span class="fl">3.6</span><span class="sc">/</span>Resources<span class="sc">/</span>library<span class="sc">/</span>ideal´</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>Error<span class="sc">:</span> Failed to install <span class="st">'ideal'</span> from GitHub<span class="sc">:</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  (converted from warning) installation of package ´......<span class="sc">/</span>ideal_1.<span class="dv">11</span>.<span class="fl">2.</span>tar.gz´ had non zero exit status</span></code></pre></div>
+<p>In this case, you can follow the instructions found at <a href="https://remotes.r-lib.org/index.html#environment-variables" class="external-link uri">https://remotes.r-lib.org/index.html#environment-variables</a>, which specifically suggest to set <code>R_REMOTES_NO_ERRORS_FROM_WARNINGS</code> to <code>true</code>. You can do so directly in R before installing the package by entering</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Sys.setenv.html" class="external-link">Sys.setenv</a></span><span class="op">(</span>R_REMOTES_NO_ERRORS_FROM_WARNINGS<span class="op">=</span><span class="st">"true"</span><span class="op">)</span></span>
+<span><span class="co"># and then again</span></span>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"federicomarini/ideal"</span>, dependencies <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div id="which-version-should-i-use" class="section level3">
-<h3 class="hasAnchor">
-<a href="#which-version-should-i-use" class="anchor"></a>Which version should I use?</h3>
-<p>If you are a <strong>regular user</strong>, you should <strong>install the latest stable release version</strong>. This can be done at best by using <code><a href="https://rdrr.io/pkg/BiocManager/man/install.html">BiocManager::install("ideal")</a></code>, as recommended in <a href="https://www.bioconductor.org/install/#troubleshoot-bioconductor-packages" class="uri">https://www.bioconductor.org/install/#troubleshoot-bioconductor-packages</a>. Please follow the general instructions in <a href="https://www.bioconductor.org/install" class="uri">https://www.bioconductor.org/install</a> to make sure you are using the correct version, matched to the version of the R software in use.</p>
-<p>If you are a <strong>software developer</strong> and want to have access to the latest features that are currently in the <strong>devel branch of Bioconductor</strong> (i.e. experimental functionality, and more), you can do so by calling first <code><a href="https://rdrr.io/pkg/BiocManager/man/install.html">BiocManager::install(version = "devel")</a></code> as specified in <a href="https://bioconductor.org/developers/how-to/useDevel/" class="uri">https://bioconductor.org/developers/how-to/useDevel/</a>, then followed by <code><a href="https://rdrr.io/pkg/BiocManager/man/install.html">BiocManager::install("ideal")</a></code>. Keep in mind that according to the release cycle you might need to install the devel version of R itself.</p>
-<p>If you just want to use the <strong>bleeding edge version</strong>, which is the one you can find on GitHub, you can install that by calling <code><a href="https://rdrr.io/pkg/BiocManager/man/install.html">BiocManager::install("federicomarini/ideal")</a></code> (which is basically a wrapper around <code>remotes::install("federicomarini/ideal")</code>). This approach might be recommended for <strong>experienced users</strong> - based on which Bioconductor version you might be using, you might encounter mismatches in the dependencies if you mix up versions from release and devel branches.</p>
+<div class="section level3">
+<h3 id="which-version-should-i-use">Which version should I use?<a class="anchor" aria-label="anchor" href="#which-version-should-i-use"></a>
+</h3>
+<p>If you are a <strong>regular user</strong>, you should <strong>install the latest stable release version</strong>. This can be done at best by using <code>BiocManager::install("ideal")</code>, as recommended in <a href="https://www.bioconductor.org/install/#troubleshoot-bioconductor-packages" class="external-link uri">https://www.bioconductor.org/install/#troubleshoot-bioconductor-packages</a>. Please follow the general instructions in <a href="https://www.bioconductor.org/install" class="external-link uri">https://www.bioconductor.org/install</a> to make sure you are using the correct version, matched to the version of the R software in use.</p>
+<p>If you are a <strong>software developer</strong> and want to have access to the latest features that are currently in the <strong>devel branch of Bioconductor</strong> (i.e. experimental functionality, and more), you can do so by calling first <code>BiocManager::install(version = "devel")</code> as specified in <a href="https://bioconductor.org/developers/how-to/useDevel/" class="external-link uri">https://bioconductor.org/developers/how-to/useDevel/</a>, then followed by <code>BiocManager::install("ideal")</code>. Keep in mind that according to the release cycle you might need to install the devel version of R itself.</p>
+<p>If you just want to use the <strong>bleeding edge version</strong>, which is the one you can find on GitHub, you can install that by calling <code>BiocManager::install("federicomarini/ideal")</code> (which is basically a wrapper around <code>remotes::install("federicomarini/ideal")</code>). This approach might be recommended for <strong>experienced users</strong> - based on which Bioconductor version you might be using, you might encounter mismatches in the dependencies if you mix up versions from release and devel branches.</p>
 </div>
 </div>
-<div id="quick-start" class="section level2">
-<h2 class="hasAnchor">
-<a href="#quick-start" class="anchor"></a>Quick start</h2>
+<div class="section level2">
+<h2 id="quick-start">Quick start<a class="anchor" aria-label="anchor" href="#quick-start"></a>
+</h2>
 <p>This command loads the <code>ideal</code> package</p>
-<div class="sourceCode" id="cb6"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="st">"ideal"</span>)</pre></div>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/federicomarini/ideal" class="external-link">"ideal"</a></span><span class="op">)</span></span></code></pre></div>
 <p>The main parameters for <code>ideal</code> are</p>
 <ul>
 <li>
@@ -155,36 +163,41 @@ Error: Failed to install 'ideal' from GitHub:
 <p>The <code>ideal</code> app can be launched in different modes:</p>
 <ul>
 <li>
-<code><a href="reference/ideal.html">ideal(dds_obj = dds, res_obj = res, annotation_obj = anno)</a></code>, where the objects are precomputed in the current session and provided as parameters</li>
+<code>ideal(dds_obj = dds, res_obj = res, annotation_obj = anno)</code>, where the objects are precomputed in the current session and provided as parameters</li>
 <li>
-<code><a href="reference/ideal.html">ideal(dds_obj = dds)</a></code>, as in the command above, but where the result object is assembled at runtime</li>
+<code>ideal(dds_obj = dds)</code>, as in the command above, but where the result object is assembled at runtime</li>
 <li>
-<code><a href="reference/ideal.html">ideal(countmatrix = countmatrix, expdesign = expdesign)</a></code>, where instead of passing the defined <code>DESeqDataSet</code> object, its components are given, namely the count matrix (e.g. generated after a run of featureCounts or HTSeq-count) and a data frame with the experimental covariates. The design formula can be constructed interactively at runtime</li>
+<code>ideal(countmatrix = countmatrix, expdesign = expdesign)</code>, where instead of passing the defined <code>DESeqDataSet</code> object, its components are given, namely the count matrix (e.g. generated after a run of featureCounts or HTSeq-count) and a data frame with the experimental covariates. The design formula can be constructed interactively at runtime</li>
 <li>
 <code><a href="reference/ideal.html">ideal()</a></code>, where the count matrix and experimental design can simply be uploaded at runtime, where all the derived objects can be extracted and computed live. These files have to be formatted as tabular text files, and a function in the package tries to guess the separator, based on heuristics of occurrencies per line of commonly used characters</li>
 </ul>
 </div>
-<div id="accessing-the-public-instance-of-ideal" class="section level2">
-<h2 class="hasAnchor">
-<a href="#accessing-the-public-instance-of-ideal" class="anchor"></a>Accessing the public instance of <code>ideal</code>
+<div class="section level2">
+<h2 id="accessing-the-public-instance-of-ideal">Accessing the public instance of <code>ideal</code>
+<a class="anchor" aria-label="anchor" href="#accessing-the-public-instance-of-ideal"></a>
 </h2>
 <p>To use <code>ideal</code> without installing any additional software, you can access the public instance of the Shiny Server made available at the Institute of Medical Biostatistics, Epidemiology and Informatics (IMBEI) in Mainz.</p>
 <p>This resource is accessible at this address:</p>
-<p><a href="http://shiny.imbei.uni-mainz.de:3838/ideal" class="uri">http://shiny.imbei.uni-mainz.de:3838/ideal</a></p>
+<p><a href="http://shiny.imbei.uni-mainz.de:3838/ideal" class="external-link uri">http://shiny.imbei.uni-mainz.de:3838/ideal</a></p>
 </div>
-<div id="deploying-to-a-shiny-server" class="section level2">
-<h2 class="hasAnchor">
-<a href="#deploying-to-a-shiny-server" class="anchor"></a>Deploying to a Shiny Server</h2>
-<p>A deployment-oriented version of the package is available at <a href="https://github.com/federicomarini/ideal_serveredition" class="uri">https://github.com/federicomarini/ideal_serveredition</a>. This repository contains also detailed instruction to setup the running instance of a Shiny Server, where <code>ideal</code> can be run without further installation for the end-users.</p>
+<div class="section level2">
+<h2 id="deploying-to-a-shiny-server">Deploying to a Shiny Server<a class="anchor" aria-label="anchor" href="#deploying-to-a-shiny-server"></a>
+</h2>
+<p>A deployment-oriented version of the package is available at <a href="https://github.com/federicomarini/ideal_serveredition" class="external-link uri">https://github.com/federicomarini/ideal_serveredition</a>. This repository contains also detailed instruction to setup the running instance of a Shiny Server, where <code>ideal</code> can be run without further installation for the end-users.</p>
 </div>
-<div id="contact" class="section level2">
-<h2 class="hasAnchor">
-<a href="#contact" class="anchor"></a>Contact</h2>
+<div class="section level2">
+<h2 id="code-of-conduct">Code of Conduct<a class="anchor" aria-label="anchor" href="#code-of-conduct"></a>
+</h2>
+<p>Please note that the ideal project is released with a <a href="https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html" class="external-link">Contributor Code of Conduct</a>. By contributing to this project, you agree to abide by its terms.</p>
+</div>
+<div class="section level2">
+<h2 id="contact">Contact<a class="anchor" aria-label="anchor" href="#contact"></a>
+</h2>
 <p>For additional details regarding the functions of <strong>ideal</strong>, please consult the documentation or write an email to <a href="mailto:marinif@uni-mainz.de" class="email">marinif@uni-mainz.de</a>.</p>
-<div id="bug-reportsissuesnew-features" class="section level3">
-<h3 class="hasAnchor">
-<a href="#bug-reportsissuesnew-features" class="anchor"></a>Bug reports/Issues/New features</h3>
-<p>Please use <a href="https://github.com/federicomarini/ideal/issues" class="uri">https://github.com/federicomarini/ideal/issues</a> for reporting bugs, issues or for suggesting new features to be implemented.</p>
+<div class="section level3">
+<h3 id="bug-reportsissuesnew-features">Bug reports/Issues/New features<a class="anchor" aria-label="anchor" href="#bug-reportsissuesnew-features"></a>
+</h3>
+<p>Please use <a href="https://github.com/federicomarini/ideal/issues" class="external-link uri">https://github.com/federicomarini/ideal/issues</a> for reporting bugs, issues or for suggesting new features to be implemented.</p>
 </div>
 </div>
 </div>
@@ -193,57 +206,66 @@ Error: Failed to install 'ideal' from GitHub:
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
-<h2>Links</h2>
+<h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li>Download from BIOC at <br><a href="https://www.bioconductor.org/packages/ideal">https://​www.bioconductor.org/​packages/​ideal</a>
-</li>
-<li>Browse source code at <br><a href="https://github.com/federicomarini/ideal/">https://​github.com/​federicomarini/​ideal/​</a>
-</li>
-<li>Report a bug at <br><a href="https://github.com/federicomarini/ideal/issues">https://​github.com/​federicomarini/​ideal/​issues</a>
-</li>
-</ul>
-</div>
-<div class="license">
-<h2>License</h2>
-<ul class="list-unstyled">
-<li>
-<a href="https://opensource.org/licenses/mit-license.php">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a>
-</li>
-</ul>
-</div>
-<div class="citation">
-<h2>Citation</h2>
-<ul class="list-unstyled">
-<li><a href="authors.html">Citing ideal</a></li>
-</ul>
-</div>
-<div class="developers">
-<h2>Developers</h2>
-<ul class="list-unstyled">
-<li>
-<a href="https://federicomarini.github.io">Federico Marini</a> <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0003-3252-7758" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li><a href="https://www.bioconductor.org/packages/ideal" class="external-link">View on Bioconductor</a></li>
+<li><a href="https://github.com/federicomarini/ideal/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/federicomarini/ideal/issues" class="external-link">Report a bug</a></li>
 </ul>
 </div>
 
-  <div class="dev-status">
-<h2>Dev status</h2>
+<div class="license">
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
-<li><a href="https://github.com/federicomarini/ideal/actions"><img src="https://github.com/federicomarini/ideal/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
-<li><a href="https://travis-ci.org/federicomarini/ideal"><img src="https://travis-ci.org/federicomarini/ideal.svg?branch=master" alt="Linux Build Status"></a></li>
-<li><a href="https://codecov.io/github/federicomarini/ideal?branch=master"><img src="https://codecov.io/github/federicomarini/ideal/coverage.svg?branch=master" alt="codecov.io"></a></li>
-<li><a href="https://www.tidyverse.org/lifecycle/#stable"><img src="https://img.shields.io/badge/lifecycle-stable-brightgreen.svg" alt="Lifecycle: stable"></a></li>
+<li>
+<a href="https://opensource.org/licenses/mit-license.php" class="external-link">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a>
+</li>
 </ul>
 </div>
+
+<div class="community">
+<h2 data-toc-skip>Community</h2>
+<ul class="list-unstyled">
+<li><a href="CODE_OF_CONDUCT.html">Code of conduct</a></li>
+</ul>
 </div>
+
+<div class="citation">
+<h2 data-toc-skip>Citation</h2>
+<ul class="list-unstyled">
+<li><a href="authors.html#citation">Citing ideal</a></li>
+</ul>
+</div>
+
+<div class="developers">
+<h2 data-toc-skip>Developers</h2>
+<ul class="list-unstyled">
+<li>
+<a href="https://federicomarini.github.io" class="external-link">Federico Marini</a> <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0003-3252-7758" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+</ul>
+</div>
+
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://github.com/federicomarini/ideal/actions" class="external-link"><img src="https://github.com/federicomarini/ideal/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
+<li><a href="https://codecov.io/github/federicomarini/ideal?branch=master" class="external-link"><img src="https://codecov.io/github/federicomarini/ideal/coverage.svg?branch=master" alt="codecov.io"></a></li>
+<li><a href="https://www.tidyverse.org/lifecycle/#stable" class="external-link"><img src="https://img.shields.io/badge/lifecycle-stable-brightgreen.svg" alt="Lifecycle: stable"></a></li>
+</ul>
+</div>
+
+  </div>
 </div>
 
 
       <footer><div class="copyright">
-  <p>Developed by <a href="https://federicomarini.github.io">Federico Marini</a>.</p>
+  <p></p>
+<p>Developed by <a href="https://federicomarini.github.io" class="external-link">Federico Marini</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>
@@ -251,6 +273,8 @@ Error: Failed to install 'ideal' from GitHub:
 
   
 
+
+  
 
   </body>
 </html>
