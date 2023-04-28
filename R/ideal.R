@@ -4716,7 +4716,7 @@ ideal <- function(dds_obj = NULL,
             owd <- setwd(tempdir())
             on.exit(setwd(owd))
             tmp_content <- paste0(rmd_yaml(), input$acereport_rmd, collapse = "\n")
-            isolate(HTML(knit2html(text = tmp_content, fragment.only = TRUE, quiet = TRUE)))
+            isolate(HTML(knit2html(text = tmp_content, template = FALSE, quiet = TRUE)))
           },
           message = "Updating the report in the app body",
           detail = "This can take some time"
