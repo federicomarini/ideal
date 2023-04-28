@@ -3,7 +3,12 @@
 [![codecov.io](https://codecov.io/github/federicomarini/ideal/coverage.svg?branch=master)](https://codecov.io/github/federicomarini/ideal?branch=master)
 [![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://www.tidyverse.org/lifecycle/#stable)
 
-# `ideal` - Interactive Differential Expression AnaLysis in RNA-seq data
+<img src="man/figures/ideal.png" align="right" alt="" width="120" />
+
+# `ideal` - Interactive Differential Expression AnaLysis in RNA-seq data 
+
+<a href="https://doi.org/10.1186/s12859-020-03819-5"><img src="https://img.shields.io/badge/doi-ideal-blue.svg"><a>
+<a href="https://doi.org/10.1002/cpz1.411"><img src="https://img.shields.io/badge/doi-ideal_protocol-blue.svg"><a>
 
 `ideal` is a Bioconductor package containing a Shiny application for analyzing RNA-Seq data in the context of differential expression. 
 This enables an interactive and at the same time reproducible analysis, keeping the functionality accessible, and yet providing a comprehensive selection of graphs and tables to mine the dataset at hand.
