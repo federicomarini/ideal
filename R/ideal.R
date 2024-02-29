@@ -4904,8 +4904,33 @@ ideal <- function(dds_obj = NULL,
           # stopApp("ideal closed, state successfully saved to global R environment.")
         })
       } else {
-        stopApp("ideal closed")
-        q("no")
+        message("ontheway")
+        
+        isolate({
+          # ideal_env <<- new.env(parent = emptyenv())
+          cur_inputs <- reactiveValuesToList(input)
+          cur_values <- reactiveValuesToList(values)
+          tstamp <- gsub(" ", "_", gsub("-", "", gsub(":", "-", as.character(Sys.time()))))
+          
+          # myvar <- "frfr"
+          # assign("test", myvar, ideal_env)
+          
+          # better practice rather than assigning to global env - notify users of this
+          assign(paste0("ideal_inputs_", tstamp), cur_inputs, envir = ideal_env)
+          assign(paste0("ideal_values_", tstamp), cur_values, envir = ideal_env)
+          showNotification(
+            paste0(
+              "22ideal closed, state successfully saved to the R environment. ",
+              "22You can access these values by searching the `ideal_env` object."
+            ),
+            type = "message"
+          )
+          message("22ideal closed, state successfully saved to the R environment.")
+          message("22     You can access these values by searching the `ideal_env` object.")
+          
+          stopApp("22ideal closed, state successfully saved to global R environment.")
+        })
+        
       }
     })
 
