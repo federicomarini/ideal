@@ -1,7 +1,6 @@
 pandoc: 3.1.11
-pkgdown: 2.0.7.9000
-pkgdown_sha: 9b928b2bab23a8f450787d260c77eae848db1561
+pkgdown: 2.1.0.9000
+pkgdown_sha: ee72108bc3a9827dcf313817525652dbd9d4284d
 articles:
   ideal-usersguide: ideal-usersguide.html
-last_built: 2024-04-07T11:08Z
-
+last_built: 2024-09-12T00:45Z
