@@ -18,7 +18,7 @@ based on the algorithm and the implementation in the goseq package"><!-- mathjax
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ideal</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.29.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.99.0</span>
       </span>
     </div>
 
@@ -99,12 +99,12 @@ in the assays</p></dd>
 
 <dt id="arg-genome">genome<a class="anchor" aria-label="anchor" href="#arg-genome"></a></dt>
 <dd><p>A string identifying the genome that genes refer to, as in the
-<code>goseq</code> function</p></dd>
+<code>goseq()</code> function</p></dd>
 
 
 <dt id="arg-id">id<a class="anchor" aria-label="anchor" href="#arg-id"></a></dt>
 <dd><p>A string identifying the gene identifier used by genes, as in the
-<code>goseq</code> function</p></dd>
+<code>goseq()</code> function</p></dd>
 
 
 <dt id="arg-testcats">testCats<a class="anchor" aria-label="anchor" href="#arg-testcats"></a></dt>
@@ -136,15 +136,15 @@ to each GO term</p></dd>
     </div>
     <div id="details">
     <h2>Details</h2>
-    <p>Note: the feature length retrieval is based on the <code>goseq</code> function,
+    <p>Note: the feature length retrieval is based on the <code>goseq()</code> function,
 and requires that the corresponding TxDb packages are installed and available</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">airway</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">airway</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st">"airway"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"airway"</span>, package <span class="op">=</span> <span class="st">"airway"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">airway</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> class: RangedSummarizedExperiment </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> dim: 63677 8 </span>
@@ -168,7 +168,7 @@ and requires that the corresponding TxDb packages are installed and available</p
 <span class="r-msg co"><span class="r-pr">#&gt;</span> fitting model and testing</span>
 <span class="r-in"><span><span class="va">res_airway</span> <span class="op">&lt;-</span> <span class="fu">DESeq2</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/DESeq2/man/results.html" class="external-link">results</a></span><span class="op">(</span><span class="va">dds_airway</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">res_subset</span> <span class="op">&lt;-</span> <span class="fu"><a href="deseqresult2DEgenes.html">deseqresult2DEgenes</a></span><span class="op">(</span><span class="va">res_airway</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">100</span>, <span class="op">]</span></span></span>
+<span class="r-in"><span><span class="va">res_subset</span> <span class="op">&lt;-</span> <span class="fu">mosdef</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/mosdef/man/deresult_to_df.html" class="external-link">deresult_to_df</a></span><span class="op">(</span><span class="va">res_airway</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">100</span>, <span class="op">]</span></span></span>
 <span class="r-in"><span><span class="va">myde</span> <span class="op">&lt;-</span> <span class="va">res_subset</span><span class="op">$</span><span class="va">id</span></span></span>
 <span class="r-in"><span><span class="va">myassayed</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">res_airway</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
@@ -194,7 +194,7 @@ and requires that the corresponding TxDb packages are installed and available</p
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.9000.</p>
 </div>
 
       </footer></div>

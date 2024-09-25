@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ideal</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.29.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.99.0</span>
       </span>
     </div>
 
@@ -77,7 +77,7 @@
 
 
 <dl><dt id="arg-deseqresult">deseqresult<a class="anchor" aria-label="anchor" href="#arg-deseqresult"></a></dt>
-<dd><p>A <code><a href="https://rdrr.io/pkg/DESeq2/man/DESeqResults.html" class="external-link">DESeqResults</a></code> object</p></dd>
+<dd><p>A <code><a href="https://rdrr.io/pkg/DESeq2/man/DESeqResults.html" class="external-link">DESeqResults()</a></code> object</p></dd>
 
 
 <dt id="arg-fdr">FDR<a class="anchor" aria-label="anchor" href="#arg-fdr"></a></dt>
@@ -136,6 +136,8 @@
 <span class="r-msg co"><span class="r-pr">#&gt;</span> fitting model and testing</span>
 <span class="r-in"><span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/DESeq2/man/results.html" class="external-link">results</a></span><span class="op">(</span><span class="va">dds</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">deseqresult2DEgenes</span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Please use `mosdef::deresult_to_df()` in replacement of the `deseqresult2DEgenes()` function, originally located in the ideal package. </span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> Check the manual page for `?mosdef::deresult_to_df()` to see the details on how to use it, e.g. refer to the new parameter definition and naming</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            id    baseMean log2FoldChange     lfcSE      stat       pvalue</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> gene21 gene21  326.794163       3.970890 0.3761786 10.555866 4.772187e-26</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> gene88 gene88  180.804426       5.303655 0.5404432  9.813529 9.846350e-23</span>
@@ -250,7 +252,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.9000.</p>
 </div>
 
       </footer></div>
