@@ -57,3 +57,7 @@ reference:
   contents:
   - '`sepguesser`'
   - '`wrapup_for_iSEE`'
+- title: Deprecated functions in ideal
+  desc: ~
+  contents:
+  - '`deprecated`'
