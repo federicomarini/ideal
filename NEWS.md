@@ -1,3 +1,9 @@
+# ideal 2.2.0
+
+## Other notes
+
+* Some changes in the source of the documentation, providing anchors to all function calls. This avoids the new note in R CMD check in the new major release
+
 # ideal 1.99.0
 
 ## Other notes
