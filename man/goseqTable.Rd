@@ -23,10 +23,10 @@ goseqTable(
 in the assays}
 
 \item{genome}{A string identifying the genome that genes refer to, as in the
-\code{\link[=goseq]{goseq()}} function}
+\code{\link[goseq:goseq]{goseq::goseq()}} function}
 
 \item{id}{A string identifying the gene identifier used by genes, as in the
-\code{\link[=goseq]{goseq()}} function}
+\code{\link[goseq:goseq]{goseq::goseq()}} function}
 
 \item{testCats}{A vector specifying which categories to test for over representation amongst DE genes - can be any combination of "GO:CC", "GO:BP", "GO:MF" & "KEGG"}
 
@@ -49,7 +49,7 @@ A wrapper for extracting functional GO terms enriched in a list of (DE) genes,
 based on the algorithm and the implementation in the goseq package
 }
 \details{
-Note: the feature length retrieval is based on the \code{\link[=goseq]{goseq()}} function,
+Note: the feature length retrieval is based on the \code{\link[goseq:goseq]{goseq::goseq()}} function,
 and requires that the corresponding TxDb packages are installed and available
 }
 \examples{

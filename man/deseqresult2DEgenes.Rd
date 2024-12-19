@@ -7,7 +7,7 @@
 deseqresult2DEgenes(deseqresult, FDR = 0.05)
 }
 \arguments{
-\item{deseqresult}{A \code{\link[=DESeqResults]{DESeqResults()}} object}
+\item{deseqresult}{A \code{\link[DESeq2:DESeqResults]{DESeq2::DESeqResults()}} object}
 
 \item{FDR}{Numeric value, the significance level for thresholding adjusted p-values}
 }

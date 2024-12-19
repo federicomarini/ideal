@@ -7,7 +7,7 @@
 #' column is provided in `res_obj`, or else by using  the identifiers specified
 #' in the row names
 #'
-#' @param res_obj A [DESeqResults()] object
+#' @param res_obj A [DESeq2::DESeqResults()] object
 #' @param FDR Numeric value, the significance level for thresholding adjusted p-values
 #' @param point_alpha Alpha transparency value for the points (0 = transparent, 1 = opaque)
 #' @param sig_color Color to use to mark differentially expressed genes. Defaults to red

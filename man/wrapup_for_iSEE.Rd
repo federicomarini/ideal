@@ -7,9 +7,9 @@
 wrapup_for_iSEE(dds, res)
 }
 \arguments{
-\item{dds}{A \code{\link[=DESeqDataSet]{DESeqDataSet()}} object.}
+\item{dds}{A \code{\link[DESeq2:DESeqDataSet]{DESeq2::DESeqDataSet()}} object.}
 
-\item{res}{A \code{\link[=DESeqResults]{DESeqResults()}} object.}
+\item{res}{A \code{\link[DESeq2:DESeqResults]{DESeq2::DESeqResults()}} object.}
 }
 \value{
 A SummarizedExperiment object, with raw counts, normalized counts, and

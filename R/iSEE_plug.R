@@ -9,8 +9,8 @@
 #' one of the workflows which include this package, e.g. in the context of the
 #' ideal package.
 #'
-#' @param dds A [DESeqDataSet()] object.
-#' @param res A [DESeqResults()] object.
+#' @param dds A [DESeq2::DESeqDataSet()] object.
+#' @param res A [DESeq2::DESeqResults()] object.
 #'
 #' @return A SummarizedExperiment object, with raw counts, normalized counts, and
 #' variance-stabilizing transformed counts in the assay slots; and with colData

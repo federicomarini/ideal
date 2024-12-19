@@ -14,12 +14,12 @@ ideal(
 )
 }
 \arguments{
-\item{dds_obj}{A \code{\link[=DESeqDataSet]{DESeqDataSet()}} object. If not provided, then a
+\item{dds_obj}{A \code{\link[DESeq2:DESeqDataSet]{DESeq2::DESeqDataSet()}} object. If not provided, then a
 \code{countmatrix} and a \code{expdesign} need to be provided. If none of
 the above is provided, it is possible to upload the data during the
 execution of the Shiny App}
 
-\item{res_obj}{A \code{\link[=DESeqResults]{DESeqResults()}} object. If not provided, it can
+\item{res_obj}{A \code{\link[DESeq2:DESeqResults]{DESeq2::DESeqResults()}} object. If not provided, it can
 be computed during the execution of the application}
 
 \item{annotation_obj}{A \code{data.frame} object, with row.names as gene

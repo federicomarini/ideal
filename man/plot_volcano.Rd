@@ -17,7 +17,7 @@ plot_volcano(
 )
 }
 \arguments{
-\item{res_obj}{A \code{\link[=DESeqResults]{DESeqResults()}} object}
+\item{res_obj}{A \code{\link[DESeq2:DESeqResults]{DESeq2::DESeqResults()}} object}
 
 \item{FDR}{Numeric value, the significance level for thresholding adjusted p-values}
 

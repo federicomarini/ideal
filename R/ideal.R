@@ -5,11 +5,11 @@
 #' ideal makes differential expression analysis interactive, easy and reproducible.
 #' This function launches the main application included in the package.
 #'
-#' @param dds_obj A [DESeqDataSet()] object. If not provided, then a
+#' @param dds_obj A [DESeq2::DESeqDataSet()] object. If not provided, then a
 #' `countmatrix` and a `expdesign` need to be provided. If none of
 #' the above is provided, it is possible to upload the data during the
 #' execution of the Shiny App
-#' @param res_obj  A [DESeqResults()] object. If not provided, it can
+#' @param res_obj  A [DESeq2::DESeqResults()] object. If not provided, it can
 #' be computed during the execution of the application
 #' @param annotation_obj A `data.frame` object, with row.names as gene
 #' identifiers (e.g. ENSEMBL ids) and a column, `gene_name`, containing

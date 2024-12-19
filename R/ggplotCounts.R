@@ -3,10 +3,10 @@
 #' Plot for normalized counts of a single gene, with jittered points superimposed
 #' on the boxplot
 #'
-#' Note: this function relies on the [plotCounts()] function of DESeq2,
+#' Note: this function relies on the [DESeq2::plotCounts()] function of DESeq2,
 #' therefore pseudocounts of 0.5 are added to each point
 #'
-#' @param dds A [DESeqDataSet()] object.
+#' @param dds A [DESeq2::DESeqDataSet()] object.
 #' @param gene A character, specifying the name of the gene to plot
 #' @param intgroup Interesting groups: a character vector of
 #' names in `colData(dds)` to use for grouping

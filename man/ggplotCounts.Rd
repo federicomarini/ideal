@@ -14,7 +14,7 @@ ggplotCounts(
 )
 }
 \arguments{
-\item{dds}{A \code{\link[=DESeqDataSet]{DESeqDataSet()}} object.}
+\item{dds}{A \code{\link[DESeq2:DESeqDataSet]{DESeq2::DESeqDataSet()}} object.}
 
 \item{gene}{A character, specifying the name of the gene to plot}
 
@@ -39,7 +39,7 @@ Plot for normalized counts of a single gene, with jittered points superimposed
 on the boxplot
 }
 \details{
-Note: this function relies on the \code{\link[=plotCounts]{plotCounts()}} function of DESeq2,
+Note: this function relies on the \code{\link[DESeq2:plotCounts]{DESeq2::plotCounts()}} function of DESeq2,
 therefore pseudocounts of 0.5 are added to each point
 }
 \examples{

@@ -7,7 +7,7 @@
 #' column is provided in `res_obj`, or else b< using  the identifiers specified
 #' in the row names
 #'
-#' @param res_obj A [DESeqResults()] object
+#' @param res_obj A [DESeq2::DESeqResults()] object
 #' @param FDR Numeric value, the significance level for thresholding adjusted p-values
 #' @param ylim_up Numeric value, Y axis upper limits to restrict the view
 #' @param vlines The x coordinate (in absolute value) where to draw vertical lines,

@@ -20,13 +20,13 @@ sig_heatmap(
 )
 }
 \arguments{
-\item{vst_data}{A \code{\link[=DESeqTransform]{DESeqTransform()}} object - usually the variance
+\item{vst_data}{A \code{\link[DESeq2:DESeqTransform]{DESeq2::DESeqTransform()}} object - usually the variance
 stabilized transformed data, which will be used to extract the expression values}
 
 \item{my_signature}{A character vector, usually named, containing the genes
 which compose the gene signature}
 
-\item{res_data}{A \code{\link[=DESeqResults]{DESeqResults()}} object. If not provided, it can
+\item{res_data}{A \code{\link[DESeq2:DESeqResults]{DESeq2::DESeqResults()}} object. If not provided, it can
 be computed during the execution of the application}
 
 \item{FDR}{Numeric value between 0 and 1, the False Discovery Rate}
