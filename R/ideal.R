@@ -29,7 +29,7 @@
 #' differential expression analysis
 #' 
 #' @importFrom mosdef run_topGO run_goseq gene_plot create_link_ENSEMBL
-#' create_link_NCBI create_link_GO get_annotation_orgdb pair_corr
+#'   create_link_NCBI create_link_GO get_annotation_orgdb pair_corr
 #'
 #' @export
 #'

@@ -23,82 +23,112 @@ import(rmarkdown)
 import(shiny)
 import(shinydashboard)
 import(topGO)
-importFrom(AnnotationDbi,keytypes)
-importFrom(AnnotationDbi,mapIds)
-importFrom(AnnotationDbi,select)
+importFrom(AnnotationDbi,
+  keytypes,
+  mapIds,
+  select
+)
 importFrom(DT,datatable)
 importFrom(IHW,ihw)
 importFrom(IRanges,IRanges)
-importFrom(S4Vectors,DataFrame)
-importFrom(S4Vectors,List)
-importFrom(UpSetR,fromList)
-importFrom(UpSetR,upset)
+importFrom(S4Vectors,
+  DataFrame,
+  List
+)
+importFrom(UpSetR,
+  fromList,
+  upset
+)
 importFrom(base64enc,dataURI)
-importFrom(dplyr,arrange)
-importFrom(dplyr,filter)
-importFrom(dplyr,inner_join)
-importFrom(dplyr,last)
-importFrom(dplyr,mutate)
-importFrom(dplyr,tbl_df)
+importFrom(dplyr,
+  arrange,
+  filter,
+  inner_join,
+  last,
+  mutate,
+  tbl_df
+)
 importFrom(ggrepel,geom_text_repel)
-importFrom(goseq,getgo)
-importFrom(goseq,goseq)
-importFrom(goseq,nullp)
+importFrom(goseq,
+  getgo,
+  goseq,
+  nullp
+)
 importFrom(gplots,venn)
-importFrom(grDevices,axisTicks)
-importFrom(grDevices,colorRamp)
-importFrom(grDevices,dev.off)
-importFrom(grDevices,pdf)
-importFrom(grDevices,rgb)
-importFrom(graphics,pairs)
-importFrom(graphics,par)
-importFrom(graphics,strwidth)
-importFrom(graphics,text)
+importFrom(grDevices,
+  axisTicks,
+  colorRamp,
+  dev.off,
+  pdf,
+  rgb
+)
+importFrom(graphics,
+  pairs,
+  par,
+  strwidth,
+  text
+)
 importFrom(heatmaply,heatmaply)
-importFrom(limma,goana)
-importFrom(limma,topGO)
-importFrom(mosdef,create_link_ENSEMBL)
-importFrom(mosdef,create_link_GO)
-importFrom(mosdef,create_link_NCBI)
-importFrom(mosdef,deresult_to_df)
-importFrom(mosdef,gene_plot)
-importFrom(mosdef,get_annotation_orgdb)
-importFrom(mosdef,pair_corr)
-importFrom(mosdef,run_goseq)
-importFrom(mosdef,run_topGO)
+importFrom(limma,
+  goana,
+  topGO
+)
+importFrom(mosdef,
+  create_link_ENSEMBL,
+  create_link_GO,
+  create_link_NCBI,
+  deresult_to_df,
+  gene_plot,
+  get_annotation_orgdb,
+  pair_corr,
+  run_goseq,
+  run_topGO
+)
 importFrom(pheatmap,pheatmap)
-importFrom(plotly,plotlyOutput)
-importFrom(plotly,renderPlotly)
+importFrom(plotly,
+  plotlyOutput,
+  renderPlotly
+)
 importFrom(rentrez,entrez_summary)
-importFrom(rintrojs,introjs)
-importFrom(rintrojs,introjsUI)
+importFrom(rintrojs,
+  introjs,
+  introjsUI
+)
 importFrom(rlang,.data)
 importFrom(shiny,addResourcePath)
-importFrom(shinyAce,aceAutocomplete)
-importFrom(shinyAce,aceEditor)
-importFrom(shinyAce,getAceModes)
-importFrom(shinyAce,getAceThemes)
-importFrom(shinyAce,updateAceEditor)
-importFrom(shinyBS,bsCollapse)
-importFrom(shinyBS,bsCollapsePanel)
-importFrom(shinyBS,bsTooltip)
-importFrom(stats,as.formula)
-importFrom(stats,cor)
-importFrom(stats,quantile)
-importFrom(stats,sd)
-importFrom(stats,terms.formula)
-importFrom(stats,var)
+importFrom(shinyAce,
+  aceAutocomplete,
+  aceEditor,
+  getAceModes,
+  getAceThemes,
+  updateAceEditor
+)
+importFrom(shinyBS,
+  bsCollapse,
+  bsCollapsePanel,
+  bsTooltip
+)
+importFrom(stats,
+  as.formula,
+  cor,
+  quantile,
+  sd,
+  terms.formula,
+  var
+)
 importFrom(stringr,str_count)
-importFrom(utils,count.fields)
-importFrom(utils,data)
-importFrom(utils,head)
-importFrom(utils,installed.packages)
-importFrom(utils,packageDescription)
-importFrom(utils,packageVersion)
-importFrom(utils,read.delim)
-importFrom(utils,sessionInfo)
-importFrom(utils,str)
-importFrom(utils,tail)
-importFrom(utils,write.csv)
+importFrom(utils,
+  count.fields,
+  data,
+  head,
+  installed.packages,
+  packageDescription,
+  packageVersion,
+  read.delim,
+  sessionInfo,
+  str,
+  tail,
+  write.csv
+)
 importMethodsFrom(GOstats,hyperGTest)
 importMethodsFrom(GOstats,summary)

@@ -24,7 +24,7 @@
 #' @import shinydashboard
 #' @importFrom AnnotationDbi mapIds select keytypes
 #' @importFrom shinyAce aceAutocomplete aceEditor getAceModes getAceThemes
-#' updateAceEditor
+#'   updateAceEditor
 #' @import BiocParallel
 #' @import knitr
 #' @import rmarkdown
@@ -51,7 +51,7 @@
 #' @importFrom graphics pairs par strwidth text
 #' @import methods
 #' @importFrom utils count.fields data head installed.packages 
-#' packageDescription packageVersion read.delim sessionInfo str tail write.csv
+#'   packageDescription packageVersion read.delim sessionInfo str tail write.csv
 #' @importFrom stats as.formula cor quantile sd terms.formula var
 #'
 #' @author
